@@ -7,6 +7,34 @@
   </div>
 </div>
 
+<div class="sl" style="margin-bottom:10px">relationships that matter now</div>
+
+<div class="cmd-card" style="display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;border-left:2px solid var(--green);margin-bottom:8px;cursor:default">
+  <div style="flex:1;min-width:0">
+    <div style="font-size:14px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Sarah Rhodes &mdash; meeting today, strong signal</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">Sequoia intro in 28 min. She confirmed second meeting interest. Don&rsquo;t lose momentum.</div>
+  </div>
+  <button class="btn-ul-g" style="flex-shrink:0;margin-left:16px;margin-top:4px" onclick="OKAERI.go('d08-prep-brief')">open prep brief</button>
+</div>
+
+<div class="cmd-card" style="display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;border-left:2px solid var(--amber);margin-bottom:8px;cursor:default">
+  <div style="flex:1;min-width:0">
+    <div style="font-size:14px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Alex Chen &mdash; partnership at risk</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">Mnemix thread quiet for 11 days. API integration discussion stalled. Re-engage before interest fades.</div>
+  </div>
+  <button class="btn-ul-g" style="flex-shrink:0;margin-left:16px;margin-top:4px" onclick="showToast('follow-up drafted')">follow up</button>
+</div>
+
+<div class="cmd-card" style="display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;border-left:2px solid var(--amber);margin-bottom:8px;cursor:default">
+  <div style="flex:1;min-width:0">
+    <div style="font-size:14px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Nina Park &mdash; warm intro going cold</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">a16z scout intro 22 days ago, no follow-up sent. This connection has a shelf life.</div>
+  </div>
+  <button class="btn-ul-g" style="flex-shrink:0;margin-left:16px;margin-top:4px" onclick="showToast('outreach drafted')">draft outreach</button>
+</div>
+
+<div class="sl" style="margin-top:20px;margin-bottom:10px">all relationships</div>
+
 <div style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:0 0 8px;border-bottom:0.5px solid var(--rule)">
   <div class="rth">person</div>
   <div class="rth">health</div>
@@ -84,6 +112,17 @@
 </div>
 
 <script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
 (function(){
   document.getElementById('relSarah').addEventListener('click', function(){ OKAERI.go('d09-sarah-profile'); });
   document.getElementById('relMichael').addEventListener('click', function(){ OKAERI.go('d10-michael-profile'); });

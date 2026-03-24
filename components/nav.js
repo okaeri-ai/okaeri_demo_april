@@ -12,6 +12,7 @@
       { id: 'd04-confirm-execute', label: 'Confirm & Execute' },
       { id: 'd05-all-clear', label: 'All Clear' },
       { id: 'd06-execution-log', label: 'Execution Log' },
+      { id: 'd40-execution-failure', label: 'Execution Failure' },
       { id: 'd07-voice-inbox', label: 'Voice Inbox' }
     ]},
     { section: 'Intelligence', items: [
@@ -61,7 +62,8 @@
       { id: 'd36-earned-autonomy', label: 'Earned Autonomy' },
       { id: 'd37-onboarding', label: 'Onboarding' },
       { id: 'd38-notifications', label: 'Notifications' },
-      { id: 'd39-search', label: 'Search' }
+      { id: 'd39-search', label: 'Search' },
+      { id: 'd41-learning-history', label: 'Learning History' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -116,6 +118,8 @@
     'd37-onboarding': { text: 'welcome', live: false },
     'd38-notifications': { text: '3 new', live: false },
     'd39-search': { text: 'listening', live: false },
+    'd40-execution-failure': { text: '1 failed', live: false },
+    'd41-learning-history': { text: '96% accuracy', live: false },
     'm01-capture': { text: 'recording', live: true },
     'm02-post-capture': { text: '4 extracted', live: false },
     'm03-realtime-intel': { text: 'live intel', live: true },

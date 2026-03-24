@@ -1,3 +1,6 @@
+<div id="d03-prep-breadcrumb" style="display:none;margin-bottom:8px">
+  <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;cursor:pointer" onclick="OKAERI.goBack()">&larr; from prep brief</span>
+</div>
 <div class="live-hdr">
   <div>
     <div class="live-badge"><div class="live-dot"></div><span class="live-label">recording · live</span></div>
@@ -78,6 +81,14 @@
 </div>
 
 <script>
+(function(){
+  // Show breadcrumb if coming from prep brief
+  var O = window.OKAERI;
+  if(O && O.previousScreen === 'd08-prep-brief'){
+    var bc = document.getElementById('d03-prep-breadcrumb');
+    if(bc) bc.style.display = 'block';
+  }
+})();
 (function(){
   var secs = 1114;
   var timer = setInterval(function(){

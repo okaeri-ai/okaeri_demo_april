@@ -27,11 +27,12 @@
   </div>
 
   <div style="margin-top:16px">
-    <button class="btn-b" style="width:100%;justify-content:center;border-radius:10px;padding:12px" onclick="OKAERI.go('d04-confirm-execute')"><span class="btn-b-txt">review on desktop</span></button>
+    <button class="btn-b" style="width:100%;justify-content:center;border-radius:10px;padding:12px" onclick="if(window.OKAERI_NAV){OKAERI_NAV.setView('desktop');}OKAERI.go('d04-confirm-execute');"><span class="btn-b-txt">review on desktop</span></button>
   </div>
 
-  <div style="text-align:center;margin-top:12px">
-    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.18em">synced to your desktop · open okaeri to execute</span>
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.16em">synced to desktop &middot; open okaeri to execute</span>
   </div>
 </div>
 

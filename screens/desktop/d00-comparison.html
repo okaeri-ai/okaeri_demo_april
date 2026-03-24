@@ -6,23 +6,42 @@
   <div class="comparison-col">
     <div style="font-size:15px;font-weight:200;color:var(--amber);letter-spacing:0.28em;margin-bottom:24px">without okaeri</div>
 
-    <div class="sticky-note" style="transform:rotate(-1.2deg);opacity:0.55">
-      I think Marcus said he'd fix the bug?
-    </div>
-    <div class="sticky-note" style="transform:rotate(0.8deg);opacity:0.42;font-size:12px;padding:10px 14px">
-      Need to update Salesforce... forgot which deal
-    </div>
-    <div class="sticky-note" style="transform:rotate(-0.5deg);opacity:0.65;font-size:14px;padding:14px 18px">
-      Was the follow-up this week or next?
-    </div>
-    <div class="sticky-note" style="transform:rotate(1.5deg);opacity:0.48;font-size:11px">
-      Did we decide PLG or enterprise?
-    </div>
-    <div class="sticky-note" style="transform:rotate(-0.3deg);opacity:0.40;font-size:12px;margin-top:6px">
-      Someone was supposed to send the recap...
+    <!-- Simulated Slack thread -->
+    <div style="border:0.5px solid var(--rule);border-radius:8px;padding:14px 16px;margin-bottom:16px;background:var(--bg2)">
+      <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:10px">#eng-standup</div>
+      <div style="margin-bottom:10px">
+        <span style="font-size:11px;font-weight:400;color:var(--ink2)">Marcus</span>
+        <span style="font-size:10px;font-weight:200;color:var(--ink4);margin-left:6px">9:02 AM</span>
+        <div style="font-size:12px;font-weight:300;color:var(--ink);margin-top:3px;line-height:1.45">I'll take the rate limit bug, P1</div>
+      </div>
+      <div style="margin-bottom:10px">
+        <span style="font-size:11px;font-weight:400;color:var(--ink2)">Priya</span>
+        <span style="font-size:10px;font-weight:200;color:var(--ink4);margin-left:6px">9:03 AM</span>
+        <div style="font-size:12px;font-weight:300;color:var(--ink);margin-top:3px;line-height:1.45"><i>I'll update Acme today</i></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <span style="font-size:11px;font-weight:400;color:var(--ink2)">James</span>
+        <span style="font-size:10px;font-weight:200;color:var(--ink4);margin-left:6px">9:04 AM</span>
+        <div style="font-size:13px;font-weight:300;color:var(--ink);margin-top:3px;line-height:1.45">we should follow up with Andreessen next week maybe?</div>
+      </div>
+      <div>
+        <span style="font-size:11px;font-weight:400;color:var(--ink2)">You</span>
+        <span style="font-size:10px;font-weight:200;color:var(--ink4);margin-left:6px">9:04 AM</span>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);margin-top:3px;line-height:1.45">ok sounds good</div>
+      </div>
     </div>
 
-    <div class="comparison-stat" style="color:var(--amber)">~60% of meeting commitments are forgotten within 48 hours</div>
+    <!-- Messy TODO sticky note -->
+    <div style="background:var(--bg2);border:0.5px solid var(--rule);border-radius:6px;padding:14px 18px;transform:rotate(-0.8deg);margin-bottom:20px">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:8px">my todo list</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink2);line-height:1.9;letter-spacing:0.02em">
+        &#9744; Linear ticket??<br>
+        &#9744; something about Acme...<br>
+        &#9744; follow up &mdash; who? when?
+      </div>
+    </div>
+
+    <div class="comparison-stat" style="color:var(--amber)">48 hours later: 2 of 4 commitments remembered. 0 executed.</div>
   </div>
 
   <!-- Divider -->
@@ -37,37 +56,41 @@
       <span class="okaeri-verb">create</span>
       <span class="okaeri-obj">API rate limit bug</span>
       <span class="okaeri-tool">Linear OKA-214</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-left:auto">@marcus &middot; P1 &middot; sprint 14</span>
     </div>
     <div class="okaeri-row">
       <span class="okaeri-check">&#10003;</span>
       <span class="okaeri-verb">send</span>
-      <span class="okaeri-obj">pricing recap</span>
+      <span class="okaeri-obj">pricing proposal recap</span>
       <span class="okaeri-tool">Slack #sales</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-left:auto">@priya &middot; today EOD</span>
     </div>
     <div class="okaeri-row">
       <span class="okaeri-check">&#10003;</span>
       <span class="okaeri-verb">schedule</span>
-      <span class="okaeri-obj">Andreessen follow-up</span>
+      <span class="okaeri-obj">Andreessen follow-up &middot; 30 min</span>
       <span class="okaeri-tool">Calendar</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-left:auto">@james &middot; Thu Mar 26</span>
     </div>
     <div class="okaeri-row">
       <span class="okaeri-check">&#10003;</span>
       <span class="okaeri-verb">update</span>
-      <span class="okaeri-obj">Acme deal</span>
+      <span class="okaeri-obj">Acme deal &middot; proposal sent</span>
       <span class="okaeri-tool">Salesforce</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-left:auto">@priya &middot; $84k ARR</span>
     </div>
 
     <div style="margin-top:20px;border-top:0.5px solid var(--rule2);padding-top:16px">
-      <div style="display:flex;align-items:baseline;gap:14px">
+      <div class="comparison-stat" style="color:var(--green)">4 of 4 extracted. 4 of 4 executed. 38 minutes after meeting.</div>
+      <div style="display:flex;align-items:baseline;gap:14px;margin-top:12px">
         <span style="font-size:28px;font-weight:200;color:var(--green);letter-spacing:-0.02em">97%</span>
-        <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.2em">execution rate</span>
+        <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.2em">execution rate &middot; 9-day streak</span>
       </div>
-      <div class="comparison-stat" style="color:var(--green)">97% execution rate &middot; 9-day streak</div>
     </div>
   </div>
 
 </div>
 
 <div style="text-align:center;margin-top:32px">
-  <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.3em">notes don't close tickets. okaeri does.</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.3em">same meeting. same conversation. different outcome.</div>
 </div>
