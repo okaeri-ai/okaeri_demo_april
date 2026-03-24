@@ -87,13 +87,22 @@
 })();
 </script>
 
+<style>
+@keyframes sugPulse {
+  0% { box-shadow: 0 0 0 0 rgba(234,243,222,0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(234,243,222,0); }
+  100% { box-shadow: 0 0 0 0 rgba(234,243,222,0); }
+}
+.sug.fuzzy-match { animation: sugPulse 1.2s ease 2; }
+</style>
 <script>
 (function(){
   var input = document.getElementById('askInput');
   var sendBtn = document.getElementById('askSendBtn');
   var sugs = document.querySelectorAll('.sug');
   var thread = document.getElementById('askThread');
-  var answers = OKAERI.askAnswers;
+  var O = window.OKAERI;
+  var answers = O.askAnswers;
 
   if (!input) return;
 
@@ -112,32 +121,111 @@
     });
   });
 
+  function findBestAnswer(query) {
+    var q = query.toLowerCase().trim();
+
+    // Exact match first
+    if (O.askAnswers[q]) return { answer: O.askAnswers[q], key: q };
+
+    // Check all answer keys for substring containment
+    var keys = Object.keys(O.askAnswers);
+
+    // Try: does the query contain a key's important words?
+    var bestMatch = null;
+    var bestScore = 0;
+
+    keys.forEach(function(key) {
+      var keyWords = key.toLowerCase().replace(/[?'"]/g, '').split(/\s+/);
+      var matchCount = 0;
+      keyWords.forEach(function(w) {
+        if (w.length > 2 && q.indexOf(w) !== -1) matchCount++;
+      });
+      var score = matchCount / keyWords.length;
+      if (score > bestScore) { bestScore = score; bestMatch = key; }
+    });
+
+    if (bestScore > 0.3 && bestMatch) return { answer: O.askAnswers[bestMatch], key: bestMatch };
+
+    // Pattern matching: team member names
+    var teamNames = ['marcus', 'priya', 'james', 'jess', 'sarah', 'michael'];
+    for (var i = 0; i < teamNames.length; i++) {
+      if (q.indexOf(teamNames[i]) !== -1) {
+        var aboutKey = 'tell me about ' + teamNames[i].charAt(0).toUpperCase() + teamNames[i].slice(1);
+        if (O.askAnswers[aboutKey]) return { answer: O.askAnswers[aboutKey], key: aboutKey };
+        // Fall back to "what is X working on" pattern
+        var workingKey = keys.find(function(k) { return k.toLowerCase().indexOf(teamNames[i]) !== -1; });
+        if (workingKey) return { answer: O.askAnswers[workingKey], key: workingKey };
+      }
+    }
+
+    // Pattern matching: tool names
+    var tools = ['linear', 'slack', 'salesforce', 'calendar', 'gmail'];
+    for (var i = 0; i < tools.length; i++) {
+      if (q.indexOf(tools[i]) !== -1) {
+        var toolKey = keys.find(function(k) { return k.toLowerCase().indexOf(tools[i]) !== -1; });
+        if (toolKey) return { answer: O.askAnswers[toolKey], key: toolKey };
+      }
+    }
+
+    // Pattern matching: meeting names
+    var meetings = ['q2', 'roadmap', 'sequoia', 'resonance', 'investor', 'fundraise'];
+    for (var i = 0; i < meetings.length; i++) {
+      if (q.indexOf(meetings[i]) !== -1) {
+        var meetKey = keys.find(function(k) { return k.toLowerCase().indexOf(meetings[i]) !== -1; });
+        if (meetKey) return { answer: O.askAnswers[meetKey], key: meetKey };
+      }
+    }
+
+    return null; // Will trigger fallback message
+  }
+
+  function highlightClosestSuggestion(matchedKey) {
+    // Find which suggestion button most closely relates to the matched answer key
+    var bestSug = null;
+    var bestScore = 0;
+    var matchWords = matchedKey.toLowerCase().replace(/[?'"]/g, '').split(/\s+/).filter(function(w){ return w.length > 2; });
+
+    sugs.forEach(function(s) {
+      var sugQ = s.getAttribute('data-q').toLowerCase();
+      // Exact match on suggestion
+      if (sugQ === matchedKey.toLowerCase()) { bestSug = s; bestScore = 999; return; }
+      // Word overlap scoring
+      var score = 0;
+      matchWords.forEach(function(w) { if (sugQ.indexOf(w) !== -1) score++; });
+      if (score > bestScore) { bestScore = score; bestSug = s; }
+    });
+
+    sugs.forEach(function(s) {
+      s.classList.remove('sel');
+      s.classList.remove('fuzzy-match');
+    });
+
+    if (bestSug && bestScore > 0) {
+      if (bestScore === 999) {
+        bestSug.classList.add('sel');
+      } else {
+        bestSug.classList.add('fuzzy-match');
+      }
+    }
+  }
+
   function submitAsk(){
     var val = input.value.trim();
     if (!val) return;
-    var valLower = val.toLowerCase();
-    var words = valLower.split(/\s+/).filter(function(w){ return w.length > 2; });
 
-    // Find best matching answer (fuzzy: most keyword matches)
-    var bestKey = null, bestScore = 0;
-    Object.keys(answers).forEach(function(key){
-      var keyLower = key.toLowerCase();
-      var score = 0;
-      words.forEach(function(w){ if (keyLower.indexOf(w) !== -1) score++; });
-      if (score > bestScore) { bestScore = score; bestKey = key; }
-    });
-
-    // Need at least 1 keyword match
-    var matched = bestScore >= 1 ? answers[bestKey] : null;
+    var result = findBestAnswer(val);
+    var matched = result ? result.answer : null;
+    var matchedKey = result ? result.key : null;
 
     // Show user message
     thread.innerHTML = '<div class="msg"><div class="msg-who"><span>you</span><span>just now</span></div><div class="msg-t u">' + val.replace(/</g,'&lt;') + '</div></div>';
 
-    // Highlight matching suggestion
-    sugs.forEach(function(s){
-      s.classList.remove('sel');
-      if (matched && s.getAttribute('data-q') === bestKey) s.classList.add('sel');
-    });
+    // Highlight closest suggestion button
+    if (matchedKey) {
+      highlightClosestSuggestion(matchedKey);
+    } else {
+      sugs.forEach(function(s){ s.classList.remove('sel'); s.classList.remove('fuzzy-match'); });
+    }
 
     // Typing indicator
     var typing = document.createElement('div');
@@ -161,7 +249,7 @@
         }
         ansDiv.innerHTML = '<div class="msg-who"><span>okaeri</span><span>just now</span></div><div class="msg-t">' + matched.text + '</div>' + evHtml;
       } else {
-        ansDiv.innerHTML = '<div class="msg-who"><span>okaeri</span><span>just now</span></div><div class="msg-t" style="color:var(--ink3)">I don\'t have enough context to answer that yet. Try one of the suggestions above.</div>';
+        ansDiv.innerHTML = '<div class="msg-who"><span>okaeri</span><span>just now</span></div><div class="msg-t" style="color:var(--ink3)">I don\'t have enough context to answer that yet. Try one of the suggestions above, or ask about a team member, tool, or meeting.</div>';
       }
 
       ansDiv.style.opacity = '0';

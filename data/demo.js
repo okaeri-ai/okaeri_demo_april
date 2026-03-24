@@ -79,6 +79,68 @@ window.OKAERI = {
         { verb: 'missed', obj: 'Index Ventures outreach · pushed 3×', source: 'fundraise planning', date: 'overdue' },
         { verb: 'highlight', obj: 'Sequoia second meeting confirmed', source: 'investor meeting', date: 'Mar 23' }
       ]
+    },
+
+    // ── Team member patterns ──
+    'tell me about Marcus': {
+      text: 'Marcus has three active commitments this sprint. The most urgent is the API rate limit bug, which he committed to as P1 in the Q2 roadmap sync on March 23. He also has an auth flow PR review and the API docs milestone due this week. His 30-day execution rate is 92% — strong, with a slight rollover pattern on longer-horizon commitments.',
+      evidence: [
+        { verb: 'fix', obj: 'API rate limit bug · P1 · sprint 14', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'review', obj: 'auth flow PR', source: 'engineering sync', date: 'this week' },
+        { verb: 'write', obj: 'API docs for v1 endpoints', source: 'planning', date: 'this week' }
+      ]
+    },
+    'tell me about Priya': {
+      text: 'Priya is running a perfect execution week — 14 commitments, zero slippage, 100% rate. She owns the Acme deal ($84k ARR pipeline) and handles all Salesforce updates. Her most recent actions: updated Acme deal stage this morning and sent the pricing proposal recap to Slack #sales. She\'s the most reliable executor on the team.',
+      evidence: [
+        { verb: 'update', obj: 'Acme deal → proposal sent · Salesforce', source: 'Q2 roadmap sync', date: 'Mar 23 · done' },
+        { verb: 'send', obj: 'pricing proposal recap · Slack #sales', source: 'Q2 roadmap sync', date: 'Mar 23 · done' },
+        { verb: 'rate', obj: '14 of 14 executed · 100%', source: 'weekly digest', date: 'Mar 17-23' }
+      ]
+    },
+    'tell me about James': {
+      text: 'James has 3 open commitments including the overdue Index Ventures outreach (pushed 3 times). His execution rate is 89% with a 38% rollover pattern on deadline commitments. The Andreessen follow-up is scheduled for next week — based on his pattern, Okaeri has flagged this for confirmation. His strength is relationship scheduling; consider pairing him with Priya on cold outreach.',
+      evidence: [
+        { verb: 'overdue', obj: 'Index Ventures cold outreach · pushed 3×', source: 'fundraise planning', date: 'Mar 10' },
+        { verb: 'scheduled', obj: 'Andreessen follow-up · 30 min', source: 'Q2 roadmap sync', date: 'Thu Mar 26' },
+        { verb: 'rate', obj: '89% execution · 38% rollover on deadlines', source: 'weekly digest', date: 'Mar 17-23' }
+      ]
+    },
+
+    // ── Tool patterns ──
+    'what happened in Linear': {
+      text: 'Linear has 20 confirmed actions with 1 edit and 0 rollbacks in the last 30 days. Most recent: API rate limit bug ticket OKA-214 created today for Marcus. Trust level: high — auto-execute enabled. This sprint (14) has 3 open tickets: rate limit bug (P1), auth flow review, and onboarding flow.',
+      evidence: [
+        { verb: 'create', obj: 'API rate limit bug · OKA-214', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'create', obj: 'onboarding flow ticket · OKA-211', source: 'engineering sync', date: 'Mar 19' },
+        { verb: 'stats', obj: '20 actions · 1 edit · 0 rollbacks · 30 days', source: 'integration log', date: 'Mar 23' }
+      ]
+    },
+    'what happened in Slack': {
+      text: '18 confirmed messages with 2 edits in 30 days. Most recent: pricing proposal recap sent to #sales for Priya today. Trust level: high — auto-execute enabled. Most active channels: #sales (7 messages), #engineering (5), #investors (4), #partners (2).',
+      evidence: [
+        { verb: 'send', obj: 'pricing proposal recap · #sales', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'send', obj: 'sprint 13 recap · #engineering', source: 'engineering sync', date: 'Mar 17' },
+        { verb: 'stats', obj: '18 messages · 2 edits · 30 days', source: 'integration log', date: 'Mar 23' }
+      ]
+    },
+    'what happened in Salesforce': {
+      text: '4 confirmed actions with 1 edit in 30 days. Most recent: Acme deal updated to proposal sent (user corrected from "proposal reviewed"). Trust level: building — needs confirmation. Active deals: Acme Corp ($84k ARR, proposal stage), Mnemix (partnership, cooling).',
+      evidence: [
+        { verb: 'update', obj: 'Acme deal → proposal sent · corrected', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'update', obj: 'Mnemix deal stage', source: 'pipeline review', date: 'Mar 14' },
+        { verb: 'stats', obj: '4 actions · 1 edit · 30 days', source: 'integration log', date: 'Mar 23' }
+      ]
+    },
+
+    // ── Meeting patterns ──
+    'what happened in the Q2 sync': {
+      text: 'The Q2 roadmap sync was 38 minutes with Marcus, Priya, James, and Jess. 4 commitments were extracted: Linear ticket for rate limit bug, Slack pricing recap, Calendar Andreessen follow-up, and Salesforce Acme update. 1 decision was made: ship v1 with Linear + Slack only. Okaeri detected hesitation from James on the Andreessen timeline and high conviction from Priya on the Acme update.',
+      evidence: [
+        { verb: 'meeting', obj: 'Q2 roadmap sync · 38 min · 4 attendees', source: 'meeting log', date: 'Mar 23' },
+        { verb: 'extracted', obj: '4 commitments · 1 decision', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'signal', obj: 'hesitation from James · high conviction from Priya', source: 'Q2 roadmap sync', date: 'Mar 23' }
+      ]
     }
   },
 

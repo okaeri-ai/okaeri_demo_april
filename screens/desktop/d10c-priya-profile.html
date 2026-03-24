@@ -1,0 +1,88 @@
+<div id="breadcrumbPriya" style="margin-bottom:16px;font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;cursor:pointer"></div>
+
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+  <div class="pav-lg" style="background:var(--teal-bg);color:var(--teal);border-color:#8ECFB9">PR</div>
+  <div>
+    <div class="pname">Priya Rajan</div>
+    <div class="prole">Sales / Ops · Okaeri · San Francisco</div>
+  </div>
+</div>
+
+<div class="ptags" style="margin-bottom:14px">
+  <span class="ptag ptag-b">sales</span>
+  <span class="ptag ptag-g">Acme deal</span>
+  <span class="ptag ptag-n">pipeline</span>
+  <span class="ptag ptag-g">perfect week</span>
+</div>
+
+<div class="mrow">
+  <div class="met"><div class="metn">14</div><div class="metl">commitments (30d)</div></div>
+  <div class="metdiv"></div>
+  <div class="met"><div class="metn">100%</div><div class="metl">execution rate</div></div>
+  <div class="metdiv"></div>
+  <div class="met"><div class="metn">1.2</div><div class="metl">days avg completion</div></div>
+</div>
+
+<div class="hr"></div>
+
+<div class="two-col" style="margin-bottom:16px">
+  <div>
+    <div class="sl">commitment history</div>
+    <div class="prow" style="display:flex;align-items:baseline;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+      <span class="verb">update</span><span class="arr">&middot;</span><span class="obj">Acme deal &rarr; proposal sent</span><span style="margin-left:auto;font-size:10px;color:var(--green);letter-spacing:.08em">Salesforce &middot; &#10003; done today</span>
+    </div>
+    <div class="prow" style="display:flex;align-items:baseline;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+      <span class="verb">send</span><span class="arr">&middot;</span><span class="obj">pricing proposal recap</span><span style="margin-left:auto;font-size:10px;color:var(--green);letter-spacing:.08em">Slack #sales &middot; &#10003; done today</span>
+    </div>
+    <div class="prow" style="display:flex;align-items:baseline;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+      <span class="verb">send</span><span class="arr">&middot;</span><span class="obj">partner feedback summary</span><span style="margin-left:auto;font-size:10px;color:var(--green);letter-spacing:.08em">Gmail &middot; &#10003; done Mar 20</span>
+    </div>
+    <div class="prow" style="display:flex;align-items:baseline;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+      <span class="verb">update</span><span class="arr">&middot;</span><span class="obj">pipeline review notes</span><span style="margin-left:auto;font-size:10px;color:var(--green);letter-spacing:.08em">Salesforce &middot; &#10003; done Mar 17</span>
+    </div>
+  </div>
+  <div>
+    <div class="sl">working patterns</div>
+    <div class="ti">
+      <div class="ti-text">Zero slippage in 30 days — the only team member at 100%</div>
+    </div>
+    <div class="ti">
+      <div class="ti-text">Handles Salesforce and Slack commitments fastest</div>
+    </div>
+    <div class="ti">
+      <div class="ti-text">Priya's 'today EOD' always means same-day delivery</div>
+    </div>
+    <div class="ti">
+      <div class="ti-text">She front-loads customer-facing work before internal tasks</div>
+    </div>
+  </div>
+</div>
+
+<div class="ok-read" style="background:var(--gbg);border-color:var(--gs)">
+  <div style="display:flex;align-items:center;gap:10px"><div class="ok-read-l" style="color:var(--green)">okaeri's read</div><button class="btn-ghost" id="hearReadPriya" style="font-size:9px;padding:2px 8px;display:inline-flex;align-items:center;gap:4px"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 5h2l4-3v12l-4-3H3a1 1 0 01-1-1V6a1 1 0 011-1z" fill="var(--ink3)"/><path d="M11 5.5s1.5 1 1.5 2.5-1.5 2.5-1.5 2.5" stroke="var(--ink3)" stroke-width="1"/></svg>hear okaeri's read</button></div>
+  <div class="ok-read-t" style="color:var(--green)">Priya runs the cleanest execution on the team. Zero slippage in 30 days across 14 commitments. She's the primary owner of the Acme deal ($84k ARR) and handles all Salesforce updates. Her 'today EOD' commitments are highly reliable — Okaeri has learned to auto-execute Slack messages from her with high confidence. Trust her timeline estimates.</div>
+</div>
+
+<div class="hr" style="margin-top:16px"></div>
+
+<div style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink3);letter-spacing:.13em;margin-bottom:16px">14 commitments · 100% execution · 30 days</div>
+
+<script>
+(function(){
+  var bc = document.getElementById('breadcrumbPriya');
+  var prev = window.OKAERI.previousScreen;
+  var label = 'back';
+  if (prev === 'd24-team-view') label = 'team';
+  else if (prev === 'd01-home') label = 'home';
+  else if (prev === 'd08-prep-brief') label = 'prep brief';
+  bc.innerHTML = '← <span style="text-decoration:none">' + label + ' → priya rajan</span>';
+  bc.addEventListener('click', function(){ OKAERI.goBack(); });
+})();
+(function(){
+  var btn = document.getElementById('hearReadPriya');
+  if(btn) btn.addEventListener('click', function(){
+    var readText = document.querySelector('.ok-read-t');
+    if(readText && window.OKAERI && OKAERI.speak) OKAERI.speak(readText.textContent);
+  });
+})();
+</script>

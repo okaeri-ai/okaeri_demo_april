@@ -87,6 +87,75 @@
   cursor: not-allowed;
   pointer-events: none;
 }
+.challenge-area {
+  margin-top: 8px;
+  padding: 8px 0 4px 0;
+  border-top: 0.5px solid var(--rule2);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.challenge-area.open {
+  max-height: 200px;
+  opacity: 1;
+}
+.challenge-label {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--amber);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.challenge-input {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 200;
+  color: var(--ink);
+  letter-spacing: 0.03em;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid var(--rule);
+  width: 100%;
+  padding: 4px 0;
+  outline: none;
+}
+.challenge-input::placeholder { color: var(--ink4); }
+.challenge-input:focus { border-bottom-color: var(--ink); }
+.challenge-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 6px;
+}
+.challenge-response {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--green);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+}
+.challenge-trust {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--amber);
+  letter-spacing: 0.14em;
+  margin-top: 4px;
+}
+@keyframes typingDots {
+  0%, 20% { opacity: 0.2; }
+  50% { opacity: 1; }
+  80%, 100% { opacity: 0.2; }
+}
+.typing-dots span {
+  animation: typingDots 1.2s ease-in-out infinite;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 </style>
 <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
   <div>
@@ -120,6 +189,9 @@
 <div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px;margin-top:6px">
   <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink3);letter-spacing:.13em" id="cntLbl">4 remaining</span>
   <button class="btn-ul" id="allClearBtn" style="display:none">see all clear →</button>
+</div>
+<div style="margin-top:14px;text-align:center">
+  <button class="btn-ghost" id="debriefLink" style="font-size:9px;letter-spacing:0.22em" onclick="OKAERI.go('d04b-debrief')">view meeting debrief →</button>
 </div>
 
 <script>
@@ -287,10 +359,134 @@
     }
   });
 
+  // --- Challenge flow ---
+  var openChallengeCard = null;
+
+  function closeChallengeArea(){
+    if(openChallengeCard){
+      var area = openChallengeCard.querySelector('.challenge-area');
+      if(area) area.classList.remove('open');
+      openChallengeCard = null;
+    }
+  }
+
+  function openChallenge(card){
+    if(openChallengeCard === card) { closeChallengeArea(); return; }
+    closeChallengeArea();
+    openChallengeCard = card;
+    var existing = card.querySelector('.challenge-area');
+    if(existing){ existing.classList.add('open'); return; }
+    // Build challenge area
+    var area = document.createElement('div');
+    area.className = 'challenge-area';
+    area.innerHTML = '<div class="challenge-label">tell okaeri why this is wrong:</div>'
+      + '<input type="text" class="challenge-input" placeholder="e.g. wrong assignee, wrong priority, shouldn\'t be a ticket...">'
+      + '<div class="challenge-actions">'
+      + '<button class="btn-ghost" data-challenge-cancel style="font-size:9px;letter-spacing:0.18em">cancel</button>'
+      + '<button class="btn-ul" data-challenge-submit style="font-size:9px">submit</button>'
+      + '</div>';
+    // Insert before card-bot
+    var cardBot = card.querySelector('.card-bot');
+    if(cardBot) card.insertBefore(area, cardBot);
+    else card.appendChild(area);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ area.classList.add('open'); }); });
+    var inp = area.querySelector('.challenge-input');
+    if(inp) setTimeout(function(){ inp.focus(); }, 100);
+  }
+
+  function getChallengeResponse(text, card){
+    var lower = text.toLowerCase();
+    // Detect tool from card
+    var toolTag = card.querySelector('.ttag');
+    var toolName = toolTag ? toolTag.textContent.trim() : 'this tool';
+    // Detect name
+    var names = ['marcus','priya','james','jess','sarah','alex','michael'];
+    var detectedName = null;
+    for(var i=0;i<names.length;i++){
+      if(lower.indexOf(names[i]) !== -1){ detectedName = names[i]; break; }
+    }
+    if(lower.indexOf('assignee') !== -1 || lower.indexOf('owner') !== -1 || detectedName){
+      var who = detectedName ? '@' + detectedName : 'you';
+      return { msg: 'understood \u2014 reassigning to ' + who + '. trust for assignment detection adjusted.', pattern: 'assignee detection', remove: false };
+    }
+    if(lower.indexOf('priority') !== -1 || lower.indexOf('p1') !== -1 || lower.indexOf('p2') !== -1){
+      return { msg: 'understood \u2014 priority changed. okaeri will weight priority signals differently for ' + toolName + '.', pattern: 'priority weighting', remove: false };
+    }
+    if(lower.indexOf('wrong') !== -1 || lower.indexOf('shouldn') !== -1 || lower.indexOf('don\'t') !== -1 || lower.indexOf('dont') !== -1 || lower.indexOf('delete') !== -1 || lower.indexOf('remove') !== -1){
+      return { msg: 'understood \u2014 removing this commitment. okaeri will learn from this correction.', pattern: 'extraction accuracy', remove: true };
+    }
+    return { msg: 'understood \u2014 noted for future extractions. okaeri will adjust confidence for similar patterns.', pattern: 'similar patterns', remove: false };
+  }
+
+  function submitChallenge(card){
+    var area = card.querySelector('.challenge-area');
+    if(!area) return;
+    var inp = area.querySelector('.challenge-input');
+    var text = inp ? inp.value.trim() : '';
+    if(!text) return;
+    var result = getChallengeResponse(text, card);
+    // Show typing state
+    var actionsEl = area.querySelector('.challenge-actions');
+    if(actionsEl) actionsEl.style.display = 'none';
+    if(inp) inp.disabled = true;
+    var typing = document.createElement('div');
+    typing.className = 'challenge-response typing-dots';
+    typing.innerHTML = 'okaeri is adjusting<span>.</span><span>.</span><span>.</span>';
+    area.appendChild(typing);
+    setTimeout(function(){
+      typing.remove();
+      // Show response
+      var resp = document.createElement('div');
+      resp.className = 'challenge-response';
+      resp.textContent = '\u2713 ' + result.msg;
+      area.appendChild(resp);
+      // Update rationale
+      var rationale = card.querySelector('.rationale');
+      if(rationale){
+        rationale.className = 'rationale rationale-green';
+        rationale.textContent = '\u2713 adjusted by user';
+      }
+      // Show trust note
+      var trustEl = document.createElement('div');
+      trustEl.className = 'challenge-trust';
+      trustEl.textContent = 'trust adjusted: -1 confidence for ' + result.pattern;
+      area.appendChild(trustEl);
+      // If remove, animate card out after delay
+      if(result.remove){
+        setTimeout(function(){
+          card.classList.add('skipped');
+          pending = Math.max(0, pending-1);
+          updateCount();
+          openChallengeCard = null;
+        }, 1500);
+      } else {
+        // Collapse after 2 seconds
+        setTimeout(function(){
+          area.classList.remove('open');
+          openChallengeCard = null;
+        }, 2000);
+      }
+    }, 800);
+  }
+
   document.getElementById('cardStack').addEventListener('click', function(e){
     var execBtn = e.target.closest('.btn-exec');
     var skipBtn = e.target.closest('.btn-skip');
-    if(execBtn){
+    var challengeBtn = e.target.closest('.btn-challenge');
+    var cancelBtn = e.target.closest('[data-challenge-cancel]');
+    var submitBtn = e.target.closest('[data-challenge-submit]');
+    if(cancelBtn){
+      e.stopPropagation();
+      closeChallengeArea();
+    } else if(submitBtn){
+      e.stopPropagation();
+      var card = submitBtn.closest('.cc');
+      if(card) submitChallenge(card);
+    } else if(challengeBtn){
+      e.stopPropagation();
+      var card = challengeBtn.closest('.cc');
+      if(card) openChallenge(card);
+    } else if(execBtn){
       e.stopPropagation();
       execCard(execBtn.dataset.card, execBtn.dataset.label, execBtn.dataset.detail);
     } else if(skipBtn){
@@ -385,10 +581,17 @@
     });
   });
 
-  // --- Split button on each card ---
+  // --- Split & Challenge buttons on each card ---
   document.querySelectorAll('.cc').forEach(function(card){
     var acts = card.querySelector('.card-acts');
     if(!acts) return;
+    // Challenge button
+    var chalBtn = document.createElement('button');
+    chalBtn.className = 'btn-ghost btn-challenge';
+    chalBtn.textContent = 'challenge';
+    chalBtn.style.cssText = 'font-family:inherit;font-size:9px;font-weight:200;letter-spacing:0.1em;color:var(--ink3);background:none;border:none;cursor:pointer;padding:2px 6px;margin-right:2px';
+    acts.insertBefore(chalBtn, acts.firstChild);
+    // Split button
     var splitBtn = document.createElement('button');
     splitBtn.className = 'btn-ghost';
     splitBtn.textContent = 'split';
