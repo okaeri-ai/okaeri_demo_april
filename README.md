@@ -1,0 +1,109 @@
+# Okaeri
+
+**Notes don't close tickets. Okaeri does.**
+
+Okaeri is a voice-first execution engine for founders and operators. It captures spoken commitments from meetings and executes them across your tools — with earned autonomy, not blind automation.
+
+## Live Prototype
+
+**[okaeridemoapril.vercel.app](https://okaeridemoapril.vercel.app)**
+
+79 interactive screens. No build step. Pure HTML/CSS/JS.
+
+## What It Does
+
+Okaeri listens to your meetings, extracts commitments, and turns them into executed actions across Linear, Slack, Google Calendar, Salesforce, and Gmail. But extraction is just the beginning.
+
+**Before the meeting:** Prep briefs with relationship strategy, operator notes, and pinned guidance per person.
+
+**During the meeting:** Real-time steering that catches structural failures — no explicit owner, vague deadlines, meeting drift, wrong stakeholders, false alignment. Voice signals detect conviction, hesitation, and tension.
+
+**After the meeting:** Commitments grouped by confidence. Uncertain items get clarification before execution. Corrections update the trust model. State changes propagate to memory, relationships, and autonomy levels.
+
+**Over time:** Okaeri learns your operating style — your tone, your escalation threshold, your follow-up cadence, who you want nudged vs handled personally. It detects contradictions, tracks decision expiry, and maps commitment dependencies.
+
+## The Demo
+
+Click **demo** in the toolbar to walk through the 5-screen core story:
+
+1. **Home** — what matters now (one clear first action)
+2. **Prep Brief** — why this meeting matters (what to say, what they care about)
+3. **Live Meeting** — what Okaeri notices (steering rail + voice signals + interventions)
+4. **Confirm & Execute** — what it will do (confidence tiers + correction flow)
+5. **All Clear** — what changed (memory, relationships, trust)
+
+## Key Screens
+
+| Category | Screens | Highlights |
+|----------|---------|------------|
+| Core Loop | 10 | Home, live meeting, confirm & execute, all clear, execution log, failure handling |
+| Voice | 6 | Teach Okaeri, morning brief, pre-meeting brief, whisper guidance, spoken debrief |
+| Intelligence | 14 | Prep brief, ask okaeri (15 answers), attribution graph, change detection, contradiction detection, meeting steering, meeting score, intervention rules, dependencies, benchmarking, unified model |
+| Planning | 6 | Goals, morning/evening briefing, calendar, calendar defense, operating cadence |
+| Relationships | 2 | Relationship health with strategy cards, delegation view |
+| Team | 2 | Team view, team admin |
+| Profiles | 5 | Sarah Rhodes, Michael Kim, Marcus Chen, Priya Rajan, James Wu |
+| Documents | 4 | Knowledge base, vocabulary, templates, bundles |
+| Artifacts | 5 | Lifecycle, meeting brief, investor update, receipt, smart draft |
+| System | 11 | Integrations, earned autonomy, onboarding, notifications, search, learning history, settings, privacy, style learning, continuity, how Okaeri works |
+| Inbox | 2 | Email triage, voice inbox |
+| Mobile | 3 | Capture (live mic), post-capture, real-time intel |
+| Ambient | 2 | Menu bar, desktop widgets |
+
+## Features
+
+- **Demo mode** — auto-advance through the core story with walkthrough tooltips
+- **Presentation mode** — full-screen, enlarged typography (Cmd+Shift+P)
+- **Dark mode** — full dark theme (Ctrl+Shift+D)
+- **Keyboard shortcuts** — Cmd+K search, Escape back, Enter execute, ? help
+- **Collapsible sidebar** — 79 screens organized, most sections collapsed by default
+- **Audio** — Web Speech API for briefings, debriefs, and profile reads; Web Audio API for execution sounds
+- **Live microphone** — mobile capture uses actual mic input for waveform visualization
+- **Cross-screen state** — executing on d04 updates home, all-clear, execution log, morning briefing, weekly digest, pattern detection
+- **Live simulation** — background timer generates events every 30-40 seconds
+
+## Running Locally
+
+```bash
+cd okaeri_demo_april
+python3 -m http.server 8000
+# Open http://localhost:8000
+```
+
+No dependencies. No build step. No framework.
+
+## Deployed
+
+- **Vercel:** [okaeridemoapril.vercel.app](https://okaeridemoapril.vercel.app)
+- **Railway:** [okaeri-demo-april-production.up.railway.app](https://okaeri-demo-april-production.up.railway.app)
+
+Auto-deploys on push to main.
+
+## Architecture
+
+```
+okaeri_demo_april/
+├── index.html              <- shell with sidebar, titlebar, view toggle
+├── styles/system.css       <- complete design system (single source of truth)
+├── components/nav.js       <- navigation, demo mode, keyboard shortcuts, dark mode
+├── data/demo.js            <- shared state, sample data, speech/sound utilities
+├── screens/
+│   ├── desktop/            <- 68 desktop screens
+│   ├── mobile/             <- 3 mobile screens (phone frame)
+│   └── ambient/            <- 2 ambient screens (widgets)
+├── Dockerfile              <- Railway deployment (nginx)
+├── vercel.json             <- Vercel deployment config
+└── nginx.conf              <- Static file serving
+```
+
+## Design System
+
+- **Font:** Noto Sans JP, weights 200 and 300 only
+- **Borders:** 0.5px everywhere (no 1px)
+- **Buttons:** No filled buttons — underline text only
+- **Colors:** Semantic — green (executed), amber (urgent), blue (informational)
+- **Aesthetic:** Japanese minimalism, wide letter-spacing, negative space is structural
+
+## Built With
+
+HTML, CSS, JavaScript. No frameworks. No build tools. No dependencies.
