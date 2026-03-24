@@ -260,6 +260,141 @@ body { display: flex; background: var(--bg); }
   .sidebar { display: none; }
   .view-toggle { display: none; }
 }
+/* ── Presentation Mode ── */
+body.presentation-mode .sidebar { display: none !important; }
+body.presentation-mode .main { width: 100%; }
+body.presentation-mode .screen-content { padding: 48px 80px; }
+body.presentation-mode .hero { font-size: 72px; }
+body.presentation-mode .ptitle { font-size: 28px; }
+body.presentation-mode .meta { font-size: 13px; }
+body.presentation-mode .view-toggle { display: none !important; }
+body.presentation-mode .demo-indicator { display: none !important; }
+body.presentation-mode .titlebar { display: none; }
+
+.present-btn {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.18em;
+  background: none;
+  border: 0.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-right: 6px;
+  transition: all 0.15s;
+}
+.present-btn:hover { color: var(--ink2); }
+
+.presentation-exit-bar {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg);
+  border: 0.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 6px 14px;
+  z-index: 100;
+  align-items: center;
+  gap: 8px;
+}
+body.presentation-mode .presentation-exit-bar { display: flex; }
+.presentation-exit-bar .exit-btn {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.18em;
+  background: none;
+  border: 0.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.presentation-exit-bar .exit-btn:hover { color: var(--ink); }
+.presentation-exit-bar .exit-hint {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink4);
+  letter-spacing: 0.12em;
+}
+
+/* ── Before/After Comparison ── */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.5px 1fr;
+  gap: 0;
+  min-height: 70vh;
+}
+.comparison-divider {
+  background: var(--rule);
+  width: 0.5px;
+}
+.comparison-col {
+  padding: 32px 36px;
+}
+.sticky-note {
+  background: var(--bg2);
+  border: 0.5px solid var(--rule);
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink2);
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.okaeri-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--rule2);
+  gap: 10px;
+}
+.okaeri-row:first-child { border-top: 0.5px solid var(--rule2); }
+.okaeri-check {
+  font-size: 12px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+.okaeri-verb {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.2em;
+  min-width: 66px;
+}
+.okaeri-obj {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink);
+  flex: 1;
+  letter-spacing: 0.02em;
+}
+.okaeri-tool {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.12em;
+}
+.comparison-stat {
+  margin-top: 24px;
+  font-size: 11px;
+  font-weight: 200;
+  letter-spacing: 0.14em;
+}
+
+@keyframes fadeInRow {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-row {
+  animation: fadeInRow 0.4s ease forwards;
+}
+
 @media (max-width: 600px) {
   body::after {
     content: 'okaeri is designed for desktop';
@@ -279,6 +414,7 @@ body { display: flex; background: var(--bg); }
 
   <!-- View Toggle -->
   <div class="view-toggle">
+    <button class="present-btn" id="presentBtn">present</button>
     <button class="demo-btn" id="demoBtn">demo</button>
     <button class="view-btn active" data-view="desktop">desktop</button>
     <button class="view-btn" data-view="mobile">mobile</button>
@@ -333,6 +469,13 @@ body { display: flex; background: var(--bg); }
     <span class="demo-step-text" id="demoStepText">step 1 of 5 &middot; home</span>
     <button class="btn-ghost demo-nav-btn" id="demoNext">&rarr;</button>
     <button class="btn-ghost demo-nav-btn" id="demoPause">pause</button>
+  </div>
+
+  <!-- Presentation Exit Bar -->
+  <div class="presentation-exit-bar" id="presentationExitBar">
+    <span class="exit-hint">presenting</span>
+    <button class="exit-btn" id="presentExitBtn">exit</button>
+    <span class="exit-hint">⌘⇧P</span>
   </div>
 
   <!-- Keyboard Shortcuts Overlay -->

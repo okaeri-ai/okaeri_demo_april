@@ -104,6 +104,14 @@
   }
   document.querySelectorAll('.ob-next').forEach(function(btn){
     btn.addEventListener('click', function(){
+      // On step 2, capture name before advancing
+      if(step===2){
+        var nameInput = document.querySelector('#obStep2 .modal-input');
+        if(nameInput && nameInput.value.trim()){
+          window.OKAERI = window.OKAERI || {};
+          window.OKAERI.userName = nameInput.value.trim();
+        }
+      }
       if(step<total){ step++; show(step); }
     });
   });

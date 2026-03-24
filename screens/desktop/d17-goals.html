@@ -149,6 +149,30 @@
     if(e.key === 'Enter'){ e.preventDefault(); saveBtn.click(); }
   });
 
+  // Inline editing for goal names
+  document.querySelectorAll('.gc-name').forEach(function(el){
+    el.style.cursor = 'default';
+    el.addEventListener('dblclick', function(){
+      var current = el.textContent;
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.value = current;
+      input.style.cssText = 'font:inherit;font-size:inherit;font-weight:inherit;color:inherit;letter-spacing:inherit;background:none;border:none;border-bottom:1px solid var(--rule);outline:none;width:100%;padding:0;margin:0';
+      el.textContent = '';
+      el.appendChild(input);
+      input.focus();
+      function save(){
+        var val = input.value.trim() || current;
+        el.textContent = val;
+      }
+      input.addEventListener('blur', save);
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); input.blur(); }
+        if(e.key === 'Escape'){ input.value = current; input.blur(); }
+      });
+    });
+  });
+
   saveBtn.addEventListener('click', function(){
     var desc = descIn.value.trim();
     var date = dateIn.value.trim();

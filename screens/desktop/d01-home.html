@@ -108,3 +108,58 @@
   }
 })();
 </script>
+
+<script>
+// Live event listener — react to simulated background events
+(function(){
+  function onLiveEvent(e) {
+    var ev = e.detail;
+    if (!ev || ev.type !== 'commitment') return;
+    if (window.OKAERI.currentScreen !== 'd01-home') return;
+
+    // Flash the pending count
+    var pendingStn = document.querySelectorAll('.stn');
+    if (pendingStn.length >= 2) {
+      var pendingEl = pendingStn[1];
+      var currentCount = parseInt(pendingEl.textContent) || 0;
+      pendingEl.textContent = currentCount + 1;
+      pendingEl.style.animation = 'none';
+      pendingEl.offsetHeight;
+      pendingEl.style.animation = 'numFlash 0.6s ease';
+    }
+
+    // Update subtitle
+    var sub = document.querySelector('.sub');
+    if (sub) {
+      var newCount = (parseInt(pendingStn[1].textContent) || 0);
+      sub.textContent = newCount + ' pending \u00b7 9-day streak';
+      sub.style.color = '';
+    }
+
+    // Add a new pending row with fade-in
+    var pendingLabel = null;
+    var labels = document.querySelectorAll('.sl');
+    for (var i = 0; i < labels.length; i++) {
+      if (labels[i].textContent.trim() === 'pending') {
+        pendingLabel = labels[i];
+        pendingLabel.style.display = '';
+        break;
+      }
+    }
+    if (pendingLabel) {
+      var row = document.createElement('div');
+      row.className = 'prow fade-in-row';
+      row.innerHTML = '<span class="pv">' + ev.verb + '</span><span class="po">' + ev.obj + '</span><span class="pt">' + ev.tool + '</span><span class="pd">just now</span>';
+      var lastRow = pendingLabel;
+      var sib = pendingLabel.nextElementSibling;
+      while (sib && sib.classList.contains('prow')) {
+        lastRow = sib;
+        sib = sib.nextElementSibling;
+      }
+      lastRow.parentNode.insertBefore(row, lastRow.nextSibling);
+    }
+  }
+
+  window.addEventListener('okaeri-live-event', onLiveEvent);
+})();
+</script>

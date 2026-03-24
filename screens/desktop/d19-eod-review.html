@@ -120,3 +120,77 @@
   <div class="narr-l">okaeri's read · end of day</div>
   <div class="narr-t">Strong execution day. You cleared 6 of 8 commitments and the Sequoia meeting went well — follow-up signals are positive. The two carries are both pre-seed critical, so front-loading them tomorrow keeps your timeline intact. Your focus block held today, which is a pattern worth protecting.</div>
 </div>
+
+<script>
+(function(){
+  var O = window.OKAERI || {};
+  var executed = O.executedCards || [];
+  if (!executed.length) return;
+
+  // --- Replace "Jess" with user name if set ---
+  if (O.userName) {
+    var greeting = document.querySelector('div[style*="font-size:42px"]');
+    if (greeting) greeting.textContent = greeting.textContent.replace('Jess', O.userName);
+  }
+
+  // --- Add executed cards to "done today" column ---
+  var twoCol = document.querySelector('.two-col');
+  if (!twoCol) return;
+  var doneCol = twoCol.children[0];
+  var carryCol = twoCol.children[1];
+
+  var baseExecuted = 5; // hardcoded rows already present
+  var baseCarrying = 2;
+  var addedCount = 0;
+
+  executed.forEach(function(card){
+    // Build a done-today row
+    var row = document.createElement('div');
+    row.className = 'rq';
+    var now = new Date();
+    var h = now.getHours(), m = now.getMinutes();
+    var ampm = h >= 12 ? 'pm' : 'am';
+    var h12 = h % 12 || 12;
+    var timeStr = h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+    var verb = card.verb || 'executed';
+    var obj = card.obj || card.object || '';
+    var detail = card.detail || '';
+    var label = obj + (detail ? ' — ' + detail : '');
+
+    row.innerHTML =
+      '<div class="rq-dot" style="background:var(--green)"></div>' +
+      '<div class="rq-v" style="color:var(--green)">' + verb + '</div>' +
+      '<div class="rq-o">' + label + '</div>' +
+      '<div class="rq-ti">' + timeStr + '</div>';
+    doneCol.appendChild(row);
+    addedCount++;
+
+    // Remove matching items from carrying column
+    if (carryCol) {
+      var carryItems = carryCol.querySelectorAll('div[style*="display:flex"][style*="padding:7px"]');
+      var objLower = (obj + ' ' + detail).toLowerCase();
+      carryItems.forEach(function(item){
+        var text = item.textContent.toLowerCase();
+        // match on verb or object keywords
+        var keywords = objLower.split(/\s+/);
+        var matched = keywords.some(function(kw){
+          return kw.length > 3 && text.indexOf(kw) !== -1;
+        });
+        if (matched) {
+          item.remove();
+          baseCarrying--;
+        }
+      });
+    }
+  });
+
+  // --- Update stats ---
+  var stats = document.querySelectorAll('.st');
+  if (stats.length >= 2) {
+    var execNum = stats[0].querySelector('.stn');
+    var carryNum = stats[1].querySelector('.stn');
+    if (execNum) execNum.textContent = baseExecuted + addedCount + 1; // +1 for the base 6th
+    if (carryNum) carryNum.textContent = Math.max(0, baseCarrying);
+  }
+})();
+</script>

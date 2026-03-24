@@ -139,6 +139,25 @@ window.OKAERI = {
     { date: 'Thursday · Mar 19', entries: [
       { verb: 'send', obj: 'design partner brief · Resonance team', tool: 'Gmail', ref: 'resonance.ai', time: '11:44 am' },
       { verb: 'create', obj: 'onboarding flow ticket', tool: 'Linear', ref: 'OKA-211', time: '3:08 pm' }
+    ]},
+    { date: 'Wednesday · Mar 18', entries: [
+      { verb: 'send', obj: 'one-pager to Sarah Rhodes', tool: 'Gmail', ref: 'sarah@sequoia.com', time: '11:02 am' },
+      { verb: 'create', obj: 'mobile auth flow ticket', tool: 'Linear', ref: 'OKA-209', time: '2:34 pm' },
+      { verb: 'schedule', obj: 'Resonance weekly sync', tool: 'Calendar', ref: 'recurring', time: '3:15 pm' }
+    ]},
+    { date: 'Tuesday · Mar 17', entries: [
+      { verb: 'update', obj: 'pipeline review notes', tool: 'Salesforce', ref: 'Acme Corp', time: '10:18 am' },
+      { verb: 'send', obj: 'sprint 13 recap', tool: 'Slack', ref: '#engineering', time: '4:41 pm' },
+      { verb: 'draft', obj: 'design partner proposal', tool: 'Gmail', ref: 'resonance.ai', time: '5:02 pm' }
+    ]},
+    { date: 'Monday · Mar 16', entries: [
+      { verb: 'create', obj: 'onboarding UX research ticket', tool: 'Linear', ref: 'OKA-207', time: '9:28 am' },
+      { verb: 'send', obj: 'weekly investor update', tool: 'Gmail', ref: 'investors@list', time: '11:55 am' }
+    ]},
+    { date: 'Friday · Mar 14', entries: [
+      { verb: 'schedule', obj: 'board prep call', tool: 'Calendar', ref: 'Mar 20', time: '10:07 am' },
+      { verb: 'update', obj: 'Mnemix deal stage', tool: 'Salesforce', ref: 'Mnemix', time: '2:19 pm' },
+      { verb: 'send', obj: 'partner feedback summary', tool: 'Slack', ref: '#partners', time: '4:33 pm' }
     ]}
   ],
 
@@ -155,6 +174,67 @@ window.OKAERI = {
       { name: 'LinkedIn', icon: 'in', color: '--blue', bg: '--bbg', connected: false },
       { name: 'X (Twitter)', icon: '𝕏', color: '--ink', bg: '--bg3', connected: false }
     ]
+  },
+
+  // ── Live Simulation ──
+  liveEvents: [],
+  liveNotifications: [],
+  _liveSimTimer: null,
+
+  startLiveSimulation: function() {
+    var self = this;
+    if (self._liveSimTimer) return;
+
+    var commitmentTexts = [
+      { verb: 'review', obj: 'onboarding flow PR', tool: 'GitHub', screen: 'd01-home' },
+      { verb: 'send', obj: 'weekly metrics update', tool: 'Slack #team', screen: 'd01-home' },
+      { verb: 'draft', obj: 'partnership proposal · Mnemix', tool: 'Gmail', screen: 'd01-home' },
+      { verb: 'update', obj: 'sprint board · sprint 15', tool: 'Linear', screen: 'd01-home' },
+      { verb: 'schedule', obj: 'design review · 30 min', tool: 'Calendar', screen: 'd01-home' },
+      { verb: 'create', obj: 'onboarding checklist doc', tool: 'Notion', screen: 'd01-home' }
+    ];
+
+    var notificationTexts = [
+      { text: 'Sarah Rhodes viewed your materials', screen: 'd38-notifications' },
+      { text: 'Marcus completed API rate limit fix', screen: 'd38-notifications' },
+      { text: 'Priya updated Acme deal stage', screen: 'd38-notifications' },
+      { text: 'Calendar conflict detected for Thursday', screen: 'd12-conflict-detection' },
+      { text: 'Resonance meeting prep is ready', screen: 'd08-prep-brief' }
+    ];
+
+    var touchpointTexts = [
+      { text: 'Sarah Rhodes · last contact updated', screen: 'd22-relationship-health' },
+      { text: 'Alex Chen · follow-up overdue 12 days', screen: 'd22-relationship-health' },
+      { text: 'Nina Park · new LinkedIn activity detected', screen: 'd22-relationship-health' },
+      { text: 'Resonance team · meeting scheduled', screen: 'd22-relationship-health' }
+    ];
+
+    function scheduleNext() {
+      var delay = 30000 + Math.floor(Math.random() * 10000);
+      self._liveSimTimer = setTimeout(function() {
+        var roll = Math.random();
+        var event;
+
+        if (roll < 0.4) {
+          var item = commitmentTexts[Math.floor(Math.random() * commitmentTexts.length)];
+          event = { type: 'commitment', verb: item.verb, obj: item.obj, tool: item.tool, text: item.verb + ' ' + item.obj, timestamp: new Date().toISOString(), screen: item.screen };
+          self.liveEvents.push(event);
+        } else if (roll < 0.7) {
+          var notif = notificationTexts[Math.floor(Math.random() * notificationTexts.length)];
+          event = { type: 'notification', text: notif.text, timestamp: new Date().toISOString(), screen: notif.screen };
+          self.liveNotifications.push(event);
+        } else {
+          var tp = touchpointTexts[Math.floor(Math.random() * touchpointTexts.length)];
+          event = { type: 'touchpoint', text: tp.text, timestamp: new Date().toISOString(), screen: tp.screen };
+          self.liveEvents.push(event);
+        }
+
+        window.dispatchEvent(new CustomEvent('okaeri-live-event', { detail: event }));
+        scheduleNext();
+      }, delay);
+    }
+
+    scheduleNext();
   },
 
   // ── Navigation Helper ──

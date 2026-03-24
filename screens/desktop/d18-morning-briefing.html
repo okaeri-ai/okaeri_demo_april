@@ -190,5 +190,12 @@
       }
     });
   });
+
+  // --- Replace "Jess" with user name if set ---
+  var userName = (window.OKAERI || {}).userName;
+  if (userName) {
+    var greeting = document.querySelector('div[style*="font-size:42px"]');
+    if (greeting) greeting.textContent = greeting.textContent.replace('Jess', userName);
+  }
 })();
 </script>

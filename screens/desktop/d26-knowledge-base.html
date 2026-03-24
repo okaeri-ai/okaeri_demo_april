@@ -70,6 +70,58 @@
   <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
 </div>
 
+<script>
+(function(){
+  var dropZone = document.querySelector('.kb-drop');
+  var fileList = document.querySelector('.kb-drop').parentElement;
+  var lastRow = fileList.querySelectorAll('.kb-row');
+  var insertBefore = fileList.querySelector('[style*="margin-top:16px"]');
+
+  function createRow(name, size, scope, date) {
+    var row = document.createElement('div');
+    row.className = 'kb-row';
+    row.style.cssText = 'display:grid;grid-template-columns:1fr 70px 70px 80px 50px;padding:11px 0;border-bottom:0.5px solid var(--rule2);align-items:center;opacity:0;transition:opacity 0.3s ease';
+    row.innerHTML =
+      '<div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">' + name + '</div>' +
+      '<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">' + size + '</div>' +
+      '<div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--ink2)">' + scope + '</span></div>' +
+      '<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">' + date + '</div>' +
+      '<div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>';
+    insertBefore.parentElement.insertBefore(row, insertBefore);
+    requestAnimationFrame(function(){ row.style.opacity = '1'; });
+  }
+
+  dropZone.addEventListener('dragover', function(e){
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--ink3)';
+    dropZone.style.background = 'var(--bg2)';
+  });
+
+  dropZone.addEventListener('dragleave', function(){
+    dropZone.style.borderColor = '';
+    dropZone.style.background = '';
+  });
+
+  dropZone.addEventListener('drop', function(e){
+    e.preventDefault();
+    dropZone.style.borderColor = '';
+    dropZone.style.background = '';
+    var files = e.dataTransfer && e.dataTransfer.files;
+    if (files && files.length > 0) {
+      for (var i = 0; i < files.length; i++) {
+        createRow(files[i].name, '\u2014 KB', 'global', 'just now');
+      }
+    } else {
+      createRow('dropped-file.txt', '\u2014 KB', 'global', 'just now');
+    }
+  });
+
+  dropZone.addEventListener('click', function(){
+    createRow('meeting-notes-mar24.md', '8 KB', 'meeting', 'just now');
+  });
+})();
+</script>
+
 <!-- Storage bar -->
 <div style="margin-top:16px">
   <div style="display:flex;justify-content:space-between;margin-bottom:6px">

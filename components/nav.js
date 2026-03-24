@@ -5,6 +5,7 @@
 (function() {
   const NAV_STRUCTURE = [
     { section: 'Core Loop', items: [
+      { id: 'd00-comparison', label: 'Before & After' },
       { id: 'd01-home', label: 'Home' },
       { id: 'd02-empty-state', label: 'Empty State' },
       { id: 'd03-live-meeting', label: 'Live Meeting' },
@@ -74,6 +75,7 @@
 
   // Status text per screen
   const SCREEN_STATUS = {
+    'd00-comparison': { text: 'compare', live: false },
     'd01-home': { text: 'listening', live: false },
     'd02-empty-state': { text: 'all clear', live: false, green: true },
     'd03-live-meeting': { text: 'recording', live: true },
@@ -119,6 +121,17 @@
     'a01-menubar': { text: 'listening', live: false },
     'a02-widgets': { text: 'all clear', live: false }
   };
+
+  // Build flat index of screen positions for directional transitions
+  const SCREEN_INDEX = {};
+  (function(){
+    var idx = 0;
+    NAV_STRUCTURE.forEach(function(section){
+      section.items.forEach(function(item){
+        SCREEN_INDEX[item.id] = idx++;
+      });
+    });
+  })();
 
   const collapsedSections = {};
   let currentView = 'desktop'; // desktop | mobile | ambient
@@ -287,8 +300,11 @@
         container.innerHTML = errorFallback;
       } else {
         const html = await resp.text();
+        var oldIdx = SCREEN_INDEX[window.OKAERI.previousScreen] || 0;
+        var newIdx = SCREEN_INDEX[screenId] || 0;
+        var slideDir = newIdx >= oldIdx ? '6px' : '-6px';
         container.style.opacity = '0';
-        container.style.transform = 'translateY(6px)';
+        container.style.transform = 'translateY(' + slideDir + ')';
         // Preserve status bar for mobile
         const freshStatusBar = (type === 'mobile' && container.querySelector('.phone-status-bar')) ? container.querySelector('.phone-status-bar').outerHTML : '';
         container.innerHTML = freshStatusBar + html;
@@ -405,6 +421,11 @@
     if (!demoPaused) scheduleDemoAdvance();
   }
 
+  // ── Presentation Mode ──
+  function togglePresentation() {
+    document.body.classList.toggle('presentation-mode');
+  }
+
   // ── Keyboard Shortcuts ──
   function handleKeydown(e) {
     // Ignore if typing in an input/textarea
@@ -414,6 +435,13 @@
       if (e.key === 'Escape') {
         e.target.blur();
       }
+      return;
+    }
+
+    // Cmd+Shift+P / Ctrl+Shift+P — Presentation mode
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'p' || e.key === 'P')) {
+      e.preventDefault();
+      togglePresentation();
       return;
     }
 
@@ -497,6 +525,12 @@
       });
     });
 
+    // Present button
+    var presentBtn = document.getElementById('presentBtn');
+    if (presentBtn) presentBtn.addEventListener('click', togglePresentation);
+    var presentExitBtn = document.getElementById('presentExitBtn');
+    if (presentExitBtn) presentExitBtn.addEventListener('click', togglePresentation);
+
     // Demo button
     var demoBtn = document.getElementById('demoBtn');
     if (demoBtn) demoBtn.addEventListener('click', toggleDemo);
@@ -538,10 +572,43 @@
     // Clock
     tickClock();
     setInterval(tickClock, 15000);
+
+    // Start live data simulation
+    if (window.OKAERI && window.OKAERI.startLiveSimulation) {
+      window.OKAERI.startLiveSimulation();
+    }
+
+    // Live background activity dots
+    var dotStyle = document.createElement('style');
+    dotStyle.textContent = '.nav-item{position:relative}.nav-activity-dot{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--green);pointer-events:none;opacity:0;transition:opacity 0.3s ease}.nav-activity-dot.on{opacity:1}';
+    document.head.appendChild(dotStyle);
+    var activityCycle = 0;
+    setInterval(function(){
+      // Remove old dots after 2 cycles
+      if(activityCycle >= 2){
+        document.querySelectorAll('.nav-activity-dot.on').forEach(function(d){ d.classList.remove('on'); });
+      }
+      // Pick 1-2 random nav items to light up
+      var items = document.querySelectorAll('.nav-item');
+      if(!items.length) return;
+      var count = Math.floor(Math.random() * 2) + 1;
+      for(var i = 0; i < count; i++){
+        var item = items[Math.floor(Math.random() * items.length)];
+        if(item.classList.contains('active')) continue;
+        var dot = item.querySelector('.nav-activity-dot');
+        if(!dot){
+          dot = document.createElement('span');
+          dot.className = 'nav-activity-dot';
+          item.appendChild(dot);
+        }
+        dot.classList.add('on');
+      }
+      activityCycle++;
+    }, 45000);
   }
 
   // Export navigation functions
-  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo };
+  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo, togglePresentation };
 
   // Init when DOM ready
   if (document.readyState === 'loading') {

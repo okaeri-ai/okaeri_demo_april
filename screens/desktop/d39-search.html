@@ -1,12 +1,12 @@
-<input class="search-input" type="text" placeholder="search everything" autofocus>
+<input class="search-input" id="searchInput" type="text" placeholder="search everything" autofocus>
 
 <div class="search-pills">
-  <button class="search-pill on" data-filter>all</button>
-  <button class="search-pill" data-filter>executed</button>
-  <button class="search-pill" data-filter>pending</button>
-  <button class="search-pill" data-filter>missed</button>
-  <button class="search-pill" data-filter>this week</button>
-  <button class="search-pill" data-filter>people</button>
+  <button class="search-pill on" data-filter="all">all</button>
+  <button class="search-pill" data-filter="executed">executed</button>
+  <button class="search-pill" data-filter="pending">pending</button>
+  <button class="search-pill" data-filter="missed">missed</button>
+  <button class="search-pill" data-filter="this week">this week</button>
+  <button class="search-pill" data-filter="people">people</button>
 </div>
 
 <div id="searchEmpty" style="display:none;background:rgba(234,243,222,0.3);border-radius:8px;padding:20px 22px;text-align:center;margin-bottom:16px">
@@ -15,22 +15,158 @@
 
 <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.28em;text-transform:uppercase;margin-bottom:8px">recent</div>
 
-<div class="search-row"><span class="log-verb">create</span><span class="log-obj">API rate limit bug</span><span class="ttag tt-li">Linear</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Q2 roadmap sync</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">9:14 am</span></div>
-<div class="search-row"><span class="log-verb">send</span><span class="log-obj">pricing proposal recap</span><span class="ttag tt-sl">Slack</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Acme review</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">9:14 am</span></div>
-<div class="search-row"><span class="log-verb">schedule</span><span class="log-obj">Andreessen follow-up</span><span class="ttag tt-ca">Calendar</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Investor sync</span><span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:.14em">pending</span><span class="log-time">today</span></div>
-<div class="search-row"><span class="log-verb">update</span><span class="log-obj">Acme deal · proposal sent</span><span class="ttag tt-sf">Salesforce</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Acme review</span><span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:.14em">pending</span><span class="log-time">today</span></div>
-<div class="search-row"><span class="log-verb">draft</span><span class="log-obj">partnership proposal email</span><span class="ttag tt-gm">Gmail</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Mnemix call</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Fri</span></div>
-<div class="search-row"><span class="log-verb">create</span><span class="log-obj">onboarding flow ticket</span><span class="ttag tt-li">Linear</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Sprint planning</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Thu</span></div>
-<div class="search-row"><span class="log-verb">send</span><span class="log-obj">design partner brief</span><span class="ttag tt-gm">Gmail</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Resonance sync</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Thu</span></div>
-<div class="search-row"><span class="log-verb">share</span><span class="log-obj">competitive analysis doc</span><span class="ttag tt-sl">Slack</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Strategy sync</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em">missed</span><span class="log-time">Wed</span></div>
+<div id="searchResults"></div>
 
 <script>
 (function(){
+  var O = window.OKAERI;
+  var container = document.getElementById('searchResults');
+  var input = document.getElementById('searchInput');
+  var empty = document.getElementById('searchEmpty');
+
+  // Tool class map
+  var toolClassMap = { 'Linear': 'tt-li', 'Slack': 'tt-sl', 'Calendar': 'tt-ca', 'Salesforce': 'tt-sf', 'Gmail': 'tt-gm' };
+
+  // Build results from OKAERI data
+  var results = [];
+
+  // Add commitments (pending items)
+  if(O && O.commitments){
+    O.commitments.forEach(function(c){
+      var toolName = c.tool.split(' ')[0];
+      var isExecuted = O.executedCards && O.executedCards.some(function(e){ return e.id === c.id; });
+      results.push({
+        verb: c.verb,
+        obj: c.obj,
+        tool: toolName,
+        toolClass: c.toolClass || toolClassMap[toolName] || '',
+        source: 'Q2 roadmap sync',
+        status: isExecuted ? 'executed' : 'pending',
+        statusLabel: isExecuted ? 'done' : 'pending',
+        statusColor: isExecuted ? 'var(--green)' : 'var(--amber)',
+        time: 'today',
+        week: true
+      });
+    });
+  }
+
+  // Add execution log entries
+  if(O && O.executionLog){
+    O.executionLog.forEach(function(day){
+      var isThisWeek = day.date.indexOf('Mar 23') !== -1 || day.date.indexOf('Mar 20') !== -1 || day.date.indexOf('Mar 19') !== -1;
+      var shortDate = day.date.replace(/^today \u00b7 /i, 'today').replace(/^.*\u00b7\s*/, '');
+      day.entries.forEach(function(e){
+        // Skip if already added from commitments
+        var isDupe = results.some(function(r){ return r.verb === e.verb && r.obj === e.obj; });
+        if(isDupe) return;
+        var toolName = e.tool;
+        results.push({
+          verb: e.verb,
+          obj: e.obj,
+          tool: toolName,
+          toolClass: toolClassMap[toolName] || '',
+          source: '',
+          status: 'executed',
+          statusLabel: 'done',
+          statusColor: 'var(--green)',
+          time: shortDate,
+          week: isThisWeek
+        });
+      });
+    });
+  }
+
+  // Add the missed item
+  results.push({
+    verb: 'draft',
+    obj: 'cold outreach to Index Ventures',
+    tool: 'Gmail',
+    toolClass: 'tt-gm',
+    source: 'fundraise planning',
+    status: 'missed',
+    statusLabel: 'missed',
+    statusColor: 'var(--ink3)',
+    time: 'Mar 10',
+    week: false
+  });
+
+  // Add people entries from relationships
+  if(O && O.relationships){
+    O.relationships.forEach(function(r){
+      results.push({
+        verb: 'contact',
+        obj: r.name,
+        tool: '',
+        toolClass: '',
+        source: r.role,
+        status: 'people',
+        statusLabel: r.healthLabel,
+        statusColor: r.healthColor === 'g' ? 'var(--green)' : r.healthColor === 'a' ? 'var(--amber)' : 'var(--ink3)',
+        time: r.lastContact,
+        week: false,
+        isPerson: true
+      });
+    });
+  }
+
+  function renderResults(filtered){
+    container.innerHTML = '';
+    if(filtered.length === 0){
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+    filtered.forEach(function(r){
+      var toolTag = r.tool ? '<span class="ttag ' + r.toolClass + '">' + r.tool + '</span>' : '';
+      var row = document.createElement('div');
+      row.className = 'search-row';
+      row.setAttribute('data-status', r.status);
+      row.setAttribute('data-week', r.week ? '1' : '0');
+      row.setAttribute('data-people', r.isPerson ? '1' : '0');
+      row.innerHTML = '<span class="log-verb">' + r.verb + '</span>' +
+        '<span class="log-obj">' + r.obj + '</span>' +
+        toolTag +
+        '<span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">' + r.source + '</span>' +
+        '<span style="font-size:10px;font-weight:200;color:' + r.statusColor + ';letter-spacing:.14em">' + r.statusLabel + '</span>' +
+        '<span class="log-time">' + r.time + '</span>';
+      container.appendChild(row);
+    });
+  }
+
+  // Initial render
+  renderResults(results);
+
+  // Filter by pills
+  var activeFilter = 'all';
   document.querySelectorAll('[data-filter]').forEach(function(pill){
     pill.addEventListener('click', function(){
       document.querySelectorAll('[data-filter]').forEach(function(p){ p.classList.remove('on'); });
       this.classList.add('on');
+      activeFilter = this.getAttribute('data-filter');
+      applyFilters();
     });
   });
+
+  // Search + filter combined
+  function applyFilters(){
+    var q = (input.value || '').toLowerCase().trim();
+    var filtered = results.filter(function(r){
+      // Status filter
+      if(activeFilter === 'executed' && r.status !== 'executed') return false;
+      if(activeFilter === 'pending' && r.status !== 'pending') return false;
+      if(activeFilter === 'missed' && r.status !== 'missed') return false;
+      if(activeFilter === 'this week' && !r.week) return false;
+      if(activeFilter === 'people' && !r.isPerson) return false;
+      // Text filter
+      if(q){
+        var text = (r.verb + ' ' + r.obj + ' ' + r.tool + ' ' + r.source).toLowerCase();
+        if(text.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    renderResults(filtered);
+  }
+
+  input.addEventListener('input', applyFilters);
 })();
 </script>

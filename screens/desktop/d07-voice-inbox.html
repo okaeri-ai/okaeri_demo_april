@@ -23,7 +23,7 @@
 <div class="hr"></div>
 <div class="sl">recent captures</div>
 
-<div style="padding:12px 0;border-bottom:.5px solid var(--rule2)">
+<div id="vi-capture-0" style="padding:12px 0;border-bottom:.5px solid var(--rule2);transition:opacity 0.3s ease">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
     <div style="display:flex;align-items:center;gap:8px">
       <span class="ntag nt-c">commit</span>
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div style="padding:12px 0;border-bottom:.5px solid var(--rule2)">
+<div id="vi-capture-1" style="padding:12px 0;border-bottom:.5px solid var(--rule2);transition:opacity 0.3s ease">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
     <div style="display:flex;align-items:center;gap:8px">
       <span class="ntag nt-d">context</span>
@@ -80,3 +80,45 @@
     <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.16em">→ reminder set: 2:00 pm today</span>
   </div>
 </div>
+
+<script>
+(function(){
+  var row = document.getElementById('vi-capture-0');
+  if (!row) return;
+  var execBtn = row.querySelector('.btn-exec');
+  if (!execBtn) return;
+
+  execBtn.addEventListener('click', function(){
+    // Fade out the capture row
+    row.style.opacity = '0';
+
+    // Record in OKAERI state
+    var O = window.OKAERI = window.OKAERI || {};
+    O.executedCards = O.executedCards || [];
+    O.executedCards.push({
+      verb: 'send',
+      obj: 'cap table to Sarah',
+      tool: 'Calendar',
+      detail: 'by Thursday',
+      time: new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}).toLowerCase()
+    });
+    O.totalExecuted = (O.totalExecuted || 0) + 1;
+    O.pendingCount = Math.max(0, (O.pendingCount || 0) - 1);
+
+    // After fade, collapse row and show receipt
+    setTimeout(function(){
+      row.style.display = 'none';
+      var receipt = document.createElement('div');
+      receipt.style.cssText = 'background:var(--green-bg,rgba(52,199,89,0.08));border-radius:8px;padding:10px 14px;margin:8px 0;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity 0.3s ease';
+      receipt.innerHTML =
+        '<span style="font-size:12px;color:var(--green)">&#10003;</span>' +
+        '<span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">reminder executed &middot; Calendar</span>';
+      row.parentNode.insertBefore(receipt, row.nextSibling);
+      // Fade in receipt
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ receipt.style.opacity = '1'; });
+      });
+    }, 320);
+  });
+})();
+</script>
