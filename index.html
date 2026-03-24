@@ -91,12 +91,8 @@ body { display: flex; background: var(--bg); }
 
 /* ── View Toggle ── */
 .view-toggle {
-  position: absolute;
-  top: 12px;
-  right: 140px;
   display: flex;
   gap: 0;
-  z-index: 10;
 }
 .view-btn {
   font-size: 9px;
@@ -267,7 +263,10 @@ body.presentation-mode .screen-content { padding: 48px 80px; }
 body.presentation-mode .hero { font-size: 72px; }
 body.presentation-mode .ptitle { font-size: 28px; }
 body.presentation-mode .meta { font-size: 13px; }
-body.presentation-mode .view-toggle { display: none !important; }
+body.presentation-mode .view-btn,
+body.presentation-mode .demo-btn,
+body.presentation-mode .present-btn,
+body.presentation-mode .theme-toggle { display: none !important; }
 body.presentation-mode .demo-indicator { display: none !important; }
 body.presentation-mode .titlebar { display: none; }
 
@@ -489,15 +488,6 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
 <!-- Main -->
 <div class="main" style="position:relative">
 
-  <!-- View Toggle -->
-  <div class="view-toggle">
-    <button class="present-btn" id="presentBtn">present</button>
-    <button class="demo-btn" id="demoBtn">demo</button>
-    <button class="view-btn active" data-view="desktop">desktop</button>
-    <button class="view-btn" data-view="mobile">mobile</button>
-    <button class="view-btn" data-view="ambient">ambient</button>
-  </div>
-
   <!-- Titlebar -->
   <div class="titlebar">
     <div class="mac-dots">
@@ -506,7 +496,16 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
       <div class="mac-dot" style="background:#28C840"></div>
     </div>
     <div class="wm">okaeri</div>
-    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode (Ctrl+Shift+D)">&#9680;</button>
+    <div style="display:flex;align-items:center;gap:4px">
+      <button class="present-btn" id="presentBtn">present</button>
+      <button class="demo-btn" id="demoBtn">demo</button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark mode (Ctrl+Shift+D)">&#9680;</button>
+      <div style="display:flex;gap:0;margin-left:4px">
+        <button class="view-btn active" data-view="desktop">desktop</button>
+        <button class="view-btn" data-view="mobile">mobile</button>
+        <button class="view-btn" data-view="ambient">ambient</button>
+      </div>
+    </div>
     <div class="tr" id="titleRight">
       <div class="pulse-dot"></div>
       <span class="tstat" id="tstatEl">listening</span>
