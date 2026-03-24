@@ -112,6 +112,10 @@ body { display: flex; background: var(--bg); }
 .view-btn.active { color: var(--ink); border-color: var(--ink); z-index: 1; }
 
 /* ── Demo Button ── */
+.walkthrough-tip {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
 .demo-btn {
   font-size: 9px;
   font-weight: 200;
@@ -538,6 +542,15 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
   <!-- Ambient Frame -->
   <div class="ambient-wrapper" id="ambientFrame">
     <div class="ambient-surface" id="ambientContent" style="width:100%;max-width:800px"></div>
+  </div>
+
+  <!-- Walkthrough Tooltip -->
+  <div class="walkthrough-tip" id="walkthroughTip" style="display:none;position:fixed;background:var(--bg);border:0.5px solid var(--rule);border-radius:8px;padding:10px 14px;z-index:60;max-width:240px;pointer-events:auto">
+    <div class="walkthrough-text" id="walkthroughText" style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5;margin-bottom:6px"></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="walkthrough-step" id="walkthroughStep" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.18em"></span>
+      <button class="btn-ghost" id="walkthroughDismiss" style="font-size:9px;margin-left:auto">got it</button>
+    </div>
   </div>
 
   <!-- Demo Step Indicator -->

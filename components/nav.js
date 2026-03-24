@@ -5,6 +5,7 @@
 (function() {
   const NAV_STRUCTURE = [
     { section: 'Core Loop', items: [
+      { id: 'd00-intro', label: 'Intro' },
       { id: 'd00-comparison', label: 'Before & After' },
       { id: 'd01-home', label: 'Home' },
       { id: 'd02-empty-state', label: 'Empty State' },
@@ -16,6 +17,14 @@
       { id: 'd40-execution-failure', label: 'Execution Failure' },
       { id: 'd45-recurring', label: 'Recurring Patterns' },
       { id: 'd07-voice-inbox', label: 'Voice Inbox' }
+    ]},
+    { section: 'Voice', items: [
+      { id: 'd61-teach-okaeri', label: 'Teach Okaeri' },
+      { id: 'd61b-memory-confirmed', label: 'Memory Confirmed' },
+      { id: 'd62b-morning-audio', label: 'Morning Brief' },
+      { id: 'd62-audio-brief', label: 'Pre-Meeting Brief' },
+      { id: 'd63-whisper', label: 'Whisper Guidance' },
+      { id: 'd64-spoken-debrief', label: 'Spoken Debrief' }
     ]},
     { section: 'Intelligence', items: [
       { id: 'd08-prep-brief', label: 'Prep Brief' },
@@ -38,10 +47,7 @@
       { id: 'd55-unified-model', label: 'Unified Model' },
       { id: 'd56-meeting-steering', label: 'Meeting Steering' },
       { id: 'd57-meeting-score', label: 'Meeting Score' },
-      { id: 'd60-benchmarking', label: 'Benchmarking' },
-      { id: 'd62-audio-brief', label: 'Audio Brief' },
-      { id: 'd63-whisper', label: 'Whisper Guidance' },
-      { id: 'd64-spoken-debrief', label: 'Spoken Debrief' }
+      { id: 'd60-benchmarking', label: 'Benchmarking' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -90,9 +96,6 @@
       { id: 'd52-continuity', label: 'Continuity' },
       { id: 'd54-privacy', label: 'Privacy' },
       { id: 'd59-ambient-exec', label: 'Ambient Mode' },
-      { id: 'd61-teach-okaeri', label: 'Teach Okaeri' },
-      { id: 'd61b-memory-confirmed', label: 'Memory Confirmed' },
-      { id: 'd62b-morning-audio', label: 'Morning Audio Brief' },
       { id: 'd65-how-okaeri-works', label: 'How Okaeri Works' }
     ]},
     { section: 'Mobile', items: [
@@ -108,6 +111,7 @@
 
   // Status text per screen
   const SCREEN_STATUS = {
+    'd00-intro': { text: 'welcome', live: false },
     'd00-comparison': { text: 'compare', live: false },
     'd01-home': { text: 'listening', live: false },
     'd02-empty-state': { text: 'all clear', live: false, green: true },
@@ -219,6 +223,15 @@
     const sidebar = document.getElementById('sidebar');
     if (!sidebar) return;
     sidebar.innerHTML = '';
+
+    // Default collapsed state — only Core Loop and Voice open
+    if (Object.keys(collapsedSections).length === 0) {
+      NAV_STRUCTURE.forEach(s => {
+        if (s.section !== 'Core Loop' && s.section !== 'Voice') {
+          collapsedSections[s.section] = true;
+        }
+      });
+    }
 
     // Apply collapsed class
     sidebar.classList.toggle('collapsed', sidebarCollapsed);
@@ -697,7 +710,7 @@
 
     // Load initial screen from hash or default
     const hash = window.location.hash.slice(1);
-    const startScreen = hash || 'd01-home';
+    const startScreen = hash || 'd00-intro';
     const startType = getScreenType(startScreen);
     if (startType !== 'desktop') setView(startType);
     navigate(startScreen);
@@ -747,6 +760,77 @@
       activityCycle++;
     }, 45000);
   }
+
+  // ── Walkthrough Overlay ──
+  const WALKTHROUGH_TIPS = [
+    { screen: 'd01-home', text: 'The home screen shows judgment, not just stats. One clear first action.', position: 'below-title' },
+    { screen: 'd08-prep-brief', text: 'Prep briefs include what to say, what they care about, and pinned operator guidance.', position: 'below-title' },
+    { screen: 'd03-live-meeting', text: 'The steering rail catches structural meeting failures in real time. Notice: signals drive consequences.', position: 'right-panel' },
+    { screen: 'd04-confirm-execute', text: 'Cards are grouped by confidence. The uncertain card asks for clarification before executing.', position: 'below-title' },
+    { screen: 'd05-all-clear', text: 'Not just "done" — shows what changed in memory, relationships, and trust.', position: 'below-title' }
+  ];
+  let walkthroughTimer = null;
+
+  function showWalkthroughTip(stepIndex) {
+    const tip = document.getElementById('walkthroughTip');
+    const textEl = document.getElementById('walkthroughText');
+    const stepEl = document.getElementById('walkthroughStep');
+    if (!tip || !textEl || !stepEl) return;
+
+    const entry = WALKTHROUGH_TIPS[stepIndex];
+    if (!entry) { hideWalkthroughTip(); return; }
+
+    textEl.textContent = entry.text;
+    stepEl.textContent = (stepIndex + 1) + ' of ' + WALKTHROUGH_TIPS.length;
+    tip.style.top = '120px';
+    tip.style.left = '280px';
+    tip.style.display = 'block';
+  }
+
+  function hideWalkthroughTip() {
+    var tip = document.getElementById('walkthroughTip');
+    if (tip) tip.style.display = 'none';
+    clearTimeout(walkthroughTimer);
+  }
+
+  function onDemoStepChange(stepIndex) {
+    if (!demoActive) return;
+    hideWalkthroughTip();
+    var screen = DEMO_STEPS[stepIndex] && DEMO_STEPS[stepIndex].id;
+    var tipIndex = -1;
+    for (var i = 0; i < WALKTHROUGH_TIPS.length; i++) {
+      if (WALKTHROUGH_TIPS[i].screen === screen) { tipIndex = i; break; }
+    }
+    if (tipIndex >= 0) {
+      walkthroughTimer = setTimeout(function() {
+        if (demoActive) showWalkthroughTip(tipIndex);
+      }, 1500);
+    }
+  }
+
+  // Wire walkthrough dismiss button
+  (function() {
+    function wireDismiss() {
+      var btn = document.getElementById('walkthroughDismiss');
+      if (btn) btn.addEventListener('click', hideWalkthroughTip);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireDismiss);
+    else wireDismiss();
+  })();
+
+  // Patch demoGoToStep to trigger walkthrough
+  var _origDemoGoToStep = demoGoToStep;
+  demoGoToStep = function(idx) {
+    _origDemoGoToStep(idx);
+    onDemoStepChange(idx);
+  };
+
+  // Hide walkthrough when demo stops
+  var _origStopDemo = stopDemo;
+  stopDemo = function() {
+    hideWalkthroughTip();
+    _origStopDemo();
+  };
 
   // Export navigation functions
   window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo, togglePresentation, toggleCollapse, toggleDarkMode };

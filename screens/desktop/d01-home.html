@@ -16,60 +16,36 @@
   <button class="btn-ul-g" id="btnExecuteSequoia" style="flex-shrink:0;margin-left:16px;margin-top:4px">execute now</button>
 </div>
 
-<!-- Card 2: Biggest Risk -->
-<div class="cmd-card" id="cardBiggestRisk" style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px 16px;border-left:2px solid var(--amber);margin-bottom:8px;transition:opacity 0.15s;cursor:default">
-  <div style="flex:1;min-width:0">
-    <div style="font-size:9px;font-weight:200;letter-spacing:0.36em;text-transform:uppercase;color:var(--amber)">biggest risk</div>
-    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Index Ventures outreach has been pushed 3 times</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">originally committed Mar 10 · overdue 14 days · fundraise critical path</div>
-  </div>
-  <button class="btn-ul" id="btnDraftIndex" style="flex-shrink:0;margin-left:16px;margin-top:4px">draft now</button>
+<!-- Also watching -->
+<div class="sl" style="margin-top:12px">also watching</div>
+<div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);border-top:0.5px solid var(--rule2);gap:8px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+  <span style="font-size:11px;font-weight:300;color:var(--ink);flex:1;letter-spacing:0.02em">Index Ventures outreach pushed 3 times — overdue</span>
+  <button class="btn-ghost" style="font-size:9px" id="btnDraftIndex2">draft</button>
 </div>
-
-<!-- Card 3: Relationship Cooling -->
-<div class="cmd-card" id="cardRelCooling" style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px 16px;border-left:2px solid var(--ink2);margin-bottom:8px;transition:opacity 0.15s;cursor:default">
-  <div style="flex:1;min-width:0">
-    <div style="font-size:9px;font-weight:200;letter-spacing:0.36em;text-transform:uppercase;color:var(--ink2)">relationship cooling</div>
-    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Alex Chen · Mnemix — no contact in 11 days</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">partnership thread quiet · was discussing API integration</div>
-  </div>
-  <button class="btn-ul-g" id="btnFollowUp" style="flex-shrink:0;margin-left:16px;margin-top:4px">follow up</button>
+<div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);gap:8px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0"></div>
+  <span style="font-size:11px;font-weight:300;color:var(--ink);flex:1;letter-spacing:0.02em">Alex Chen · Mnemix — 11 days, cooling</span>
+  <button class="btn-ghost" style="font-size:9px" onclick="OKAERI.go('d22-relationship-health')">view</button>
 </div>
-
-<!-- Card 4: Ready to Execute -->
-<div class="cmd-card" id="cardReadyExec" style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px 16px;border-left:2px solid var(--green);margin-bottom:8px;transition:opacity 0.15s;cursor:default">
-  <div style="flex:1;min-width:0">
-    <div style="font-size:9px;font-weight:200;letter-spacing:0.36em;text-transform:uppercase;color:var(--green)">ready to execute</div>
-    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Okaeri can create the rate limit bug ticket now</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">Marcus committed in Q2 sync · P1 · Linear · high confidence</div>
-  </div>
-  <button class="btn-ul-g" id="btnExecTicket" style="flex-shrink:0;margin-left:16px;margin-top:4px">execute</button>
+<div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);gap:8px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+  <span style="font-size:11px;font-weight:300;color:var(--ink);flex:1;letter-spacing:0.02em">Rate limit bug ticket — ready to auto-execute</span>
+  <button class="btn-ghost" style="font-size:9px;color:var(--green)" id="btnExecTicket2">execute</button>
+</div>
+<div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);gap:8px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+  <span style="font-size:11px;font-weight:300;color:var(--ink);flex:1;letter-spacing:0.02em">GTM direction changed twice in 10 days</span>
+  <button class="btn-ghost" style="font-size:9px" onclick="OKAERI.go('d12-conflict-detection')">resolve</button>
+</div>
+<div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);gap:8px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0"></div>
+  <span style="font-size:11px;font-weight:300;color:var(--ink);flex:1;letter-spacing:0.02em">Index outreach hold may be stale (6 weeks)</span>
+  <button class="btn-ghost" style="font-size:9px" onclick="OKAERI.go('d47-change-detection')">review</button>
 </div>
 
 <!-- If you do nothing -->
-<div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.16em;padding:12px 0;border-top:0.5px solid var(--rule2)">if you do nothing: Sequoia materials arrive late, Index outreach slips to week 4, Mnemix goes cold</div>
-
-<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:11px 16px;border-left:2px solid var(--blue);margin-bottom:8px;background:rgba(24,95,165,0.05)">
-  <div style="flex:1;min-width:0">
-    <div style="font-size:9px;font-weight:200;letter-spacing:0.36em;text-transform:uppercase;color:var(--blue)">strategic inconsistency</div>
-    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">GTM direction changed twice in 10 days — resolve before investor follow-up</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">Mar 14: PLG-first · Mar 20: enterprise-first · today: PLG discussed again</div>
-  </div>
-  <button class="btn-ul" style="flex-shrink:0;margin-left:16px;margin-top:4px" onclick="OKAERI.go('d12-conflict-detection')">resolve</button>
-</div>
-
-<!-- Decision Expiry Card -->
-<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px 16px;border-left:2px solid var(--ink3);margin-bottom:8px;background:rgba(187,187,187,0.06)">
-  <div style="flex:1;min-width:0">
-    <div style="font-size:9px;font-weight:200;letter-spacing:0.36em;text-transform:uppercase;color:var(--ink3)">decision may be stale</div>
-    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">"Wait on Index Ventures outreach until metrics improve"</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:2px">decided 6 weeks ago · metrics have since improved · outreach is now overdue</div>
-  </div>
-  <div style="display:flex;gap:6px;flex-shrink:0;margin-left:16px;margin-top:4px">
-    <button class="btn-ul" id="btnReaffirm" style="font-size:9px">still holds</button>
-    <button class="btn-ul-g" id="btnExpire" style="font-size:9px">expired — act now</button>
-  </div>
-</div>
+<div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.16em;padding:8px 0;border-top:0.5px solid var(--rule2)">if you do nothing: Sequoia materials arrive late, Index outreach slips to week 4, Mnemix goes cold</div>
 
 <!-- Prep card: Sequoia meeting -->
 <div class="sl" style="margin-top:8px">coming up in 28 minutes</div>
@@ -92,20 +68,24 @@
   </div>
 </div>
 
-<!-- Prep card: Resonance meeting -->
-<div class="sl" style="margin-top:12px">later today</div>
-<div class="prep-card" id="prepCardResonance" style="cursor:default">
-  <div class="pc-top">
-    <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">23</div><div class="pc-tm">14:00</div></div>
-    <div style="flex:1">
-      <div class="pc-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="3" stroke="#185FA5" stroke-width=".8"/><path d="M4 2v2.5l1.5 1" stroke="#185FA5" stroke-width=".8" stroke-linecap="round"/></svg><span class="pc-badge-t">prep ready</span></div>
-      <div class="pc-name">Design partner call · Resonance</div>
-      <div class="pc-mt">60 min · Zoom · 3 attendees</div>
-      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em;margin-top:5px">Marcus demo blocked by rate limit bug — check status before this call</div>
+<!-- 1 more meeting today -->
+<div id="moreMeetingsToggle" style="margin-top:8px;cursor:pointer">
+  <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;border-bottom:0.5px solid var(--rule2)">1 more meeting today ↓</span>
+</div>
+<div id="moreMeetingsContent" style="display:none;margin-top:8px">
+  <div class="prep-card" id="prepCardResonance" style="cursor:default">
+    <div class="pc-top">
+      <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">23</div><div class="pc-tm">14:00</div></div>
+      <div style="flex:1">
+        <div class="pc-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="3" stroke="#185FA5" stroke-width=".8"/><path d="M4 2v2.5l1.5 1" stroke="#185FA5" stroke-width=".8" stroke-linecap="round"/></svg><span class="pc-badge-t">prep ready</span></div>
+        <div class="pc-name">Design partner call · Resonance</div>
+        <div class="pc-mt">60 min · Zoom · 3 attendees</div>
+        <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em;margin-top:5px">Marcus demo blocked by rate limit bug — check status before this call</div>
+      </div>
     </div>
-  </div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <button class="btn-b" id="openPrepResonance" style="pointer-events:auto;cursor:default;opacity:0.7"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn-b" id="openPrepResonance" style="pointer-events:auto;cursor:default;opacity:0.7"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
+    </div>
   </div>
 </div>
 
@@ -130,7 +110,7 @@
     showToast('materials sent');
     var card = document.getElementById('cardTopPriority');
     var btn = this;
-    btn.textContent = '✓ sent';
+    btn.textContent = '\u2713 sent';
     btn.style.color = 'var(--green)';
     btn.style.borderColor = 'var(--green)';
     btn.disabled = true;
@@ -141,60 +121,41 @@
     }
   });
 
-  // Card 2: Draft now — Index Ventures
-  document.getElementById('btnDraftIndex').addEventListener('click', function(e){
+  // Also watching: Draft Index
+  document.getElementById('btnDraftIndex2').addEventListener('click', function(e){
     e.stopPropagation();
     showToast('draft started');
     var btn = this;
-    btn.textContent = '✓ drafting';
+    btn.textContent = '\u2713 drafting';
     btn.style.color = 'var(--green)';
-    btn.style.borderColor = 'var(--green)';
     btn.disabled = true;
   });
 
-  // Card 3: Follow up — navigate to relationship health
-  document.getElementById('btnFollowUp').addEventListener('click', function(e){
-    e.stopPropagation();
-    if(window.OKAERI) OKAERI.go('d22-relationship-health');
-  });
-
-  // Card 4: Execute — create rate limit bug ticket
-  document.getElementById('btnExecTicket').addEventListener('click', function(e){
+  // Also watching: Execute ticket
+  document.getElementById('btnExecTicket2').addEventListener('click', function(e){
     e.stopPropagation();
     showToast('ticket created in Linear');
-    var card = document.getElementById('cardReadyExec');
     var btn = this;
-    btn.textContent = '✓ executed';
+    btn.textContent = '\u2713 done';
     btn.style.color = 'var(--green)';
-    btn.style.borderColor = 'var(--green)';
     btn.disabled = true;
-    card.style.opacity = '0.5';
     if(window.OKAERI){
       if(!OKAERI.executedCards) OKAERI.executedCards = [];
       OKAERI.executedCards.push('rate-limit-bug');
     }
   });
 
-  // Decision expiry: reaffirm
-  document.getElementById('btnReaffirm').addEventListener('click', function(e){
-    e.stopPropagation();
-    var card = this.closest('div[style*="border-left:2px solid var(--ink3)"]');
-    card.style.opacity = '0.5';
-    card.querySelector('div[style*="font-size:9px"]').textContent = '\u2713 reaffirmed';
-    card.querySelector('div[style*="font-size:9px"]').style.color = 'var(--green)';
-    this.parentElement.style.display = 'none';
-    showToast('decision reaffirmed \u2014 hold on outreach continues');
-  });
-
-  // Decision expiry: expire
-  document.getElementById('btnExpire').addEventListener('click', function(e){
-    e.stopPropagation();
-    var card = this.closest('div[style*="border-left:2px solid var(--ink3)"]');
-    card.style.opacity = '0.5';
-    card.querySelector('div[style*="font-size:9px"]').textContent = '\u2713 expired \u2014 unblocked';
-    card.querySelector('div[style*="font-size:9px"]').style.color = 'var(--green)';
-    this.parentElement.style.display = 'none';
-    showToast('decision expired \u2014 Index outreach unblocked');
+  // More meetings toggle
+  document.getElementById('moreMeetingsToggle').addEventListener('click', function(){
+    var content = document.getElementById('moreMeetingsContent');
+    var toggle = this.querySelector('span');
+    if(content.style.display === 'none'){
+      content.style.display = 'block';
+      toggle.textContent = '1 more meeting today \u2191';
+    } else {
+      content.style.display = 'none';
+      toggle.textContent = '1 more meeting today \u2193';
+    }
   });
 
   // Prep card navigation
@@ -230,7 +191,7 @@
     var card1 = document.getElementById('cardTopPriority');
     var btn1 = document.getElementById('btnExecuteSequoia');
     if(card1 && btn1){
-      btn1.textContent = '✓ sent';
+      btn1.textContent = '\u2713 sent';
       btn1.style.color = 'var(--green)';
       btn1.style.borderColor = 'var(--green)';
       btn1.disabled = true;
@@ -238,16 +199,13 @@
     }
   }
 
-  // If rate limit bug ticket already created, update card 4
+  // If rate limit bug ticket already created, update execute button
   if(O.executedCards.indexOf('rate-limit-bug') !== -1){
-    var card4 = document.getElementById('cardReadyExec');
-    var btn4 = document.getElementById('btnExecTicket');
-    if(card4 && btn4){
-      btn4.textContent = '✓ executed';
+    var btn4 = document.getElementById('btnExecTicket2');
+    if(btn4){
+      btn4.textContent = '\u2713 done';
       btn4.style.color = 'var(--green)';
-      btn4.style.borderColor = 'var(--green)';
       btn4.disabled = true;
-      card4.style.opacity = '0.5';
     }
   }
 })();
