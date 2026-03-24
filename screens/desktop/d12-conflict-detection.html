@@ -5,6 +5,37 @@
 <div class="ptitle">conflicts</div>
 <div class="sub" style="margin-bottom:16px">when two meetings produced contradictory decisions</div>
 
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+  <div style="font-size:28px;font-weight:200;color:var(--ink);letter-spacing:-0.02em">3</div>
+  <div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.14em">active contradictions</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">across 10 meetings · 30 days</div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px">
+  <div style="text-align:center;padding:8px;border:0.5px solid var(--rule2);border-radius:6px">
+    <div style="font-size:18px;font-weight:200;color:var(--amber)">2</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">strategy</div>
+  </div>
+  <div style="text-align:center;padding:8px;border:0.5px solid var(--rule2);border-radius:6px">
+    <div style="font-size:18px;font-weight:200;color:var(--ink3)">0</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">owners</div>
+  </div>
+  <div style="text-align:center;padding:8px;border:0.5px solid var(--rule2);border-radius:6px">
+    <div style="font-size:18px;font-weight:200;color:var(--amber)">1</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">deadlines</div>
+  </div>
+  <div style="text-align:center;padding:8px;border:0.5px solid var(--rule2);border-radius:6px">
+    <div style="font-size:18px;font-weight:200;color:var(--ink3)">0</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">deals</div>
+  </div>
+  <div style="text-align:center;padding:8px;border:0.5px solid var(--rule2);border-radius:6px">
+    <div style="font-size:18px;font-weight:200;color:var(--green)">4</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">resolved</div>
+  </div>
+</div>
+
 <div class="conf u" id="conf0" style="border-color:var(--blue)">
   <div class="conf-h">
     <div class="conf-topic">Marcus's rate limit bug timeline</div>
@@ -23,9 +54,11 @@
   </div>
   <div class="conf-f">
     <div class="conf-ft">same day · affecting 2 meetings</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-ghost" onclick="document.getElementById('conf0').style.opacity='0.5';document.getElementById('badge0').innerHTML='dismissed'">dismiss</button>
-      <button class="btn-ul" id="flagMarcus0">flag for Marcus</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-ul" onclick="resolveConf('conf0','badge0','new statement replaces old')">new statement replaces old</button>
+      <button class="btn-ghost" onclick="resolveConf('conf0','badge0','both true in different contexts')">both true in different contexts</button>
+      <button class="btn-ghost" onclick="resolveConf('conf0','badge0','still unresolved')">still unresolved</button>
+      <button class="btn-ghost" onclick="resolveConf('conf0','badge0','dismissed')">dismiss</button>
     </div>
   </div>
 </div>
@@ -50,9 +83,11 @@
   </div>
   <div class="conf-f">
     <div class="conf-ft">6 days apart · same speaker</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-ghost" onclick="document.getElementById('conf1').style.opacity='0.5';document.getElementById('badge1').innerHTML='resolved'">dismiss</button>
-      <button class="btn-skip" id="markCurrent1">mark as current</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-ul" onclick="resolveConf('conf1','badge1','new statement replaces old')">new statement replaces old</button>
+      <button class="btn-ghost" onclick="resolveConf('conf1','badge1','both true in different contexts')">both true in different contexts</button>
+      <button class="btn-ghost" onclick="resolveConf('conf1','badge1','still unresolved')">still unresolved</button>
+      <button class="btn-ghost" onclick="resolveConf('conf1','badge1','dismissed')">dismiss</button>
     </div>
   </div>
 </div>
@@ -77,9 +112,11 @@
   </div>
   <div class="conf-f">
     <div class="conf-ft">8 days apart · different contexts</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-ghost" onclick="document.getElementById('conf2').style.opacity='0.5';document.getElementById('badge2').innerHTML='resolved'">dismiss</button>
-      <button class="btn-skip" id="markCurrent2">mark as current</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-ul" onclick="resolveConf('conf2','badge2','new statement replaces old')">new statement replaces old</button>
+      <button class="btn-ghost" onclick="resolveConf('conf2','badge2','both true in different contexts')">both true in different contexts</button>
+      <button class="btn-ghost" onclick="resolveConf('conf2','badge2','still unresolved')">still unresolved</button>
+      <button class="btn-ghost" onclick="resolveConf('conf2','badge2','dismissed')">dismiss</button>
     </div>
   </div>
 </div>
@@ -109,26 +146,20 @@
 </div>
 
 <script>
-(function(){
-  document.getElementById('flagMarcus0').addEventListener('click', function(){
-    var card = document.getElementById('conf0');
-    var badge = document.getElementById('badge0');
-    card.style.opacity = '0.5';
-    badge.innerHTML = '<span style="color:var(--green)">flagged</span>';
-  });
-  document.getElementById('markCurrent1').addEventListener('click', function(){
-    var card = document.getElementById('conf1');
-    var badge = document.getElementById('badge1');
-    card.style.opacity = '0.5';
-    card.classList.remove('u');
-    badge.innerHTML = '<span style="color:var(--green)">resolved</span>';
-  });
-  document.getElementById('markCurrent2').addEventListener('click', function(){
-    var card = document.getElementById('conf2');
-    var badge = document.getElementById('badge2');
-    card.style.opacity = '0.5';
-    card.classList.remove('u');
-    badge.innerHTML = '<span style="color:var(--green)">resolved</span>';
-  });
-})();
+function resolveConf(cardId, badgeId, resolution){
+  var card = document.getElementById(cardId);
+  var badge = document.getElementById(badgeId);
+  if(!card || !badge) return;
+  card.style.opacity = '0.5';
+  card.classList.remove('u');
+  badge.innerHTML = '<div style="display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:var(--green)"></div><span style="color:var(--green)">\u2713 resolved</span></div>';
+  // Show resolution type
+  var footer = card.querySelector('.conf-f');
+  if(footer){
+    var resLabel = document.createElement('div');
+    resLabel.style.cssText = 'font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:6px';
+    resLabel.textContent = 'resolution: ' + resolution;
+    footer.appendChild(resLabel);
+  }
+}
 </script>

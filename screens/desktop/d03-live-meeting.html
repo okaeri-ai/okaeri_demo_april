@@ -103,6 +103,21 @@
         </div>
       </div>
 
+      <!-- Alert: contradiction (blue, fades in after alert 4) -->
+      <div class="steer-alert" id="steerContradiction" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity 0.4s">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase">possible contradiction</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">On Mar 20, enterprise-first was stated as the near-term motion. Today, self-serve onboarding was just mentioned as a priority.</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Last week we aligned on enterprise-first. Are we changing strategy, or testing PLG in parallel?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px" onclick="this.textContent='surfaced';this.style.color='var(--green)';this.disabled=true">surface</button>
+          <button class="btn-ghost" style="font-size:8px;letter-spacing:0.14em" onclick="this.textContent='intentional';this.style.color='var(--green)'">mark as intentional change</button>
+          <button class="btn-ghost" style="font-size:8px;letter-spacing:0.14em" onclick="this.parentElement.parentElement.style.opacity='0.3'">ignore</button>
+        </div>
+      </div>
+
       <!-- Alert 5: steering complete (green, fades in after alert 4) -->
       <div class="steer-alert" id="steerAlert5" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
         <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
@@ -360,11 +375,16 @@
           // Steering alert 4 fades in with voiceSig4
           var sa4 = document.getElementById('steerAlert4');
           if(sa4) sa4.style.opacity = '1';
-          // After 2s more (adjusted), fade in steering alert 5
+          // After 1s more (adjusted), fade in contradiction alert
           setTimeout(function(){
-            var sa5 = document.getElementById('steerAlert5');
-            if(sa5) sa5.style.opacity = '1';
-          }, 2000 * timingMultiplier);
+            var sc = document.getElementById('steerContradiction');
+            if(sc) sc.style.opacity = '1';
+            // After 1s more, fade in steering alert 5
+            setTimeout(function(){
+              var sa5 = document.getElementById('steerAlert5');
+              if(sa5) sa5.style.opacity = '1';
+            }, 1000 * timingMultiplier);
+          }, 1000 * timingMultiplier);
         }, 1000 * timingMultiplier);
         // After another 3.5s, fade in note 4 and update count to 4
         setTimeout(function(){
