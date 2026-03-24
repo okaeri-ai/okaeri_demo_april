@@ -123,3 +123,33 @@
   };
 })();
 </script>
+
+<script>
+(function(){
+  var executed = window.OKAERI.executedCards || [];
+  if (!executed.length) return;
+
+  var added = executed.length;
+  var baseExecuted = 22;
+  var baseMissed = 1;
+
+  var newExecuted = baseExecuted + added;
+  var newTotal = newExecuted + baseMissed;
+  var newRate = Math.round((newExecuted / newTotal) * 100);
+
+  // Update big stats
+  var bsn = document.querySelectorAll('.bsn');
+  if (bsn.length >= 3) {
+    bsn[0].textContent = newExecuted; // executed count
+    bsn[2].textContent = newRate + '%'; // rate
+  }
+
+  // Update narrative if all 4 cards executed
+  if (added >= 4) {
+    var narrT = document.querySelector('.narr-t');
+    if (narrT) {
+      narrT.textContent = 'Exceptional week. You executed ' + newExecuted + ' of ' + newTotal + ' commitments at a ' + newRate + '% rate — a clean execution day pushed this into your best week yet. The only slip was the Mnemix partnership proposal, now rolled to next week. Your fast review-to-execution pattern is compounding: commitments reviewed within 2 hours completed at 99%. Keep front-loading partnership work earlier in the week.';
+    }
+  }
+})();
+</script>

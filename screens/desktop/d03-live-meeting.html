@@ -19,7 +19,7 @@
     <div class="sl">live transcript</div>
     <div class="turn"><div class="turn-who"><span>Priya</span><span style="color:var(--ink4)">18:02</span></div><div class="turn-t">The Acme deal is close. I'll update the stage in Salesforce today and send them the recap.</div></div>
     <div class="turn"><div class="turn-who"><span>James</span><span style="color:var(--ink4)">18:18</span></div><div class="turn-t">We should follow up with Andreessen next week. I can own that, 30 minutes.</div></div>
-    <div class="turn"><div class="turn-who"><span>Marcus</span><span style="color:var(--ink4)">18:29</span></div><div class="turn-t dim">The rate limit bug needs to be P1. I'll take it, done before end of sprint<span class="cur"></span></div></div>
+    <div class="turn" id="marcusTurn"><div class="turn-who"><span>Marcus</span><span style="color:var(--ink4)">18:29</span></div><div class="turn-t dim" id="marcusText"><span class="cur"></span></div></div>
   </div>
   <div class="cap-div"></div>
   <div class="cap-r">
@@ -27,17 +27,17 @@
     <div id="liveNotes">
       <div class="note-i"><span class="ntag nt-d">decision</span><span class="note-t">Ship v1 with Linear + Slack only. Expand post-launch based on design partner feedback.</span></div>
       <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">Priya updates Acme deal stage in Salesforce today.</span></div>
-      <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">James schedules Andreessen follow-up, 30 min, next week.</span></div>
+      <div class="note-i" id="liveNote3" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">James schedules Andreessen follow-up, 30 min, next week.</span></div>
       <div class="note-i" id="liveNote4" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">Marcus takes rate limit bug · P1 · before end of sprint.</span></div>
     </div>
   </div>
 </div>
 <div class="ext-tray">
-  <div style="display:flex;align-items:center;gap:8px"><div class="ext-dot"></div><span class="ext-txt">okaeri has extracted</span><span class="ext-cnt" id="extCnt">3 commitments so far</span></div>
+  <div style="display:flex;align-items:center;gap:8px"><div class="ext-dot"></div><span class="ext-txt">okaeri has extracted</span><span class="ext-cnt" id="extCnt">2 commitments so far</span></div>
   <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em">review after meeting</span>
 </div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:.5px solid var(--rule2);margin-top:12px">
-  <button class="btn-ghost">discard</button>
+  <button class="btn-ghost" id="discardBtn">discard</button>
   <button class="btn-ul" id="endMeetingBtn">end meeting</button>
 </div>
 
@@ -49,15 +49,6 @@
     var m = Math.floor(secs/60), s = String(secs%60).padStart(2,'0');
     var el = document.getElementById('liveDur');
     if(el) el.textContent = m+':'+s;
-    if(secs === 1120){
-      var n4 = document.getElementById('liveNote4');
-      if(n4) n4.style.opacity = '1';
-      var ec = document.getElementById('extCnt');
-      if(ec) {
-        ec.textContent = '4 commitments so far';
-        ec.classList.add('count-pulse');
-      }
-    }
   }, 1000);
 
   // Clean up timer when navigating away
@@ -69,8 +60,67 @@
   });
   observer.observe(document.getElementById('screenContent') || document.body, {childList:true, subtree:true});
 
+  // Real-time typing simulation for Marcus
+  var marcusWords = "The rate limit bug needs to be P1. I'll take it, done before end of sprint".split(' ');
+  var marcusEl = document.getElementById('marcusText');
+  var wordIdx = 0;
+  var typingInterval = setInterval(function(){
+    if(wordIdx < marcusWords.length){
+      // Insert word before the cursor span
+      var curSpan = marcusEl.querySelector('.cur');
+      var text = (wordIdx > 0 ? ' ' : '') + marcusWords[wordIdx];
+      curSpan.insertAdjacentText('beforebegin', text);
+      wordIdx++;
+    } else {
+      clearInterval(typingInterval);
+      // Marcus line complete. After 1s, fade in note 3 and update count to 3
+      setTimeout(function(){
+        var n3 = document.getElementById('liveNote3');
+        if(n3) n3.style.opacity = '1';
+        var ec = document.getElementById('extCnt');
+        if(ec){
+          ec.textContent = '3 commitments so far';
+          ec.classList.remove('count-pulse');
+          void ec.offsetWidth;
+          ec.classList.add('count-pulse');
+        }
+        // After another 3s, fade in note 4 and update count to 4
+        setTimeout(function(){
+          var n4 = document.getElementById('liveNote4');
+          if(n4) n4.style.opacity = '1';
+          var ec2 = document.getElementById('extCnt');
+          if(ec2){
+            ec2.textContent = '4 commitments so far';
+            ec2.classList.remove('count-pulse');
+            void ec2.offsetWidth;
+            ec2.classList.add('count-pulse');
+          }
+        }, 3000);
+      }, 1000);
+    }
+  }, 100);
+
+  // Discard button with confirm
+  var discardBtn = document.getElementById('discardBtn');
+  var discardConfirm = false;
+  var discardTimer = null;
+  discardBtn.addEventListener('click', function(){
+    if(discardConfirm){
+      clearTimeout(discardTimer);
+      OKAERI.go('d01-home');
+      return;
+    }
+    discardConfirm = true;
+    discardBtn.textContent = 'are you sure?';
+    discardTimer = setTimeout(function(){
+      discardConfirm = false;
+      discardBtn.textContent = 'discard';
+    }, 2000);
+  });
+
   document.getElementById('endMeetingBtn').addEventListener('click', function(){
     clearInterval(timer);
+    clearInterval(typingInterval);
     OKAERI.go('d04-confirm-execute');
   });
 })();

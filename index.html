@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Okaeri — voice-first execution engine for founders. Notes don't close tickets. Okaeri does.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><circle cx='5' cy='5' r='4' fill='%232d7a4a'/></svg>">
 <title>Okaeri — Interactive Prototype</title>
 <link rel="stylesheet" href="styles/system.css">
 <style>
@@ -28,8 +31,13 @@ body { display: flex; background: var(--bg); }
   font-weight: 200;
   color: var(--ink);
   letter-spacing: 0.35em;
-  padding: 0 20px 18px;
+  padding: 0 20px 12px;
   cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 0.5px solid var(--rule2);
 }
 
 .nav-section { margin-bottom: 4px; }
@@ -107,6 +115,110 @@ body { display: flex; background: var(--bg); }
 .view-btn:not(:first-child) { border-left: none; }
 .view-btn.active { color: var(--ink); border-color: var(--ink); z-index: 1; }
 
+/* ── Demo Button ── */
+.demo-btn {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.18em;
+  background: none;
+  border: 0.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-right: 12px;
+  transition: all 0.15s;
+}
+.demo-btn:hover { color: var(--ink2); }
+.demo-btn.active { color: var(--green); border-color: var(--green); }
+
+/* ── Demo Indicator ── */
+.demo-indicator {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  border: 0.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 16px;
+  z-index: 50;
+  align-items: center;
+  gap: 10px;
+}
+.demo-indicator.on { display: flex; }
+.demo-step-text {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.demo-nav-btn { padding: 2px 6px; }
+
+/* ── Keyboard Hint ── */
+.kbd-hint {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink4);
+  letter-spacing: 0.12em;
+  margin-left: 4px;
+}
+
+/* ── Keyboard Shortcuts Overlay ── */
+.kb-shortcut-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.kb-key {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink2);
+  letter-spacing: 0.08em;
+  border: 0.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 2px 8px;
+  min-width: 40px;
+  text-align: center;
+  background: var(--bg2);
+}
+.kb-desc {
+  font-size: 11px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.06em;
+}
+
+/* ── Phone Status Bar ── */
+.phone-status-bar {
+  height: 20px;
+  background: var(--bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 3;
+  flex-shrink: 0;
+}
+.phone-status-bar .psb-time {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.phone-status-bar .psb-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.phone-status-bar .psb-icons svg {
+  display: block;
+}
+
 /* ── Screen Content ── */
 .main-panel {
   flex: 1;
@@ -142,6 +254,19 @@ body { display: flex; background: var(--bg); }
   background: #2a2a28;
   padding: 40px;
 }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .view-toggle { display: none; }
+}
+@media (max-width: 600px) {
+  body::after {
+    content: 'okaeri is designed for desktop';
+    position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 200; color: var(--ink3); letter-spacing: 0.28em; z-index: 9999;
+  }
+}
 </style>
 </head>
 <body>
@@ -154,6 +279,7 @@ body { display: flex; background: var(--bg); }
 
   <!-- View Toggle -->
   <div class="view-toggle">
+    <button class="demo-btn" id="demoBtn">demo</button>
     <button class="view-btn active" data-view="desktop">desktop</button>
     <button class="view-btn" data-view="mobile">mobile</button>
     <button class="view-btn" data-view="ambient">ambient</button>
@@ -170,6 +296,7 @@ body { display: flex; background: var(--bg); }
     <div class="tr" id="titleRight">
       <div class="pulse-dot"></div>
       <span class="tstat" id="tstatEl">listening</span>
+      <span class="kbd-hint">&#8984;K</span>
     </div>
   </div>
 
@@ -182,13 +309,43 @@ body { display: flex; background: var(--bg); }
   <div class="phone-wrapper" id="phoneFrame">
     <div class="phone-frame">
       <div class="phone-notch"></div>
-      <div class="phone-screen" id="phoneScreenContent"></div>
+      <div class="phone-screen" id="phoneScreenContent" style="padding-top:20px">
+        <div class="phone-status-bar" style="position:absolute;top:0;left:0;right:0">
+          <span class="psb-time">9:41</span>
+          <span class="psb-icons">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><rect x="0" y="6" width="2" height="4" rx="0.5" fill="var(--ink)"/><rect x="3.5" y="4" width="2" height="6" rx="0.5" fill="var(--ink)"/><rect x="7" y="1.5" width="2" height="8.5" rx="0.5" fill="var(--ink)"/></svg>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M6 3.5C7.4 3.5 8.6 4 9.5 4.9" stroke="var(--ink)" stroke-width="1" stroke-linecap="round"/><path d="M6 1C8.2 1 10.1 1.9 11.4 3.3" stroke="var(--ink)" stroke-width="1" stroke-linecap="round"/><circle cx="6" cy="7.5" r="1" fill="var(--ink)"/></svg>
+            <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><rect x="0.5" y="1" width="14" height="8" rx="1.5" stroke="var(--ink)" stroke-width="0.8"/><rect x="2" y="2.5" width="10" height="5" rx="0.5" fill="var(--ink)"/><rect x="15.5" y="3.5" width="1.5" height="3" rx="0.5" fill="var(--ink)"/></svg>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Ambient Frame -->
   <div class="ambient-wrapper" id="ambientFrame">
     <div class="ambient-surface" id="ambientContent" style="width:100%;max-width:800px"></div>
+  </div>
+
+  <!-- Demo Step Indicator -->
+  <div class="demo-indicator" id="demoIndicator">
+    <button class="btn-ghost demo-nav-btn" id="demoPrev">&larr;</button>
+    <span class="demo-step-text" id="demoStepText">step 1 of 5 &middot; home</span>
+    <button class="btn-ghost demo-nav-btn" id="demoNext">&rarr;</button>
+    <button class="btn-ghost demo-nav-btn" id="demoPause">pause</button>
+  </div>
+
+  <!-- Keyboard Shortcuts Overlay -->
+  <div class="modal-overlay" id="kbShortcutsOverlay">
+    <div class="modal-box" style="width:320px" id="kbShortcutsBox">
+      <div class="modal-title">keyboard shortcuts</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="kb-shortcut-row"><span class="kb-key">&#8984;K</span><span class="kb-desc">search</span></div>
+        <div class="kb-shortcut-row"><span class="kb-key">Esc</span><span class="kb-desc">back / close</span></div>
+        <div class="kb-shortcut-row"><span class="kb-key">Enter</span><span class="kb-desc">execute</span></div>
+        <div class="kb-shortcut-row"><span class="kb-key">?</span><span class="kb-desc">this help</span></div>
+      </div>
+    </div>
   </div>
 
 </div>

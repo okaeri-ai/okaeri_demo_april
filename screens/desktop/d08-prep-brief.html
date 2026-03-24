@@ -94,3 +94,32 @@
   });
 })();
 </script>
+
+<script>
+(function(){
+  // Find the countdown number element (the "28" amber number)
+  var numEl = document.querySelector('[style*="font-size:34px"][style*="color:var(--amber)"]');
+  if (!numEl) return;
+  var mins = parseInt(numEl.textContent, 10);
+  if (isNaN(mins)) return;
+
+  var countdownTimer = setInterval(function(){
+    mins--;
+    if (mins < 0) { clearInterval(countdownTimer); numEl.textContent = '0'; return; }
+    numEl.textContent = mins;
+
+    // Urgency pulse when 5 or below
+    if (mins <= 5 && !numEl.dataset.pulsing) {
+      numEl.dataset.pulsing = '1';
+      numEl.style.animation = 'prepPulse 1s ease-in-out infinite';
+      // Inject keyframes if not already present
+      if (!document.getElementById('prep-pulse-style')) {
+        var style = document.createElement('style');
+        style.id = 'prep-pulse-style';
+        style.textContent = '@keyframes prepPulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.08); } }';
+        document.head.appendChild(style);
+      }
+    }
+  }, 60000);
+})();
+</script>

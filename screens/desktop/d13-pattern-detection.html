@@ -1,3 +1,4 @@
+<div id="pattern-inject-zone"></div>
 <div class="eyebrow">30 days · 89 commitments analyzed</div>
 <div class="ptitle">patterns</div>
 <div class="sub" style="margin-bottom:16px">3 consistent patterns in your execution behavior</div>
@@ -76,3 +77,45 @@
   <div class="ins-dot" style="background:var(--green)"></div>
   <div class="ins-t">Fast review cycles are your strongest execution lever. Prioritize reviewing new commitments within the first 2 hours to maintain the 99% completion rate.</div>
 </div>
+
+<script>
+(function(){
+  var executed = window.OKAERI.executedCards || [];
+  if (executed.length < 3) return;
+
+  var n = executed.length;
+  // Calculate minutes from first to last execution
+  var times = executed.map(function(c){ return c.executedAt ? new Date(c.executedAt).getTime() : 0; }).filter(function(t){ return t > 0; });
+  var minutes = 0;
+  if (times.length >= 2) {
+    var earliest = Math.min.apply(null, times);
+    var latest = Math.max.apply(null, times);
+    minutes = Math.round((latest - earliest) / 60000);
+  }
+  if (minutes < 1) minutes = 1;
+
+  var zone = document.getElementById('pattern-inject-zone');
+  if (!zone) return;
+
+  var card = document.createElement('div');
+  card.className = 'pat';
+  card.style.borderLeft = '2px solid var(--green)';
+  card.style.marginBottom = '16px';
+  card.innerHTML =
+    '<div class="pat-h">' +
+      '<div>' +
+        '<div class="ph-type pos">new pattern · positive</div>' +
+        '<div class="ph-text">Fast execution streak detected: ' + n + ' commitments in ' + minutes + ' minutes</div>' +
+      '</div>' +
+      '<div style="text-align:right">' +
+        '<div class="ph-n pos">' + n + '</div>' +
+        '<div class="ph-nl">executed</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pat-f">' +
+      '<div class="pat-ft">Detected today · based on ' + n + ' executions</div>' +
+    '</div>';
+
+  zone.appendChild(card);
+})();
+</script>

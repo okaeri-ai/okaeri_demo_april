@@ -124,3 +124,71 @@
   <div class="prio-t">Use the afternoon focus block to update the investor deck with last week's traction numbers.</div>
   <div class="prio-w">4:30 pm</div>
 </div>
+
+<script>
+(function(){
+  var executed = window.OKAERI.executedCards || [];
+  if (!executed.length) return;
+
+  // Map commitment IDs to carrying-forward item keywords
+  var carryMap = {
+    c3: 'andreessen',
+    c4: 'acme'
+  };
+
+  // Map commitment IDs to priority row keywords
+  var prioMap = {
+    c3: 'andreessen'
+  };
+
+  // --- Hydrate carrying forward column ---
+  var cols = document.querySelectorAll('.mb-col');
+  var carryCol = cols[1]; // second column = carrying forward
+  if (carryCol) {
+    var items = carryCol.querySelectorAll('.mb-item');
+    var removedCount = 0;
+    items.forEach(function(item) {
+      var name = (item.querySelector('.mb-iname') || {}).textContent || '';
+      var nameLower = name.toLowerCase();
+      executed.forEach(function(card) {
+        var keyword = carryMap[card.id];
+        if (keyword && nameLower.indexOf(keyword) !== -1) {
+          item.remove();
+          removedCount++;
+        }
+      });
+    });
+    // Check if all items removed
+    var remaining = carryCol.querySelectorAll('.mb-item');
+    if (remaining.length === 0) {
+      var allClear = document.createElement('div');
+      allClear.className = 'mb-item';
+      allClear.innerHTML = '<div class="mb-iname" style="color:var(--green);font-style:italic">all caught up</div><div class="mb-imeta">nothing carrying forward</div>';
+      carryCol.appendChild(allClear);
+    }
+  }
+
+  // --- Hydrate today's three things ---
+  var prioRows = document.querySelectorAll('.prio-row');
+  prioRows.forEach(function(row) {
+    var textEl = row.querySelector('.prio-t');
+    if (!textEl) return;
+    var text = textEl.textContent.toLowerCase();
+    executed.forEach(function(card) {
+      var keyword = prioMap[card.id];
+      if (keyword && text.indexOf(keyword) !== -1) {
+        textEl.style.textDecoration = 'line-through';
+        textEl.style.opacity = '0.45';
+        var numEl = row.querySelector('.prio-n');
+        if (numEl) {
+          numEl.textContent = '✓';
+          numEl.style.color = 'var(--green)';
+          numEl.style.fontSize = '14px';
+        }
+        var wEl = row.querySelector('.prio-w');
+        if (wEl) { wEl.textContent = 'done'; wEl.style.color = 'var(--green)'; }
+      }
+    });
+  });
+})();
+</script>

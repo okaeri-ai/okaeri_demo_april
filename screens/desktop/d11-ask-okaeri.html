@@ -14,8 +14,9 @@
   <div style="padding:18px 0;text-align:center;font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;background:rgba(234,243,222,0.3);border-radius:8px;padding:16px 22px">tap a question above</div>
 </div>
 
-<div class="ask-bar">
-  <div class="ask-in">ask anything<span class="acur"></span></div>
+<div class="ask-bar" style="display:flex;gap:8px;align-items:center">
+  <input id="askInput" type="text" placeholder="ask anything" style="flex:1;background:transparent;border:none;outline:none;font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;font-family:inherit;padding:0;line-height:1.6">
+  <button id="askSendBtn" style="background:none;border:none;font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;padding:4px 8px;flex-shrink:0">ask</button>
 </div>
 
 <script>
@@ -79,5 +80,112 @@
       }, 1400);
     });
   });
+})();
+</script>
+
+<script>
+(function(){
+  var input = document.getElementById('askInput');
+  var sendBtn = document.getElementById('askSendBtn');
+  var sugs = document.querySelectorAll('.sug');
+  var thread = document.getElementById('askThread');
+  var answers = OKAERI.askAnswers;
+
+  if (!input) return;
+
+  // Filter suggestions as user types
+  input.addEventListener('input', function(){
+    var val = input.value.toLowerCase().trim();
+    if (!val) {
+      sugs.forEach(function(s){ s.style.opacity = '1'; });
+      return;
+    }
+    var words = val.split(/\s+/);
+    sugs.forEach(function(s){
+      var q = s.getAttribute('data-q').toLowerCase();
+      var matches = words.some(function(w){ return w.length > 2 && q.indexOf(w) !== -1; });
+      s.style.opacity = matches ? '1' : '0.3';
+    });
+  });
+
+  function submitAsk(){
+    var val = input.value.trim();
+    if (!val) return;
+    var valLower = val.toLowerCase();
+    var words = valLower.split(/\s+/).filter(function(w){ return w.length > 2; });
+
+    // Find best matching answer (fuzzy: most keyword matches)
+    var bestKey = null, bestScore = 0;
+    Object.keys(answers).forEach(function(key){
+      var keyLower = key.toLowerCase();
+      var score = 0;
+      words.forEach(function(w){ if (keyLower.indexOf(w) !== -1) score++; });
+      if (score > bestScore) { bestScore = score; bestKey = key; }
+    });
+
+    // Need at least 1 keyword match
+    var matched = bestScore >= 1 ? answers[bestKey] : null;
+
+    // Show user message
+    thread.innerHTML = '<div class="msg"><div class="msg-who"><span>you</span><span>just now</span></div><div class="msg-t u">' + val.replace(/</g,'&lt;') + '</div></div>';
+
+    // Highlight matching suggestion
+    sugs.forEach(function(s){
+      s.classList.remove('sel');
+      if (matched && s.getAttribute('data-q') === bestKey) s.classList.add('sel');
+    });
+
+    // Typing indicator
+    var typing = document.createElement('div');
+    typing.className = 'typing-row';
+    typing.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
+    thread.appendChild(typing);
+
+    setTimeout(function(){
+      typing.remove();
+      var ansDiv = document.createElement('div');
+      ansDiv.className = 'msg';
+
+      if (matched) {
+        var evHtml = '';
+        if (matched.evidence && matched.evidence.length) {
+          evHtml = '<div class="ev">';
+          matched.evidence.forEach(function(e){
+            evHtml += '<div class="ev-i" data-nav="d30-lifecycle"><span class="ev-v">' + e.verb + '</span><span class="ev-o">' + e.obj + '</span><span class="ev-s">' + e.source + '</span><span class="ev-d">' + e.date + '</span></div>';
+          });
+          evHtml += '</div>';
+        }
+        ansDiv.innerHTML = '<div class="msg-who"><span>okaeri</span><span>just now</span></div><div class="msg-t">' + matched.text + '</div>' + evHtml;
+      } else {
+        ansDiv.innerHTML = '<div class="msg-who"><span>okaeri</span><span>just now</span></div><div class="msg-t" style="color:var(--ink3)">I don\'t have enough context to answer that yet. Try one of the suggestions above.</div>';
+      }
+
+      ansDiv.style.opacity = '0';
+      ansDiv.style.transition = 'opacity 0.3s ease';
+      thread.appendChild(ansDiv);
+      requestAnimationFrame(function(){ ansDiv.style.opacity = '1'; });
+
+      // Make evidence rows clickable
+      ansDiv.querySelectorAll('.ev-i[data-nav]').forEach(function(row){
+        row.addEventListener('click', function(){
+          window.OKAERI.activeEvidence = {
+            verb: this.querySelector('.ev-v').textContent,
+            obj: this.querySelector('.ev-o').textContent,
+            source: this.querySelector('.ev-s').textContent,
+            date: this.querySelector('.ev-d').textContent
+          };
+          OKAERI.go(this.getAttribute('data-nav'));
+        });
+      });
+    }, 1400);
+
+    input.value = '';
+    sugs.forEach(function(s){ s.style.opacity = '1'; });
+  }
+
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') { e.preventDefault(); submitAsk(); }
+  });
+  sendBtn.addEventListener('click', submitAsk);
 })();
 </script>

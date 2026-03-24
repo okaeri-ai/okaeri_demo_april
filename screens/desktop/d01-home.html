@@ -42,6 +42,19 @@
     e.stopPropagation();
     OKAERI.go('d08-prep-brief');
   });
+  // Dismiss button — fade out prep card
+  var dismissBtn = document.querySelector('#prepCardHome .btn-ghost');
+  if(dismissBtn){
+    dismissBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var card = document.getElementById('prepCardHome');
+      if(card){
+        card.style.transition = 'opacity 0.3s ease';
+        card.style.opacity = '0';
+        setTimeout(function(){ card.style.display = 'none'; }, 300);
+      }
+    });
+  }
   document.getElementById('chipSarahHome').addEventListener('click', function(e){
     e.stopPropagation();
     OKAERI.go('d09-sarah-profile');

@@ -123,6 +123,19 @@
   const collapsedSections = {};
   let currentView = 'desktop'; // desktop | mobile | ambient
 
+  // ── Demo Mode State ──
+  const DEMO_STEPS = [
+    { id: 'd01-home', label: 'home', duration: 5000 },
+    { id: 'd08-prep-brief', label: 'prep brief', duration: 5000 },
+    { id: 'd03-live-meeting', label: 'live meeting', duration: 5000 },
+    { id: 'd04-confirm-execute', label: 'confirm & execute', duration: 8000 },
+    { id: 'd05-all-clear', label: 'all clear', duration: 5000 }
+  ];
+  let demoActive = false;
+  let demoStep = 0;
+  let demoPaused = false;
+  let demoTimer = null;
+
   function buildSidebar() {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar) return;
@@ -176,12 +189,13 @@
     const titleRight = document.getElementById('titleRight');
     if (!titleRight) return;
 
+    const hint = '<span class="kbd-hint">\u2318K</span>';
     if (status.live) {
-      titleRight.innerHTML = '<div class="live-dot"></div><span class="tstat" style="color:var(--amber)">' + status.text + '</span>';
+      titleRight.innerHTML = '<div class="live-dot"></div><span class="tstat" style="color:var(--amber)">' + status.text + '</span>' + hint;
     } else if (status.green) {
-      titleRight.innerHTML = '<div class="pulse-dot" style="background:var(--green)"></div><span class="tstat" style="color:var(--green)">' + status.text + '</span>';
+      titleRight.innerHTML = '<div class="pulse-dot" style="background:var(--green)"></div><span class="tstat" style="color:var(--green)">' + status.text + '</span>' + hint;
     } else {
-      titleRight.innerHTML = '<div class="pulse-dot"></div><span class="tstat">' + status.text + '</span>';
+      titleRight.innerHTML = '<div class="pulse-dot"></div><span class="tstat">' + status.text + '</span>' + hint;
     }
   }
 
@@ -248,15 +262,36 @@
     else if (type === 'ambient') path = 'screens/ambient/' + screenId + '.html';
     else path = 'screens/desktop/' + screenId + '.html';
 
+    // Show skeleton loading state
+    const statusBarEl = container.querySelector('.phone-status-bar');
+    const statusBarHTML = (type === 'mobile' && statusBarEl) ? statusBarEl.outerHTML : '';
+    container.innerHTML = statusBarHTML
+      + '<div style="padding:40px 32px">'
+      + '<div class="skeleton-bar" style="width:60%"></div>'
+      + '<div class="skeleton-bar" style="width:80%"></div>'
+      + '<div class="skeleton-bar" style="width:40%"></div>'
+      + '<div class="skeleton-bar" style="width:70%"></div>'
+      + '</div>';
+
+    const errorFallback = '<div style="padding:48px 32px;text-align:center">'
+      + '<div style="font-size:15px;font-weight:200;color:var(--ink3);letter-spacing:0.32em;margin-bottom:14px">okaeri</div>'
+      + '<div style="display:inline-block;border:0.5px solid var(--rule);border-radius:10px;padding:20px 32px;font-size:12px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-bottom:16px">screen not yet built</div>'
+      + '<div style="display:flex;gap:16px;justify-content:center;margin-top:16px">'
+      + '<button onclick="OKAERI.go(\'' + screenId + '\')" style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.3em;text-transform:uppercase;background:none;border:none;text-decoration:underline;cursor:pointer;font-family:inherit">retry</button>'
+      + '<button onclick="OKAERI.go(\'d01-home\')" style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.3em;text-transform:uppercase;background:none;border:none;text-decoration:underline;cursor:pointer;font-family:inherit">go home</button>'
+      + '</div></div>';
+
     try {
       const resp = await fetch(path);
       if (!resp.ok) {
-        container.innerHTML = '<div style="padding:48px 32px;text-align:center"><div style="font-size:15px;font-weight:200;color:var(--ink3);letter-spacing:0.32em;margin-bottom:14px">okaeri</div><div style="display:inline-block;border:0.5px solid var(--rule);border-radius:10px;padding:20px 32px;font-size:12px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">screen not yet built</div></div>';
+        container.innerHTML = errorFallback;
       } else {
         const html = await resp.text();
         container.style.opacity = '0';
         container.style.transform = 'translateY(6px)';
-        container.innerHTML = html;
+        // Preserve status bar for mobile
+        const freshStatusBar = (type === 'mobile' && container.querySelector('.phone-status-bar')) ? container.querySelector('.phone-status-bar').outerHTML : '';
+        container.innerHTML = freshStatusBar + html;
 
         // Execute inline scripts
         container.querySelectorAll('script').forEach(oldScript => {
@@ -277,7 +312,7 @@
         });
       }
     } catch (e) {
-      container.innerHTML = '<div style="padding:48px 32px;text-align:center"><div style="font-size:15px;font-weight:200;color:var(--ink3);letter-spacing:0.32em;margin-bottom:14px">okaeri</div><div style="display:inline-block;border:0.5px solid var(--rule);border-radius:10px;padding:20px 32px;font-size:12px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">screen not yet built</div></div>';
+      container.innerHTML = errorFallback;
     }
 
     // Update URL hash
@@ -301,6 +336,139 @@
       navigate(prev);
       // Remove the duplicate entry navigate() adds
       window.OKAERI.screenHistory.pop();
+    }
+  }
+
+  // ── Demo Mode ──
+  function updateDemoIndicator() {
+    const el = document.getElementById('demoStepText');
+    const pauseBtn = document.getElementById('demoPause');
+    if (!el) return;
+    const step = DEMO_STEPS[demoStep];
+    el.innerHTML = 'step ' + (demoStep + 1) + ' of ' + DEMO_STEPS.length + ' &middot; ' + step.label;
+    if (pauseBtn) pauseBtn.textContent = demoPaused ? 'play' : 'pause';
+  }
+
+  function demoGoToStep(idx) {
+    if (idx < 0 || idx >= DEMO_STEPS.length) return;
+    demoStep = idx;
+    clearTimeout(demoTimer);
+    navigate(DEMO_STEPS[demoStep].id);
+    updateDemoIndicator();
+    if (!demoPaused) scheduleDemoAdvance();
+  }
+
+  function scheduleDemoAdvance() {
+    clearTimeout(demoTimer);
+    if (!demoActive || demoPaused) return;
+    const step = DEMO_STEPS[demoStep];
+    demoTimer = setTimeout(function() {
+      if (!demoActive || demoPaused) return;
+      if (demoStep < DEMO_STEPS.length - 1) {
+        demoGoToStep(demoStep + 1);
+      } else {
+        // Loop back to start
+        demoGoToStep(0);
+      }
+    }, step.duration);
+  }
+
+  function startDemo() {
+    demoActive = true;
+    demoStep = 0;
+    demoPaused = false;
+    const indicator = document.getElementById('demoIndicator');
+    const btn = document.getElementById('demoBtn');
+    if (indicator) indicator.classList.add('on');
+    if (btn) btn.classList.add('active');
+    demoGoToStep(0);
+  }
+
+  function stopDemo() {
+    demoActive = false;
+    demoPaused = false;
+    clearTimeout(demoTimer);
+    const indicator = document.getElementById('demoIndicator');
+    const btn = document.getElementById('demoBtn');
+    if (indicator) indicator.classList.remove('on');
+    if (btn) btn.classList.remove('active');
+  }
+
+  function toggleDemo() {
+    if (demoActive) stopDemo();
+    else startDemo();
+  }
+
+  function toggleDemoPause() {
+    demoPaused = !demoPaused;
+    updateDemoIndicator();
+    if (!demoPaused) scheduleDemoAdvance();
+  }
+
+  // ── Keyboard Shortcuts ──
+  function handleKeydown(e) {
+    // Ignore if typing in an input/textarea
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) {
+      // Only handle Escape in inputs
+      if (e.key === 'Escape') {
+        e.target.blur();
+      }
+      return;
+    }
+
+    // Cmd+K / Ctrl+K — Search
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      navigate('d39-search');
+      // Focus search input after screen loads
+      setTimeout(function() {
+        var searchInput = document.querySelector('.search-input') || document.querySelector('input[type="text"]');
+        if (searchInput) searchInput.focus();
+      }, 350);
+      return;
+    }
+
+    // Escape — close modal, exit demo, or go back
+    if (e.key === 'Escape') {
+      // Close keyboard shortcuts overlay
+      var kbOverlay = document.getElementById('kbShortcutsOverlay');
+      if (kbOverlay && kbOverlay.classList.contains('on')) {
+        kbOverlay.classList.remove('on');
+        return;
+      }
+      // Close any open modal
+      var openModal = document.querySelector('.modal-overlay.on');
+      if (openModal) {
+        openModal.classList.remove('on');
+        return;
+      }
+      // Exit demo mode
+      if (demoActive) {
+        stopDemo();
+        return;
+      }
+      // Go back
+      goBack();
+      return;
+    }
+
+    // Enter — execute all on d04
+    if (e.key === 'Enter') {
+      if (window.OKAERI.currentScreen === 'd04-confirm-execute') {
+        var execBtn = document.getElementById('execAllBtn');
+        if (execBtn) execBtn.click();
+      }
+      return;
+    }
+
+    // ? — show keyboard shortcuts
+    if (e.key === '?') {
+      var overlay = document.getElementById('kbShortcutsOverlay');
+      if (overlay) {
+        overlay.classList.toggle('on');
+      }
+      return;
     }
   }
 
@@ -329,6 +497,29 @@
       });
     });
 
+    // Demo button
+    var demoBtn = document.getElementById('demoBtn');
+    if (demoBtn) demoBtn.addEventListener('click', toggleDemo);
+
+    // Demo indicator controls
+    var demoPrevBtn = document.getElementById('demoPrev');
+    var demoNextBtn = document.getElementById('demoNext');
+    var demoPauseBtn = document.getElementById('demoPause');
+    if (demoPrevBtn) demoPrevBtn.addEventListener('click', function() { demoGoToStep(demoStep - 1); });
+    if (demoNextBtn) demoNextBtn.addEventListener('click', function() { demoGoToStep(demoStep + 1); });
+    if (demoPauseBtn) demoPauseBtn.addEventListener('click', toggleDemoPause);
+
+    // Keyboard shortcuts overlay — click outside to dismiss
+    var kbOverlay = document.getElementById('kbShortcutsOverlay');
+    if (kbOverlay) {
+      kbOverlay.addEventListener('click', function(e) {
+        if (e.target === kbOverlay) kbOverlay.classList.remove('on');
+      });
+    }
+
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', handleKeydown);
+
     // Load initial screen from hash or default
     const hash = window.location.hash.slice(1);
     const startScreen = hash || 'd01-home';
@@ -350,7 +541,7 @@
   }
 
   // Export navigation functions
-  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar };
+  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo };
 
   // Init when DOM ready
   if (document.readyState === 'loading') {
