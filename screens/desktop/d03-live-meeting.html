@@ -83,6 +83,46 @@
       <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="question">question</span>
     </div>
     <div id="okaeriHint" style="display:none;font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.16em;margin-top:5px"></div>
+    <div class="hr2"></div>
+    <div class="sl">live nudges</div>
+    <div id="liveInterventions">
+      <div style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">surfaced</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Context delivered: Sarah Rhodes published 'voice-first tools will eat enterprise' 3 days ago — anchoring point for your pitch</div>
+        <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:3px">&rarr; added to prep brief talking point #1</div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">relevant to current discussion topic</div>
+      </div>
+      <div style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase">held back</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Okaeri detected a pricing discussion but did NOT surface competitive data</div>
+        <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:3px">&rarr; staying quiet — Priya is handling this with confidence, interrupting would undermine her flow</div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">intervention suppressed: speaker conviction high, topic under control</div>
+      </div>
+      <div id="intervention3" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">alert</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Marcus is committing to P1 but already has 2 open P1 tickets. Workload risk detected.</div>
+        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px">&rarr; will flag in debrief, not during meeting — interrupting a commitment mid-sentence reduces follow-through by 23%</div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">restraint rule: never interrupt a commitment being made</div>
+      </div>
+      <div id="intervention4" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">preparing</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James said 'next week' without specifying a day. Preparing clarification prompt for post-meeting review.</div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:3px">&rarr; will ask 'did James mean Thursday?' in the confirm screen instead of interrupting the meeting</div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">learned pattern: clarifications during meetings slow the conversation. Post-meeting corrections are 3x faster.</div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="ext-tray">
@@ -142,6 +182,8 @@
         if(vs3) vs3.style.opacity = '1';
         var vc3 = document.getElementById('voiceSig3-consequence');
         if(vc3) vc3.style.opacity = '1';
+        var iv3 = document.getElementById('intervention3');
+        if(iv3) iv3.style.opacity = '1';
         var ec = document.getElementById('extCnt');
         if(ec){
           ec.textContent = '3 commitments so far';
@@ -155,6 +197,11 @@
           if(vs4) vs4.style.opacity = '1';
           var vc4 = document.getElementById('voiceSig4-consequence');
           if(vc4) vc4.style.opacity = '1';
+          // After 2s more, fade in intervention 4
+          setTimeout(function(){
+            var iv4 = document.getElementById('intervention4');
+            if(iv4) iv4.style.opacity = '1';
+          }, 2000);
         }, 1000);
         // After another 3.5s, fade in note 4 and update count to 4 (~6s total from page load)
         setTimeout(function(){

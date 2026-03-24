@@ -30,7 +30,10 @@
       { id: 'd14-meeting-quality', label: 'Meeting Quality' },
       { id: 'd15-proactive-suggestions', label: 'Proactive Suggestions' },
       { id: 'd16-weekly-digest', label: 'Weekly Digest' },
-      { id: 'd44-reasoning', label: 'Reasoning Log' }
+      { id: 'd44-reasoning', label: 'Reasoning Log' },
+      { id: 'd46-attribution', label: 'Attribution Graph' },
+      { id: 'd47-change-detection', label: 'Change Detection' },
+      { id: 'd48-interventions', label: 'Intervention Rules' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -133,6 +136,9 @@
     'd43-settings': { text: 'settings', live: false },
     'd44-reasoning': { text: 'transparency', live: false },
     'd45-recurring': { text: '5 patterns', live: false },
+    'd46-attribution': { text: 'social graph', live: false },
+    'd47-change-detection': { text: '4 shifts', live: false },
+    'd48-interventions': { text: '13 delivered', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },
     'd10c-priya-profile': { text: '100% rate', live: false },
     'd10d-james-profile': { text: '89% rate', live: false },
