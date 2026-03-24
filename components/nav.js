@@ -38,7 +38,10 @@
       { id: 'd55-unified-model', label: 'Unified Model' },
       { id: 'd56-meeting-steering', label: 'Meeting Steering' },
       { id: 'd57-meeting-score', label: 'Meeting Score' },
-      { id: 'd60-benchmarking', label: 'Benchmarking' }
+      { id: 'd60-benchmarking', label: 'Benchmarking' },
+      { id: 'd62-audio-brief', label: 'Audio Brief' },
+      { id: 'd63-whisper', label: 'Whisper Guidance' },
+      { id: 'd64-spoken-debrief', label: 'Spoken Debrief' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -86,7 +89,11 @@
       { id: 'd51-style-learning', label: 'Style Learning' },
       { id: 'd52-continuity', label: 'Continuity' },
       { id: 'd54-privacy', label: 'Privacy' },
-      { id: 'd59-ambient-exec', label: 'Ambient Mode' }
+      { id: 'd59-ambient-exec', label: 'Ambient Mode' },
+      { id: 'd61-teach-okaeri', label: 'Teach Okaeri' },
+      { id: 'd61b-memory-confirmed', label: 'Memory Confirmed' },
+      { id: 'd62b-morning-audio', label: 'Morning Audio Brief' },
+      { id: 'd65-how-okaeri-works', label: 'How Okaeri Works' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -163,6 +170,13 @@
     'd58-smart-draft': { text: 'drafting', live: false },
     'd59-ambient-exec': { text: 'quiet', live: false },
     'd60-benchmarking': { text: 'patterns', live: false },
+    'd61-teach-okaeri': { text: '14 memories', live: false },
+    'd62-audio-brief': { text: 'brief ready', live: false },
+    'd63-whisper': { text: '4 delivered', live: false },
+    'd64-spoken-debrief': { text: 'debrief ready', live: false },
+    'd65-how-okaeri-works': { text: 'your style', live: false },
+    'd61b-memory-confirmed': { text: 'saved', live: false },
+    'd62b-morning-audio': { text: 'morning', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },
     'd10c-priya-profile': { text: '100% rate', live: false },
     'd10d-james-profile': { text: '89% rate', live: false },

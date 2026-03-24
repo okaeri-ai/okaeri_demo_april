@@ -1,0 +1,168 @@
+<div class="eyebrow">pre-meeting brief · audio</div>
+<div class="ptitle" style="margin-bottom:4px">brief me</div>
+<div class="sub" style="margin-bottom:28px">hear what matters in 30 seconds</div>
+
+<!-- Audio brief player -->
+<div style="display:flex;flex-direction:column;align-items:center;padding:16px 0 20px">
+  <div id="briefPlayBtn" style="width:48px;height:48px;border:0.5px solid var(--ink3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s ease">
+    <svg id="briefPlayIcon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M5 3l8 5-8 5V3z" fill="var(--ink)" stroke="none"/>
+    </svg>
+    <svg id="briefStopIcon" width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:none">
+      <rect x="3" y="3" width="8" height="8" rx="1" fill="var(--ink)"/>
+    </svg>
+  </div>
+  <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.04em;margin-top:10px">Sequoia intro · 30 sec brief</div>
+  <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em;margin-top:4px">generated 9:32 am</div>
+
+  <!-- Progress bar -->
+  <div style="width:200px;height:1.5px;background:var(--rule);border-radius:1px;margin-top:12px;overflow:hidden">
+    <div id="briefProgress" style="width:0%;height:100%;background:var(--green);border-radius:1px;transition:width 0.3s linear"></div>
+  </div>
+  <div id="briefStatus" style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em;margin-top:6px"></div>
+</div>
+
+<!-- Companion card -->
+<div style="border:0.5px solid var(--rule);border-radius:8px;padding:14px 16px;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto">
+
+  <!-- Lead with -->
+  <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div>
+    <div>
+      <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:3px">lead with</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Technical differentiation and architecture depth</div>
+    </div>
+  </div>
+
+  <!-- Watch for -->
+  <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+    <div>
+      <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:3px">watch for</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">GTM contradiction — be ready to clarify enterprise-first position</div>
+    </div>
+  </div>
+
+  <!-- Best next move -->
+  <div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div>
+    <div>
+      <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:3px">best next move</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">If positive: CTO Loom within 24 hours. If neutral: send cap table only.</div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Ask me anything -->
+<div class="sl">ask me anything</div>
+
+<div style="max-width:520px;margin:0 auto">
+  <input type="text" class="modal-input" id="briefAskInput" placeholder="ask okaeri..." style="width:100%;margin-bottom:12px">
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+    <button class="sug" data-ask="changed">what changed since last time?</button>
+    <button class="sug" data-ask="forget">what should I not forget?</button>
+    <button class="sug" data-ask="sarah">catch me up on Sarah in 10 seconds</button>
+    <button class="sug" data-ask="onething">what's the one thing that matters?</button>
+  </div>
+
+  <div id="briefAnswer" style="display:none;border:0.5px solid var(--rule);border-radius:8px;padding:12px 14px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">okaeri</div>
+    <div id="briefAnswerText" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var briefText = "You're meeting Sarah Rhodes and Michael Kim from Sequoia in 12 minutes. Lead with technical differentiation — Sarah already believes the voice-first thesis. Do not over-index on market narrative. Michael is a first meeting, so build rapport before pitching. The recommended opening is to reference Sarah's LinkedIn post. If interest is positive, your best follow-up is a short CTO Loom within 24 hours. One thing to watch: the go-to-market direction changed recently. Be prepared if they ask about PLG versus enterprise.";
+
+  var playBtn = document.getElementById('briefPlayBtn');
+  var playIcon = document.getElementById('briefPlayIcon');
+  var stopIcon = document.getElementById('briefStopIcon');
+  var progress = document.getElementById('briefProgress');
+  var statusEl = document.getElementById('briefStatus');
+  var playing = false;
+  var progressInterval = null;
+
+  function startProgress(duration) {
+    var start = Date.now();
+    progress.style.width = '0%';
+    statusEl.textContent = 'speaking...';
+    progressInterval = setInterval(function() {
+      var elapsed = Date.now() - start;
+      var pct = Math.min((elapsed / duration) * 100, 100);
+      progress.style.width = pct + '%';
+      if (pct >= 100) {
+        clearInterval(progressInterval);
+        stopPlaying();
+      }
+    }, 100);
+  }
+
+  function stopPlaying() {
+    playing = false;
+    playIcon.style.display = '';
+    stopIcon.style.display = 'none';
+    playBtn.style.borderColor = 'var(--ink3)';
+    clearInterval(progressInterval);
+    statusEl.textContent = '';
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+
+  playBtn.addEventListener('click', function() {
+    if (playing) {
+      stopPlaying();
+      progress.style.width = '0%';
+      return;
+    }
+    playing = true;
+    playIcon.style.display = 'none';
+    stopIcon.style.display = '';
+    playBtn.style.borderColor = 'var(--green)';
+    startProgress(30000);
+    if (window.OKAERI && window.OKAERI.speak) {
+      window.OKAERI.speak(briefText);
+    }
+  });
+
+  // Quick ask answers
+  var answers = {
+    'changed': "Since your last touchpoint, Sarah published a LinkedIn article validating your thesis, and you resolved the GTM direction in favor of enterprise-first.",
+    'forget': "Send the cap table before the meeting. It was committed March 18 and hasn't been sent yet.",
+    'sarah': "Sarah Rhodes, Partner at Sequoia. 7 touchpoints over 49 days. Strong relationship. She's a voice-first thesis believer. Lead with technical depth.",
+    'onething': "Get a concrete next step before the meeting ends."
+  };
+
+  var answerBox = document.getElementById('briefAnswer');
+  var answerText = document.getElementById('briefAnswerText');
+
+  document.querySelectorAll('.sug[data-ask]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-ask');
+      var text = answers[key];
+      if (!text) return;
+      answerBox.style.display = 'block';
+      answerText.textContent = text;
+      if (window.OKAERI && window.OKAERI.speak) {
+        window.OKAERI.speak(text);
+      }
+      // Highlight active sug
+      document.querySelectorAll('.sug[data-ask]').forEach(function(b){ b.classList.remove('sel'); });
+      btn.classList.add('sel');
+    });
+  });
+
+  // Text input
+  var askInput = document.getElementById('briefAskInput');
+  askInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && askInput.value.trim().length > 0) {
+      e.preventDefault();
+      answerBox.style.display = 'block';
+      answerText.textContent = "Based on your question, here's what I know: " + askInput.value.trim() + " — I'll surface the most relevant context from your 14 stored memories.";
+      askInput.value = '';
+    }
+  });
+})();
+</script>

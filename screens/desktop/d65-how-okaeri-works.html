@@ -1,0 +1,212 @@
+<style>
+.hw-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.hw-rule:first-child { border-top: 0.5px solid var(--rule2); }
+.hw-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.hw-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  flex: 1;
+}
+.hw-evidence {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--ink4);
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+.hw-phrase {
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--bg2);
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+.hw-phrase-source {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink4);
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.hw-log {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.hw-log:first-child { border-top: 0.5px solid var(--rule2); }
+.hw-log-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.hw-log-text {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--ink2);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  flex: 1;
+}
+.hw-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.hw-toggle-row:first-child { border-top: 0.5px solid var(--rule2); }
+</style>
+
+<div class="eyebrow">personalization &middot; observed style</div>
+<div class="ptitle" style="margin-bottom:4px">how okaeri works with you</div>
+<div class="sub" style="margin-bottom:20px">not personality fluff &mdash; observed decision preferences from 30 days of working together</div>
+
+<!-- Communication -->
+<div class="sl">communication</div>
+
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div>
+    <div class="hw-text">You prefer concise follow-ups &mdash; average 3 sentences. You delete filler in 80% of drafts.</div>
+    <div class="hw-evidence">24 approved drafts, 6 edits analyzed</div>
+  </div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div>
+    <div class="hw-text">You lead with product in investor conversations, not market narrative.</div>
+    <div class="hw-evidence">observed in 3 investor meetings</div>
+  </div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div>
+    <div class="hw-text">You handle investor and partner relationships personally. You delegate internal follow-ups.</div>
+    <div class="hw-evidence">31 routing decisions analyzed</div>
+  </div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div>
+    <div class="hw-text">You respond to cooling relationship alerts within 2 hours. Average follow-up: same day.</div>
+    <div class="hw-evidence">6 cooling alerts, 6 same-day responses</div>
+  </div>
+</div>
+
+<div class="hr2" style="margin-top:16px"></div>
+
+<!-- Meeting behavior -->
+<div class="sl" style="margin-top:16px">meeting behavior</div>
+
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div class="hw-text">You want owner and date prompts in every team meeting.</div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div class="hw-text">In investor meetings, you prefer silent mode unless contradictions or missing asks appear.</div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div class="hw-text">You end meetings when extraction count hits 4+ commitments.</div>
+</div>
+<div class="hw-rule">
+  <div class="hw-dot" style="background:var(--ink3)"></div>
+  <div class="hw-text">You make faster decisions with fewer people. Complex decisions take 2&ndash;3 meetings.</div>
+</div>
+
+<div class="hr2" style="margin-top:16px"></div>
+
+<!-- Interruption preferences -->
+<div class="sl" style="margin-top:16px">interruption preferences</div>
+
+<div class="hw-toggle-row">
+  <div class="hw-text">Interrupt for contradictions with prior strategy</div>
+  <div class="toggle on" data-hw-toggle="contradict"><div class="toggle-dot"></div></div>
+</div>
+<div class="hw-toggle-row">
+  <div class="hw-text">Interrupt for missing owner after 2nd mention</div>
+  <div class="toggle on" data-hw-toggle="owner"><div class="toggle-dot"></div></div>
+</div>
+<div class="hw-toggle-row">
+  <div class="hw-text">Interrupt if talking &gt;3 minutes without pause</div>
+  <div class="toggle" data-hw-toggle="talktime"><div class="toggle-dot"></div></div>
+</div>
+
+<div class="hr2" style="margin-top:16px"></div>
+
+<!-- Phrasing -->
+<div class="sl" style="margin-top:16px">phrasing</div>
+<div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.06em;margin-bottom:12px">lines okaeri has learned you&rsquo;d actually say</div>
+
+<div class="hw-phrase">&ldquo;that deadline feels soft, can we get specific?&rdquo;</div>
+<div class="hw-phrase-source">learned from: Q2 sync, investor prep, 3 other meetings</div>
+
+<div class="hw-phrase">&ldquo;before we wrap, who owns this?&rdquo;</div>
+<div class="hw-phrase-source">learned from: Q2 sync, investor prep, 3 other meetings</div>
+
+<div class="hw-phrase">&ldquo;the thing that matters here is the technical wedge&rdquo;</div>
+<div class="hw-phrase-source">learned from: Q2 sync, investor prep, 3 other meetings</div>
+
+<div class="hw-phrase">&ldquo;let&rsquo;s not boil the ocean &mdash; what&rsquo;s the one thing?&rdquo;</div>
+<div class="hw-phrase-source">learned from: Q2 sync, investor prep, 3 other meetings</div>
+
+<div class="hw-phrase">&ldquo;I want to see proof, not promises&rdquo;</div>
+<div class="hw-phrase-source">learned from: Q2 sync, investor prep, 3 other meetings</div>
+
+<div class="hr2" style="margin-top:16px"></div>
+
+<!-- Adaptation log -->
+<div class="sl" style="margin-top:16px">adaptation log</div>
+
+<div class="hw-log">
+  <div class="hw-log-dot" style="background:var(--green)"></div>
+  <div class="hw-log-text">Mar 23: learned that you prefer &lsquo;next step&rsquo; over &lsquo;action item&rsquo;</div>
+</div>
+<div class="hw-log">
+  <div class="hw-log-dot" style="background:var(--green)"></div>
+  <div class="hw-log-text">Mar 20: draft tone shifted from warm to direct after 3 edits</div>
+</div>
+<div class="hw-log">
+  <div class="hw-log-dot" style="background:var(--amber)"></div>
+  <div class="hw-log-text">Mar 18: investor prep now leads with product, not market &mdash; you corrected this twice</div>
+</div>
+
+<!-- Bottom narrative -->
+<div class="narr" style="margin-top:20px">
+  <div class="narr-t">Okaeri has observed 847 data points about your operating style over 30 days. The system adapts continuously &mdash; every draft edit, every dismissed suggestion, and every correction makes future behavior more aligned with how you actually work. The goal is not to replace your judgment, but to extend it.</div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-hw-toggle]').forEach(function(el){
+    el.addEventListener('click', function(){
+      el.classList.toggle('on');
+    });
+  });
+})();
+</script>

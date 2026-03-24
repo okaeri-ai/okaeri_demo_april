@@ -1,0 +1,234 @@
+<div class="eyebrow">voice memory · teach okaeri</div>
+<div class="ptitle" style="margin-bottom:4px">teach okaeri how you think</div>
+<div class="sub" style="margin-bottom:24px">speak rules, preferences, and strategy — okaeri will remember and use them</div>
+
+<!-- Voice capture area -->
+<div style="display:flex;flex-direction:column;align-items:center;padding:16px 0 8px">
+  <div class="orb-wrap" id="teachOrb">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="orb"><svg viewBox="0 0 24 24" fill="none"><rect x="8" y="2" width="8" height="13" rx="4" stroke="#fff" stroke-width="1.2"/><path d="M4 11c0 4.97 4.03 9 9 9s9-4.03 9-9" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+  </div>
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.38em;text-transform:uppercase;margin-top:10px" id="teachOrbLabel">hold to speak</div>
+  <div id="teachTranscript" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;margin-top:12px;min-height:20px;text-align:center;max-width:480px"></div>
+</div>
+
+<!-- Text fallback -->
+<div id="teachFallback" style="display:none;max-width:480px;margin:0 auto 12px">
+  <input type="text" class="modal-input" id="teachInput" placeholder="type what you want okaeri to remember..." style="width:100%">
+</div>
+
+<!-- Confirmation card -->
+<div id="teachConfirmation" style="display:none;max-width:520px;margin:0 auto">
+  <div style="border:0.5px solid var(--gs);border-radius:8px;padding:14px 16px;background:var(--gbg);margin-top:16px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">saved to okaeri memory</div>
+    <div id="teachParsedItems"></div>
+  </div>
+</div>
+
+<div class="hr" style="margin-top:24px"></div>
+
+<!-- Memory ledger -->
+<div class="sl">your memory</div>
+
+<!-- People -->
+<div style="margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.chev').style.transform=this.nextElementSibling.style.display==='none'?'rotate(-90deg)':'rotate(0deg)'">
+    <div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">people</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">3</span>
+      <svg class="chev" width="8" height="8" viewBox="0 0 8 8" fill="none" style="transition:transform 0.2s ease"><path d="M2 3l2 2 2-2" stroke="#bbb" stroke-width="0.8" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div style="padding-left:8px">
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Sarah</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em;margin-top:2px">technical depth, proof-led follow-ups</div>
+    </div>
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Alex</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em;margin-top:2px">direct asks only, needs concrete progress</div>
+    </div>
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Marcus</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em;margin-top:2px">push for specific dates, reliable on Linear</div>
+    </div>
+  </div>
+</div>
+
+<!-- Operating rules -->
+<div style="margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.chev').style.transform=this.nextElementSibling.style.display==='none'?'rotate(-90deg)':'rotate(0deg)'">
+    <div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">operating rules</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">2</span>
+      <svg class="chev" width="8" height="8" viewBox="0 0 8 8" fill="none" style="transition:transform 0.2s ease"><path d="M2 3l2 2 2-2" stroke="#bbb" stroke-width="0.8" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div style="padding-left:8px">
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">Always get next step in investor meetings</div>
+    </div>
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">Don't send generic check-ins</div>
+    </div>
+  </div>
+</div>
+
+<!-- Meeting rules -->
+<div style="margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.chev').style.transform=this.nextElementSibling.style.display==='none'?'rotate(-90deg)':'rotate(0deg)'">
+    <div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">meeting rules</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">2</span>
+      <svg class="chev" width="8" height="8" viewBox="0 0 8 8" fill="none" style="transition:transform 0.2s ease"><path d="M2 3l2 2 2-2" stroke="#bbb" stroke-width="0.8" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div style="padding-left:8px">
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">Push for owner and date in every team meeting</div>
+    </div>
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">In investor meetings, lead with product not market</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tactics to test -->
+<div style="margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:6px 0" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.chev').style.transform=this.nextElementSibling.style.display==='none'?'rotate(-90deg)':'rotate(0deg)'">
+    <div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">tactics to test</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">2</span>
+      <svg class="chev" width="8" height="8" viewBox="0 0 8 8" fill="none" style="transition:transform 0.2s ease"><path d="M2 3l2 2 2-2" stroke="#bbb" stroke-width="0.8" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div style="padding-left:8px">
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">CTO Loom for technical investors</div>
+    </div>
+    <div style="padding:5px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.04em">Coffee for warming cold relationships</div>
+    </div>
+  </div>
+</div>
+
+<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-top:16px;text-align:center">okaeri has 14 memories stored. these shape prep, drafts, steering, and suggestions.</div>
+
+<script>
+(function(){
+  var orb = document.getElementById('teachOrb');
+  var orbLabel = document.getElementById('teachOrbLabel');
+  var transcript = document.getElementById('teachTranscript');
+  var fallback = document.getElementById('teachFallback');
+  var input = document.getElementById('teachInput');
+  var confirmation = document.getElementById('teachConfirmation');
+  var parsedItems = document.getElementById('teachParsedItems');
+  var recognition = null;
+  var listening = false;
+
+  var demoText = "Remember Sarah likes technical depth. If Marcus says next week, push for a date. Don't let me leave investor meetings without a next step.";
+
+  function parsedHTML(items) {
+    var html = '';
+    items.forEach(function(item) {
+      html += '<div style="padding:8px 0;border-bottom:0.5px solid rgba(151,196,89,0.3)">';
+      html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+      html += '<span style="font-size:8px;font-weight:200;letter-spacing:0.16em;padding:2px 6px;border-radius:2px;background:' + item.badgeColor + ';color:' + item.badgeText + '">' + item.type + '</span>';
+      html += '<span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">' + item.scope + '</span>';
+      html += '</div>';
+      html += '<div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">"' + item.text + '"</div>';
+      html += '<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-top:3px">will use in: ' + item.useIn + '</div>';
+      html += '</div>';
+    });
+    return html;
+  }
+
+  var demoParsed = [
+    { type: 'fact', scope: 'sarah rhodes', text: 'Responds to technical depth', useIn: 'prep, drafts, suggestions', badgeColor: 'var(--gbg)', badgeText: 'var(--green)' },
+    { type: 'rule', scope: 'global', text: "When 'next week' is detected from Marcus, prompt for specific date", useIn: 'meeting steering, confirmation', badgeColor: '#FFF3E0', badgeText: 'var(--amber)' },
+    { type: 'rule', scope: 'investor meetings', text: 'Always verify next step before meeting ends', useIn: 'meeting steering', badgeColor: '#E3F0FC', badgeText: 'var(--blue)' }
+  ];
+
+  function showConfirmation(text) {
+    confirmation.style.display = 'block';
+    parsedItems.innerHTML = parsedHTML(demoParsed);
+  }
+
+  // Check for Speech Recognition API
+  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = function(event) {
+      var result = '';
+      for (var i = event.resultIndex; i < event.results.length; i++) {
+        result += event.results[i][0].transcript;
+      }
+      transcript.innerHTML = '<span style="color:var(--ink)">' + result + '</span><span style="display:inline-block;width:1px;height:14px;background:var(--ink);margin-left:2px;animation:blink 1s step-end infinite"></span>';
+    };
+
+    recognition.onend = function() {
+      listening = false;
+      orbLabel.textContent = 'hold to speak';
+      orb.querySelector('.orb').style.background = 'var(--ink)';
+      var finalText = transcript.textContent;
+      if (finalText && finalText.trim().length > 0) {
+        showConfirmation(finalText);
+      }
+    };
+
+    recognition.onerror = function() {
+      listening = false;
+      orbLabel.textContent = 'hold to speak';
+      orb.querySelector('.orb').style.background = 'var(--ink)';
+    };
+
+    orb.addEventListener('click', function() {
+      if (listening) {
+        recognition.stop();
+      } else {
+        listening = true;
+        orbLabel.textContent = 'listening...';
+        orb.querySelector('.orb').style.background = 'var(--green)';
+        transcript.innerHTML = '<span style="display:inline-block;width:1px;height:14px;background:var(--ink);margin-left:2px;animation:blink 1s step-end infinite"></span>';
+        confirmation.style.display = 'none';
+        recognition.start();
+      }
+    });
+  } else {
+    // No Speech Recognition — show text fallback
+    fallback.style.display = 'block';
+    orbLabel.textContent = 'speech unavailable — type below';
+  }
+
+  // Text input fallback
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && input.value.trim().length > 0) {
+      e.preventDefault();
+      transcript.innerHTML = '<span style="color:var(--ink)">' + input.value + '</span>';
+      showConfirmation(input.value);
+      input.value = '';
+    }
+  });
+
+  // Auto-show demo after 2 seconds if no interaction
+  var demoTimer = setTimeout(function() {
+    if (confirmation.style.display === 'none' || !confirmation.style.display) {
+      transcript.innerHTML = '<span style="color:var(--ink2);font-style:italic">' + demoText + '</span>';
+      showConfirmation(demoText);
+    }
+  }, 2000);
+
+  orb.addEventListener('click', function() { clearTimeout(demoTimer); });
+  input.addEventListener('focus', function() { clearTimeout(demoTimer); });
+})();
+</script>
+
+<style>
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+</style>

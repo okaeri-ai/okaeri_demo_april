@@ -1,0 +1,251 @@
+<style>
+.sd-play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 0 24px;
+}
+.sd-play-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0.5px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.sd-play-circle:hover { border-color: var(--ink3); }
+.sd-play-circle.playing { border-color: var(--green); background: rgba(52,199,89,0.06); }
+.sd-play-tri {
+  width: 0;
+  height: 0;
+  border-left: 10px solid var(--ink3);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  margin-left: 2px;
+  transition: border-left-color 0.2s;
+}
+.sd-play-circle.playing .sd-play-tri { border-left-color: var(--green); }
+.sd-play-label {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--ink3);
+  letter-spacing: 0.1em;
+  margin-top: 10px;
+}
+.sd-progress-wrap {
+  width: 200px;
+  height: 1.5px;
+  background: var(--rule2);
+  border-radius: 1px;
+  margin-top: 10px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.sd-progress-wrap.on { opacity: 1; }
+.sd-progress-bar {
+  height: 100%;
+  background: var(--green);
+  border-radius: 1px;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+.sd-action {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.sd-action:first-child { border-top: 0.5px solid var(--rule2); }
+.sd-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.sd-dot-green { background: var(--green); }
+.sd-dot-amber { background: var(--amber); }
+.sd-dot-ink3 { background: var(--ink3); }
+.sd-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+  flex: 1;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+.sd-text-green { color: var(--green); }
+.sd-text-amber { color: var(--amber); }
+</style>
+
+<div class="eyebrow">post-meeting &middot; spoken debrief</div>
+<div class="ptitle" style="margin-bottom:4px">meeting debrief</div>
+<div class="sub" style="margin-bottom:16px">Q2 roadmap sync &middot; 38 min &middot; just now</div>
+
+<!-- Audio debrief player -->
+<div class="sd-play">
+  <div class="sd-play-circle" id="sdPlayBtn">
+    <div class="sd-play-tri"></div>
+  </div>
+  <div class="sd-play-label" id="sdPlayLabel">hear debrief &middot; 22 sec</div>
+  <div class="sd-progress-wrap" id="sdProgress">
+    <div class="sd-progress-bar" id="sdProgressBar"></div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- What changed -->
+<div class="sl" style="margin-top:16px">what changed</div>
+<div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-green"></div>
+    <div class="sd-text">Enterprise-first reaffirmed</div>
+  </div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-amber"></div>
+    <div class="sd-text">Rate limit bug escalated to P1</div>
+  </div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-ink3"></div>
+    <div class="sd-text">Andreessen follow-up scheduled (tentative)</div>
+  </div>
+</div>
+
+<!-- What you committed to -->
+<div class="sl" style="margin-top:20px">what you committed to</div>
+<div>
+  <div class="debrief-commit" style="display:flex;align-items:center;padding:11px 0;border-top:0.5px solid var(--rule2);border-bottom:0.5px solid var(--rule2)">
+    <span class="pv" style="min-width:66px">create</span>
+    <span class="po" style="flex:1">API rate limit bug</span>
+    <span class="pt" style="margin-right:8px">Linear</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">@marcus</span>
+  </div>
+  <div class="debrief-commit" style="display:flex;align-items:center;padding:11px 0;border-bottom:0.5px solid var(--rule2)">
+    <span class="pv" style="min-width:66px">send</span>
+    <span class="po" style="flex:1">pricing recap</span>
+    <span class="pt" style="margin-right:8px">Slack</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">@priya</span>
+  </div>
+  <div class="debrief-commit" style="display:flex;align-items:center;padding:11px 0;border-bottom:0.5px solid var(--rule2)">
+    <span class="pv" style="min-width:66px">schedule</span>
+    <span class="po" style="flex:1">Andreessen follow-up</span>
+    <span class="pt" style="margin-right:8px">Calendar</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">@james</span>
+  </div>
+  <div class="debrief-commit" style="display:flex;align-items:center;padding:11px 0;border-bottom:0.5px solid var(--rule2)">
+    <span class="pv" style="min-width:66px">update</span>
+    <span class="po" style="flex:1">Acme deal stage</span>
+    <span class="pt" style="margin-right:8px">Salesforce</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">@priya</span>
+  </div>
+</div>
+
+<!-- What okaeri can do now -->
+<div class="sl" style="color:var(--green);margin-top:20px">what okaeri can do now</div>
+<div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-green"></div>
+    <div class="sd-text sd-text-green">Create Linear ticket OKA-214 &mdash; ready to auto-execute</div>
+  </div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-green"></div>
+    <div class="sd-text sd-text-green">Send pricing recap to Slack &mdash; ready to auto-execute</div>
+  </div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-amber"></div>
+    <div class="sd-text sd-text-amber">Schedule Andreessen follow-up &mdash; needs confirmation (James hesitated)</div>
+  </div>
+</div>
+
+<!-- What still needs your judgment -->
+<div class="sl" style="color:var(--amber);margin-top:20px">what still needs your judgment</div>
+<div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-amber"></div>
+    <div class="sd-text sd-text-amber">Acme deal: &lsquo;proposal sent&rsquo; or &lsquo;proposal reviewed&rsquo;?</div>
+  </div>
+  <div class="sd-action">
+    <div class="sd-dot sd-dot-amber"></div>
+    <div class="sd-text sd-text-amber">Should you prioritize the Resonance demo prep or the Sequoia follow-up?</div>
+  </div>
+</div>
+
+<!-- Bottom -->
+<div style="margin-top:24px;padding-top:14px;border-top:0.5px solid var(--rule2);text-align:center">
+  <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.08em;margin-bottom:12px">say &lsquo;execute all&rsquo; to run the confident items now, or open the confirm screen for details.</div>
+  <button class="btn-ul" id="sdConfirmBtn">open confirm &amp; execute &rarr;</button>
+</div>
+
+<script>
+(function(){
+  var playing = false;
+  var timer = null;
+  var elapsed = 0;
+  var duration = 22; // seconds
+
+  var debriefText = "Three takeaways from the Q2 roadmap sync. First: Marcus committed to the rate limit bug as P1 — this blocks the Resonance demo, so it's critical path. Second: the enterprise-first direction was reaffirmed — do not revisit PLG in the Sequoia follow-up. Third: James said next week for the Andreessen follow-up, but his rollover rate is 38% on vague deadlines. Okaeri defaulted to Thursday and will nudge Wednesday. Best next move: check in with Marcus on the bug before the 2pm Resonance call.";
+
+  var playBtn = document.getElementById('sdPlayBtn');
+  var label = document.getElementById('sdPlayLabel');
+  var progressWrap = document.getElementById('sdProgress');
+  var progressBar = document.getElementById('sdProgressBar');
+
+  playBtn.addEventListener('click', function(){
+    if (playing) {
+      // Stop
+      playing = false;
+      clearInterval(timer);
+      playBtn.classList.remove('playing');
+      progressWrap.classList.remove('on');
+      progressBar.style.width = '0%';
+      label.textContent = 'hear debrief \u00b7 22 sec';
+      elapsed = 0;
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      return;
+    }
+
+    playing = true;
+    elapsed = 0;
+    playBtn.classList.add('playing');
+    progressWrap.classList.add('on');
+    label.textContent = 'playing debrief\u2026';
+
+    // Progress bar animation
+    timer = setInterval(function(){
+      elapsed += 0.3;
+      var pct = Math.min((elapsed / duration) * 100, 100);
+      progressBar.style.width = pct + '%';
+      if (elapsed >= duration) {
+        clearInterval(timer);
+        playing = false;
+        playBtn.classList.remove('playing');
+        label.textContent = 'debrief complete';
+        setTimeout(function(){
+          progressWrap.classList.remove('on');
+          progressBar.style.width = '0%';
+          label.textContent = 'hear debrief \u00b7 22 sec';
+        }, 2000);
+      }
+    }, 300);
+
+    // Speech synthesis
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      var utter = new SpeechSynthesisUtterance(debriefText);
+      utter.rate = 1.05;
+      utter.pitch = 1.0;
+      window.speechSynthesis.speak(utter);
+    }
+  });
+
+  document.getElementById('sdConfirmBtn').addEventListener('click', function(){
+    OKAERI.go('d04-confirm-execute');
+  });
+})();
+</script>
