@@ -53,6 +53,9 @@
     });
   });
 
+  // Play notification sound on load
+  if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('notify');
+
   // Green/executed: auto-dismiss after 4s + click to dismiss
   var exec = document.getElementById('notifExec');
   if(exec){
@@ -61,7 +64,12 @@
     setTimeout(function(){ dismiss(exec); }, 4000);
   }
 
-  // Amber/at-risk: only dismiss via execute action or X (no auto-dismiss)
-  // Neutral: only dismiss via X button (no auto-dismiss)
+  // Amber/at-risk: execute button plays notify sound
+  var execBtn = document.getElementById('notifExecBtn');
+  if(execBtn){
+    execBtn.addEventListener('click', function(){
+      if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('notify');
+    });
+  }
 })();
 </script>

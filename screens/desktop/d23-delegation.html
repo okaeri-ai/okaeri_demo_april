@@ -126,5 +126,31 @@
     byYou.style.borderBottom='none'; byYou.style.color='';
     toView.style.display='block'; byView.style.display='none';
   });
+
+  // Toast helper
+  function showToast(msg){
+    var t=document.createElement('div');
+    t.textContent=msg;
+    t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 22px;border-radius:8px;font-size:11px;font-weight:300;letter-spacing:0.14em;z-index:9999;opacity:0;transition:opacity 0.3s';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){t.style.opacity='1';});
+    setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.remove();},300);},2200);
+  }
+
+  // Nudge button handlers
+  document.querySelectorAll('.del-row .btn-ul, .del-row .btn-ul-g').forEach(function(btn){
+    if(btn.textContent.trim()!=='nudge') return;
+    btn.addEventListener('click',function(){
+      var row=this.closest('.del-row');
+      var name=(row.querySelector('.pn-sm')||{}).textContent||'teammate';
+      showToast('nudge sent to '+name);
+      this.textContent='sent';
+      this.style.color='var(--green)';
+      this.style.borderColor='var(--green)';
+      this.disabled=true;
+      this.style.pointerEvents='none';
+      this.style.opacity='0.6';
+    });
+  });
 })();
 </script>

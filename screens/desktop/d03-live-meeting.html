@@ -84,7 +84,7 @@
           void ec.offsetWidth;
           ec.classList.add('count-pulse');
         }
-        // After another 3s, fade in note 4 and update count to 4
+        // After another 3.5s, fade in note 4 and update count to 4 (~6s total from page load)
         setTimeout(function(){
           var n4 = document.getElementById('liveNote4');
           if(n4) n4.style.opacity = '1';
@@ -95,7 +95,7 @@
             void ec2.offsetWidth;
             ec2.classList.add('count-pulse');
           }
-        }, 3000);
+        }, 3500);
       }, 1000);
     }
   }, 100);

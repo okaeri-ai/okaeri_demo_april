@@ -54,9 +54,10 @@
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
-      { id: 'd35-integrations', label: 'Integrations' }
+      { id: 'd07-voice-inbox', label: 'Voice Inbox' }
     ]},
     { section: 'System', items: [
+      { id: 'd35-integrations', label: 'Integrations' },
       { id: 'd36-earned-autonomy', label: 'Earned Autonomy' },
       { id: 'd37-onboarding', label: 'Onboarding' },
       { id: 'd38-notifications', label: 'Notifications' },

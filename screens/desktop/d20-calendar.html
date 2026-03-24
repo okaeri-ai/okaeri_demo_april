@@ -176,5 +176,26 @@
       switchView(this.getAttribute('data-view'));
     });
   });
+
+  // Click handlers for calendar events
+  function bindEvtClicks(){
+    document.querySelectorAll('.cal-evt').forEach(function(el){
+      el.style.cursor='pointer';
+      el.style.transition='opacity 0.2s';
+      el.addEventListener('mouseenter',function(){this.style.opacity='0.6';});
+      el.addEventListener('mouseleave',function(){this.style.opacity='1';});
+      var title = (el.querySelector('.cal-evt-t')||{}).textContent||'';
+      if(el.classList.contains('meeting') && (title.indexOf('Sequoia')!==-1 || title.indexOf('Resonance')!==-1)){
+        el.addEventListener('click',function(){ loadScreen('d08-prep-brief'); });
+      } else if(el.classList.contains('executed')){
+        el.addEventListener('click',function(){ loadScreen('d06-execution-log'); });
+      }
+    });
+  }
+  bindEvtClicks();
+
+  // Re-bind after view switch
+  var origSwitch = switchView;
+  switchView = function(v){ origSwitch(v); bindEvtClicks(); };
 })();
 </script>

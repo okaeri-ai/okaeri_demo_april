@@ -83,6 +83,7 @@
         cl.classList.add('count-pulse');
       }
       spawnConfetti();
+      if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('success');
       // Bounce the last checkmark in receipts
       var receipts = document.querySelectorAll('.receipt.show');
       if(receipts.length > 0){
@@ -104,6 +105,7 @@
     e.classList.add('gone');
     pending = Math.max(0, pending-1);
     setTimeout(function(){ addReceipt(label, detail); }, 270);
+    if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('execute');
     updateCount();
 
     // Persist to shared state

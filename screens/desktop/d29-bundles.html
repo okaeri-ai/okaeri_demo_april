@@ -129,7 +129,11 @@
       self.style.opacity = '0.5';
       self.style.pointerEvents = 'none';
       cascadeRows(Array.from(rows), 145, function(){
-        self.textContent = 'done';
+        self.textContent = '\u2713 executed';
+        self.style.color = 'var(--green)';
+        self.style.borderColor = 'var(--green)';
+        var header = group.querySelector('.bundle-h');
+        if(header) header.style.background = 'var(--gbg)';
       });
     });
   });
@@ -147,7 +151,10 @@
     });
     cascadeRows(Array.from(allRows), 145, function(){
       btn.querySelector('.btn-g-txt').textContent = 'done';
-      document.querySelectorAll('[data-exec-group]').forEach(function(b){ b.textContent = 'done'; });
+      document.querySelectorAll('[data-exec-group]').forEach(function(b){
+        b.textContent = '\u2713 executed'; b.style.color='var(--green)'; b.style.borderColor='var(--green)';
+        var h = b.closest('[data-bundle]'); if(h) h.querySelector('.bundle-h').style.background='var(--gbg)';
+      });
       document.getElementById('exec-receipt').classList.add('show');
     });
   });

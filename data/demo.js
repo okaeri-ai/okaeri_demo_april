@@ -47,6 +47,38 @@ window.OKAERI = {
         { verb: 'send', obj: 'pricing proposal recap · Priya · Slack #sales', source: 'Q2 roadmap sync', date: 'Mar 23 · done' },
         { verb: 'review', obj: 'NDA · Acme procurement team', source: 'email thread', date: 'Fri Mar 20' }
       ]
+    },
+    'how is the fundraise going?': {
+      text: 'The fundraise is progressing well. You\'ve had 2 investor meetings in the past week — Sequoia (Series A intro) and the Andreessen follow-up is scheduled for Thursday. Sarah Rhodes confirmed a second meeting after the intro, which is a strong signal. The pre-seed round target is $2M with a May 1 close. Current progress: 58% toward that goal. One gap: the Index Ventures outreach has been pushed three times and is now overdue.',
+      evidence: [
+        { verb: 'meeting', obj: 'Series A intro · Sequoia · completed', source: 'investor meeting', date: 'Mar 23' },
+        { verb: 'scheduled', obj: 'Andreessen follow-up · 30 min', source: 'Q2 roadmap sync', date: 'Thu Mar 26' },
+        { verb: 'overdue', obj: 'Index Ventures cold outreach · pushed 3×', source: 'fundraise planning', date: 'Mar 10' }
+      ]
+    },
+    'what\'s the status of the Resonance partnership?': {
+      text: 'Resonance is your most active design partner — 12 touchpoints, strong relationship health. They confirmed the monthly retainer on March 19. First usage data is expected this week. The partnership proposal email was sent on March 20. Their team joined today\'s design partner call. The main open item is getting API access configured for their voice infrastructure integration.',
+      evidence: [
+        { verb: 'confirmed', obj: 'Resonance design partner retainer', source: 'partner call', date: 'Mar 19' },
+        { verb: 'sent', obj: 'partnership proposal email', source: 'email', date: 'Mar 20' },
+        { verb: 'pending', obj: 'API access configuration', source: 'engineering sync', date: 'this week' }
+      ]
+    },
+    'who needs follow-up?': {
+      text: 'Two relationships are cooling and need attention. Alex Chen at Mnemix hasn\'t been contacted in 11 days — the partnership thread has gone quiet. Nina Park at a16z received a warm intro 22 days ago but no follow-up was ever sent. Both are flagged in your relationship health dashboard. Additionally, the Andreessen follow-up is scheduled for next week but no pre-read has been sent.',
+      evidence: [
+        { verb: 'cooling', obj: 'Alex Chen · Mnemix · 11 days', source: 'relationship health', date: 'flagged' },
+        { verb: 'cold', obj: 'Nina Park · a16z · 22 days', source: 'relationship health', date: 'flagged' },
+        { verb: 'pending', obj: 'Andreessen pre-read not sent', source: 'calendar', date: 'next week' }
+      ]
+    },
+    'summarize last week': {
+      text: 'Last week saw 7 meetings and 23 commitments across the team. 22 were executed (96% rate) — the only miss was the Index Ventures cold outreach, which has now been pushed three times. Key highlights: the Sequoia intro went well with a second meeting confirmed, Resonance was locked in as the first design partner, and the team committed to enterprise-first go-to-market. James has a developing pattern of rollover commitments (38% past deadline). Priya ran a perfect week: 14 commitments, zero slippage.',
+      evidence: [
+        { verb: 'rate', obj: '22 of 23 executed · 96%', source: 'weekly digest', date: 'Mar 17-23' },
+        { verb: 'missed', obj: 'Index Ventures outreach · pushed 3×', source: 'fundraise planning', date: 'overdue' },
+        { verb: 'highlight', obj: 'Sequoia second meeting confirmed', source: 'investor meeting', date: 'Mar 23' }
+      ]
     }
   },
 
@@ -249,4 +281,62 @@ window.OKAERI = {
       window.OKAERI_NAV.goBack();
     }
   }
+};
+
+// ── Notification Sounds (Web Audio API) ──
+OKAERI.playSound = function(type) {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    if (type === 'execute') {
+      osc.frequency.value = 880;
+      osc.type = 'sine';
+      gain.gain.value = 0.08;
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    } else if (type === 'notify') {
+      osc.frequency.value = 660;
+      osc.type = 'sine';
+      gain.gain.value = 0.05;
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.15);
+      setTimeout(function() {
+        var osc2 = ctx.createOscillator();
+        var gain2 = ctx.createGain();
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.frequency.value = 880;
+        osc2.type = 'sine';
+        gain2.gain.value = 0.05;
+        gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc2.start(ctx.currentTime);
+        osc2.stop(ctx.currentTime + 0.15);
+      }, 120);
+    } else if (type === 'success') {
+      osc.frequency.value = 523;
+      osc.type = 'sine';
+      gain.gain.value = 0.06;
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.2);
+      setTimeout(function() {
+        var osc2 = ctx.createOscillator();
+        var gain2 = ctx.createGain();
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.frequency.value = 784;
+        osc2.type = 'sine';
+        gain2.gain.value = 0.06;
+        gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+        osc2.start(ctx.currentTime);
+        osc2.stop(ctx.currentTime + 0.3);
+      }, 150);
+    }
+  } catch(e) {}
 };

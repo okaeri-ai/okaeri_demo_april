@@ -27,7 +27,36 @@
   <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.72;letter-spacing:.02em">Hi Sarah, thanks for following up. Our timeline is on track — we're targeting close by end of April. I'll send the updated data room link by Thursday. Let me know if you need anything else before your Monday partner meeting.</div>
   <div style="display:flex;gap:8px;margin-top:12px">
     <button class="btn-ul-g" id="triageSend">send</button>
-    <button class="btn-skip">edit</button>
+    <button class="btn-skip" id="triageEdit">edit</button>
     <button class="btn-ghost">discard</button>
   </div>
 </div>
+
+<script>
+(function(){
+  var editBtn = document.getElementById('triageEdit');
+  var draftDiv = editBtn.closest('.triage-draft');
+  var textDiv = draftDiv.querySelector('div[style*="font-size:12px"]');
+  var editing = false;
+
+  editBtn.addEventListener('click', function(){
+    if(!editing){
+      var ta = document.createElement('textarea');
+      ta.value = textDiv.textContent;
+      ta.style.cssText = 'font-size:12px;font-weight:300;color:var(--ink);line-height:1.72;letter-spacing:.02em;width:100%;min-height:80px;background:var(--bg2);border:0.5px solid var(--rule2);border-radius:6px;padding:8px;font-family:inherit;resize:vertical;outline:none';
+      textDiv.style.display='none';
+      textDiv.parentNode.insertBefore(ta, textDiv.nextSibling);
+      ta.focus();
+      editBtn.textContent='done';
+      editing=true;
+    } else {
+      var ta = draftDiv.querySelector('textarea');
+      textDiv.textContent = ta.value;
+      textDiv.style.display='';
+      ta.remove();
+      editBtn.textContent='edit';
+      editing=false;
+    }
+  });
+})();
+</script>
