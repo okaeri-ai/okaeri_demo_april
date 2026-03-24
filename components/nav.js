@@ -35,7 +35,9 @@
       { id: 'd47-change-detection', label: 'Change Detection' },
       { id: 'd48-interventions', label: 'Intervention Rules' },
       { id: 'd49-dependencies', label: 'Dependencies' },
-      { id: 'd55-unified-model', label: 'Unified Model' }
+      { id: 'd55-unified-model', label: 'Unified Model' },
+      { id: 'd56-meeting-steering', label: 'Meeting Steering' },
+      { id: 'd57-meeting-score', label: 'Meeting Score' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -153,6 +155,8 @@
     'd53-outcomes': { text: '+37% execution', live: false },
     'd54-privacy': { text: 'privacy', live: false },
     'd55-unified-model': { text: 'unified', live: false },
+    'd56-meeting-steering': { text: '5 detectors', live: false },
+    'd57-meeting-score': { text: '78/100', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },
     'd10c-priya-profile': { text: '100% rate', live: false },
     'd10d-james-profile': { text: '89% rate', live: false },

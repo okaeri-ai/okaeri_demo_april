@@ -26,6 +26,105 @@
   </div>
   <div class="cap-div"></div>
   <div class="cap-r">
+    <!-- ═══ MEETING STEERING RAIL ═══ -->
+    <div class="sl" style="color:var(--blue)">meeting steering</div>
+
+    <!-- Block 1: Meeting objective + coverage -->
+    <div style="padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:10px">
+      <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">meeting objective</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:8px">Align on Q2 priorities, assign owners, resolve blockers</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">decision: <span style="color:var(--amber)">partial</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">owners: <span style="color:var(--amber)">1 missing</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">deadlines: <span style="color:var(--amber)">2 vague</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">blockers: <span style="color:var(--green)">1 addressed</span></div>
+      </div>
+    </div>
+
+    <!-- Block 2: Active steering alerts -->
+    <div id="steeringAlerts">
+      <!-- Alert 1: no explicit owner (amber, visible on load) -->
+      <div class="steer-alert" id="steerAlert1" style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">no explicit owner</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">API access follow-up discussed twice, still no explicit owner</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Who owns sending API credentials, and by when?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul steer-suggest" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px">suggest</button>
+          <button class="btn-ghost steer-handled" style="font-size:8px;letter-spacing:0.14em">handled</button>
+          <button class="btn-ghost steer-hold" style="font-size:8px;letter-spacing:0.14em">hold</button>
+        </div>
+      </div>
+
+      <!-- Alert 2: ambiguous deadline (amber, visible on load) -->
+      <div class="steer-alert" id="steerAlert2" style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">ambiguous deadline</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James said 'next week' — high rollover phrase (38% slip rate for James)</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Can we name a specific day for the Andreessen follow-up?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul steer-suggest" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px">suggest</button>
+          <button class="btn-ghost steer-handled" style="font-size:8px;letter-spacing:0.14em">handled</button>
+          <button class="btn-ghost steer-hold" style="font-size:8px;letter-spacing:0.14em">hold</button>
+        </div>
+      </div>
+
+      <!-- Alert 3: meeting drift (amber, fades in with Marcus) -->
+      <div class="steer-alert" id="steerAlert3" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">meeting drift</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">62% of time on status recap. Agenda was blocker resolution.</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Can we skip remaining status and go to the two open blockers?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul steer-suggest" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px">suggest</button>
+          <button class="btn-ghost steer-handled" style="font-size:8px;letter-spacing:0.14em">handled</button>
+          <button class="btn-ghost steer-hold" style="font-size:8px;letter-spacing:0.14em">hold</button>
+        </div>
+      </div>
+
+      <!-- Alert 4: low-confidence agreement (blue, fades in with voiceSig4) -->
+      <div class="steer-alert" id="steerAlert4" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase">low-confidence agreement</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James agreed to the follow-up but hesitation detected. High likelihood of slippage.</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Does that timeline actually feel realistic, or should we set a narrower scope?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul steer-suggest" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px">suggest</button>
+          <button class="btn-ghost steer-handled" style="font-size:8px;letter-spacing:0.14em">handled</button>
+          <button class="btn-ghost steer-hold" style="font-size:8px;letter-spacing:0.14em">hold</button>
+        </div>
+      </div>
+
+      <!-- Alert 5: steering complete (green, fades in after alert 4) -->
+      <div class="steer-alert" id="steerAlert5" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">steering complete</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">3 of 4 commitments have clear owners and deadlines. 1 decision made. 1 blocker resolved.</div>
+        <div style="margin-top:5px"><span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em">good meeting</span></div>
+      </div>
+    </div>
+
+    <!-- Block 3: Intervention mode selector -->
+    <div style="display:flex;gap:6px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--rule2)">
+      <span style="font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.14em;margin-right:4px">mode:</span>
+      <button class="steer-mode" data-mode="silent" style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">silent</button>
+      <button class="steer-mode active" data-mode="standard" style="font-size:8px;font-weight:200;color:var(--ink);letter-spacing:0.14em;background:none;border:0.5px solid var(--ink);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">standard</button>
+      <button class="steer-mode" data-mode="high" style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">high-touch</button>
+    </div>
+
+    <div class="hr2"></div>
+
+    <!-- ═══ NOTES EXTRACTED ═══ -->
     <div class="sl">notes extracted</div>
     <div id="liveNotes">
       <div class="note-i"><span class="ntag nt-d">decision</span><span class="note-t">Ship v1 with Linear + Slack only. Expand post-launch based on design partner feedback.</span></div>
@@ -34,94 +133,63 @@
       <div class="note-i" id="liveNote4" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">Marcus takes rate limit bug · P1 · before end of sprint.</span></div>
     </div>
     <div class="hr2"></div>
+
+    <!-- ═══ VOICE SIGNALS (compact) ═══ -->
     <div class="sl">voice signals</div>
     <div id="voiceSignals">
-      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2)">
-        <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div>
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">conviction</div>
-          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Priya sounded confident on Acme timeline — likely true owner</div>
-          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:02 · tone analysis</div>
-          <div id="voiceSig1-consequence" style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:3px">&rarr; confidence raised to high &middot; auto-execute enabled for this commitment</div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">conviction</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">Priya sounded confident on Acme timeline — likely true owner</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:02 · tone analysis</div>
+          <div id="voiceSig1-consequence" style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:2px">&rarr; confidence raised to high &middot; auto-execute enabled</div>
         </div>
       </div>
-      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2)">
-        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">hesitation</div>
-          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James paused before committing to 'next week' — deadline may slip</div>
-          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:18 · speech pattern</div>
-          <div id="voiceSig2-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px">&rarr; confidence lowered to medium &middot; moved to 'needs confirmation' bucket</div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">hesitation</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">James paused before committing to 'next week' — deadline may slip</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:18 · speech pattern</div>
+          <div id="voiceSig2-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:2px">&rarr; confidence lowered to medium &middot; needs confirmation</div>
         </div>
       </div>
-      <div class="voice-signal" id="voiceSig3" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
-        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+      <div class="voice-signal" id="voiceSig3" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">tension</div>
-          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">topic shifted from shipping to risk mitigation when Marcus spoke</div>
-          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:29 · topic analysis</div>
-          <div id="voiceSig3-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px;opacity:0;transition:opacity .4s">&rarr; decision flagged as not final &middot; okaeri will not extract until confirmed</div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">tension</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">topic shifted from shipping to risk mitigation when Marcus spoke</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:29 · topic analysis</div>
+          <div id="voiceSig3-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:2px;opacity:0;transition:opacity .4s">&rarr; decision flagged as not final &middot; awaiting confirmation</div>
         </div>
       </div>
-      <div class="voice-signal" id="voiceSig4" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
-        <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div>
+      <div class="voice-signal" id="voiceSig4" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px"></div>
         <div>
-          <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">restraint</div>
-          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Okaeri would wait here — decision not yet final, watching for confirmation</div>
-          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:31 · confidence threshold</div>
-          <div id="voiceSig4-consequence" style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:3px;opacity:0;transition:opacity .4s">&rarr; auto-execution paused &middot; waiting for explicit confirmation before acting</div>
+          <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">restraint</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">Okaeri would wait here — decision not yet final, watching for confirmation</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:31 · confidence threshold</div>
+          <div id="voiceSig4-consequence" style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:2px;opacity:0;transition:opacity .4s">&rarr; auto-execution paused &middot; waiting for explicit confirmation</div>
         </div>
       </div>
     </div>
     <div class="hr2"></div>
-    <div class="sl">your notes</div>
-    <div id="userNotesContainer"></div>
-    <textarea id="userNoteInput" rows="2" placeholder="type a note..." style="font-size:12px;font-weight:300;letter-spacing:0.02em;border:none;border-bottom:0.5px solid var(--rule);background:none;width:100%;resize:none;font-family:inherit;color:var(--ink);outline:none;padding:6px 0"></textarea>
-    <div style="display:flex;gap:6px;margin-top:6px" id="noteTagBtns">
-      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="action item">action item</span>
-      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="decision">decision</span>
-      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="question">question</span>
+
+    <!-- ═══ YOUR NOTES (bottom, collapsible) ═══ -->
+    <div id="yourNotesToggle" style="display:flex;align-items:center;gap:5px;cursor:pointer;margin-bottom:6px">
+      <span class="sl" style="margin-bottom:0">your notes</span>
+      <span id="yourNotesArrow" style="font-size:9px;font-weight:200;color:var(--ink3);transition:transform .2s">&darr;</span>
     </div>
-    <div id="okaeriHint" style="display:none;font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.16em;margin-top:5px"></div>
-    <div class="hr2"></div>
-    <div class="sl">live nudges</div>
-    <div id="liveInterventions">
-      <div style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-          <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
-          <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">surfaced</span>
-        </div>
-        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Context delivered: Sarah Rhodes published 'voice-first tools will eat enterprise' 3 days ago — anchoring point for your pitch</div>
-        <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:3px">&rarr; added to prep brief talking point #1</div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">relevant to current discussion topic</div>
+    <div id="yourNotesBody" style="display:none">
+      <div id="userNotesContainer"></div>
+      <textarea id="userNoteInput" rows="2" placeholder="type a note..." style="font-size:12px;font-weight:300;letter-spacing:0.02em;border:none;border-bottom:0.5px solid var(--rule);background:none;width:100%;resize:none;font-family:inherit;color:var(--ink);outline:none;padding:6px 0"></textarea>
+      <div style="display:flex;gap:6px;margin-top:6px" id="noteTagBtns">
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="action item">action item</span>
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="decision">decision</span>
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="question">question</span>
       </div>
-      <div style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-          <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
-          <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase">held back</span>
-        </div>
-        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Okaeri detected a pricing discussion but did NOT surface competitive data</div>
-        <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:3px">&rarr; staying quiet — Priya is handling this with confidence, interrupting would undermine her flow</div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">intervention suppressed: speaker conviction high, topic under control</div>
-      </div>
-      <div id="intervention3" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
-          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">alert</span>
-        </div>
-        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Marcus is committing to P1 but already has 2 open P1 tickets. Workload risk detected.</div>
-        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px">&rarr; will flag in debrief, not during meeting — interrupting a commitment mid-sentence reduces follow-through by 23%</div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">restraint rule: never interrupt a commitment being made</div>
-      </div>
-      <div id="intervention4" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-          <div style="width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0"></div>
-          <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">preparing</span>
-        </div>
-        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James said 'next week' without specifying a day. Preparing clarification prompt for post-meeting review.</div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:3px">&rarr; will ask 'did James mean Thursday?' in the confirm screen instead of interrupting the meeting</div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">learned pattern: clarifications during meetings slow the conversation. Post-meeting corrections are 3x faster.</div>
-      </div>
+      <div id="okaeriHint" style="display:none;font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.16em;margin-top:5px"></div>
     </div>
   </div>
 </div>
@@ -161,20 +229,111 @@
   });
   observer.observe(document.getElementById('screenContent') || document.body, {childList:true, subtree:true});
 
-  // Real-time typing simulation for Marcus
+  // ── Steering mode state ──
+  var steerMode = 'standard'; // silent | standard | high
+  var timingMultiplier = 1; // 1 for standard, 0.5 for high-touch
+
+  // ── Mode selector ──
+  var modeBtns = document.querySelectorAll('.steer-mode');
+  modeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      modeBtns.forEach(function(b){
+        b.classList.remove('active');
+        b.style.color = 'var(--ink3)';
+        b.style.borderColor = 'var(--rule2)';
+      });
+      btn.classList.add('active');
+      btn.style.color = 'var(--ink)';
+      btn.style.borderColor = 'var(--ink)';
+      steerMode = btn.getAttribute('data-mode');
+      var alertsContainer = document.getElementById('steeringAlerts');
+      if(steerMode === 'silent'){
+        alertsContainer.style.display = 'none';
+      } else {
+        alertsContainer.style.display = 'block';
+      }
+      if(steerMode === 'high'){
+        timingMultiplier = 0.5;
+      } else {
+        timingMultiplier = 1;
+      }
+    });
+  });
+
+  // ── Steering alert interactions ──
+  function showToast(msg){
+    var toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--ink);letter-spacing:0.14em;background:var(--bg2);border:0.5px solid var(--rule2);border-radius:4px;padding:6px 14px;z-index:9999;opacity:0;transition:opacity .3s;font-family:inherit';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function(){ toast.style.opacity = '1'; });
+    setTimeout(function(){
+      toast.style.opacity = '0';
+      setTimeout(function(){ toast.remove(); }, 300);
+    }, 2500);
+  }
+
+  document.querySelectorAll('.steer-suggest').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      showToast('suggestion sent to your earpiece');
+      alert.style.opacity = '0.5';
+      btn.disabled = true;
+    });
+  });
+  document.querySelectorAll('.steer-handled').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      var existing = alert.querySelector('.steer-status-label');
+      if(!existing){
+        var label = document.createElement('div');
+        label.className = 'steer-status-label';
+        label.style.cssText = 'font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:4px';
+        label.innerHTML = '&#10003; handled';
+        alert.appendChild(label);
+      }
+      alert.style.opacity = '0.5';
+    });
+  });
+  document.querySelectorAll('.steer-hold').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      var existing = alert.querySelector('.steer-status-label');
+      if(!existing){
+        var label = document.createElement('div');
+        label.className = 'steer-status-label';
+        label.style.cssText = 'font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:4px';
+        label.textContent = 'held for debrief';
+        alert.appendChild(label);
+      }
+      alert.style.opacity = '0.5';
+    });
+  });
+
+  // ── Your notes toggle ──
+  var notesToggle = document.getElementById('yourNotesToggle');
+  var notesBody = document.getElementById('yourNotesBody');
+  var notesArrow = document.getElementById('yourNotesArrow');
+  var notesOpen = false;
+  notesToggle.addEventListener('click', function(){
+    notesOpen = !notesOpen;
+    notesBody.style.display = notesOpen ? 'block' : 'none';
+    notesArrow.innerHTML = notesOpen ? '&uarr;' : '&darr;';
+  });
+
+  // ── Real-time typing simulation for Marcus ──
   var marcusWords = "The rate limit bug needs to be P1. I'll take it, done before end of sprint".split(' ');
   var marcusEl = document.getElementById('marcusText');
   var wordIdx = 0;
   var typingInterval = setInterval(function(){
     if(wordIdx < marcusWords.length){
-      // Insert word before the cursor span
       var curSpan = marcusEl.querySelector('.cur');
       var text = (wordIdx > 0 ? ' ' : '') + marcusWords[wordIdx];
       curSpan.insertAdjacentText('beforebegin', text);
       wordIdx++;
     } else {
       clearInterval(typingInterval);
-      // Marcus line complete. After 1s, fade in note 3, voice signal 3, and update count to 3
+      // Marcus line complete. After 1s, fade in note 3, voice signal 3, steering alert 3
       setTimeout(function(){
         var n3 = document.getElementById('liveNote3');
         if(n3) n3.style.opacity = '1';
@@ -182,8 +341,9 @@
         if(vs3) vs3.style.opacity = '1';
         var vc3 = document.getElementById('voiceSig3-consequence');
         if(vc3) vc3.style.opacity = '1';
-        var iv3 = document.getElementById('intervention3');
-        if(iv3) iv3.style.opacity = '1';
+        // Steering alert 3 fades in with Marcus
+        var sa3 = document.getElementById('steerAlert3');
+        if(sa3) sa3.style.opacity = '1';
         var ec = document.getElementById('extCnt');
         if(ec){
           ec.textContent = '3 commitments so far';
@@ -191,19 +351,22 @@
           void ec.offsetWidth;
           ec.classList.add('count-pulse');
         }
-        // After 1s, fade in voice signal 4
+        // After 1s (adjusted by mode), fade in voice signal 4 and steering alert 4
         setTimeout(function(){
           var vs4 = document.getElementById('voiceSig4');
           if(vs4) vs4.style.opacity = '1';
           var vc4 = document.getElementById('voiceSig4-consequence');
           if(vc4) vc4.style.opacity = '1';
-          // After 2s more, fade in intervention 4
+          // Steering alert 4 fades in with voiceSig4
+          var sa4 = document.getElementById('steerAlert4');
+          if(sa4) sa4.style.opacity = '1';
+          // After 2s more (adjusted), fade in steering alert 5
           setTimeout(function(){
-            var iv4 = document.getElementById('intervention4');
-            if(iv4) iv4.style.opacity = '1';
-          }, 2000);
-        }, 1000);
-        // After another 3.5s, fade in note 4 and update count to 4 (~6s total from page load)
+            var sa5 = document.getElementById('steerAlert5');
+            if(sa5) sa5.style.opacity = '1';
+          }, 2000 * timingMultiplier);
+        }, 1000 * timingMultiplier);
+        // After another 3.5s, fade in note 4 and update count to 4
         setTimeout(function(){
           var n4 = document.getElementById('liveNote4');
           if(n4) n4.style.opacity = '1';
@@ -214,12 +377,12 @@
             void ec2.offsetWidth;
             ec2.classList.add('count-pulse');
           }
-        }, 3500);
-      }, 1000);
+        }, 3500 * timingMultiplier);
+      }, 1000 * timingMultiplier);
     }
   }, 100);
 
-  // Discard button with confirm
+  // ── Discard button with confirm ──
   var discardBtn = document.getElementById('discardBtn');
   var discardConfirm = false;
   var discardTimer = null;
@@ -276,7 +439,6 @@
       else if(selectedTag === 'question'){ tagClass = 'nt-q'; tagLabel = 'question'; }
       row.innerHTML = (tagLabel ? '<span class="ntag '+tagClass+'">'+tagLabel+'</span>' : '') + '<span class="note-t">'+text+'</span>';
       notesContainer.appendChild(row);
-      // Check for @mention or "should own"
       var mentionMatch = text.match(/@(\w+)/i) || text.match(/(\w+)\s+should\s+own/i);
       if(mentionMatch){
         var name = mentionMatch[1].charAt(0).toUpperCase() + mentionMatch[1].slice(1);
