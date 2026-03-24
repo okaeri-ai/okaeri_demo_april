@@ -33,14 +33,17 @@
       { id: 'd44-reasoning', label: 'Reasoning Log' },
       { id: 'd46-attribution', label: 'Attribution Graph' },
       { id: 'd47-change-detection', label: 'Change Detection' },
-      { id: 'd48-interventions', label: 'Intervention Rules' }
+      { id: 'd48-interventions', label: 'Intervention Rules' },
+      { id: 'd49-dependencies', label: 'Dependencies' },
+      { id: 'd55-unified-model', label: 'Unified Model' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
       { id: 'd18-morning-briefing', label: 'Morning Briefing' },
       { id: 'd19-eod-review', label: 'End of Day Review' },
       { id: 'd20-calendar', label: 'Calendar View' },
-      { id: 'd21-calendar-defense', label: 'Calendar Defense' }
+      { id: 'd21-calendar-defense', label: 'Calendar Defense' },
+      { id: 'd50-cadence', label: 'Operating Cadence' }
     ]},
     { section: 'Relationships', items: [
       { id: 'd22-relationship-health', label: 'Relationship Health' },
@@ -61,7 +64,8 @@
       { id: 'd31-meeting-brief', label: 'Meeting Brief' },
       { id: 'd32-investor-update', label: 'Investor Update' },
       { id: 'd33-receipt-artifact', label: 'Commitment Receipt' },
-      { id: 'd42-meeting-history', label: 'Meeting History' }
+      { id: 'd42-meeting-history', label: 'Meeting History' },
+      { id: 'd53-outcomes', label: 'Outcome Proof' }
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
@@ -74,7 +78,10 @@
       { id: 'd38-notifications', label: 'Notifications' },
       { id: 'd39-search', label: 'Search' },
       { id: 'd41-learning-history', label: 'Learning History' },
-      { id: 'd43-settings', label: 'Settings' }
+      { id: 'd43-settings', label: 'Settings' },
+      { id: 'd51-style-learning', label: 'Style Learning' },
+      { id: 'd52-continuity', label: 'Continuity' },
+      { id: 'd54-privacy', label: 'Privacy' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -139,6 +146,13 @@
     'd46-attribution': { text: 'social graph', live: false },
     'd47-change-detection': { text: '4 shifts', live: false },
     'd48-interventions': { text: '13 delivered', live: false },
+    'd49-dependencies': { text: '3 blocked', live: false },
+    'd50-cadence': { text: '3 active', live: false },
+    'd51-style-learning': { text: '847 signals', live: false },
+    'd52-continuity': { text: '78% coverage', live: false },
+    'd53-outcomes': { text: '+37% execution', live: false },
+    'd54-privacy': { text: 'privacy', live: false },
+    'd55-unified-model': { text: 'unified', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },
     'd10c-priya-profile': { text: '100% rate', live: false },
     'd10d-james-profile': { text: '89% rate', live: false },

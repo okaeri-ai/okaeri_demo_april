@@ -1,0 +1,179 @@
+<div class="eyebrow">execution intelligence · dependency graph</div>
+<div class="ptitle">what's blocked and why</div>
+<div class="sub" style="margin-top:4px">commitments don't exist in isolation — okaeri tracks what depends on what</div>
+<div class="hr"></div>
+
+<!-- ═══ Section 1: Active Blockers ═══ -->
+<div class="sl" style="color:var(--amber)">active blockers</div>
+
+<!-- Blocker 1: Acme deal -->
+<div style="border:0.5px solid var(--rule);border-left:2px solid var(--amber);border-radius:8px;padding:16px 18px;margin-bottom:12px">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">commitment</div>
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:12px">update → Acme deal → proposal sent → Salesforce</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">blocked by</div>
+  <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.04em;margin-bottom:10px">Legal — NDA review pending with Acme procurement team</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">impact</div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5;margin-bottom:10px">Deal stage cannot advance until NDA clears. Estimated 2-3 business days.</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri action</div>
+  <div style="font-size:11px;font-weight:200;color:var(--green);letter-spacing:0.04em;line-height:1.5">Monitoring. Will auto-execute Salesforce update within 5 minutes of NDA confirmation email arriving in Gmail.</div>
+</div>
+
+<!-- Blocker 2: Investor update -->
+<div style="border:0.5px solid var(--rule);border-left:2px solid var(--amber);border-radius:8px;padding:16px 18px;margin-bottom:12px">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">commitment</div>
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:12px">send → investor update → Gmail → investors</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">blocked by</div>
+  <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.04em;margin-bottom:10px">Data dependency — Acme deal stage must be current before sending</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">impact</div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5;margin-bottom:10px">Investor update references pipeline figures. Sending with stale Acme data undermines credibility.</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri action</div>
+  <div style="font-size:11px;font-weight:200;color:var(--green);letter-spacing:0.04em;line-height:1.5">Queued behind Acme update. Will draft automatically once Salesforce reflects current state.</div>
+</div>
+
+<!-- Blocker 3: Resonance demo -->
+<div style="border:0.5px solid var(--rule);border-left:2px solid var(--amber);border-radius:8px;padding:16px 18px;margin-bottom:12px">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">commitment</div>
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:12px">demo → Resonance design partner call</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">blocked by</div>
+  <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.04em;margin-bottom:10px">Marcus's rate limit bug (P1) — demo crashes without this fix</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">impact</div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5;margin-bottom:10px">2:00 pm call is 4 hours away. If bug isn't fixed by noon, recommend rescheduling.</div>
+
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri action</div>
+  <div style="font-size:11px;font-weight:200;color:var(--amber);letter-spacing:0.04em;line-height:1.5">Monitoring Linear OKA-214 status. Will alert at 12:00 pm if still open.</div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═══ Section 2: Dependency Chain ═══ -->
+<div class="sl">dependency chain</div>
+
+<!-- Chain 1: Rate limit bug → Series A -->
+<div style="border:0.5px solid var(--rule);border-radius:8px;padding:16px 18px;margin-bottom:12px">
+  <!-- Level 0 -->
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--red,#c44);flex-shrink:0"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">rate limit bug fix</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">Marcus · P1</div>
+    <div style="font-size:9px;font-weight:200;color:var(--red,#c44);letter-spacing:0.12em">blocked</div>
+  </div>
+
+  <!-- Level 1 -->
+  <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Resonance demo</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">2:00 pm today</div>
+      <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+    </div>
+
+    <!-- Level 2 -->
+    <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+        <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">design partner usage data</div>
+        <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">this week</div>
+        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+      </div>
+
+      <!-- Level 3 -->
+      <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Series A pitch materials</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">by May 1</div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chain 2: Acme NDA → Sequoia -->
+<div style="border:0.5px solid var(--rule);border-radius:8px;padding:16px 18px;margin-bottom:12px">
+  <!-- Level 0 -->
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Acme NDA clearance</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">legal · pending</div>
+    <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+  </div>
+
+  <!-- Level 1 -->
+  <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Salesforce deal update</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">Priya</div>
+      <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+    </div>
+
+    <!-- Level 2 -->
+    <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+        <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">investor update email</div>
+        <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em">Jess</div>
+        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+      </div>
+
+      <!-- Level 3 -->
+      <div style="margin-left:20px;border-left:0.5px solid var(--rule);padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Sequoia second meeting prep</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.06em"></div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em">pending</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═══ Section 3: Risk Assessment ═══ -->
+<div class="sl">risk assessment</div>
+
+<!-- High risk -->
+<div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+  <div style="display:flex;align-items:center;gap:6px;min-width:60px;flex-shrink:0">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--red,#c44)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--red,#c44);letter-spacing:0.12em;text-transform:uppercase">high</span>
+  </div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5">If rate limit bug is not fixed by noon, Resonance demo fails → design partner data delayed → weakens Series A pitch</div>
+</div>
+
+<!-- Medium risk -->
+<div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+  <div style="display:flex;align-items:center;gap:6px;min-width:60px;flex-shrink:0">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--amber)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.12em;text-transform:uppercase">medium</span>
+  </div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5">If Acme NDA takes >3 days, investor update sends with stale pipeline data</div>
+</div>
+
+<!-- Low risk -->
+<div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+  <div style="display:flex;align-items:center;gap:6px;min-width:60px;flex-shrink:0">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.12em;text-transform:uppercase">low</span>
+  </div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.5">Andreessen follow-up has no dependencies — safe to execute independently</div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═══ Narrative ═══ -->
+<div class="narr" style="margin-top:16px">
+  <div class="narr-l">okaeri</div>
+  <div class="narr-t">Okaeri tracks 12 active dependencies across your commitments. 3 are currently blocking execution. The highest-risk chain runs through Marcus's rate limit bug — it's a 4-step cascade affecting the Resonance demo, design partner data, and ultimately Series A materials. Recommend prioritizing this above all other P1s today.</div>
+</div>
