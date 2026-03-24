@@ -34,6 +34,7 @@
     if(!playing){
       playing=true;
       playI.style.display='none'; pauseI.style.display='block';
+      if(window.OKAERI && OKAERI.speak) OKAERI.speak("Good morning Jess. You have 3 meetings today. The most important is the Sequoia intro at 10am. Sarah Rhodes asked for ARR clarity — answer that first. Two items carrying forward: Index Ventures outreach is overdue, and the Andreessen follow-up needs scheduling. Your three priorities: send Sequoia materials, resolve Index outreach, check Marcus on the rate limit bug.");
       timer=setInterval(function(){
         elapsed++;
         var pct=Math.min((elapsed/total)*100,100);
@@ -44,12 +45,14 @@
           clearInterval(timer); timer=null; playing=false; elapsed=0;
           playI.style.display='block'; pauseI.style.display='none';
           prog.style.width='0%'; elSpan.textContent='0:00';
+          if(window.speechSynthesis) window.speechSynthesis.cancel();
         }
       },1000);
     } else {
       playing=false;
       clearInterval(timer); timer=null;
       playI.style.display='block'; pauseI.style.display='none';
+      if(window.speechSynthesis) window.speechSynthesis.cancel();
     }
   };
 })();

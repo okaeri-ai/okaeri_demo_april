@@ -34,6 +34,7 @@
     if(!playing){
       playing=true;
       playI.style.display='none'; pauseI.style.display='block';
+      if(window.OKAERI && OKAERI.speak) OKAERI.speak("End of day, Jess. You executed 6 commitments today — clean day. Two items carrying forward: the Index Ventures outreach and the Resonance API configuration. Front-load those tomorrow morning. The Sequoia meeting went well — Sarah confirmed a second meeting. Overall execution rate holding at 97 percent.");
       timer=setInterval(function(){
         elapsed++;
         var pct=Math.min((elapsed/total)*100,100);
@@ -44,12 +45,14 @@
           clearInterval(timer); timer=null; playing=false; elapsed=0;
           playI.style.display='block'; pauseI.style.display='none';
           prog.style.width='0%'; elSpan.textContent='0:00';
+          if(window.speechSynthesis) window.speechSynthesis.cancel();
         }
       },1000);
     } else {
       playing=false;
       clearInterval(timer); timer=null;
       playI.style.display='block'; pauseI.style.display='none';
+      if(window.speechSynthesis) window.speechSynthesis.cancel();
     }
   };
 })();

@@ -17,8 +17,8 @@
     <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;text-align:right">level</div>
   </div>
   <!-- Linear -->
-  <div style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
-    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Linear</div>
+  <div class="trust-row" data-tool="linear" style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
+    <div class="tool-name" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:2px">Linear</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">20</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">1 <span style="font-size:10px;color:var(--ink3)">(5%)</span></div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">0</div>
@@ -27,9 +27,14 @@
     </div>
     <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;text-align:right">auto-execute</div>
   </div>
+  <div class="audit-panel" data-audit="linear" style="display:none;background:var(--bg2);border-radius:6px;padding:10px;margin:0 14px 6px;font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.8">
+    &#10003; create &middot; API rate limit bug &middot; OKA-214 &middot; no edits &middot; 9:14 am today<br>
+    &#10003; create &middot; onboarding flow ticket &middot; OKA-211 &middot; no edits &middot; Mar 19<br>
+    &#10003; create &middot; mobile auth flow ticket &middot; OKA-209 &middot; 1 edit (priority changed) &middot; Mar 18
+  </div>
   <!-- Slack -->
-  <div style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
-    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Slack</div>
+  <div class="trust-row" data-tool="slack" style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
+    <div class="tool-name" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:2px">Slack</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">18</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">2 <span style="font-size:10px;color:var(--ink3)">(11%)</span></div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">0</div>
@@ -38,9 +43,15 @@
     </div>
     <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;text-align:right">auto-execute</div>
   </div>
+  <div class="audit-panel" data-audit="slack" style="display:none;background:var(--bg2);border-radius:6px;padding:10px;margin:0 14px 6px;font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.8">
+    &#10003; send &middot; pricing proposal recap &middot; #sales &middot; no edits &middot; 9:12 am today<br>
+    &#10003; send &middot; standup summary &middot; #engineering &middot; no edits &middot; Mar 19<br>
+    &#10003; send &middot; client update &middot; #accounts &middot; 1 edit (tone adjusted) &middot; Mar 17<br>
+    &#10003; send &middot; sprint retro notes &middot; #engineering &middot; no edits &middot; Mar 14
+  </div>
   <!-- Calendar -->
-  <div style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
-    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Calendar</div>
+  <div class="trust-row" data-tool="calendar" style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
+    <div class="tool-name" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:2px">Calendar</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">12</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">3 <span style="font-size:10px;color:var(--ink3)">(25%)</span></div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">1</div>
@@ -49,9 +60,14 @@
     </div>
     <div style="font-size:9px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;text-align:right">needs confirm</div>
   </div>
+  <div class="audit-panel" data-audit="calendar" style="display:none;background:var(--bg2);border-radius:6px;padding:10px;margin:0 14px 6px;font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.8">
+    &#10003; schedule &middot; Andreessen follow-up &middot; 30 min &middot; user changed Thu&rarr;Fri &middot; today<br>
+    &#10003; schedule &middot; team standup &middot; recurring &middot; no edits &middot; Mar 20<br>
+    &#10007; schedule &middot; client call &middot; 45 min &middot; user rescheduled &middot; Mar 17
+  </div>
   <!-- Salesforce -->
-  <div style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
-    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Salesforce</div>
+  <div class="trust-row" data-tool="salesforce" style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;border-bottom:0.5px solid var(--rule2);align-items:center">
+    <div class="tool-name" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:2px">Salesforce</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">4</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">1 <span style="font-size:10px;color:var(--ink3)">(25%)</span></div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">0</div>
@@ -60,9 +76,14 @@
     </div>
     <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;text-align:right">needs confirm</div>
   </div>
+  <div class="audit-panel" data-audit="salesforce" style="display:none;background:var(--bg2);border-radius:6px;padding:10px;margin:0 14px 6px;font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.8">
+    &#10003; update &middot; Acme deal &rarr; proposal sent &middot; $84k ARR &middot; user corrected stage &middot; today<br>
+    &#10003; update &middot; Globex renewal &middot; $42k ARR &middot; no edits &middot; Mar 20<br>
+    &#10003; create &middot; new lead &middot; Initech Corp &middot; no edits &middot; Mar 18
+  </div>
   <!-- Gmail -->
-  <div style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;align-items:center">
-    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Gmail</div>
+  <div class="trust-row" data-tool="gmail" style="display:grid;grid-template-columns:1fr 72px 64px 72px 56px 88px;padding:10px 14px;align-items:center">
+    <div class="tool-name" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:2px">Gmail</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">2</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">0</div>
     <div style="font-size:12px;font-weight:300;color:var(--ink2)">0</div>
@@ -70,6 +91,41 @@
       <div class="hbars"><div class="hbar e" style="width:8px;height:3px"></div><div class="hbar e" style="width:8px;height:3px"></div><div class="hbar e" style="width:8px;height:3px"></div><div class="hbar e" style="width:8px;height:3px"></div><div class="hbar e" style="width:8px;height:3px"></div></div>
     </div>
     <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;text-align:right">manual only</div>
+  </div>
+  <div class="audit-panel" data-audit="gmail" style="display:none;background:var(--bg2);border-radius:6px;padding:10px;margin:0 14px 6px;font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.8">
+    &#10003; draft &middot; follow-up to Andreessen &middot; user rewrote opening &middot; Mar 20<br>
+    &#10003; draft &middot; proposal email to Acme &middot; user rewrote 60% &middot; Mar 18
+  </div>
+</div>
+
+<!-- Trust Progression Timeline -->
+<div class="sl" style="margin-top:20px">trust progression</div>
+<div style="display:flex;align-items:center;gap:0;margin-top:8px;width:100%">
+  <div style="flex:1;border:0.5px solid var(--rule2);border-radius:8px;padding:10px 14px;position:relative">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase">week 1</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Observer</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);margin-top:2px">12 corrections, 84% accuracy</div>
+    <div style="position:absolute;top:6px;right:8px;font-size:10px;color:var(--green)">&#10003;</div>
+  </div>
+  <div style="width:12px;height:0.5px;background:var(--rule2);flex-shrink:0"></div>
+  <div style="flex:1;border:0.5px solid var(--rule2);border-radius:8px;padding:10px 14px;position:relative">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase">week 2</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Observer &rarr; Confirmed</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);margin-top:2px">7 corrections, 89% accuracy, Linear auto-execute unlocked</div>
+    <div style="position:absolute;top:6px;right:8px;font-size:10px;color:var(--green)">&#10003;</div>
+  </div>
+  <div style="width:12px;height:0.5px;background:var(--rule2);flex-shrink:0"></div>
+  <div style="flex:1;border:0.5px solid var(--rule2);border-radius:8px;padding:10px 14px;position:relative">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase">week 3</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Confirmed &rarr; Trusted</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);margin-top:2px">4 corrections, 94% accuracy, Slack auto-execute unlocked</div>
+    <div style="position:absolute;top:6px;right:8px;font-size:10px;color:var(--green)">&#10003;</div>
+  </div>
+  <div style="width:12px;height:0.5px;background:var(--rule2);flex-shrink:0"></div>
+  <div style="flex:1;border:1.5px solid var(--blue);border-radius:8px;padding:10px 14px;position:relative">
+    <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;text-transform:uppercase">week 4</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-top:3px">Trusted (current)</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);margin-top:2px">2 corrections, 96% accuracy, Calendar needs-confirm</div>
   </div>
 </div>
 
@@ -169,6 +225,13 @@
   <div class="nw-i"><div class="nw-dot" style="background:var(--amber)"></div><div class="nw-t" style="font-size:12px;font-weight:300">Salesforce: user corrected 'proposal sent' to 'proposal reviewed' &middot; confidence adjusted</div></div>
 </div>
 
+<!-- Trust Regressions -->
+<div class="sl" style="margin-top:20px">trust regressions</div>
+<div style="width:100%">
+  <div class="nw-i"><div class="nw-dot" style="background:var(--amber)"></div><div class="nw-t" style="font-size:12px;font-weight:300">Calendar confidence reduced: L3 &rarr; L2 after 2 user reschedules in one week (Mar 15-22). Auto-scheduling paused until 5 successful confirms.</div></div>
+  <div class="nw-i"><div class="nw-dot" style="background:var(--ink3)"></div><div class="nw-t" style="font-size:12px;font-weight:300">Gmail: draft approval required after user rewrote 3 of 5 generated drafts. Okaeri is learning your tone.</div></div>
+</div>
+
 <!-- Permissions -->
 <div class="sl" style="margin-top:20px">permissions</div>
 <div class="ea-perms" style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
@@ -210,6 +273,24 @@
     el.addEventListener('click', function(){
       if(this.hasAttribute('data-locked')) return; // do nothing for locked items
       this.classList.toggle('on');
+    });
+  });
+
+  // Per-action audit: clickable tool names toggle audit panels
+  document.querySelectorAll('.trust-row .tool-name').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      var row = el.closest('.trust-row');
+      var tool = row.getAttribute('data-tool');
+      var panel = document.querySelector('.audit-panel[data-audit="'+tool+'"]');
+      if(!panel) return;
+      if(panel.style.display === 'none'){
+        // close all others first
+        document.querySelectorAll('.audit-panel').forEach(function(p){ p.style.display='none'; });
+        panel.style.display = 'block';
+      } else {
+        panel.style.display = 'none';
+      }
     });
   });
 })();

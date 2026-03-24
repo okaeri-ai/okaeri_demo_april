@@ -1,6 +1,9 @@
 <div class="hero" data-clock>9:32</div>
 <div class="meta" style="margin-top:8px">Monday, March 23</div>
-<div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.16em;margin-top:6px;margin-bottom:18px">2 things need you today</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:18px">
+  <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.16em">2 things need you today</div>
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;border:0.5px solid var(--rule);border-radius:4px;padding:2px 6px">2 meetings today</div>
+</div>
 
 <!-- Card 1: Top Priority -->
 <div class="cmd-card" id="cardTopPriority" style="display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px;border-left:2px solid var(--amber);margin-bottom:8px;transition:opacity 0.15s;cursor:default">
@@ -63,6 +66,23 @@
   </div>
   <div style="display:flex;gap:8px;align-items:center">
     <button class="btn-b" id="openPrepBtn"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
+  </div>
+</div>
+
+<!-- Prep card: Resonance meeting -->
+<div class="sl" style="margin-top:12px">later today</div>
+<div class="prep-card" id="prepCardResonance" style="cursor:default">
+  <div class="pc-top">
+    <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">23</div><div class="pc-tm">14:00</div></div>
+    <div style="flex:1">
+      <div class="pc-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="3" stroke="#185FA5" stroke-width=".8"/><path d="M4 2v2.5l1.5 1" stroke="#185FA5" stroke-width=".8" stroke-linecap="round"/></svg><span class="pc-badge-t">prep ready</span></div>
+      <div class="pc-name">Design partner call · Resonance</div>
+      <div class="pc-mt">60 min · Zoom · 3 attendees</div>
+      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em;margin-top:5px">Marcus demo blocked by rate limit bug — check status before this call</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="btn-b" id="openPrepResonance" style="pointer-events:auto;cursor:default;opacity:0.7"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
   </div>
 </div>
 

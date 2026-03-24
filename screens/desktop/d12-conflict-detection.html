@@ -1,9 +1,34 @@
 <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
   <div style="width:6px;height:6px;border-radius:50%;background:var(--amber)"></div>
-  <span class="eyebrow" style="margin-bottom:0">2 decision conflicts detected</span>
+  <span class="eyebrow" style="margin-bottom:0">3 conflicts detected</span>
 </div>
 <div class="ptitle">conflicts</div>
 <div class="sub" style="margin-bottom:16px">when two meetings produced contradictory decisions</div>
+
+<div class="conf u" id="conf0" style="border-color:var(--blue)">
+  <div class="conf-h">
+    <div class="conf-topic">Marcus's rate limit bug timeline</div>
+    <div class="conf-badge" id="badge0"><div style="width:5px;height:5px;border-radius:50%;background:var(--blue)"></div><span style="color:var(--blue)">cross-meeting</span></div>
+  </div>
+  <div class="conf-sides">
+    <div class="conf-side">
+      <div class="conf-sm"><span>Q2 roadmap sync · 9:41 am</span></div>
+      <div class="conf-st">Marcus committed to P1, done before end of sprint</div>
+    </div>
+    <div class="conf-sdiv"></div>
+    <div class="conf-side">
+      <div class="conf-sm"><span>Design partner call · 2:00 pm</span></div>
+      <div class="conf-st">Resonance demo needs the bug fixed. If sprint end is Friday, demo may be blocked.</div>
+    </div>
+  </div>
+  <div class="conf-f">
+    <div class="conf-ft">same day · affecting 2 meetings</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-ghost" onclick="document.getElementById('conf0').style.opacity='0.5';document.getElementById('badge0').innerHTML='dismissed'">dismiss</button>
+      <button class="btn-ul" id="flagMarcus0">flag for Marcus</button>
+    </div>
+  </div>
+</div>
 
 <div class="conf u" id="conf1">
   <div class="conf-h">
@@ -85,6 +110,12 @@
 
 <script>
 (function(){
+  document.getElementById('flagMarcus0').addEventListener('click', function(){
+    var card = document.getElementById('conf0');
+    var badge = document.getElementById('badge0');
+    card.style.opacity = '0.5';
+    badge.innerHTML = '<span style="color:var(--green)">flagged</span>';
+  });
   document.getElementById('markCurrent1').addEventListener('click', function(){
     var card = document.getElementById('conf1');
     var badge = document.getElementById('badge1');

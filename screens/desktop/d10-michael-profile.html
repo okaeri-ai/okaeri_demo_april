@@ -57,7 +57,7 @@
 </div>
 
 <div class="ok-read" style="background:var(--teal-bg);border-color:#8ECFB9">
-  <div class="ok-read-l" style="color:var(--teal)">okaeri's read</div>
+  <div style="display:flex;align-items:center;gap:10px"><div class="ok-read-l" style="color:var(--teal)">okaeri's read</div><button class="btn-ghost" id="hearReadMichael" style="font-size:9px;padding:2px 8px;display:inline-flex;align-items:center;gap:4px"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 5h2l4-3v12l-4-3H3a1 1 0 01-1-1V6a1 1 0 011-1z" fill="var(--ink3)"/><path d="M11 5.5s1.5 1 1.5 2.5-1.5 2.5-1.5 2.5" stroke="var(--ink3)" stroke-width="1"/></svg>hear okaeri's read</button></div>
   <div class="ok-read-t" style="color:#0A4F3E">Michael is a first meeting — build rapport before pitching. He's technical and detail-oriented based on his email questions. Lead with the developer workflow demo, show the Linear + Slack + Calendar chain executing live. Answer his multi-tool question with a concrete example. Let Sarah carry the thesis conversation; Michael needs to see the product work.</div>
 </div>
 
@@ -85,5 +85,12 @@
   else if (prev === 'd01-home') label = 'home';
   bc.innerHTML = '← <span style="text-decoration:none">' + label + ' → michael kim</span>';
   bc.addEventListener('click', function(){ OKAERI.goBack(); });
+})();
+(function(){
+  var btn = document.getElementById('hearReadMichael');
+  if(btn) btn.addEventListener('click', function(){
+    var readText = document.querySelector('.ok-read-t');
+    if(readText && window.OKAERI && OKAERI.speak) OKAERI.speak(readText.textContent);
+  });
 })();
 </script>

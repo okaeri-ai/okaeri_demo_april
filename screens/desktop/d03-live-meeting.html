@@ -69,6 +69,16 @@
         </div>
       </div>
     </div>
+    <div class="hr2"></div>
+    <div class="sl">your notes</div>
+    <div id="userNotesContainer"></div>
+    <textarea id="userNoteInput" rows="2" placeholder="type a note..." style="font-size:12px;font-weight:300;letter-spacing:0.02em;border:none;border-bottom:0.5px solid var(--rule);background:none;width:100%;resize:none;font-family:inherit;color:var(--ink);outline:none;padding:6px 0"></textarea>
+    <div style="display:flex;gap:6px;margin-top:6px" id="noteTagBtns">
+      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="action item">action item</span>
+      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="decision">decision</span>
+      <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="question">question</span>
+    </div>
+    <div id="okaeriHint" style="display:none;font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.16em;margin-top:5px"></div>
   </div>
 </div>
 <div class="ext-tray">
@@ -176,6 +186,53 @@
     clearInterval(timer);
     clearInterval(typingInterval);
     OKAERI.go('d04-confirm-execute');
+  });
+
+  // ── User Notes ──
+  var selectedTag = null;
+  var tagBtns = document.querySelectorAll('#noteTagBtns .btn-skip');
+  tagBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(selectedTag === btn.getAttribute('data-tag')){
+        selectedTag = null;
+        btn.style.borderColor = '';
+      } else {
+        tagBtns.forEach(function(b){ b.style.borderColor = ''; });
+        selectedTag = btn.getAttribute('data-tag');
+        btn.style.borderColor = 'var(--ink)';
+      }
+    });
+  });
+
+  var noteInput = document.getElementById('userNoteInput');
+  var notesContainer = document.getElementById('userNotesContainer');
+  var hint = document.getElementById('okaeriHint');
+  noteInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      var text = noteInput.value.trim();
+      if(!text) return;
+      var row = document.createElement('div');
+      row.className = 'note-i';
+      var tagClass = '';
+      var tagLabel = '';
+      if(selectedTag === 'action item'){ tagClass = 'nt-c'; tagLabel = 'action item'; }
+      else if(selectedTag === 'decision'){ tagClass = 'nt-d'; tagLabel = 'decision'; }
+      else if(selectedTag === 'question'){ tagClass = 'nt-q'; tagLabel = 'question'; }
+      row.innerHTML = (tagLabel ? '<span class="ntag '+tagClass+'">'+tagLabel+'</span>' : '') + '<span class="note-t">'+text+'</span>';
+      notesContainer.appendChild(row);
+      // Check for @mention or "should own"
+      var mentionMatch = text.match(/@(\w+)/i) || text.match(/(\w+)\s+should\s+own/i);
+      if(mentionMatch){
+        var name = mentionMatch[1].charAt(0).toUpperCase() + mentionMatch[1].slice(1);
+        hint.textContent = 'okaeri noted: commitment assigned to ' + name;
+        hint.style.display = 'block';
+        setTimeout(function(){ hint.style.display = 'none'; }, 4000);
+      } else {
+        hint.style.display = 'none';
+      }
+      noteInput.value = '';
+    }
   });
 })();
 </script>

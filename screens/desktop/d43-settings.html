@@ -1,0 +1,120 @@
+<div class="ptitle">settings</div>
+<div class="hr"></div>
+
+<!-- Notifications -->
+<div class="sl">notifications</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Execution confirmations</div>
+    <div class="toggle on" data-setting="exec-confirm"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">At-risk alerts</div>
+    <div class="toggle on" data-setting="risk-alerts"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Meeting prep reminders</div>
+    <div class="toggle on" data-setting="prep-reminders"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Prep brief timing</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">30 min before</div>
+  </div>
+</div>
+
+<!-- Defaults -->
+<div class="sl" style="margin-top:20px">defaults</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Default tool for tickets</div>
+    <div data-cycle="Linear,Jira,GitHub" style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em;cursor:pointer;user-select:none">Linear</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Default tool for messages</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">Slack</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Default calendar</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">Google Calendar</div>
+  </div>
+</div>
+
+<!-- Working Hours -->
+<div class="sl" style="margin-top:20px">working hours</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Start time</div>
+    <input type="text" value="8:00 am" class="modal-input" style="width:100px;text-align:right;border:none;border-bottom:0.5px solid var(--rule2);padding:4px 0" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">End time</div>
+    <input type="text" value="6:00 pm" class="modal-input" style="width:100px;text-align:right;border:none;border-bottom:0.5px solid var(--rule2);padding:4px 0" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Focus block preference</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">afternoon</div>
+  </div>
+</div>
+
+<!-- Briefings -->
+<div class="sl" style="margin-top:20px">briefings</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Morning briefing time</div>
+    <input type="text" value="6:45 am" class="modal-input" style="width:100px;text-align:right;border:none;border-bottom:0.5px solid var(--rule2);padding:4px 0" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Evening review time</div>
+    <input type="text" value="6:00 pm" class="modal-input" style="width:100px;text-align:right;border:none;border-bottom:0.5px solid var(--rule2);padding:4px 0" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Audio briefings</div>
+    <div class="toggle on" data-setting="audio-briefings"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Briefing voice</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">Samantha</div>
+  </div>
+</div>
+
+<!-- Data & Privacy -->
+<div class="sl" style="margin-top:20px">data & privacy</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Meeting recording</div>
+    <div class="toggle on" data-setting="meeting-recording"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Store transcripts</div>
+    <div class="toggle on" data-setting="store-transcripts"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Share execution data with team</div>
+    <div class="toggle" data-setting="share-data"><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Delete all data</div>
+    <button class="btn-ghost" style="color:var(--red,#c44);border-color:var(--red,#c44)">delete all data</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Toggle switches
+  document.querySelectorAll('[data-setting]').forEach(function(el){
+    el.addEventListener('click', function(){
+      this.classList.toggle('on');
+    });
+  });
+
+  // Cycle values (e.g. Linear / Jira / GitHub)
+  document.querySelectorAll('[data-cycle]').forEach(function(el){
+    var options = el.getAttribute('data-cycle').split(',');
+    var idx = 0;
+    el.addEventListener('click', function(){
+      idx = (idx + 1) % options.length;
+      this.textContent = options[idx];
+    });
+  });
+})();
+</script>

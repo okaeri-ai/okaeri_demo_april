@@ -269,6 +269,19 @@ window.OKAERI = {
     scheduleNext();
   },
 
+  // ── Meeting 2: Resonance Design Partner Call ──
+  meeting2: {
+    name: 'Design partner call · Resonance',
+    time: '2:00 pm',
+    duration: '60 min',
+    attendees: ['Resonance team', 'Jess', 'Marcus'],
+    commitments: [
+      { id: 'm2c1', verb: 'send', obj: 'API access credentials', tool: 'Slack #resonance', toolClass: 'tt-sl', assignee: '@marcus', meta: 'today', label: 'Credentials sent', detail: 'Slack #resonance' },
+      { id: 'm2c2', verb: 'schedule', obj: 'weekly sync · recurring', tool: 'Calendar', toolClass: 'tt-ca', assignee: '@jess', meta: 'starting next week', label: 'Recurring invite created', detail: 'Every Tuesday 2pm' },
+      { id: 'm2c3', verb: 'create', obj: 'integration test plan', tool: 'Linear', toolClass: 'tt-li', assignee: '@marcus', meta: 'by Friday', label: 'Ticket created', detail: 'Linear OKA-216' }
+    ]
+  },
+
   // ── Navigation Helper ──
   go: function(screenId) {
     if (window.OKAERI_NAV && window.OKAERI_NAV.navigate) {
@@ -281,6 +294,25 @@ window.OKAERI = {
       window.OKAERI_NAV.goBack();
     }
   }
+};
+
+// ── Speech Synthesis ──
+OKAERI.speak = function(text, options) {
+  try {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.rate = options && options.rate || 0.9;
+    utter.pitch = options && options.pitch || 1.0;
+    utter.volume = options && options.volume || 0.6;
+    var voices = speechSynthesis.getVoices();
+    var preferred = voices.find(function(v){ return v.name.indexOf('Samantha') !== -1; })
+      || voices.find(function(v){ return v.name.indexOf('Karen') !== -1; })
+      || voices.find(function(v){ return v.lang === 'en-US' && v.name.indexOf('Female') !== -1; })
+      || voices[0];
+    if(preferred) utter.voice = preferred;
+    window.speechSynthesis.speak(utter);
+  } catch(e) {}
 };
 
 // ── Notification Sounds (Web Audio API) ──

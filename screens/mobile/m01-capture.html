@@ -46,3 +46,51 @@
   }, 1000);
 })();
 </script>
+
+<script>
+(function(){
+  // Try to access microphone for live waveform
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var analyser = ctx.createAnalyser();
+      var source = ctx.createMediaStreamSource(stream);
+      source.connect(analyser);
+      analyser.fftSize = 32;
+      var data = new Uint8Array(analyser.frequencyBinCount);
+      var bars = document.querySelectorAll('.wf-bar');
+
+      function animate(){
+        analyser.getByteFrequencyData(data);
+        bars.forEach(function(bar, i){
+          var val = data[i % data.length] / 255;
+          bar.style.height = Math.max(4, val * 20) + 'px';
+          bar.style.animation = 'none'; // Override CSS animation with live data
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Store stream to stop later
+      window._okaeriMicStream = stream;
+    }).catch(function(){
+      // Microphone denied — keep CSS animation as fallback
+      console.log('Microphone access denied, using CSS animation fallback');
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  // Stop microphone when "done" is clicked
+  var doneBtn = document.querySelector('button[onclick*="m02-post-capture"]');
+  if(doneBtn){
+    doneBtn.addEventListener('click', function(){
+      if(window._okaeriMicStream){
+        window._okaeriMicStream.getTracks().forEach(function(t){ t.stop(); });
+      }
+    });
+  }
+})();
+</script>

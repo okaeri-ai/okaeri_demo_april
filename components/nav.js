@@ -24,7 +24,8 @@
       { id: 'd13-pattern-detection', label: 'Pattern Detection' },
       { id: 'd14-meeting-quality', label: 'Meeting Quality' },
       { id: 'd15-proactive-suggestions', label: 'Proactive Suggestions' },
-      { id: 'd16-weekly-digest', label: 'Weekly Digest' }
+      { id: 'd16-weekly-digest', label: 'Weekly Digest' },
+      { id: 'd44-reasoning', label: 'Reasoning Log' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -51,7 +52,8 @@
       { id: 'd30-lifecycle', label: 'Commitment Lifecycle' },
       { id: 'd31-meeting-brief', label: 'Meeting Brief' },
       { id: 'd32-investor-update', label: 'Investor Update' },
-      { id: 'd33-receipt-artifact', label: 'Commitment Receipt' }
+      { id: 'd33-receipt-artifact', label: 'Commitment Receipt' },
+      { id: 'd42-meeting-history', label: 'Meeting History' }
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
@@ -63,7 +65,8 @@
       { id: 'd37-onboarding', label: 'Onboarding' },
       { id: 'd38-notifications', label: 'Notifications' },
       { id: 'd39-search', label: 'Search' },
-      { id: 'd41-learning-history', label: 'Learning History' }
+      { id: 'd41-learning-history', label: 'Learning History' },
+      { id: 'd43-settings', label: 'Settings' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -90,7 +93,7 @@
     'd09-sarah-profile': { text: 'prep ready', live: false },
     'd10-michael-profile': { text: 'prep ready', live: false },
     'd11-ask-okaeri': { text: 'listening', live: false },
-    'd12-conflict-detection': { text: 'all clear', live: false },
+    'd12-conflict-detection': { text: '3 conflicts', live: false },
     'd13-pattern-detection': { text: 'all clear', live: false },
     'd14-meeting-quality': { text: 'all clear', live: false },
     'd15-proactive-suggestions': { text: '3 suggestions', live: false },
@@ -120,6 +123,9 @@
     'd39-search': { text: 'listening', live: false },
     'd40-execution-failure': { text: '1 failed', live: false },
     'd41-learning-history': { text: '96% accuracy', live: false },
+    'd42-meeting-history': { text: '10 meetings', live: false },
+    'd43-settings': { text: 'settings', live: false },
+    'd44-reasoning': { text: 'transparency', live: false },
     'm01-capture': { text: 'recording', live: true },
     'm02-post-capture': { text: '4 extracted', live: false },
     'm03-realtime-intel': { text: 'live intel', live: true },
