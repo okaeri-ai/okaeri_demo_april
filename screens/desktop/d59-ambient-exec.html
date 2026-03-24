@@ -1,0 +1,111 @@
+<div class="eyebrow">ambient mode · executive layer</div>
+<div class="ptitle" style="margin-bottom:4px">only what changed</div>
+<div class="sub" style="margin-bottom:20px">okaeri stays quiet until something matters</div>
+
+<!-- Right now -->
+<div class="sl">right now</div>
+
+<div style="border-left:2px solid var(--amber);padding:10px 14px;margin-bottom:10px">
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Sequoia materials not sent — meeting in 28 minutes</div>
+  <div style="font-size:11px;font-weight:200;color:var(--amber);letter-spacing:0.12em;margin-top:3px">This is your #1 action. Everything else can wait.</div>
+</div>
+
+<div style="border-left:2px solid var(--green);padding:10px 14px;margin-bottom:18px">
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Rate limit bug ticket created — Marcus confirmed</div>
+  <div style="font-size:11px;font-weight:200;color:var(--green);letter-spacing:0.12em;margin-top:3px">No action needed. Watching for completion.</div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Since last check -->
+<div class="sl">since last check</div>
+
+<div style="margin-bottom:18px">
+  <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:6px"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Priya sent pricing recap to Slack #sales — confirmed delivered</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:6px"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Alex Chen still hasn't responded (now 11.5 days)</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Sarah Rhodes opened your last email twice in 30 minutes — high engagement signal</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px">
+    <div style="width:5px;height:5px;border-radius:50%;background:var(--ink3);flex-shrink:0;margin-top:6px"></div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">James's calendar shows dentist at 3pm — may conflict with prep time</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Nothing else needs you -->
+<div style="padding:14px 0;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.72;margin-bottom:6px">Everything else is running. 3 automated rhythms on schedule. No new blockers detected.</div>
+  <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">Next check: after the Sequoia meeting</div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Ambient preferences -->
+<div class="sl">ambient preferences</div>
+
+<div style="margin-bottom:18px">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule)">
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">check-in frequency</span>
+    <span id="prefFreq" style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer">every 2 hours</span>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule)">
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">alert threshold</span>
+    <span id="prefThreshold" style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer">critical only</span>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule)">
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">delivery</span>
+    <span id="prefDelivery" style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer">menu bar</span>
+  </div>
+</div>
+
+<!-- Design philosophy -->
+<div class="narr">
+  <div class="narr-l">design philosophy</div>
+  <div class="narr-t">The strongest version of Okaeri may not be a dashboard. It may be a quiet layer that steps in only when something meaningfully changes. Ambient mode shows you only deltas — what's different since you last looked. If nothing changed, it says so. That silence is the product working.</div>
+</div>
+
+<script>
+(function(){
+  // Cycle: check-in frequency
+  var freqOpts = ['every 30 min', 'every 1 hour', 'every 2 hours', 'every 4 hours', 'manual only'];
+  var freqIdx = 2;
+  var freqEl = document.getElementById('prefFreq');
+  if(freqEl){
+    freqEl.addEventListener('click', function(){
+      freqIdx = (freqIdx + 1) % freqOpts.length;
+      freqEl.textContent = freqOpts[freqIdx];
+    });
+  }
+
+  // Cycle: alert threshold
+  var threshOpts = ['all changes', 'important', 'critical only'];
+  var threshIdx = 2;
+  var threshEl = document.getElementById('prefThreshold');
+  if(threshEl){
+    threshEl.addEventListener('click', function(){
+      threshIdx = (threshIdx + 1) % threshOpts.length;
+      threshEl.textContent = threshOpts[threshIdx];
+    });
+  }
+
+  // Cycle: delivery
+  var delOpts = ['menu bar', 'notification', 'email digest'];
+  var delIdx = 0;
+  var delEl = document.getElementById('prefDelivery');
+  if(delEl){
+    delEl.addEventListener('click', function(){
+      delIdx = (delIdx + 1) % delOpts.length;
+      delEl.textContent = delOpts[delIdx];
+    });
+  }
+})();
+</script>

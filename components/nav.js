@@ -37,7 +37,8 @@
       { id: 'd49-dependencies', label: 'Dependencies' },
       { id: 'd55-unified-model', label: 'Unified Model' },
       { id: 'd56-meeting-steering', label: 'Meeting Steering' },
-      { id: 'd57-meeting-score', label: 'Meeting Score' }
+      { id: 'd57-meeting-score', label: 'Meeting Score' },
+      { id: 'd60-benchmarking', label: 'Benchmarking' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -67,7 +68,8 @@
       { id: 'd32-investor-update', label: 'Investor Update' },
       { id: 'd33-receipt-artifact', label: 'Commitment Receipt' },
       { id: 'd42-meeting-history', label: 'Meeting History' },
-      { id: 'd53-outcomes', label: 'Outcome Proof' }
+      { id: 'd53-outcomes', label: 'Outcome Proof' },
+      { id: 'd58-smart-draft', label: 'Smart Draft' }
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
@@ -83,7 +85,8 @@
       { id: 'd43-settings', label: 'Settings' },
       { id: 'd51-style-learning', label: 'Style Learning' },
       { id: 'd52-continuity', label: 'Continuity' },
-      { id: 'd54-privacy', label: 'Privacy' }
+      { id: 'd54-privacy', label: 'Privacy' },
+      { id: 'd59-ambient-exec', label: 'Ambient Mode' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -157,6 +160,9 @@
     'd55-unified-model': { text: 'unified', live: false },
     'd56-meeting-steering': { text: '5 detectors', live: false },
     'd57-meeting-score': { text: '78/100', live: false },
+    'd58-smart-draft': { text: 'drafting', live: false },
+    'd59-ambient-exec': { text: 'quiet', live: false },
+    'd60-benchmarking': { text: 'patterns', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },
     'd10c-priya-profile': { text: '100% rate', live: false },
     'd10d-james-profile': { text: '89% rate', live: false },

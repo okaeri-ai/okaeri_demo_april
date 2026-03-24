@@ -1,0 +1,142 @@
+<div class="eyebrow">personalized drafting · Sarah Rhodes</div>
+<div class="ptitle" style="margin-bottom:4px">follow-up draft</div>
+<div class="sub" style="margin-bottom:18px">strategy-aware · using your saved notes</div>
+
+<!-- Message strategy -->
+<div style="margin-bottom:16px">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">message strategy</div>
+  <div style="display:flex;gap:6px">
+    <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;padding:2px 7px;background:var(--bbg);border-radius:3px">technical</span>
+    <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;padding:2px 7px;background:var(--bbg);border-radius:3px">concise</span>
+    <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;padding:2px 7px;background:var(--bbg);border-radius:3px">proof-led</span>
+  </div>
+</div>
+
+<!-- Using your saved notes -->
+<div style="margin-bottom:18px">
+  <div class="sl">using your saved notes</div>
+
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ptag ptag-b">fact</span>
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">backs highly technical founders</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ptag ptag-g">strategy</span>
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">emphasize technical differentiator</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span class="ptag ptag-a">tactic</span>
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">CTO Loom is a good candidate next move</span>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Draft version 1 -->
+<div style="margin-bottom:6px;font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase">draft · version 1</div>
+<div id="draftCard1" style="border:0.5px solid var(--rule);border-radius:8px;padding:16px;margin-bottom:14px">
+  <div id="draftText1" style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.72">Sarah — great meeting today. One thing that may be useful as you think about it: we can send a short walkthrough of the architecture behind the voice workflow layer and why it compounds with usage over time. If helpful, I can send that over.</div>
+</div>
+
+<!-- Why this draft fits Sarah -->
+<div style="margin-bottom:18px">
+  <div id="whyToggle" style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:6px">
+    <span id="whyArrow" style="font-size:8px;transition:transform 0.2s">▸</span> why this draft fits sarah
+  </div>
+  <div id="whyContent" style="display:none;padding-left:14px">
+    <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px"></div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Leads with technical depth, not broad update</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px"></div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Offers proof artifact instead of generic follow-up</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px"></div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Matches your saved strategy for this relationship</div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Alternate version -->
+<div style="margin-bottom:6px;font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase">alternate version</div>
+<div style="border:0.5px solid var(--rule);border-radius:8px;padding:16px;margin-bottom:18px">
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.72">Sarah — really enjoyed today. Given your questions on defensibility, I think the most useful follow-up may be a short CTO walkthrough of the architecture choices behind the product and why they strengthen the data moat over time. Happy to send that if useful.</div>
+</div>
+
+<!-- Action buttons -->
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+  <button class="btn-ul-g" id="btnUseDraft">use this</button>
+  <button class="btn-ghost" id="btnMoreTech">make more technical</button>
+  <button class="btn-ghost" id="btnShorter">shorter</button>
+  <button class="btn-ghost" id="btnSwapLoom">swap Loom for coffee ask</button>
+</div>
+
+<script>
+(function(){
+  function showToast(msg){
+    var existing = document.getElementById('okaeri-toast');
+    if(existing) existing.remove();
+    var t = document.createElement('div');
+    t.id = 'okaeri-toast';
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity = '1'; });
+    setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); }, 300); }, 2000);
+  }
+
+  // Toggle "why this draft fits"
+  var whyToggle = document.getElementById('whyToggle');
+  var whyContent = document.getElementById('whyContent');
+  var whyArrow = document.getElementById('whyArrow');
+  if(whyToggle){
+    whyToggle.addEventListener('click', function(){
+      var open = whyContent.style.display !== 'none';
+      whyContent.style.display = open ? 'none' : 'block';
+      whyArrow.style.transform = open ? 'rotate(0deg)' : 'rotate(90deg)';
+    });
+  }
+
+  // "use this" button
+  var btnUse = document.getElementById('btnUseDraft');
+  if(btnUse){
+    btnUse.addEventListener('click', function(){
+      showToast('draft saved · will send after your review');
+    });
+  }
+
+  // "make more technical"
+  var btnTech = document.getElementById('btnMoreTech');
+  if(btnTech){
+    btnTech.addEventListener('click', function(){
+      var d = document.getElementById('draftText1');
+      if(d) d.textContent = 'Sarah — following up on today\u2019s conversation. I\u2019d like to send over a brief architecture walkthrough covering the voice workflow layer\u2019s event-driven pipeline, the commitment graph data model, and why the compound learning rate accelerates with each integration. The technical differentiation is in the execution layer, not the model — happy to walk through the specifics if useful.';
+      showToast('draft updated · more technical');
+    });
+  }
+
+  // "shorter"
+  var btnShort = document.getElementById('btnShorter');
+  if(btnShort){
+    btnShort.addEventListener('click', function(){
+      var d = document.getElementById('draftText1');
+      if(d) d.textContent = 'Sarah — great meeting. Can I send a short architecture walkthrough of the voice workflow layer? I think it\u2019ll speak directly to the defensibility question.';
+      showToast('draft updated · shorter');
+    });
+  }
+
+  // "swap Loom for coffee ask"
+  var btnSwap = document.getElementById('btnSwapLoom');
+  if(btnSwap){
+    btnSwap.addEventListener('click', function(){
+      var d = document.getElementById('draftText1');
+      if(d) d.textContent = 'Sarah — great meeting today. One thing that may be useful as you think about it: I\u2019d love to grab coffee and walk through the architecture behind the voice workflow layer and why it compounds with usage over time. Free Thursday or Friday?';
+      showToast('draft updated · swapped to coffee ask');
+    });
+  }
+})();
+</script>
