@@ -136,6 +136,7 @@
 
   const collapsedSections = {};
   let currentView = 'desktop'; // desktop | mobile | ambient
+  let sidebarCollapsed = (window.OKAERI && window.OKAERI.sidebarCollapsed) || false;
 
   // ── Demo Mode State ──
   const DEMO_STEPS = [
@@ -155,10 +156,13 @@
     if (!sidebar) return;
     sidebar.innerHTML = '';
 
+    // Apply collapsed class
+    sidebar.classList.toggle('collapsed', sidebarCollapsed);
+
     // Wordmark
     const wm = document.createElement('div');
     wm.className = 'sidebar-wm';
-    wm.textContent = 'okaeri';
+    wm.textContent = sidebarCollapsed ? 'o' : 'okaeri';
     wm.addEventListener('click', () => navigate('d01-home'));
     sidebar.appendChild(wm);
 
@@ -181,7 +185,16 @@
           const link = document.createElement('div');
           link.className = 'nav-item';
           link.dataset.screen = item.id;
-          link.textContent = item.label;
+          if (sidebarCollapsed) {
+            link.textContent = item.label.substring(0, 2).toUpperCase();
+            // Add tooltip
+            const tooltip = document.createElement('span');
+            tooltip.className = 'nav-tooltip';
+            tooltip.textContent = item.label;
+            link.appendChild(tooltip);
+          } else {
+            link.textContent = item.label;
+          }
           link.addEventListener('click', () => navigate(item.id));
           sectionEl.appendChild(link);
         });
@@ -189,6 +202,22 @@
 
       sidebar.appendChild(sectionEl);
     });
+
+    // Collapse toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'collapse-toggle';
+    toggleBtn.innerHTML = sidebarCollapsed ? '&raquo;' : '&laquo;';
+    toggleBtn.title = sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar';
+    toggleBtn.addEventListener('click', toggleCollapse);
+    sidebar.appendChild(toggleBtn);
+  }
+
+  function toggleCollapse() {
+    sidebarCollapsed = !sidebarCollapsed;
+    // Persist on window.OKAERI
+    if (window.OKAERI) window.OKAERI.sidebarCollapsed = sidebarCollapsed;
+    buildSidebar();
+    highlightActive();
   }
 
   function highlightActive() {
@@ -427,6 +456,27 @@
     document.body.classList.toggle('presentation-mode');
   }
 
+  // ── Dark Mode ──
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    try { localStorage.setItem('okaeri-dark-mode', isDark ? '1' : '0'); } catch(e) {}
+    // Update theme-color meta
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', isDark ? '#1a1a18' : '#FAFAF8');
+  }
+
+  function applyDarkModePreference() {
+    try {
+      const pref = localStorage.getItem('okaeri-dark-mode');
+      if (pref === '1') {
+        document.body.classList.add('dark-mode');
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', '#1a1a18');
+      }
+    } catch(e) {}
+  }
+
   // ── Keyboard Shortcuts ──
   function handleKeydown(e) {
     // Ignore if typing in an input/textarea
@@ -443,6 +493,20 @@
     if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'p' || e.key === 'P')) {
       e.preventDefault();
       togglePresentation();
+      return;
+    }
+
+    // Cmd+\ or Ctrl+\ — Toggle sidebar collapse
+    if ((e.metaKey || e.ctrlKey) && e.key === '\\') {
+      e.preventDefault();
+      toggleCollapse();
+      return;
+    }
+
+    // Ctrl+Shift+D — Toggle dark mode
+    if (e.ctrlKey && e.shiftKey && (e.key === 'd' || e.key === 'D')) {
+      e.preventDefault();
+      toggleDarkMode();
       return;
     }
 
@@ -512,7 +576,19 @@
 
   // ── Init ──
   function init() {
+    // Apply dark mode preference before building UI
+    applyDarkModePreference();
+
+    // Restore sidebar collapse state from window.OKAERI
+    if (window.OKAERI && window.OKAERI.sidebarCollapsed) {
+      sidebarCollapsed = true;
+    }
+
     buildSidebar();
+
+    // Theme toggle button
+    var themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) themeToggle.addEventListener('click', toggleDarkMode);
 
     // View toggle buttons
     document.querySelectorAll('.view-btn').forEach(btn => {
@@ -609,7 +685,7 @@
   }
 
   // Export navigation functions
-  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo, togglePresentation };
+  window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo, togglePresentation, toggleCollapse, toggleDarkMode };
 
   // Init when DOM ready
   if (document.readyState === 'loading') {

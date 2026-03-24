@@ -395,6 +395,83 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
   animation: fadeInRow 0.4s ease forwards;
 }
 
+/* ── Sidebar Collapse ── */
+.sidebar { transition: width 0.25s ease; }
+.sidebar.collapsed { width: 48px; transition: width 0.25s ease; }
+.sidebar.collapsed .nav-section-header { display: none; }
+.sidebar.collapsed .sidebar-wm {
+  font-size: 11px;
+  letter-spacing: 0;
+  text-align: center;
+  padding: 0 0 12px;
+}
+.sidebar.collapsed .nav-item {
+  padding: 6px 0;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: clip;
+  border-left: 1.5px solid transparent;
+  position: relative;
+}
+.sidebar.collapsed .nav-item.active {
+  border-left-color: var(--ink);
+}
+.sidebar.collapsed .nav-item .nav-tooltip {
+  display: none;
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg);
+  border: 0.5px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 200;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  z-index: 20;
+  pointer-events: none;
+}
+.sidebar.collapsed .nav-item:hover .nav-tooltip {
+  display: block;
+}
+.collapse-toggle {
+  font-size: 12px;
+  font-weight: 200;
+  color: var(--ink3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 20px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 0.12em;
+  transition: color 0.15s;
+}
+.collapse-toggle:hover { color: var(--ink2); }
+.sidebar.collapsed .collapse-toggle {
+  text-align: center;
+  padding: 8px 0;
+}
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink3);
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.theme-toggle:hover { color: var(--ink2); }
+
 @media (max-width: 600px) {
   body::after {
     content: 'okaeri is designed for desktop';
@@ -429,6 +506,7 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
       <div class="mac-dot" style="background:#28C840"></div>
     </div>
     <div class="wm">okaeri</div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode (Ctrl+Shift+D)">&#9680;</button>
     <div class="tr" id="titleRight">
       <div class="pulse-dot"></div>
       <span class="tstat" id="tstatEl">listening</span>
@@ -487,6 +565,8 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
         <div class="kb-shortcut-row"><span class="kb-key">Esc</span><span class="kb-desc">back / close</span></div>
         <div class="kb-shortcut-row"><span class="kb-key">Enter</span><span class="kb-desc">execute</span></div>
         <div class="kb-shortcut-row"><span class="kb-key">?</span><span class="kb-desc">this help</span></div>
+        <div class="kb-shortcut-row"><span class="kb-key">&#8984;\</span><span class="kb-desc">toggle sidebar</span></div>
+        <div class="kb-shortcut-row"><span class="kb-key">&#8963;&#8679;D</span><span class="kb-desc">dark mode</span></div>
       </div>
     </div>
   </div>

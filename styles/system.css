@@ -1170,6 +1170,42 @@ input:focus { outline: none; }
 @keyframes numFlash { 0% { color: var(--green); transform: scale(1.05); } 100% { color: inherit; transform: scale(1); } }
 .num-flash { animation: numFlash 0.4s ease; }
 
+/* ── Dark Mode ── */
+body.dark-mode {
+  --bg: #1a1a18;
+  --bg2: #222220;
+  --bg3: #2a2a28;
+  --ink: #e8e8e4;
+  --ink2: #999;
+  --ink3: #666;
+  --ink4: #555;
+  --rule: #333330;
+  --rule2: #2a2a28;
+  --green: #5cb87a;
+  --gbg: #1a2e1a;
+  --gs: #3d6d2a;
+  --amber: #d4a063;
+  --abg: #2e2418;
+  --as: #8a6420;
+  --blue: #5b9bd5;
+  --bbg: #1a2a3e;
+  --bs: #3d6890;
+  --purple-bg: #2a2640;
+  --purple: #8b7ef0;
+  --yellow-bg: #2e2810;
+  --yellow: #c4a040;
+  --teal-bg: #1a2e28;
+  --teal: #40b090;
+  --red-bg: #2e1a18;
+  --red: #d06040;
+}
+
+body.dark-mode .mac-dot:nth-child(1) { opacity: 0.7; }
+body.dark-mode .mac-dot:nth-child(2) { opacity: 0.7; }
+body.dark-mode .mac-dot:nth-child(3) { opacity: 0.7; }
+
+body.dark-mode .modal-overlay { background: rgba(26, 26, 24, 0.88); }
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-thumb { background: var(--rule2); border-radius: 2px; }
