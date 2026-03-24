@@ -1,6 +1,6 @@
 <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
   <div style="width:6px;height:6px;border-radius:50%;background:var(--amber)"></div>
-  <span class="eyebrow" style="margin-bottom:0">3 conflicts detected</span>
+  <span class="eyebrow" style="margin-bottom:0">3 conflicts detected · 2 decisions may have expired</span>
 </div>
 <div class="ptitle">conflicts</div>
 <div class="sub" style="margin-bottom:16px">when two meetings produced contradictory decisions</div>
@@ -118,6 +118,42 @@
       <button class="btn-ghost" onclick="resolveConf('conf2','badge2','still unresolved')">still unresolved</button>
       <button class="btn-ghost" onclick="resolveConf('conf2','badge2','dismissed')">dismiss</button>
     </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+<div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--ink3)"></div>
+  <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase">2 decisions may have expired</span>
+</div>
+
+<div style="border:0.5px solid var(--rule2);border-radius:8px;padding:12px 16px;margin-bottom:8px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">"Wait on Index Ventures outreach until metrics improve"</div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.18em">6 weeks old</span>
+  </div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-bottom:4px">Decided: Feb 10 · fundraise planning · Jess</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-bottom:6px">Why it may be stale: execution rate improved from 71% to 97%, Sequoia intro completed, Resonance partner confirmed</div>
+  <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-bottom:6px">currently blocking: Index Ventures cold outreach (overdue 14 days)</div>
+  <div style="display:flex;gap:8px">
+    <button class="btn-ul" style="font-size:9px;letter-spacing:0.18em" onclick="this.closest('div[style*=border-radius]').style.opacity='0.4';this.closest('div[style*=border-radius]').innerHTML='<div style=padding:8px><span style=font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.14em>✓ reaffirmed · hold continues</span></div>'">still holds</button>
+    <button class="btn-ul-g" style="font-size:9px;letter-spacing:0.18em" onclick="this.closest('div[style*=border-radius]').style.opacity='0.4';this.closest('div[style*=border-radius]').innerHTML='<div style=padding:8px><span style=font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.14em>✓ expired · outreach unblocked</span></div>'">expired — unblock</button>
+    <button class="btn-ghost" style="font-size:9px" onclick="this.closest('div[style*=border-radius]').style.opacity='0.3'">dismiss</button>
+  </div>
+</div>
+
+<div style="border:0.5px solid var(--rule2);border-radius:8px;padding:12px 16px;margin-bottom:8px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">"Defer hiring until post-seed close"</div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.18em">5 weeks old</span>
+  </div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-bottom:4px">Decided: Feb 17 · team planning · Jess + Marcus</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-bottom:6px">Why it may be stale: Sequoia meeting signals positive momentum, Marcus is overloaded with 3 P1s, engineering bottleneck emerging</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-bottom:6px">not blocking anything currently — but conditions have changed</div>
+  <div style="display:flex;gap:8px">
+    <button class="btn-ul" style="font-size:9px;letter-spacing:0.18em" onclick="this.closest('div[style*=border-radius]').style.opacity='0.4';this.closest('div[style*=border-radius]').innerHTML='<div style=padding:8px><span style=font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.14em>✓ reaffirmed · hiring deferred</span></div>'">still holds</button>
+    <button class="btn-ul-g" style="font-size:9px;letter-spacing:0.18em" onclick="this.closest('div[style*=border-radius]').style.opacity='0.4';this.closest('div[style*=border-radius]').innerHTML='<div style=padding:8px><span style=font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.14em>✓ expired · revisit hiring</span></div>'">expired — revisit</button>
+    <button class="btn-ghost" style="font-size:9px" onclick="this.closest('div[style*=border-radius]').style.opacity='0.3'">dismiss</button>
   </div>
 </div>
 
