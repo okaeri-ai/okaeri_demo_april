@@ -1,0 +1,111 @@
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px">
+  <div class="ptitle">custom vocabulary</div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <span class="pulse-dot"></span>
+    <span class="meta">learning active</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="ok-read" style="margin-bottom:16px">
+  <div class="ok-read-l">accuracy improvement</div>
+  <div class="ok-read-t">96% accuracy with custom verbs vs 84% default — your vocabulary is 12 percentage points more reliable than the baseline model.</div>
+</div>
+
+<!-- Verb table -->
+<div class="sl">registered verbs</div>
+<div class="vocab-thead">
+  <div class="lth">verb</div>
+  <div class="lth">description</div>
+  <div class="lth">tool</div>
+  <div class="lth">badge</div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">create</div>
+  <div class="vocab-desc">Create new item in project tracker</div>
+  <div><span class="ttag tt-li">Linear</span></div>
+  <div><span class="vocab-badge" style="background:var(--bg3);color:var(--ink2)">default</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">send</div>
+  <div class="vocab-desc">Post message or file to channel</div>
+  <div><span class="ttag tt-sl">Slack</span></div>
+  <div><span class="vocab-badge" style="background:var(--bg3);color:var(--ink2)">default</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">schedule</div>
+  <div class="vocab-desc">Create calendar event with attendees</div>
+  <div><span class="ttag tt-ca">Calendar</span></div>
+  <div><span class="vocab-badge" style="background:var(--bg3);color:var(--ink2)">default</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">update</div>
+  <div class="vocab-desc">Modify existing record or status</div>
+  <div><span class="ttag tt-sf">Salesforce</span></div>
+  <div><span class="vocab-badge" style="background:var(--bg3);color:var(--ink2)">default</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">draft</div>
+  <div class="vocab-desc">Compose email without sending</div>
+  <div><span class="ttag tt-gm">Gmail</span></div>
+  <div><span class="vocab-badge" style="background:var(--bg3);color:var(--ink2)">default</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">review</div>
+  <div class="vocab-desc">Flag item for manual review before action</div>
+  <div><span class="ttag tt-li">Linear</span></div>
+  <div><span class="vocab-badge" style="background:var(--bbg);color:var(--blue)">custom</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">nudge</div>
+  <div class="vocab-desc">Send gentle follow-up to assignee</div>
+  <div><span class="ttag tt-sl">Slack</span></div>
+  <div><span class="vocab-badge" style="background:var(--bbg);color:var(--blue)">custom</span></div>
+</div>
+
+<div class="vocab-row">
+  <div class="vocab-verb">ship</div>
+  <div class="vocab-desc">Mark ticket as deployed to production</div>
+  <div><span class="ttag tt-li">Linear</span></div>
+  <div><span class="vocab-badge" style="background:var(--gbg);color:var(--green)">learned</span></div>
+</div>
+
+<div class="hr" style="margin:20px 0 16px"></div>
+
+<!-- Phrase patterns -->
+<div class="sl">phrase patterns learned</div>
+
+<div class="ti">
+  <div class="ti-top"><span class="ti-from">pattern</span><span class="ti-date">14 matches</span></div>
+  <div class="ti-text">"let's <span style="color:var(--blue)">[verb]</span> that in <span style="color:var(--blue)">[tool]</span>" — maps verb + tool from natural phrasing</div>
+</div>
+
+<div class="ti">
+  <div class="ti-top"><span class="ti-from">pattern</span><span class="ti-date">9 matches</span></div>
+  <div class="ti-text">"can you <span style="color:var(--blue)">[verb]</span> <span style="color:var(--blue)">[object]</span> for <span style="color:var(--blue)">[person]</span>" — extracts verb, object, and assignee</div>
+</div>
+
+<div class="ti">
+  <div class="ti-top"><span class="ti-from">pattern</span><span class="ti-date">7 matches</span></div>
+  <div class="ti-text">"we need to <span style="color:var(--blue)">[verb]</span> <span style="color:var(--blue)">[object]</span> by <span style="color:var(--blue)">[date]</span>" — commitment with deadline extraction</div>
+</div>
+
+<div class="ti">
+  <div class="ti-top"><span class="ti-from">pattern</span><span class="ti-date">5 matches</span></div>
+  <div class="ti-text">"I'll <span style="color:var(--blue)">[verb]</span> that after the call" — self-assigned deferred commitment</div>
+</div>
+
+<div class="hr" style="margin:20px 0 16px"></div>
+
+<!-- Drop zone -->
+<div class="kb-drop" style="cursor:pointer">
+  <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;margin-bottom:6px">+ ADD VERB</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">type a new verb or drag from your meeting transcript</div>
+</div>

@@ -1,0 +1,70 @@
+<div style="padding:16px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div class="live-badge"><div class="live-dot"></div><span class="live-label">live</span></div>
+    <div id="liveTimer" style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:.18em">12:34</div>
+  </div>
+
+  <div class="ptitle" style="font-size:16px;margin-bottom:12px">Q2 roadmap sync</div>
+
+  <div id="intelCards">
+    <div class="notif" style="margin-bottom:8px">
+      <div class="notif-dot" style="background:var(--ink3)"></div>
+      <div style="flex:1">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.28em;text-transform:uppercase;margin-bottom:3px">context surfaced</div>
+        <div class="notif-text" style="font-size:11px">Sarah mentioned Acme last quarter — they were evaluating competitors at that time</div>
+      </div>
+    </div>
+
+    <div class="notif amber" style="margin-bottom:8px">
+      <div class="notif-dot" style="background:var(--amber)"></div>
+      <div style="flex:1">
+        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.28em;text-transform:uppercase;margin-bottom:3px">decision conflict</div>
+        <div class="notif-text" style="font-size:11px">Timeline discussed conflicts with what Michael said on Mar 14</div>
+      </div>
+    </div>
+
+    <div class="notif green" style="margin-bottom:8px">
+      <div class="notif-dot" style="background:var(--green)"></div>
+      <div style="flex:1">
+        <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:.28em;text-transform:uppercase;margin-bottom:3px">signal match</div>
+        <div class="notif-text" style="font-size:11px">Pricing discussion aligns with board-approved range</div>
+      </div>
+    </div>
+
+    <div class="notif amber" id="intelCard4" style="margin-bottom:8px;opacity:0;transition:opacity 0.5s">
+      <div class="notif-dot" style="background:var(--amber)"></div>
+      <div style="flex:1">
+        <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.28em;text-transform:uppercase;margin-bottom:3px">commitment load</div>
+        <div class="notif-text" style="font-size:11px">4 commitments extracted — above average for this meeting type</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ext-tray" style="margin-top:4px">
+    <div style="display:flex;align-items:center;gap:7px"><div class="ext-dot"></div><span class="ext-txt">commitments so far</span></div>
+    <span class="ext-cnt">4</span>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-top:16px">
+    <button class="btn-skip" style="flex:1;text-align:center">dim</button>
+    <button class="btn-exec" style="flex:1;justify-content:center;background:var(--ink)">end meeting</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // live timer counting up
+  var sec = 754; // 12:34
+  var el = document.getElementById('liveTimer');
+  setInterval(function(){
+    sec++;
+    var m = Math.floor(sec/60);
+    var s = sec%60;
+    el.textContent = m+':'+(s<10?'0':'')+s;
+  }, 1000);
+  // 4th card fades in after 4s
+  setTimeout(function(){
+    document.getElementById('intelCard4').style.opacity = '1';
+  }, 4000);
+})();
+</script>

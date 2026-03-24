@@ -1,0 +1,179 @@
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px">
+  <div class="ptitle">goals</div>
+  <button class="btn-ul" id="addGoalBtn">+ add goal</button>
+</div>
+
+<!-- Goal 1: Pre-seed round -->
+<div class="goal-card pri">
+  <div class="gc-h">
+    <div>
+      <div class="gc-type pri">primary · q1 2026</div>
+      <div class="gc-name">Close $2M pre-seed round</div>
+      <div class="gc-dl">target may 1 · on track</div>
+    </div>
+    <div>
+      <div class="gc-pct g">58%</div>
+      <div class="gc-pl">complete</div>
+    </div>
+  </div>
+  <div class="gc-prog">
+    <div class="gc-track"><div class="gc-fill g" style="width:58%"></div></div>
+    <div class="gc-ms">
+      <span class="gm done">Sequoia intro</span>
+      <span class="gm done">Resonance partner</span>
+      <span class="gm open">Sequoia term sheet</span>
+      <span class="gm risk">a16z intro — overdue</span>
+      <span class="gm open">close round</span>
+    </div>
+  </div>
+  <div class="gc-commits">
+    <div class="gc-ch">related commitments</div>
+    <div class="gc-row"><span class="gc-rv">schedule</span><span class="gc-ro">Sequoia partner meeting follow-up</span><span class="gc-rs done">done</span></div>
+    <div class="gc-row"><span class="gc-rv">send</span><span class="gc-ro">Updated financials to Resonance</span><span class="gc-rs done">done</span></div>
+    <div class="gc-row"><span class="gc-rv">draft</span><span class="gc-ro">Term sheet counter-proposal</span><span class="gc-rs open">open</span></div>
+    <div class="gc-row"><span class="gc-rv">follow up</span><span class="gc-ro">Andreessen intro via warm contact</span><span class="gc-rs risk">overdue</span></div>
+  </div>
+</div>
+
+<!-- Goal 2: Design partners -->
+<div class="goal-card">
+  <div class="gc-h">
+    <div>
+      <div class="gc-type sec">secondary · q1 2026</div>
+      <div class="gc-name">3–5 active design partners generating usage data</div>
+      <div class="gc-dl">target apr 15 · needs attention</div>
+    </div>
+    <div>
+      <div class="gc-pct a">20%</div>
+      <div class="gc-pl">complete</div>
+    </div>
+  </div>
+  <div class="gc-prog">
+    <div class="gc-track"><div class="gc-fill a" style="width:20%"></div></div>
+    <div class="gc-ms">
+      <span class="gm done">Identify 10 candidates</span>
+      <span class="gm open">Outreach to top 5</span>
+      <span class="gm open">Sign first partner</span>
+      <span class="gm open">Onboard &amp; generate data</span>
+      <span class="gm open">Reach 3 active partners</span>
+    </div>
+  </div>
+</div>
+
+<div id="newGoalsArea"></div>
+
+<!-- Alignment read -->
+<div class="align-read" style="margin-top:16px">
+  <div class="narr-l">okaeri's read · alignment</div>
+  <div class="narr-t">71% of your commitments this week directly support the pre-seed close. The a16z intro is 4 days overdue and blocking your secondary path. Consider re-prioritizing the Andreessen warm intro — your window narrows after their Q2 partner offsite.</div>
+</div>
+
+<!-- Goal Modal -->
+<div class="modal-overlay" id="goalModal">
+  <div class="modal-box">
+    <div class="modal-title">add goal</div>
+    <div class="modal-field">
+      <label class="modal-label">description</label>
+      <input class="modal-input" id="goalDescInput" type="text" placeholder="what are you working toward?">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">target date</label>
+      <input class="modal-input" id="goalDateInput" type="text" placeholder="e.g. June 30, 2026">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">priority</label>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="btn-skip" id="priBtn" style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase">primary</button>
+        <button class="btn-skip" id="secBtn" style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase">secondary</button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <button class="btn-ghost" id="goalCancelBtn">cancel</button>
+      <button class="btn-g" id="goalSaveBtn"><span class="btn-g-txt">save goal</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var modal = document.getElementById('goalModal');
+  var addBtn = document.getElementById('addGoalBtn');
+  var cancelBtn = document.getElementById('goalCancelBtn');
+  var saveBtn = document.getElementById('goalSaveBtn');
+  var descIn = document.getElementById('goalDescInput');
+  var dateIn = document.getElementById('goalDateInput');
+  var priBtn = document.getElementById('priBtn');
+  var secBtn = document.getElementById('secBtn');
+  var area = document.getElementById('newGoalsArea');
+  var priority = '';
+
+  addBtn.addEventListener('click', function(){
+    modal.classList.add('on');
+    descIn.value = '';
+    dateIn.value = '';
+    priority = '';
+    priBtn.style.borderColor = '';
+    priBtn.style.color = '';
+    secBtn.style.borderColor = '';
+    secBtn.style.color = '';
+    setTimeout(function(){ descIn.focus(); }, 120);
+  });
+
+  cancelBtn.addEventListener('click', function(){ modal.classList.remove('on'); });
+
+  modal.addEventListener('click', function(e){
+    if(e.target === modal) modal.classList.remove('on');
+  });
+
+  priBtn.addEventListener('click', function(){
+    priority = 'primary';
+    priBtn.style.borderColor = 'var(--green)';
+    priBtn.style.color = 'var(--green)';
+    secBtn.style.borderColor = '';
+    secBtn.style.color = '';
+  });
+
+  secBtn.addEventListener('click', function(){
+    priority = 'secondary';
+    secBtn.style.borderColor = 'var(--ink)';
+    secBtn.style.color = 'var(--ink)';
+    priBtn.style.borderColor = '';
+    priBtn.style.color = '';
+  });
+
+  descIn.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); dateIn.focus(); }
+  });
+
+  dateIn.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); saveBtn.click(); }
+  });
+
+  saveBtn.addEventListener('click', function(){
+    var desc = descIn.value.trim();
+    var date = dateIn.value.trim();
+    if(!desc) return;
+    var isPri = priority === 'primary';
+    var card = document.createElement('div');
+    card.className = 'goal-card' + (isPri ? ' pri' : '');
+    card.style.marginBottom = '11px';
+    card.innerHTML =
+      '<div class="gc-h">' +
+        '<div>' +
+          '<div class="gc-type ' + (isPri ? 'pri' : 'sec') + '">' + (isPri ? 'primary' : 'secondary') + '</div>' +
+          '<div class="gc-name">' + desc + '</div>' +
+          (date ? '<div class="gc-dl">target ' + date + '</div>' : '') +
+        '</div>' +
+        '<div>' +
+          '<div class="gc-pct ' + (isPri ? 'g' : 'a') + '">0%</div>' +
+          '<div class="gc-pl">complete</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="gc-prog">' +
+        '<div class="gc-track"><div class="gc-fill ' + (isPri ? 'g' : 'a') + '" style="width:0%"></div></div>' +
+      '</div>';
+    area.appendChild(card);
+    modal.classList.remove('on');
+  });
+})();
+</script>

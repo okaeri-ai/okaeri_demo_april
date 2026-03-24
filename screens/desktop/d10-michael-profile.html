@@ -1,0 +1,75 @@
+<div id="breadcrumbMichael" style="margin-bottom:16px;font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;cursor:pointer"></div>
+
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+  <div class="pav-lg" style="background:var(--teal-bg);color:var(--teal);border-color:#8ECFB9">MK</div>
+  <div>
+    <div class="pname">Michael Kim</div>
+    <div class="prole">Principal, Sequoia Capital · Developer Tools · San Francisco</div>
+  </div>
+</div>
+
+<div class="ptags" style="margin-bottom:14px">
+  <span class="ptag ptag-b">developer tools</span>
+  <span class="ptag ptag-b">workflow automation</span>
+  <span class="ptag ptag-n">first meeting</span>
+  <span class="ptag ptag-a">posted 2 days ago</span>
+</div>
+
+<div class="mrow">
+  <div class="met"><div class="metn">3</div><div class="metl">touchpoints</div></div>
+  <div class="metdiv"></div>
+  <div class="met"><div class="metn">5</div><div class="metl">days known</div></div>
+  <div class="metdiv"></div>
+  <div class="met"><div class="metn">5</div><div class="metl">days since contact</div></div>
+</div>
+
+<div class="hr"></div>
+
+<div class="two-col" style="margin-bottom:16px">
+  <div>
+    <div class="sl">interaction history</div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Gmail</span><span class="ti-date">Mar 19</span></div>
+      <div class="ti-text">Pre-read email — asked about developer workflow data and multi-tool chain handling. Detailed, technical questions.</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Gmail</span><span class="ti-date">Mar 18</span></div>
+      <div class="ti-text">Sarah introduced Michael via email. He replied with interest in the developer tooling angle and API architecture.</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Calendar</span><span class="ti-date">Mar 18</span></div>
+      <div class="ti-text">Added to Monday's meeting invite. First direct interaction with Okaeri team.</div>
+    </div>
+  </div>
+  <div>
+    <div class="sl">recent posts</div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">X</span><span class="ti-date">Mar 21</span></div>
+      <div class="ti-text">Retweeted thread on developer tool consolidation — "The best dev tools don't add steps, they remove them."</div>
+      <div class="ti-flag">↗ aligned with product direction</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">LinkedIn</span><span class="ti-date">Mar 15</span></div>
+      <div class="ti-text">"Workflow automation is the next platform shift for developer productivity. Watching this space closely."</div>
+      <div class="ti-flag">↗ active in your category</div>
+    </div>
+  </div>
+</div>
+
+<div class="ok-read" style="background:var(--teal-bg);border-color:#8ECFB9">
+  <div class="ok-read-l" style="color:var(--teal)">okaeri's read</div>
+  <div class="ok-read-t" style="color:#0A4F3E">Michael is a first meeting — build rapport before pitching. He's technical and detail-oriented based on his email questions. Lead with the developer workflow demo, show the Linear + Slack + Calendar chain executing live. Answer his multi-tool question with a concrete example. Let Sarah carry the thesis conversation; Michael needs to see the product work.</div>
+</div>
+
+<script>
+(function(){
+  var bc = document.getElementById('breadcrumbMichael');
+  var prev = window.OKAERI.previousScreen;
+  var label = 'back';
+  if (prev === 'd08-prep-brief') label = 'prep brief';
+  else if (prev === 'd22-relationship-health') label = 'relationships';
+  else if (prev === 'd01-home') label = 'home';
+  bc.innerHTML = '← <span style="text-decoration:none">' + label + ' → michael kim</span>';
+  bc.addEventListener('click', function(){ OKAERI.goBack(); });
+})();
+</script>

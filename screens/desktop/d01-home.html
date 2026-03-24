@@ -1,0 +1,97 @@
+<div class="hero" data-clock>9:41</div>
+<div class="meta" style="margin-top:8px">Monday, March 23</div>
+<div class="sub">2 pending · 9-day streak</div>
+<div class="hr"></div>
+<div class="stats">
+  <div class="st"><div class="stn g">31</div><div class="stl">executed</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn m">2</div><div class="stl">pending</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn p">97%</div><div class="stl">rate · 14d</div></div>
+</div>
+<div class="sl">coming up in 28 minutes</div>
+<div class="prep-card" id="prepCardHome">
+  <div class="pc-top">
+    <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">23</div><div class="pc-tm">10:00</div></div>
+    <div style="flex:1">
+      <div class="pc-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="3" stroke="#185FA5" stroke-width=".8"/><path d="M4 2v2.5l1.5 1" stroke="#185FA5" stroke-width=".8" stroke-linecap="round"/></svg><span class="pc-badge-t">prep ready</span></div>
+      <div class="pc-name">Series A investor intro — Sequoia</div>
+      <div class="pc-mt">45 min · Google Meet · 3 attendees</div>
+    </div>
+  </div>
+  <div class="pc-people">
+    <div class="pchip" id="chipSarahHome"><div class="pav av-b">SR</div><div><div class="pn-sm" style="color:var(--blue)">Sarah Rhodes ↗</div><div class="pr-sm">Partner, Sequoia</div></div></div>
+    <div class="pchip" id="chipMichaelHome"><div class="pav av-t">MK</div><div><div class="pn-sm" style="color:var(--blue)">Michael Kim ↗</div><div class="pr-sm">Principal</div></div></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="btn-b" id="openPrepBtn"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
+    <button class="btn-ghost">dismiss</button>
+  </div>
+</div>
+<div class="sl" style="margin-top:8px">pending</div>
+<div class="prow"><span class="pv">schedule</span><span class="po">Andreessen follow-up</span><span class="pt">Calendar</span><span class="pd">today</span></div>
+<div class="prow"><span class="pv">update</span><span class="po">Acme deal · proposal sent</span><span class="pt">Salesforce</span><span class="pd">today</span></div>
+
+<script>
+(function(){
+  document.getElementById('prepCardHome').addEventListener('click', function(e){
+    if(e.target.closest('button') || e.target.closest('.pchip')) return;
+    OKAERI.go('d08-prep-brief');
+  });
+  document.getElementById('openPrepBtn').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d08-prep-brief');
+  });
+  document.getElementById('chipSarahHome').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d09-sarah-profile');
+  });
+  document.getElementById('chipMichaelHome').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d10-michael-profile');
+  });
+})();
+</script>
+
+<script>
+// Cross-screen state hydration
+(function(){
+  var O = window.OKAERI;
+  if(!O || !O.executedCards || O.executedCards.length === 0) return;
+
+  // Update stats numbers
+  var stats = document.querySelectorAll('.stn');
+  if(stats.length >= 2){
+    stats[0].textContent = O.totalExecuted;   // executed count
+    stats[1].textContent = O.pendingCount;     // pending count
+  }
+
+  // Update subtitle
+  var sub = document.querySelector('.sub');
+  if(sub){
+    if(O.pendingCount === 0){
+      sub.textContent = 'nothing pending \u00b7 9-day streak';
+      sub.style.color = 'var(--green)';
+    } else {
+      sub.textContent = O.pendingCount + ' pending \u00b7 9-day streak';
+    }
+  }
+
+  // Hide pending rows section if nothing pending
+  if(O.pendingCount === 0){
+    var labels = document.querySelectorAll('.sl');
+    for(var i=0;i<labels.length;i++){
+      if(labels[i].textContent.trim() === 'pending'){
+        labels[i].style.display = 'none';
+        // Hide all .prow siblings after this label
+        var sib = labels[i].nextElementSibling;
+        while(sib && sib.classList.contains('prow')){
+          sib.style.display = 'none';
+          sib = sib.nextElementSibling;
+        }
+        break;
+      }
+    }
+  }
+})();
+</script>

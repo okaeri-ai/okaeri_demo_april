@@ -1,0 +1,62 @@
+<div class="hero" data-clock>9:41</div>
+<div class="meta" style="margin-top:8px">Monday, March 23</div>
+<div class="sub" style="color:var(--green)">nothing pending</div>
+<div class="hr"></div>
+<div class="stats">
+  <div class="st"><div class="stn g">35</div><div class="stl">executed</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn m">0</div><div class="stl">pending</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn p">97%</div><div class="stl">rate · 14d</div></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem">
+  <div class="ac-ring"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4.5 5L15 4" stroke="#2d7a4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div style="font-size:15px;font-weight:200;color:var(--ink);letter-spacing:.14em;margin-bottom:5px">all commitments executed</div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.26em;margin-bottom:22px;text-align:center;line-height:1.8">speak to add new ones · okaeri is listening</div>
+  <div class="sl">9-day execution streak</div>
+  <div class="sbars" style="margin-bottom:22px"><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb"></div><div class="sb e"></div><div class="sb e"></div><div class="sb e"></div></div>
+  <div class="sl" style="align-self:flex-start;width:100%">recently executed today</div>
+  <div style="width:100%">
+    <div class="rq"><div class="rq-dot"></div><span class="rq-v">create</span><span class="rq-o">API rate limit bug · Linear OKA-214</span><span class="rq-ti">9:14 am</span></div>
+    <div class="rq"><div class="rq-dot"></div><span class="rq-v">send</span><span class="rq-o">pricing recap · Slack #sales</span><span class="rq-ti">9:14 am</span></div>
+    <div class="rq"><div class="rq-dot"></div><span class="rq-v">schedule</span><span class="rq-o">Andreessen follow-up · Thu Mar 26</span><span class="rq-ti">9:14 am</span></div>
+    <div class="rq"><div class="rq-dot"></div><span class="rq-v">update</span><span class="rq-o">Acme deal · Salesforce</span><span class="rq-ti">9:14 am</span></div>
+  </div>
+</div>
+
+<script>
+// Hydrate recently executed list from cross-screen state
+(function(){
+  var O = window.OKAERI;
+  if(!O || !O.executedCards || O.executedCards.length === 0) return;
+
+  // Update stats
+  var stats = document.querySelectorAll('.stn');
+  if(stats.length >= 2){
+    stats[0].textContent = O.totalExecuted;
+    stats[1].textContent = O.pendingCount;
+  }
+
+  // Replace the hardcoded "recently executed today" rows with dynamic ones
+  var container = document.querySelector('.sl + div');
+  // Find the container that holds .rq items — it's the div right after "recently executed today"
+  var labels = document.querySelectorAll('.sl');
+  for(var i=0;i<labels.length;i++){
+    if(labels[i].textContent.indexOf('recently executed') !== -1){
+      var rqContainer = labels[i].nextElementSibling;
+      if(rqContainer){
+        // Clear existing rows
+        rqContainer.innerHTML = '';
+        // Add dynamically executed cards
+        O.executedCards.forEach(function(c){
+          var div = document.createElement('div');
+          div.className = 'rq';
+          div.innerHTML = '<div class="rq-dot"></div><span class="rq-v">' + c.verb + '</span><span class="rq-o">' + c.obj + ' \u00b7 ' + c.detail + '</span><span class="rq-ti">' + c.time + '</span>';
+          rqContainer.appendChild(div);
+        });
+      }
+      break;
+    }
+  }
+})();
+</script>

@@ -1,0 +1,96 @@
+<div class="eyebrow">meeting prep · Mon Mar 23</div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+  <div>
+    <div class="ptitle">Series A intro / Sequoia Capital</div>
+    <div class="meta" style="margin-top:5px">10:00 am · 45 min · Google Meet</div>
+  </div>
+  <div style="text-align:center;flex-shrink:0;margin-left:20px">
+    <div style="font-size:34px;font-weight:200;color:var(--amber);letter-spacing:-0.02em;line-height:1">28</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.26em;text-transform:uppercase;margin-top:4px">min away</div>
+  </div>
+</div>
+
+<div class="pc-people" style="margin-bottom:14px">
+  <div class="pchip" id="chipSarahPrep"><div class="pav av-b">SR</div><div><div class="pn-sm" style="color:var(--blue)">Sarah Rhodes ↗</div><div class="pr-sm">Partner, Sequoia</div></div></div>
+  <div class="pchip" id="chipMichaelPrep"><div class="pav av-t">MK</div><div><div class="pn-sm" style="color:var(--teal)">Michael Kim ↗</div><div class="pr-sm">Principal, Sequoia</div></div></div>
+</div>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+  <span class="ttag tt-gm">Gmail</span>
+  <span class="ttag tt-sl">Slack</span>
+  <span class="ttag" style="background:var(--bg3);color:var(--ink2)">Web</span>
+  <span class="ttag tt-ca">Calendar</span>
+</div>
+
+<div class="hr"></div>
+
+<div class="two-col" style="margin-bottom:16px">
+  <div>
+    <div class="sl">recent threads</div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Gmail · Sarah Rhodes</span><span class="ti-date">Mar 21</span></div>
+      <div class="ti-text">Re: intro materials — "Loved the commitment graph framing. Sharing with the partnership before Monday."</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Slack · #fundraise</span><span class="ti-date">Mar 20</span></div>
+      <div class="ti-text">Jess: "Sequoia meeting confirmed for Monday 10am. Sarah + Michael attending."</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">Gmail · Michael Kim</span><span class="ti-date">Mar 19</span></div>
+      <div class="ti-text">Re: pre-read — "Quick question on the developer workflow data — how are you handling multi-tool chains?"</div>
+    </div>
+  </div>
+  <div>
+    <div class="sl">signals</div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">LinkedIn · Sarah Rhodes</span><span class="ti-date">Mar 20</span></div>
+      <div class="ti-text">Published: "Why the next wave of enterprise AI will be built on commitment graphs, not chat interfaces"</div>
+      <div class="ti-flag">↗ directly validates your thesis</div>
+    </div>
+    <div class="ti">
+      <div class="ti-top"><span class="ti-from">X · Michael Kim</span><span class="ti-date">Mar 21</span></div>
+      <div class="ti-text">Retweeted thread on developer tool consolidation and workflow automation platforms</div>
+      <div class="ti-flag">↗ aligned with product direction</div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sl">talking points</div>
+<div style="padding:9px 0;border-top:0.5px solid var(--rule2);border-bottom:0.5px solid var(--rule2);display:flex;gap:10px;align-items:flex-start">
+  <span style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.1em;flex-shrink:0;min-width:22px">01</span>
+  <span style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Open with the commitment graph — Sarah already believes the thesis. Reference her LinkedIn post to show you track signal, not just meetings.</span>
+</div>
+<div style="padding:9px 0;border-bottom:0.5px solid var(--rule2);display:flex;gap:10px;align-items:flex-start">
+  <span style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.1em;flex-shrink:0;min-width:22px">02</span>
+  <span style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Address Michael's developer workflow question directly — show the multi-tool chain demo with Linear + Slack + Calendar executing from a single meeting.</span>
+</div>
+<div style="padding:9px 0;border-bottom:0.5px solid var(--rule2);display:flex;gap:10px;align-items:flex-start;margin-bottom:16px">
+  <span style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.1em;flex-shrink:0;min-width:22px">03</span>
+  <span style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Close with Resonance design partner traction — 97% execution rate, 31 commitments in 14 days. Let the data make the case for product-market fit.</span>
+</div>
+
+<div style="display:flex;align-items:center;gap:10px">
+  <button class="btn-ghost" id="skipToMeetingBtn">skip to meeting →</button>
+  <button class="btn-g" id="startRecordingBtn"><span class="btn-g-txt">start recording</span></button>
+</div>
+
+<script>
+(function(){
+  document.getElementById('chipSarahPrep').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d09-sarah-profile');
+  });
+  document.getElementById('chipMichaelPrep').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d10-michael-profile');
+  });
+  document.getElementById('skipToMeetingBtn').addEventListener('click', function(){
+    OKAERI.go('d03-live-meeting');
+  });
+  document.getElementById('startRecordingBtn').addEventListener('click', function(){
+    OKAERI.go('d03-live-meeting');
+  });
+})();
+</script>

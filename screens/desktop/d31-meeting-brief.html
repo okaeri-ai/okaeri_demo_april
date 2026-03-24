@@ -1,0 +1,91 @@
+<div class="eyebrow">shareable · one-pager</div>
+<div class="ptitle" style="margin-bottom:4px">Q2 roadmap sync</div>
+<div class="meta" style="margin-bottom:20px">March 23, 2026 · 38 min · 4 attendees</div>
+
+<!-- Decisions -->
+<div class="brief-section">
+  <div class="sl">decisions</div>
+  <div class="brief-item">
+    <div style="display:flex;align-items:baseline;gap:8px">
+      <span class="ntag nt-d">decision</span>
+      <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Prioritize API stability over new features for Q2 sprint 1</span>
+    </div>
+  </div>
+  <div class="brief-item">
+    <div style="display:flex;align-items:baseline;gap:8px">
+      <span class="ntag nt-d">decision</span>
+      <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Move mobile onboarding redesign to sprint 2 — design spec needed first</span>
+    </div>
+  </div>
+</div>
+
+<!-- Commitments -->
+<div class="brief-section">
+  <div class="sl">commitments</div>
+  <div class="prow" onclick="OKAERI.go('d30-lifecycle')">
+    <span class="pv">create</span>
+    <span class="po">API rate limit bug</span>
+    <span class="ttag tt-li" style="font-size:9px">Linear</span>
+    <span class="ass">@michael</span>
+  </div>
+  <div class="prow" onclick="OKAERI.go('d29-bundles')">
+    <span class="pv">send</span>
+    <span class="po">Roadmap summary to #product</span>
+    <span class="ttag tt-sl" style="font-size:9px">Slack</span>
+    <span class="ass">@jessica</span>
+  </div>
+  <div class="prow" onclick="OKAERI.go('d29-bundles')">
+    <span class="pv">schedule</span>
+    <span class="po">Sprint planning follow-up · 45 min</span>
+    <span class="ttag tt-ca" style="font-size:9px">Calendar</span>
+    <span class="ass">@team</span>
+  </div>
+  <div class="prow" onclick="OKAERI.go('d29-bundles')">
+    <span class="pv">draft</span>
+    <span class="po">Design spec for mobile onboarding</span>
+    <span class="ttag tt-gm" style="font-size:9px">Gmail</span>
+    <span class="ass">@sarah</span>
+  </div>
+</div>
+
+<!-- Open questions -->
+<div class="brief-section">
+  <div class="sl">open questions</div>
+  <div class="brief-item">
+    <div style="display:flex;align-items:baseline;gap:8px">
+      <span class="ntag nt-q">question</span>
+      <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Should we invite Resonance team to the sprint review for external feedback?</span>
+    </div>
+  </div>
+  <div class="brief-item">
+    <div style="display:flex;align-items:baseline;gap:8px">
+      <span class="ntag nt-q">question</span>
+      <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">What's the budget for third-party API monitoring tooling?</span>
+    </div>
+  </div>
+</div>
+
+<div class="hr" style="margin:16px 0"></div>
+
+<!-- Footer -->
+<div style="display:flex;align-items:center;justify-content:space-between">
+  <div class="wm" style="color:var(--ink4)">okaeri</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="btn-ul" onclick="showToast('sent to 4 attendees')">send to attendees</button>
+    <button class="btn-ul" onclick="showToast('link copied')">copy link</button>
+  </div>
+</div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+</script>

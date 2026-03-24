@@ -1,0 +1,36 @@
+<input class="search-input" type="text" placeholder="search everything" autofocus>
+
+<div class="search-pills">
+  <button class="search-pill on" data-filter>all</button>
+  <button class="search-pill" data-filter>executed</button>
+  <button class="search-pill" data-filter>pending</button>
+  <button class="search-pill" data-filter>missed</button>
+  <button class="search-pill" data-filter>this week</button>
+  <button class="search-pill" data-filter>people</button>
+</div>
+
+<div id="searchEmpty" style="display:none;background:rgba(234,243,222,0.3);border-radius:8px;padding:20px 22px;text-align:center;margin-bottom:16px">
+  <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.22em">type to search across all commitments, meetings, and people</div>
+</div>
+
+<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.28em;text-transform:uppercase;margin-bottom:8px">recent</div>
+
+<div class="search-row"><span class="log-verb">create</span><span class="log-obj">API rate limit bug</span><span class="ttag tt-li">Linear</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Q2 roadmap sync</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">9:14 am</span></div>
+<div class="search-row"><span class="log-verb">send</span><span class="log-obj">pricing proposal recap</span><span class="ttag tt-sl">Slack</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Acme review</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">9:14 am</span></div>
+<div class="search-row"><span class="log-verb">schedule</span><span class="log-obj">Andreessen follow-up</span><span class="ttag tt-ca">Calendar</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Investor sync</span><span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:.14em">pending</span><span class="log-time">today</span></div>
+<div class="search-row"><span class="log-verb">update</span><span class="log-obj">Acme deal · proposal sent</span><span class="ttag tt-sf">Salesforce</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Acme review</span><span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:.14em">pending</span><span class="log-time">today</span></div>
+<div class="search-row"><span class="log-verb">draft</span><span class="log-obj">partnership proposal email</span><span class="ttag tt-gm">Gmail</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Mnemix call</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Fri</span></div>
+<div class="search-row"><span class="log-verb">create</span><span class="log-obj">onboarding flow ticket</span><span class="ttag tt-li">Linear</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Sprint planning</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Thu</span></div>
+<div class="search-row"><span class="log-verb">send</span><span class="log-obj">design partner brief</span><span class="ttag tt-gm">Gmail</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Resonance sync</span><span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.14em">done</span><span class="log-time">Thu</span></div>
+<div class="search-row"><span class="log-verb">share</span><span class="log-obj">competitive analysis doc</span><span class="ttag tt-sl">Slack</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.12em">Strategy sync</span><span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em">missed</span><span class="log-time">Wed</span></div>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-filter]').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      document.querySelectorAll('[data-filter]').forEach(function(p){ p.classList.remove('on'); });
+      this.classList.add('on');
+    });
+  });
+})();
+</script>

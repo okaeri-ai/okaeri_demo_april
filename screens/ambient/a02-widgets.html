@@ -1,0 +1,82 @@
+<div class="ambient-surface">
+
+  <!-- Widget 1: All Clear / Pending (dynamic) -->
+  <div class="widget" id="aw-status">
+    <div style="font-size:22px;font-weight:200;color:var(--ink);letter-spacing:-.02em;line-height:1;margin-bottom:8px" data-clock>9:41</div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+      <div class="pulse-dot"></div>
+      <span id="aw-status-label" style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase">all clear</span>
+    </div>
+    <div class="wm">okaeri</div>
+  </div>
+
+  <!-- Widget 2: Pending -->
+  <div class="widget" id="aw-pending">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+      <div id="aw-pending-num" style="font-size:22px;font-weight:200;color:var(--amber);letter-spacing:-.02em;line-height:1">2</div>
+      <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.22em;text-transform:uppercase">pending</span>
+    </div>
+    <div id="aw-pending-list">
+      <div style="padding:5px 0;border-top:0.5px solid var(--rule2);display:flex;align-items:baseline;gap:5px">
+        <span style="width:3px;height:3px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px"></span>
+        <span style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:.02em">Andreessen follow-up</span>
+      </div>
+      <div style="padding:5px 0;border-top:0.5px solid var(--rule2);display:flex;align-items:baseline;gap:5px">
+        <span style="width:3px;height:3px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px"></span>
+        <span style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:.02em">Acme deal update</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Widget 3: Meeting Upcoming -->
+  <div class="widget">
+    <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:.28em;text-transform:uppercase;margin-bottom:6px">upcoming</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em;margin-bottom:3px">Sequoia investor intro</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em;margin-bottom:8px">28 min away</div>
+    <button class="btn-ul-g" style="font-size:9px" onclick="OKAERI.go('d08-prep-brief')">open prep brief</button>
+  </div>
+
+  <!-- Widget 4: Minimal -->
+  <div class="widget widget-sm" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px">
+    <div class="wm" style="margin-bottom:8px">okaeri</div>
+    <div class="pulse-dot"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var O = window.OKAERI;
+  if (!O) return;
+  var count = O.pendingCount || 0;
+  var statusLabel = document.getElementById('aw-status-label');
+  var pendingNum = document.getElementById('aw-pending-num');
+  var pendingList = document.getElementById('aw-pending-list');
+
+  // Widget 1: toggle green/amber based on pendingCount
+  if (count > 0) {
+    statusLabel.textContent = count + ' pending';
+    statusLabel.style.color = 'var(--amber)';
+  } else {
+    statusLabel.textContent = 'all clear';
+    statusLabel.style.color = 'var(--green)';
+  }
+
+  // Widget 2: show actual count and first 2 items
+  pendingNum.textContent = count;
+  if (count === 0) {
+    pendingList.innerHTML = '<div style="padding:5px 0;font-size:10px;font-weight:300;color:var(--ink3);letter-spacing:.02em">none</div>';
+  } else if (O.commitments && O.commitments.length) {
+    var html = '';
+    var show = Math.min(2, O.commitments.length);
+    for (var i = 0; i < show; i++) {
+      var c = O.commitments[i];
+      html += '<div style="padding:5px 0;border-top:0.5px solid var(--rule2);display:flex;align-items:baseline;gap:5px">'
+        + '<span style="width:3px;height:3px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px"></span>'
+        + '<span style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:.02em">' + c.obj + '</span>'
+        + '</div>';
+    }
+    pendingList.innerHTML = html;
+  }
+})();
+</script>

@@ -1,0 +1,77 @@
+<div class="live-hdr">
+  <div>
+    <div class="live-badge"><div class="live-dot"></div><span class="live-label">recording · live</span></div>
+    <div style="font-size:18px;font-weight:200;color:var(--ink);letter-spacing:.03em;margin-top:7px">Q2 roadmap sync</div>
+    <div class="meta" style="margin-top:3px">Marcus · Priya · James · Jess</div>
+    <div style="display:flex;gap:7px;margin-top:8px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink);letter-spacing:.18em;padding:2px 8px;border:.5px solid var(--ink3);border-radius:2px">Marcus</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;padding:2px 8px;border:.5px solid var(--rule2);border-radius:2px">Priya</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;padding:2px 8px;border:.5px solid var(--rule2);border-radius:2px">James</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.26em;font-variant-numeric:tabular-nums" id="liveDur">18:34</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.16em;margin-top:3px;line-height:1.8">end meeting<br>to review</div>
+  </div>
+</div>
+<div class="cap-grid">
+  <div class="cap-l">
+    <div class="sl">live transcript</div>
+    <div class="turn"><div class="turn-who"><span>Priya</span><span style="color:var(--ink4)">18:02</span></div><div class="turn-t">The Acme deal is close. I'll update the stage in Salesforce today and send them the recap.</div></div>
+    <div class="turn"><div class="turn-who"><span>James</span><span style="color:var(--ink4)">18:18</span></div><div class="turn-t">We should follow up with Andreessen next week. I can own that, 30 minutes.</div></div>
+    <div class="turn"><div class="turn-who"><span>Marcus</span><span style="color:var(--ink4)">18:29</span></div><div class="turn-t dim">The rate limit bug needs to be P1. I'll take it, done before end of sprint<span class="cur"></span></div></div>
+  </div>
+  <div class="cap-div"></div>
+  <div class="cap-r">
+    <div class="sl">notes extracted</div>
+    <div id="liveNotes">
+      <div class="note-i"><span class="ntag nt-d">decision</span><span class="note-t">Ship v1 with Linear + Slack only. Expand post-launch based on design partner feedback.</span></div>
+      <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">Priya updates Acme deal stage in Salesforce today.</span></div>
+      <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">James schedules Andreessen follow-up, 30 min, next week.</span></div>
+      <div class="note-i" id="liveNote4" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">Marcus takes rate limit bug · P1 · before end of sprint.</span></div>
+    </div>
+  </div>
+</div>
+<div class="ext-tray">
+  <div style="display:flex;align-items:center;gap:8px"><div class="ext-dot"></div><span class="ext-txt">okaeri has extracted</span><span class="ext-cnt" id="extCnt">3 commitments so far</span></div>
+  <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em">review after meeting</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:.5px solid var(--rule2);margin-top:12px">
+  <button class="btn-ghost">discard</button>
+  <button class="btn-ul" id="endMeetingBtn">end meeting</button>
+</div>
+
+<script>
+(function(){
+  var secs = 1114;
+  var timer = setInterval(function(){
+    secs++;
+    var m = Math.floor(secs/60), s = String(secs%60).padStart(2,'0');
+    var el = document.getElementById('liveDur');
+    if(el) el.textContent = m+':'+s;
+    if(secs === 1120){
+      var n4 = document.getElementById('liveNote4');
+      if(n4) n4.style.opacity = '1';
+      var ec = document.getElementById('extCnt');
+      if(ec) {
+        ec.textContent = '4 commitments so far';
+        ec.classList.add('count-pulse');
+      }
+    }
+  }, 1000);
+
+  // Clean up timer when navigating away
+  var observer = new MutationObserver(function(mutations){
+    if(!document.getElementById('liveDur')){
+      clearInterval(timer);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.getElementById('screenContent') || document.body, {childList:true, subtree:true});
+
+  document.getElementById('endMeetingBtn').addEventListener('click', function(){
+    clearInterval(timer);
+    OKAERI.go('d04-confirm-execute');
+  });
+})();
+</script>

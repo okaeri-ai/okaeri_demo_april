@@ -1,0 +1,67 @@
+<div class="ptitle">notifications</div>
+<div class="hr"></div>
+
+<div id="notifList">
+  <div class="notif green" id="notifExec">
+    <div class="notif-dot" style="background:var(--green)"></div>
+    <div style="flex:1">
+      <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:.28em;text-transform:uppercase;margin-bottom:4px">executed</div>
+      <div class="notif-text" style="font-family:'Courier New',monospace;font-size:11px;color:#3B6D11">API rate limit bug created in Linear <span style="opacity:.6;font-size:10px">· OKA-214</span></div>
+    </div>
+    <div class="notif-time">just now</div>
+    <button class="notif-dismiss" data-dismiss>x</button>
+  </div>
+
+  <div class="notif amber" id="notifRisk">
+    <div class="notif-dot" style="background:var(--amber)"></div>
+    <div style="flex:1">
+      <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.28em;text-transform:uppercase;margin-bottom:4px">at-risk</div>
+      <div class="notif-text">Index Ventures outreach overdue — execute now?</div>
+      <div style="margin-top:8px"><button class="btn-exec" id="notifExecBtn">execute</button></div>
+    </div>
+    <div class="notif-time">12 min ago</div>
+    <button class="notif-dismiss" data-dismiss>x</button>
+  </div>
+
+  <div class="notif" id="notifPrep">
+    <div class="notif-dot" style="background:var(--blue)"></div>
+    <div style="flex:1">
+      <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:.28em;text-transform:uppercase;margin-bottom:4px">meeting prep</div>
+      <div class="notif-text">Sequoia meeting in 28 min — prep brief ready</div>
+      <div style="margin-top:8px"><button class="btn-ul-g" onclick="OKAERI.go('d08-prep-brief')">open brief</button></div>
+    </div>
+    <div class="notif-time">2 min ago</div>
+    <button class="notif-dismiss" data-dismiss>x</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  function dismiss(el){
+    if(!el || el.dataset.dismissing) return;
+    el.dataset.dismissing = '1';
+    el.style.transition = 'opacity 0.3s ease';
+    el.style.opacity = '0';
+    setTimeout(function(){ el.style.display = 'none'; }, 300);
+  }
+
+  // X buttons: all notifications can be dismissed
+  document.querySelectorAll('[data-dismiss]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      dismiss(this.closest('.notif'));
+    });
+  });
+
+  // Green/executed: auto-dismiss after 4s + click to dismiss
+  var exec = document.getElementById('notifExec');
+  if(exec){
+    exec.style.cursor = 'pointer';
+    exec.addEventListener('click', function(){ dismiss(exec); });
+    setTimeout(function(){ dismiss(exec); }, 4000);
+  }
+
+  // Amber/at-risk: only dismiss via execute action or X (no auto-dismiss)
+  // Neutral: only dismiss via X button (no auto-dismiss)
+})();
+</script>

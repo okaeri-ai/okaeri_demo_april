@@ -1,0 +1,45 @@
+<div style="padding:16px;display:flex;flex-direction:column;align-items:center;min-height:100%">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.38em;text-transform:uppercase;margin-top:32px;margin-bottom:24px">okaeri is listening</div>
+
+  <div class="orb-wrap">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="orb">
+      <svg viewBox="0 0 20 20" fill="none"><rect x="7" y="2" width="6" height="10" rx="3" stroke="#fff" stroke-width="1.2"/><path d="M4 10a6 6 0 0012 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><path d="M10 16v2" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <div class="waveform" style="margin-top:20px">
+    <div class="wf-bar" style="height:6px"></div>
+    <div class="wf-bar" style="height:10px"></div>
+    <div class="wf-bar" style="height:14px"></div>
+    <div class="wf-bar" style="height:8px"></div>
+    <div class="wf-bar" style="height:16px"></div>
+    <div class="wf-bar" style="height:10px"></div>
+    <div class="wf-bar" style="height:6px"></div>
+  </div>
+
+  <div style="margin-top:20px;padding:0 8px;width:100%">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:.02em;text-align:center">The rate limit bug needs to be...<span class="cur"></span></div>
+  </div>
+
+  <div id="capDuration" style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:.18em;margin-top:16px">0:12</div>
+
+  <div style="margin-top:auto;padding-bottom:24px;width:100%">
+    <button class="btn-ul" style="font-size:11px;letter-spacing:.28em;display:block;margin:0 auto" onclick="OKAERI.go('m02-post-capture')">done</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var sec = 12;
+  var el = document.getElementById('capDuration');
+  setInterval(function(){
+    sec++;
+    var m = Math.floor(sec/60);
+    var s = sec%60;
+    el.textContent = m+':'+(s<10?'0':'')+s;
+  }, 1000);
+})();
+</script>

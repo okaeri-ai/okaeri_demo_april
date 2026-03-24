@@ -1,0 +1,55 @@
+<div style="padding:16px">
+  <div class="eyebrow" id="m02-eyebrow">4 commitments found</div>
+  <div style="font-size:20px;font-weight:200;color:var(--ink);letter-spacing:.02em;margin-bottom:4px">Q2 roadmap sync</div>
+  <div class="meta">38 min · 4 attendees</div>
+  <div class="hr"></div>
+
+  <div id="m02-commitments">
+    <div class="cc" style="margin-bottom:8px;max-height:none">
+      <div class="chain"><span class="verb">create</span><span class="arr">-></span><span class="obj">API rate limit bug</span></div>
+      <div class="card-bot"><span class="ass">Linear · @marcus</span><span class="ttag tt-li">Linear</span></div>
+    </div>
+
+    <div class="cc" style="margin-bottom:8px;max-height:none">
+      <div class="chain"><span class="verb">send</span><span class="arr">-></span><span class="obj">pricing proposal recap</span></div>
+      <div class="card-bot"><span class="ass">Slack #sales · @priya</span><span class="ttag tt-sl">Slack</span></div>
+    </div>
+
+    <div class="cc" style="margin-bottom:8px;max-height:none">
+      <div class="chain"><span class="verb">schedule</span><span class="arr">-></span><span class="obj">Andreessen follow-up · 30 min</span></div>
+      <div class="card-bot"><span class="ass">Calendar · @james</span><span class="ttag tt-ca">Calendar</span></div>
+    </div>
+
+    <div class="cc" style="margin-bottom:8px;max-height:none">
+      <div class="chain"><span class="verb">update</span><span class="arr">-></span><span class="obj">Acme deal → proposal sent</span></div>
+      <div class="card-bot"><span class="ass">Salesforce · @priya</span><span class="ttag tt-sf">Salesforce</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px">
+    <button class="btn-b" style="width:100%;justify-content:center;border-radius:10px;padding:12px" onclick="OKAERI.go('d04-confirm-execute')"><span class="btn-b-txt">review on desktop</span></button>
+  </div>
+
+  <div style="text-align:center;margin-top:12px">
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.18em">synced to your desktop · open okaeri to execute</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var O = window.OKAERI;
+  if (!O || !O.commitments || !O.commitments.length) return;
+  var c = O.commitments;
+  var wrap = document.getElementById('m02-commitments');
+  var eyebrow = document.getElementById('m02-eyebrow');
+  eyebrow.textContent = c.length + ' commitments found';
+  var html = '';
+  for (var i = 0; i < c.length; i++) {
+    html += '<div class="cc" style="margin-bottom:8px;max-height:none">'
+      + '<div class="chain"><span class="verb">' + c[i].verb + '</span><span class="arr">-></span><span class="obj">' + c[i].obj + '</span></div>'
+      + '<div class="card-bot"><span class="ass">' + c[i].tool + ' · ' + c[i].assignee + '</span><span class="ttag ' + c[i].toolClass + '">' + c[i].tool.split(' ')[0] + '</span></div>'
+      + '</div>';
+  }
+  wrap.innerHTML = html;
+})();
+</script>

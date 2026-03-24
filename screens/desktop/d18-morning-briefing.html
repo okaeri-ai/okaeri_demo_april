@@ -1,0 +1,126 @@
+<div class="meta" style="margin-bottom:6px">6:58 am</div>
+<div style="font-size:42px;font-weight:200;color:var(--ink);letter-spacing:-0.03em;line-height:1.1">good morning, Jess.</div>
+<div class="meta" style="margin-top:10px">Monday, March 23</div>
+<div class="sub">your briefing is ready · 47 seconds</div>
+
+<div class="hr"></div>
+
+<!-- Audio player -->
+<div style="padding:14px 16px;border:0.5px solid var(--rule2);border-radius:10px;margin-bottom:16px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div id="play-btn-18" onclick="toggleAudio18()" style="width:36px;height:36px;border-radius:50%;border:0.5px solid var(--rule);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+      <svg id="play-icon-18" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M1 1v12l10-6L1 1z" fill="var(--ink)" opacity="0.7"/></svg>
+      <svg id="pause-icon-18" width="12" height="14" viewBox="0 0 12 14" fill="none" style="display:none"><rect x="1" y="1" width="3.5" height="12" rx="0.5" fill="var(--ink)" opacity="0.7"/><rect x="7.5" y="1" width="3.5" height="12" rx="0.5" fill="var(--ink)" opacity="0.7"/></svg>
+    </div>
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Monday morning briefing</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:2px">generated 6:45 am · <span id="elapsed-18">0:00</span> / 0:47</div>
+    </div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.12em;flex-shrink:0">0:47</div>
+  </div>
+  <div style="margin-top:8px;width:100%;height:1.5px;background:var(--rule2);border-radius:1px;overflow:hidden">
+    <div id="progress-18" style="width:0%;height:100%;background:var(--green);border-radius:1px;transition:width 0.3s linear"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var playing=false, timer=null, elapsed=0, total=47;
+  window.toggleAudio18=function(){
+    var playI=document.getElementById('play-icon-18'),
+        pauseI=document.getElementById('pause-icon-18'),
+        prog=document.getElementById('progress-18'),
+        elSpan=document.getElementById('elapsed-18');
+    if(!playing){
+      playing=true;
+      playI.style.display='none'; pauseI.style.display='block';
+      timer=setInterval(function(){
+        elapsed++;
+        var pct=Math.min((elapsed/total)*100,100);
+        prog.style.width=pct+'%';
+        var m=Math.floor(elapsed/60), s=elapsed%60;
+        elSpan.textContent=m+':'+(s<10?'0':'')+s;
+        if(elapsed>=total){
+          clearInterval(timer); timer=null; playing=false; elapsed=0;
+          playI.style.display='block'; pauseI.style.display='none';
+          prog.style.width='0%'; elSpan.textContent='0:00';
+        }
+      },1000);
+    } else {
+      playing=false;
+      clearInterval(timer); timer=null;
+      playI.style.display='block'; pauseI.style.display='none';
+    }
+  };
+})();
+</script>
+
+<!-- 3-column grid -->
+<div class="mb3">
+  <div class="mb-col">
+    <div class="mb-col-l">today's calendar</div>
+    <div class="mb-item">
+      <div class="mb-itime">10:00 am</div>
+      <div class="mb-iname">Sequoia investor intro</div>
+      <div class="mb-iprep">prep ready</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-itime">2:00 pm</div>
+      <div class="mb-iname">Resonance partner call</div>
+      <div class="mb-imeta">30 min · Zoom</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-itime">4:30 pm</div>
+      <div class="mb-iname">Focus block — deck updates</div>
+      <div class="mb-imeta">90 min · protected</div>
+    </div>
+  </div>
+  <div class="mb-col">
+    <div class="mb-col-l">carrying forward</div>
+    <div class="mb-item">
+      <div class="mb-iname">Andreessen follow-up email</div>
+      <div class="mb-imeta">originally due friday</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-iname">Update Acme proposal pricing</div>
+      <div class="mb-imeta">2 days overdue</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-iname">Send design partner outreach</div>
+      <div class="mb-imeta">moved from last week</div>
+    </div>
+  </div>
+  <div class="mb-col">
+    <div class="mb-col-l">watching</div>
+    <div class="mb-item">
+      <div class="mb-iname">Sequoia term sheet response</div>
+      <div class="mb-imeta">expected by wednesday</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-iname">Design partner NDA — countersign</div>
+      <div class="mb-imeta">waiting on legal</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-iname">Board deck feedback from advisor</div>
+      <div class="mb-imeta">sent saturday</div>
+    </div>
+  </div>
+</div>
+
+<!-- Today's three things -->
+<div class="sl" style="margin-top:8px">today's three things</div>
+<div class="prio-row">
+  <div class="prio-n">1</div>
+  <div class="prio-t">Nail the Sequoia meeting — your strongest pre-seed signal depends on this conversation landing well.</div>
+  <div class="prio-w">10:00 am</div>
+</div>
+<div class="prio-row">
+  <div class="prio-n">2</div>
+  <div class="prio-t">Send the Andreessen follow-up before noon. It's been carrying for 3 days and the warm intro window is closing.</div>
+  <div class="prio-w">by 12:00</div>
+</div>
+<div class="prio-row">
+  <div class="prio-n">3</div>
+  <div class="prio-t">Use the afternoon focus block to update the investor deck with last week's traction numbers.</div>
+  <div class="prio-w">4:30 pm</div>
+</div>

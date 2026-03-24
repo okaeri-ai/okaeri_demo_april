@@ -1,0 +1,83 @@
+<div class="eyebrow">calendar defense · this week</div>
+<div class="ptitle">calendar defense</div>
+<div class="sub" style="margin-bottom:16px">3 interventions suggested</div>
+
+<div class="hr"></div>
+
+<!-- Card 1: Overload warning (amber) -->
+<div class="def-card amber">
+  <div class="def-h">
+    <div class="def-type" style="color:var(--amber)">overload warning</div>
+    <div class="def-text">Tuesday has 5 hours of meetings. Consider moving the 3pm sync.</div>
+    <div class="def-sub">tuesday, march 24 · 5 meetings back-to-back</div>
+  </div>
+  <div class="def-f">
+    <button class="btn-ghost">dismiss</button>
+    <button class="btn-exec">accept</button>
+  </div>
+</div>
+
+<!-- Card 2: Focus block suggestion (green) -->
+<div class="def-card green">
+  <div class="def-h">
+    <div class="def-type" style="color:var(--green)">focus block suggestion</div>
+    <div class="def-text">Wednesday afternoon is open. Protect 2–5pm for deep work.</div>
+    <div class="def-sub">wednesday, march 25 · 3 hours available</div>
+  </div>
+  <div class="def-f">
+    <button class="btn-ghost">dismiss</button>
+    <button class="btn-exec">accept</button>
+  </div>
+</div>
+
+<!-- Card 3: Timing optimization (neutral) -->
+<div class="def-card">
+  <div class="def-h">
+    <div class="def-type" style="color:var(--ink2)">timing optimization</div>
+    <div class="def-text">Thursday Andreessen call is at 4pm. You execute better before 2pm.</div>
+    <div class="def-sub">thursday, march 26 · pattern: higher close rate in morning slots</div>
+  </div>
+  <div class="def-f">
+    <button class="btn-ghost">dismiss</button>
+    <button class="btn-exec">accept</button>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Defense settings -->
+<div class="sl">defense settings</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:0.5px solid var(--rule2);border-bottom:0.5px solid var(--rule2)">
+  <div>
+    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Auto-decline low-priority meetings</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:2px">decline meetings without agendas after 48 hours</div>
+  </div>
+  <div class="toggle on" id="tglDecline"><div class="toggle-dot"></div></div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+  <div>
+    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Protect focus blocks</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:2px">auto-create 2-hour focus blocks on open afternoons</div>
+  </div>
+  <div class="toggle on" id="tglFocus"><div class="toggle-dot"></div></div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+  <div>
+    <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Overload alerts</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:2px">warn when daily meeting time exceeds 4 hours</div>
+  </div>
+  <div class="toggle on" id="tglOverload"><div class="toggle-dot"></div></div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.toggle').forEach(function(el){
+    el.addEventListener('click', function(){
+      el.classList.toggle('on');
+    });
+  });
+})();
+</script>

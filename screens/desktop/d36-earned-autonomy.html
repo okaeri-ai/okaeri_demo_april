@@ -1,0 +1,105 @@
+<div class="ptitle">earned autonomy</div>
+<div class="sub">trust is earned through consistent execution</div>
+<div class="hr"></div>
+
+<div class="ea-progress"><div class="ea-fill" style="width:60%"></div></div>
+
+<div class="ea-card done">
+  <div class="ea-h">
+    <div>
+      <div class="ea-level" style="color:var(--green)">level 1</div>
+      <div class="ea-name">Observer</div>
+      <div class="ea-desc">listen and extract commitments</div>
+    </div>
+    <div class="ea-badge" style="background:var(--gbg);color:var(--green)">complete</div>
+  </div>
+</div>
+
+<div class="ea-card done">
+  <div class="ea-h">
+    <div>
+      <div class="ea-level" style="color:var(--green)">level 2</div>
+      <div class="ea-name">Confirmed executor</div>
+      <div class="ea-desc">execute with explicit confirmation</div>
+    </div>
+    <div class="ea-badge" style="background:var(--gbg);color:var(--green)">complete</div>
+  </div>
+</div>
+
+<div class="ea-card current">
+  <div class="ea-h">
+    <div>
+      <div class="ea-level" style="color:var(--blue)">level 3</div>
+      <div class="ea-name">Trusted partner</div>
+      <div class="ea-desc">auto-execute low-risk, confirm high-risk</div>
+    </div>
+    <div class="ea-badge" style="background:var(--bbg);color:var(--blue)">current</div>
+  </div>
+</div>
+
+<div class="ea-card locked">
+  <div class="ea-h">
+    <div>
+      <div class="ea-level" style="color:var(--ink3)">level 4</div>
+      <div class="ea-name">Autonomous agent</div>
+      <div class="ea-desc">execute most actions independently</div>
+    </div>
+    <div class="ea-badge" style="background:var(--bg3);color:var(--ink3)">locked</div>
+  </div>
+</div>
+
+<div class="ea-card locked">
+  <div class="ea-h">
+    <div>
+      <div class="ea-level" style="color:var(--ink3)">level 5</div>
+      <div class="ea-name">Strategic advisor</div>
+      <div class="ea-desc">proactively suggest and execute strategy</div>
+    </div>
+    <div class="ea-badge" style="background:var(--bg3);color:var(--ink3)">locked</div>
+  </div>
+</div>
+
+<div class="sl" style="margin-top:20px">permissions</div>
+<div class="ea-perms" style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">create Linear tickets</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">automatic <div class="toggle on" data-perm data-level="2"><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">send Slack messages</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">needs confirm <div class="toggle on" data-perm data-level="3"><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">schedule meetings</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">automatic <div class="toggle on" data-perm data-level="2"><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">update Salesforce</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px"><span class="perm-locked-label" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.12em">level 4 required</span> <div class="toggle" data-perm data-level="4" data-locked><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">draft emails</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px"><span class="perm-locked-label" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.12em">level 4 required</span> <div class="toggle" data-perm data-level="4" data-locked><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">proactive strategy suggestions</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px"><span class="perm-locked-label" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.12em">level 5 required</span> <div class="toggle" data-perm data-level="5" data-locked><div class="toggle-dot"></div></div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Disable locked toggles visually
+  document.querySelectorAll('[data-locked]').forEach(function(el){
+    el.style.opacity = '0.4';
+    el.style.cursor = 'not-allowed';
+  });
+
+  document.querySelectorAll('[data-perm]').forEach(function(el){
+    el.addEventListener('click', function(){
+      if(this.hasAttribute('data-locked')) return; // do nothing for locked items
+      this.classList.toggle('on');
+    });
+  });
+})();
+</script>

@@ -1,0 +1,121 @@
+<div class="eyebrow">generated from meeting history</div>
+<div class="ptitle" style="margin-bottom:4px">investor update · March 2026</div>
+<div class="sub" style="margin-bottom:16px">auto-compiled from 12 meetings · 47 commitments · 6 tools</div>
+
+<!-- Metrics -->
+<div class="iu-metrics">
+  <div class="met">
+    <div class="metn">$0</div>
+    <div class="metl">MRR</div>
+  </div>
+  <div class="metdiv"></div>
+  <div class="met">
+    <div class="metn">2</div>
+    <div class="metl">design partners</div>
+  </div>
+  <div class="metdiv"></div>
+  <div class="met">
+    <div class="metn" style="color:var(--green)">97%</div>
+    <div class="metl">execution rate</div>
+  </div>
+  <div class="metdiv"></div>
+  <div class="met">
+    <div class="metn">$2M</div>
+    <div class="metl">targeting</div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- This week -->
+<div class="iu-section">
+  <div class="sl">this week</div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--green)"></div>
+    <div style="flex:1">
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Closed design partner agreement with Resonance AI — first real usage data expected next week</div>
+      <div style="display:flex;gap:5px;margin-top:4px"><span class="ptag ptag-n">source: partner check-in · Mar 21</span></div>
+    </div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--green)"></div>
+    <div style="flex:1">
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Shipped commitment execution engine v2 — 97% accuracy on verb extraction across 47 commitments</div>
+      <div style="display:flex;gap:5px;margin-top:4px"><span class="ptag ptag-n">source: weekly standup · Mar 23</span></div>
+    </div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--green)"></div>
+    <div style="flex:1">
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Sequoia partner meeting went well — follow-up scheduled for term sheet discussion</div>
+      <div style="display:flex;gap:5px;margin-top:4px"><span class="ptag ptag-n">source: investor meeting · Mar 19</span></div>
+    </div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--amber)"></div>
+    <div style="flex:1">
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Andreessen intro still pending — warm contact hasn't responded in 4 days</div>
+      <div style="display:flex;gap:5px;margin-top:4px"><span class="ptag ptag-n">source: weekly digest · Mar 23</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Next week -->
+<div class="iu-section">
+  <div class="sl">next week</div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--ink3)"></div>
+    <div style="flex:1;font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Begin Resonance onboarding — target 50+ meetings processed in first week</div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--ink3)"></div>
+    <div style="flex:1;font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Sequoia term sheet follow-up — prepare counter-proposal if needed</div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--ink3)"></div>
+    <div style="flex:1;font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Second design partner outreach — 3 candidates in pipeline</div>
+  </div>
+</div>
+
+<!-- Asks -->
+<div class="iu-section">
+  <div class="sl">asks</div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--blue)"></div>
+    <div style="flex:1;font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Warm intro to a16z enterprise fund GP — our current path is going cold</div>
+  </div>
+  <div class="iu-item">
+    <div class="iu-dot" style="background:var(--blue)"></div>
+    <div style="flex:1;font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Any connections to Series A+ companies with heavy meeting cultures for design partner pipeline</div>
+  </div>
+</div>
+
+<div class="hr" style="margin:16px 0"></div>
+
+<!-- Actions -->
+<div style="display:flex;align-items:center;justify-content:space-between">
+  <div style="display:flex;gap:5px;flex-wrap:wrap">
+    <span class="ptag ptag-n">12 meetings</span>
+    <span class="ptag ptag-n">47 commitments</span>
+    <span class="ptag ptag-n">6 tools</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="btn-ghost">regenerate</button>
+    <button class="btn-ul" onclick="showToast('copied to clipboard')">copy</button>
+    <button class="btn-ul" onclick="showToast('update sent to investors')">send update</button>
+  </div>
+</div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+</script>

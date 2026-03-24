@@ -1,0 +1,91 @@
+<div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px">
+  <div><div class="ptitle">execution log</div><div class="sub" style="margin-top:4px">31 commitments · 14 days</div></div>
+  <div style="display:flex;align-items:center;gap:7px;border-bottom:.5px solid var(--rule2);padding-bottom:6px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="#bbb" stroke-width=".8"/><path d="M9 9L11.5 11.5" stroke="#bbb" stroke-width=".8" stroke-linecap="round"/></svg><input id="logSearch" type="text" placeholder="search commitments" style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:.18em;border:none;background:none;outline:none;font-family:inherit;width:160px" /></div>
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('logSearch');
+  if(!input) return;
+  input.addEventListener('input', function(){
+    var q = this.value.toLowerCase().trim();
+    var rows = document.querySelectorAll('.log-row');
+    rows.forEach(function(row){
+      if(!q){
+        row.style.display = '';
+        return;
+      }
+      var verb = row.querySelector('.log-verb');
+      var obj  = row.querySelector('.log-obj');
+      var tool = row.querySelector('.log-tool');
+      var ref  = row.querySelector('.log-ref');
+      var text = (verb ? verb.textContent : '') + ' ' +
+                 (obj  ? obj.textContent  : '') + ' ' +
+                 (tool ? tool.textContent : '') + ' ' +
+                 (ref  ? ref.textContent  : '');
+      row.style.display = text.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+    });
+  });
+})();
+</script>
+<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.38em;text-transform:uppercase;margin-bottom:10px">today · Mon Mar 23</div>
+<div class="log-thead"><div class="lth"></div><div class="lth">verb</div><div class="lth">commitment</div><div class="lth r">tool</div><div class="lth r">ref</div><div class="lth r">time</div></div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">create</div><div class="log-obj">API rate limit bug</div><div class="log-tool">Linear</div><div class="log-ref">OKA-214</div><div class="log-time">9:14 am</div></div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">send</div><div class="log-obj">pricing proposal recap</div><div class="log-tool">Slack</div><div class="log-ref">#sales</div><div class="log-time">9:14 am</div></div>
+<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.38em;text-transform:uppercase;margin:12px 0 8px">Friday · Mar 20</div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">update</div><div class="log-obj">Acme deal · proposal sent</div><div class="log-tool">Salesforce</div><div class="log-ref">Acme Corp</div><div class="log-time">4:52 pm</div></div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">schedule</div><div class="log-obj">Andreessen follow-up · 30 min</div><div class="log-tool">Calendar</div><div class="log-ref">Thu Mar 26</div><div class="log-time">4:53 pm</div></div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">draft</div><div class="log-obj">partnership proposal email</div><div class="log-tool">Gmail</div><div class="log-ref">alex@mnemix.ai</div><div class="log-time">2:11 pm</div></div>
+<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.38em;text-transform:uppercase;margin:12px 0 8px">Thursday · Mar 19</div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">send</div><div class="log-obj">design partner brief · Resonance team</div><div class="log-tool">Gmail</div><div class="log-ref">resonance.ai</div><div class="log-time">11:44 am</div></div>
+<div class="log-row"><div class="log-check">✓</div><div class="log-verb">create</div><div class="log-obj">onboarding flow ticket</div><div class="log-tool">Linear</div><div class="log-ref">OKA-211</div><div class="log-time">3:08 pm</div></div>
+<script>
+// Hydrate execution log from cross-screen state
+(function(){
+  var O = window.OKAERI;
+  if(!O || !O.executedCards || O.executedCards.length === 0) return;
+
+  // Update summary stats
+  var subLine = document.querySelector('.sub');
+  if(subLine) subLine.textContent = O.totalExecuted + ' commitments \u00b7 14 days';
+
+  // Find the first hardcoded log-row in the "today" section to prepend before it
+  var firstRow = document.querySelector('.log-thead + .log-row');
+  if(!firstRow) return;
+
+  // Insert executed cards above existing today rows (in reverse so order is preserved)
+  var cards = O.executedCards.slice().reverse();
+  cards.forEach(function(c){
+    // Extract tool name (strip channel/ref from tool field)
+    var toolName = c.tool.split(' ')[0] || c.tool;
+    var div = document.createElement('div');
+    div.className = 'log-row';
+    div.innerHTML = '<div class="log-check">\u2713</div>' +
+      '<div class="log-verb">' + c.verb + '</div>' +
+      '<div class="log-obj">' + c.obj + '</div>' +
+      '<div class="log-tool">' + toolName + '</div>' +
+      '<div class="log-ref">' + c.detail + '</div>' +
+      '<div class="log-time">' + c.time + '</div>';
+    firstRow.parentNode.insertBefore(div, firstRow);
+  });
+
+  // Update the bottom summary executed count
+  var bsnNodes = document.querySelectorAll('.bsn');
+  for(var i=0;i<bsnNodes.length;i++){
+    var label = bsnNodes[i].nextElementSibling || bsnNodes[i].parentNode.querySelector('.bsl');
+    if(label && label.textContent.trim() === 'executed'){
+      bsnNodes[i].textContent = O.totalExecuted;
+      break;
+    }
+  }
+})();
+</script>
+<div class="log-summary">
+  <div class="bst"><div class="bsn g" style="font-size:32px">97%</div><div class="bsl">execution rate · 14 days</div></div>
+  <div class="bsdiv"></div>
+  <div class="bst"><div class="bsn p" style="font-size:32px">31</div><div class="bsl">executed</div></div>
+  <div class="bsdiv"></div>
+  <div class="bst"><div class="bsn" style="font-size:32px;color:var(--ink3)">1</div><div class="bsl">missed</div></div>
+  <div class="bsdiv"></div>
+  <div class="bst"><div class="bsn p" style="font-size:32px">9</div><div class="bsl">day streak</div></div>
+</div>

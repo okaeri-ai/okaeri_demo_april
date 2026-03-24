@@ -1,0 +1,172 @@
+// ═══════════════════════════════════════════════════
+// OKAERI — Shared State & Sample Data
+// ═══════════════════════════════════════════════════
+
+window.OKAERI = {
+
+  // ── Navigation State ──
+  currentScreen: 'd01-home',
+  previousScreen: null,
+  screenHistory: [],
+
+  // ── Execute Card State ──
+  pendingCards: 4,
+  executedCards: [],
+  pendingCount: 2,    // starts at 2 (pre-existing pending)
+  totalExecuted: 31,  // starts at 31 (pre-existing executed)
+
+  // ── Ask Okaeri Answers ──
+  askAnswers: {
+    'what did we decide about go-to-market?': {
+      text: 'Across four meetings in the past three weeks, the consistent position is enterprise-first. The clearest statement came in the Q2 roadmap sync on March 20 — ship to enterprise design partners first to compound organizational workflow data, then open PLG once the commitment graph has sufficient signal. There was one moment of ambiguity on March 14 where PLG-first was discussed, but it was not committed to and was explicitly revisited on March 18.',
+      evidence: [
+        { verb: 'decision', obj: 'enterprise-first · PLG after commitment graph has signal', source: 'Q2 roadmap sync', date: 'Mar 20' },
+        { verb: 'discussed', obj: 'PLG-first motion considered but not committed to', source: 'investor prep', date: 'Mar 14' },
+        { verb: 'confirmed', obj: 'enterprise-first reaffirmed with Resonance design partner', source: 'design partner call', date: 'Mar 18' }
+      ]
+    },
+    'what is Marcus working on?': {
+      text: 'Marcus has three active commitments this sprint. The most urgent is the API rate limit bug, which he committed to as P1 in the Q2 roadmap sync on March 23. He also has an auth flow PR review and the API docs milestone due this week. His 30-day execution rate is 92% — strong, with a slight rollover pattern on longer-horizon commitments.',
+      evidence: [
+        { verb: 'fix', obj: 'API rate limit bug · P1 · sprint 14', source: 'Q2 roadmap sync', date: 'Mar 23' },
+        { verb: 'review', obj: 'auth flow PR', source: 'engineering sync', date: 'this week' },
+        { verb: 'write', obj: 'API docs for v1 endpoints', source: 'planning', date: 'this week' }
+      ]
+    },
+    'what slipped last week?': {
+      text: 'One commitment slipped last week: the cold outreach to Index Ventures. It was first committed to on March 10, pushed again on March 16, and was not completed by week end. This is now the most overdue item in your execution log. Everything else from the week executed cleanly — 22 of 23 commitments, a 96% execution rate.',
+      evidence: [
+        { verb: 'draft', obj: 'cold outreach to Index Ventures', source: 'fundraise planning', date: 'Mar 10 · pushed 3×' },
+        { verb: 'note', obj: '22 of 23 commitments executed · 96% rate', source: 'all other meetings', date: 'this week' }
+      ]
+    },
+    'show me everything about Acme': {
+      text: 'Acme Corp has appeared in 6 meetings over the past three weeks. The deal is at proposal sent stage in Salesforce ($84k ARR opportunity). Priya owns the relationship. The most recent commitment — updating the deal stage — was executed this morning at 9:14am. Their procurement team is reviewing the NDA before moving forward. No open commitments remain on this deal.',
+      evidence: [
+        { verb: 'update', obj: 'Acme deal → proposal sent · Salesforce', source: 'Q2 roadmap sync', date: 'Mar 23 · done' },
+        { verb: 'send', obj: 'pricing proposal recap · Priya · Slack #sales', source: 'Q2 roadmap sync', date: 'Mar 23 · done' },
+        { verb: 'review', obj: 'NDA · Acme procurement team', source: 'email thread', date: 'Fri Mar 20' }
+      ]
+    }
+  },
+
+  // ── Team ──
+  team: [
+    { name: 'Jess Liu', initials: 'JL', role: 'CEO / founder', rate: 97, trust: 3, color: 'av-a' },
+    { name: 'Marcus Chen', initials: 'MC', role: 'Engineering', rate: 92, trust: 2, color: 'av-b' },
+    { name: 'Priya Rajan', initials: 'PR', role: 'Sales / Ops', rate: 100, trust: 3, color: 'av-t' },
+    { name: 'James Wu', initials: 'JW', role: 'BD', rate: 89, trust: 1, color: 'av-a' }
+  ],
+
+  // ── Meetings ──
+  meetings: [
+    { name: 'Q2 roadmap sync', date: 'March 23', duration: '38 min', attendees: ['Marcus', 'Priya', 'James', 'Jess'] },
+    { name: 'Series A investor intro', org: 'Sequoia', date: 'March 23', duration: '45 min', attendees: ['Sarah Rhodes', 'Michael Kim', 'Jess'] },
+    { name: 'Design partner call', org: 'Resonance', date: 'March 23', duration: '60 min', attendees: [] }
+  ],
+
+  // ── Commitments (from Q2 roadmap sync) ──
+  commitments: [
+    { id: 'c1', verb: 'create', obj: 'API rate limit bug', tool: 'Linear', toolClass: 'tt-li', assignee: '@marcus', meta: 'P1 · sprint 14', label: 'Ticket created', detail: 'Linear OKA-214' },
+    { id: 'c2', verb: 'send', obj: 'pricing proposal recap', tool: 'Slack #sales', toolClass: 'tt-sl', assignee: '@priya', meta: 'today EOD', label: 'Message sent', detail: 'Slack #sales' },
+    { id: 'c3', verb: 'schedule', obj: 'Andreessen follow-up · 30 min', tool: 'Calendar', toolClass: 'tt-ca', assignee: '@james', meta: 'next week', label: 'Invite sent', detail: 'Thu Mar 26' },
+    { id: 'c4', verb: 'update', obj: 'Acme deal → proposal sent', tool: 'Salesforce', toolClass: 'tt-sf', assignee: '@priya', meta: 'Acme Corp · $84k ARR', label: 'Deal updated', detail: 'Acme Corp' }
+  ],
+
+  // ── Relationships ──
+  relationships: [
+    { name: 'Sarah Rhodes', initials: 'SR', role: 'Partner, Sequoia', health: 5, healthLabel: 'strong', healthColor: 'g', touches: 7, lastContact: '3 days ago', commits: '2 open', commitsColor: 'g', type: 'investor', screen: 'd09-sarah-profile' },
+    { name: 'Michael Kim', initials: 'MK', role: 'Principal, Sequoia', health: 3, healthLabel: 'growing', healthColor: 'd', touches: 3, lastContact: '5 days ago', commits: '—', commitsColor: 'n', type: 'investor', screen: 'd10-michael-profile', avatarBg: 'teal-bg', avatarColor: 'teal' },
+    { name: 'Alex Chen', initials: 'AC', role: 'CEO, Mnemix', health: 2.5, healthLabel: 'cooling', healthColor: 'a', touches: 4, lastContact: '11 days ago', commits: '1 open', commitsColor: 'n', type: 'partner' },
+    { name: 'Resonance team', initials: 'RT', role: 'Design partner', health: 5, healthLabel: 'strong', healthColor: 'g', touches: 12, lastContact: 'today', commits: '3 open', commitsColor: 'g', type: 'partner', avatarBg: 'teal-bg', avatarColor: 'teal' },
+    { name: 'Nina Park', initials: 'NP', role: 'Scout, a16z', health: 1, healthLabel: 'cold', healthColor: 'a', touches: 1, lastContact: '22 days ago', commits: '—', commitsColor: 'n', type: 'investor' }
+  ],
+
+  // ── Goals ──
+  goals: [
+    {
+      name: 'Close $2M pre-seed round',
+      type: 'primary',
+      quarter: 'Q1 2026',
+      deadline: 'target close: May 1 · 39 days away',
+      pct: 58,
+      pctColor: 'g',
+      pctLabel: 'on track',
+      milestones: [
+        { text: 'Sequoia intro', status: 'done' },
+        { text: 'Resonance partner', status: 'done' },
+        { text: 'Sequoia term sheet', status: 'open' },
+        { text: 'a16z intro overdue', status: 'risk' },
+        { text: 'close round', status: 'open' }
+      ],
+      commits: [
+        { verb: 'send', obj: 'materials to Sequoia before 10am', status: 'risk', statusLabel: 'at risk' },
+        { verb: 'draft', obj: 'Index Ventures cold outreach', status: 'risk', statusLabel: 'overdue' },
+        { verb: 'schedule', obj: 'Andreessen follow-up', status: 'open', statusLabel: 'today' },
+        { verb: 'update', obj: 'CRM · Sequoia → second meeting', status: 'done', statusLabel: '✓ done' }
+      ]
+    },
+    {
+      name: '3–5 active design partners generating usage data',
+      type: 'secondary',
+      quarter: 'Q1 2026',
+      deadline: 'no hard deadline · currently 1 of 5',
+      pct: 20,
+      pctColor: 'a',
+      pctLabel: 'needs attention',
+      milestones: [
+        { text: 'Resonance confirmed', status: 'done' },
+        { text: 'partner 2 · in progress', status: 'open' },
+        { text: 'partner 3', status: 'open' },
+        { text: 'partner 4', status: 'open' },
+        { text: 'partner 5', status: 'open' }
+      ],
+      commits: []
+    }
+  ],
+
+  // ── Execution Log ──
+  executionLog: [
+    { date: 'today · Mon Mar 23', entries: [
+      { verb: 'create', obj: 'API rate limit bug', tool: 'Linear', ref: 'OKA-214', time: '9:14 am' },
+      { verb: 'send', obj: 'pricing proposal recap', tool: 'Slack', ref: '#sales', time: '9:14 am' }
+    ]},
+    { date: 'Friday · Mar 20', entries: [
+      { verb: 'update', obj: 'Acme deal · proposal sent', tool: 'Salesforce', ref: 'Acme Corp', time: '4:52 pm' },
+      { verb: 'schedule', obj: 'Andreessen follow-up · 30 min', tool: 'Calendar', ref: 'Thu Mar 26', time: '4:53 pm' },
+      { verb: 'draft', obj: 'partnership proposal email', tool: 'Gmail', ref: 'alex@mnemix.ai', time: '2:11 pm' }
+    ]},
+    { date: 'Thursday · Mar 19', entries: [
+      { verb: 'send', obj: 'design partner brief · Resonance team', tool: 'Gmail', ref: 'resonance.ai', time: '11:44 am' },
+      { verb: 'create', obj: 'onboarding flow ticket', tool: 'Linear', ref: 'OKA-211', time: '3:08 pm' }
+    ]}
+  ],
+
+  // ── Integrations ──
+  integrations: {
+    execution: [
+      { name: 'Linear', icon: '◆', color: '--purple', bg: '--purple-bg', connected: true },
+      { name: 'Slack', icon: '#', color: '--yellow', bg: '--yellow-bg', connected: true },
+      { name: 'Google Calendar', icon: '◈', color: '--teal', bg: '--teal-bg', connected: true },
+      { name: 'Salesforce', icon: '☁', color: '--blue', bg: '--bbg', connected: false },
+      { name: 'Gmail', icon: '✉', color: '--red', bg: '--red-bg', connected: false }
+    ],
+    context: [
+      { name: 'LinkedIn', icon: 'in', color: '--blue', bg: '--bbg', connected: false },
+      { name: 'X (Twitter)', icon: '𝕏', color: '--ink', bg: '--bg3', connected: false }
+    ]
+  },
+
+  // ── Navigation Helper ──
+  go: function(screenId) {
+    if (window.OKAERI_NAV && window.OKAERI_NAV.navigate) {
+      window.OKAERI_NAV.navigate(screenId);
+    }
+  },
+
+  goBack: function() {
+    if (window.OKAERI_NAV && window.OKAERI_NAV.goBack) {
+      window.OKAERI_NAV.goBack();
+    }
+  }
+};

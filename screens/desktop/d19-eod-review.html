@@ -1,0 +1,122 @@
+<div class="meta" style="margin-bottom:6px">6:12 pm</div>
+<div style="font-size:42px;font-weight:200;color:var(--ink);letter-spacing:-0.03em;line-height:1.1">end of day, Jess.</div>
+<div class="meta" style="margin-top:10px">Monday, March 23</div>
+<div class="sub">today's review is ready · 38 seconds</div>
+
+<div class="hr"></div>
+
+<!-- Audio player -->
+<div style="padding:14px 16px;border:0.5px solid var(--rule2);border-radius:10px;margin-bottom:16px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div id="play-btn-19" onclick="toggleAudio19()" style="width:36px;height:36px;border-radius:50%;border:0.5px solid var(--rule);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+      <svg id="play-icon-19" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M1 1v12l10-6L1 1z" fill="var(--ink)" opacity="0.7"/></svg>
+      <svg id="pause-icon-19" width="12" height="14" viewBox="0 0 12 14" fill="none" style="display:none"><rect x="1" y="1" width="3.5" height="12" rx="0.5" fill="var(--ink)" opacity="0.7"/><rect x="7.5" y="1" width="3.5" height="12" rx="0.5" fill="var(--ink)" opacity="0.7"/></svg>
+    </div>
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Monday evening review</div>
+      <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:2px">generated 6:10 pm · <span id="elapsed-19">0:00</span> / 0:38</div>
+    </div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.12em;flex-shrink:0">0:38</div>
+  </div>
+  <div style="margin-top:8px;width:100%;height:1.5px;background:var(--rule2);border-radius:1px;overflow:hidden">
+    <div id="progress-19" style="width:0%;height:100%;background:var(--green);border-radius:1px;transition:width 0.3s linear"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var playing=false, timer=null, elapsed=0, total=38;
+  window.toggleAudio19=function(){
+    var playI=document.getElementById('play-icon-19'),
+        pauseI=document.getElementById('pause-icon-19'),
+        prog=document.getElementById('progress-19'),
+        elSpan=document.getElementById('elapsed-19');
+    if(!playing){
+      playing=true;
+      playI.style.display='none'; pauseI.style.display='block';
+      timer=setInterval(function(){
+        elapsed++;
+        var pct=Math.min((elapsed/total)*100,100);
+        prog.style.width=pct+'%';
+        var m=Math.floor(elapsed/60), s=elapsed%60;
+        elSpan.textContent=m+':'+(s<10?'0':'')+s;
+        if(elapsed>=total){
+          clearInterval(timer); timer=null; playing=false; elapsed=0;
+          playI.style.display='block'; pauseI.style.display='none';
+          prog.style.width='0%'; elSpan.textContent='0:00';
+        }
+      },1000);
+    } else {
+      playing=false;
+      clearInterval(timer); timer=null;
+      playI.style.display='block'; pauseI.style.display='none';
+    }
+  };
+})();
+</script>
+
+<!-- Day score stats -->
+<div class="stats">
+  <div class="st"><div class="stn g">6</div><div class="stl">executed</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn a">2</div><div class="stl">carrying</div></div>
+  <div class="sdiv"></div>
+  <div class="st"><div class="stn m">3</div><div class="stl">meetings</div></div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Two columns: done today / carrying forward -->
+<div class="two-col">
+  <div>
+    <div class="sl">done today</div>
+    <div class="rq"><div class="rq-dot"></div><div class="rq-v">sent</div><div class="rq-o">Andreessen follow-up email</div><div class="rq-ti">11:42 am</div></div>
+    <div class="rq"><div class="rq-dot"></div><div class="rq-v">attended</div><div class="rq-o">Sequoia investor intro</div><div class="rq-ti">10:00 am</div></div>
+    <div class="rq"><div class="rq-dot"></div><div class="rq-v">updated</div><div class="rq-o">Investor deck — traction slides</div><div class="rq-ti">5:18 pm</div></div>
+    <div class="rq"><div class="rq-dot"></div><div class="rq-v">called</div><div class="rq-o">Resonance partner check-in</div><div class="rq-ti">2:00 pm</div></div>
+    <div class="rq"><div class="rq-dot"></div><div class="rq-v">drafted</div><div class="rq-o">Design partner outreach template</div><div class="rq-ti">3:45 pm</div></div>
+  </div>
+  <div>
+    <div class="sl">carrying forward</div>
+    <div style="display:flex;align-items:center;padding:7px 0;border-top:0.5px solid var(--rule2);border-bottom:0.5px solid var(--rule2);gap:9px">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.18em;min-width:52px">update</div>
+      <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink2);flex:1">Acme proposal pricing</div>
+      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em">3 days</div>
+    </div>
+    <div style="display:flex;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--rule2);gap:9px">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.18em;min-width:52px">schedule</div>
+      <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink2);flex:1">a16z warm intro meeting</div>
+      <div style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em">5 days</div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Front-load tomorrow -->
+<div class="sl">front-load tomorrow</div>
+<div class="prio-row">
+  <div class="prio-n">1</div>
+  <div class="prio-t">Send updated Acme proposal before standup — it's been carrying 3 days and the deal is cooling.</div>
+  <div class="prio-w">by 9:00 am</div>
+</div>
+<div class="prio-row">
+  <div class="prio-n">2</div>
+  <div class="prio-t">Lock in the a16z intro meeting through your warm contact. The pre-seed timeline depends on parallel paths.</div>
+  <div class="prio-w">morning</div>
+</div>
+<div class="prio-row">
+  <div class="prio-n">3</div>
+  <div class="prio-t">Review Sequoia meeting notes and send thank-you with the updated deck attached.</div>
+  <div class="prio-w">by noon</div>
+</div>
+
+<div class="hr"></div>
+
+<!-- Evening narrative -->
+<div class="narr">
+  <div class="narr-l">okaeri's read · end of day</div>
+  <div class="narr-t">Strong execution day. You cleared 6 of 8 commitments and the Sequoia meeting went well — follow-up signals are positive. The two carries are both pre-seed critical, so front-loading them tomorrow keeps your timeline intact. Your focus block held today, which is a pattern worth protecting.</div>
+</div>

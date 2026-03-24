@@ -1,0 +1,87 @@
+<div class="ptitle" style="margin-bottom:4px">commitment lifecycle</div>
+<div class="sub" id="lifecycleSub" style="margin-bottom:20px">create → API rate limit bug → Linear</div>
+
+<script>
+(function(){
+  var ev = window.OKAERI.activeEvidence;
+  if (ev) {
+    document.getElementById('lifecycleSub').textContent = ev.verb + ' → ' + ev.obj + ' → ' + ev.source;
+    window.OKAERI.activeEvidence = null;
+  }
+})();
+</script>
+
+<!-- Timeline -->
+<div class="lifecycle-step">
+  <div class="lc-dot done"></div>
+  <div style="flex:1">
+    <div class="lc-label">spoken</div>
+    <div class="lc-text">"Michael, can you create a ticket for that API rate limit bug we keep hitting"</div>
+    <div class="lc-time">9:12 am · Q2 roadmap sync</div>
+    <div class="lc-pills">
+      <span class="ptag ptag-n">speaker: jessica</span>
+      <span class="ptag ptag-n">confidence: 97%</span>
+    </div>
+  </div>
+</div>
+
+<div class="lifecycle-step">
+  <div class="lc-dot done"></div>
+  <div style="flex:1">
+    <div class="lc-label">extracted</div>
+    <div class="lc-text">Parsed verb "create", object "API rate limit bug", tool "Linear", assignee "@michael"</div>
+    <div class="lc-time">9:12 am · 0.4s after spoken</div>
+    <div class="lc-pills">
+      <span class="ptag ptag-b">verb: create</span>
+      <span class="ttag tt-li">Linear</span>
+      <span class="ptag ptag-n">@michael</span>
+    </div>
+  </div>
+</div>
+
+<div class="lifecycle-step">
+  <div class="lc-dot done"></div>
+  <div style="flex:1">
+    <div class="lc-label">confirmed</div>
+    <div class="lc-text">User confirmed execution in post-meeting review. No edits made to extracted commitment.</div>
+    <div class="lc-time">9:14 am · post-meeting tray</div>
+    <div class="lc-pills">
+      <span class="ptag ptag-g">confirmed without edit</span>
+    </div>
+  </div>
+</div>
+
+<div class="lifecycle-step">
+  <div class="lc-dot done"></div>
+  <div style="flex:1">
+    <div class="lc-label">executed</div>
+    <div class="lc-text">Created Linear issue OKA-214 in "Okaeri" workspace, assigned to Michael Chen, priority P1, added to Q2 Sprint backlog.</div>
+    <div class="lc-time">9:14 am · 0.8s execution time</div>
+    <div class="lc-pills">
+      <span class="ttag tt-li">Linear</span>
+      <span class="ptag ptag-n">OKA-214</span>
+      <span class="ptag ptag-n">P1</span>
+    </div>
+  </div>
+</div>
+
+<div class="lifecycle-step">
+  <div class="lc-dot done" style="background:var(--green);box-shadow:0 0 0 3px var(--gbg)"></div>
+  <div style="flex:1">
+    <div class="lc-label" style="color:var(--green)">verified</div>
+    <div class="lc-text">Ticket exists in Linear. Assignee confirmed. Status: backlog. No conflicts detected with existing issues.</div>
+    <div class="lc-time">9:15 am · verified via API</div>
+    <div class="lc-pills">
+      <span class="ptag ptag-g">verified</span>
+      <span class="ptag ptag-g">no conflicts</span>
+      <span class="ptag ptag-n">total: 3 min spoken → verified</span>
+    </div>
+  </div>
+</div>
+
+<div class="hr" style="margin:20px 0 16px"></div>
+
+<div style="display:flex;align-items:center;gap:12px">
+  <button class="btn-ul" onclick="OKAERI.go('d33-receipt-artifact')">view receipt</button>
+  <button class="btn-ghost" onclick="OKAERI.go('d06-execution-log')">back to log</button>
+</div>

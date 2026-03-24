@@ -1,0 +1,117 @@
+<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+  <div>
+    <div style="font-size:20px;font-weight:200;color:var(--ink);letter-spacing:.02em;margin-bottom:4px">Q2 roadmap sync</div>
+    <div class="meta">just now · 38 min · Marcus, Priya, James</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em;margin-top:3px">4 commitments extracted</div>
+  </div>
+  <button class="btn-g" id="execAllBtn"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.8 3L9 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-g-txt">execute all</span></button>
+</div>
+<div style="display:flex;flex-direction:column;gap:7px" id="cardStack">
+  <div class="cc" id="c1"><div class="chain"><span class="verb">create</span><span class="arr">→</span><span class="obj">API rate limit bug</span><span class="arr">→</span><span class="ttag tt-li">Linear</span></div><div class="card-bot"><span class="ass">@marcus · p1 · sprint 14</span><div class="card-acts"><button class="btn-skip" data-card="c1">skip</button><button class="btn-exec" data-card="c1" data-label="Ticket created" data-detail="Linear OKA-214"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+  <div class="cc" id="c2"><div class="chain"><span class="verb">send</span><span class="arr">→</span><span class="obj">pricing proposal recap</span><span class="arr">→</span><span class="ttag tt-sl">Slack #sales</span></div><div class="card-bot"><span class="ass">@priya · today EOD</span><div class="card-acts"><button class="btn-skip" data-card="c2">skip</button><button class="btn-exec" data-card="c2" data-label="Message sent" data-detail="Slack #sales"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+  <div class="cc" id="c3"><div class="chain"><span class="verb">schedule</span><span class="arr">→</span><span class="obj">Andreessen follow-up · 30 min</span><span class="arr">→</span><span class="ttag tt-ca">Calendar</span></div><div class="card-bot"><span class="ass">@james · next week</span><div class="card-acts"><button class="btn-skip" data-card="c3">skip</button><button class="btn-exec" data-card="c3" data-label="Invite sent" data-detail="Thu Mar 26"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+  <div class="cc" id="c4"><div class="chain"><span class="verb">update</span><span class="arr">→</span><span class="obj">Acme deal → proposal sent</span><span class="arr">→</span><span class="ttag tt-sf">Salesforce</span></div><div class="card-bot"><span class="ass">@priya · Acme Corp · $84k ARR</span><div class="card-acts"><button class="btn-skip" data-card="c4">skip</button><button class="btn-exec" data-card="c4" data-label="Deal updated" data-detail="Acme Corp"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px" id="receipts"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px;margin-top:6px">
+  <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink3);letter-spacing:.13em" id="cntLbl">4 remaining</span>
+  <button class="btn-ul" id="allClearBtn" style="display:none">see all clear →</button>
+</div>
+
+<script>
+(function(){
+  var pending = 4;
+
+  function addReceipt(label, detail){
+    var now = new Date(), h = now.getHours()%12||12, m = String(now.getMinutes()).padStart(2,'0');
+    var r = document.createElement('div');
+    r.className = 'receipt';
+    r.innerHTML = '<span class="rc-t">✓&nbsp;&nbsp;'+label+'<span class="rc-d"> · '+detail+'</span></span><span class="rc-ti">'+h+':'+m+'</span>';
+    var rc = document.getElementById('receipts');
+    if(rc) rc.appendChild(r);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ r.classList.add('show'); }); });
+  }
+
+  function updateCount(){
+    var cl = document.getElementById('cntLbl');
+    if(pending === 0){
+      if(cl){ cl.textContent = 'all executed'; cl.style.color = 'var(--green)'; }
+      setTimeout(function(){
+        var ab = document.getElementById('allClearBtn');
+        if(ab) ab.style.display = 'inline';
+      }, 500);
+    } else {
+      if(cl) cl.textContent = pending + ' remaining';
+    }
+  }
+
+  function execCard(id, label, detail){
+    var e = document.getElementById(id);
+    if(!e || e.classList.contains('gone')) return;
+    e.classList.add('gone');
+    pending = Math.max(0, pending-1);
+    setTimeout(function(){ addReceipt(label, detail); }, 270);
+    updateCount();
+
+    // Persist to shared state
+    var card = null;
+    var commitments = window.OKAERI && window.OKAERI.commitments || [];
+    for(var i=0;i<commitments.length;i++){
+      if(commitments[i].id === id){ card = commitments[i]; break; }
+    }
+    if(window.OKAERI){
+      var now = new Date(), h = now.getHours()%12||12, m = String(now.getMinutes()).padStart(2,'0');
+      var ampm = now.getHours() >= 12 ? 'pm' : 'am';
+      var timeStr = h + ':' + m + ' ' + ampm;
+      window.OKAERI.executedCards.push({
+        id: id,
+        verb: card ? card.verb : '',
+        obj: card ? card.obj : '',
+        tool: card ? card.tool : '',
+        label: label,
+        detail: detail,
+        time: timeStr,
+        timestamp: now.getTime()
+      });
+      window.OKAERI.totalExecuted++;
+      window.OKAERI.pendingCount = Math.max(0, window.OKAERI.pendingCount - 1);
+    }
+  }
+
+  function skipCard(id){
+    var e = document.getElementById(id);
+    if(!e || e.classList.contains('gone') || e.classList.contains('skipped')) return;
+    e.classList.add('skipped');
+    pending = Math.max(0, pending-1);
+    updateCount();
+  }
+
+  document.getElementById('cardStack').addEventListener('click', function(e){
+    var execBtn = e.target.closest('.btn-exec');
+    var skipBtn = e.target.closest('.btn-skip');
+    if(execBtn){
+      e.stopPropagation();
+      execCard(execBtn.dataset.card, execBtn.dataset.label, execBtn.dataset.detail);
+    } else if(skipBtn){
+      e.stopPropagation();
+      skipCard(skipBtn.dataset.card);
+    }
+  });
+
+  document.getElementById('execAllBtn').addEventListener('click', function(){
+    var seq = [
+      ['c1','Ticket created','Linear OKA-214'],
+      ['c2','Message sent','Slack #sales'],
+      ['c3','Invite sent','Thu Mar 26'],
+      ['c4','Deal updated','Acme Corp']
+    ];
+    seq.forEach(function(item, i){
+      setTimeout(function(){ execCard(item[0], item[1], item[2]); }, i*145);
+    });
+  });
+
+  document.getElementById('allClearBtn').addEventListener('click', function(){
+    OKAERI.go('d05-all-clear');
+  });
+})();
+</script>

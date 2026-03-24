@@ -1,0 +1,155 @@
+<div class="eyebrow">post-meeting · Q2 roadmap sync</div>
+<div class="ptitle" style="margin-bottom:4px">12 commitments extracted</div>
+<div class="sub" style="margin-bottom:20px">grouped by execution target</div>
+
+<style>
+.bundle-row.gone { opacity:0; transform:translateX(14px); transition:opacity 0.35s, transform 0.35s; }
+.exec-receipt { display:none; margin-top:14px; padding:12px 16px; border-radius:10px; background:var(--gbg); }
+.exec-receipt.show { display:block; }
+.exec-receipt-text { font-size:11px; font-weight:200; color:var(--green); letter-spacing:0.18em; text-transform:uppercase; }
+</style>
+
+<!-- Bundle: Linear -->
+<div class="bundle-group" data-bundle>
+  <div class="bundle-h">
+    <div class="bundle-tool">
+      <span class="ttag tt-li">Linear</span>
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.16em">5 items</span>
+    </div>
+    <button class="btn-exec" data-exec-group>execute 5</button>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">create</span>
+    <span class="po">API rate limit bug</span>
+    <span class="ass">@michael</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">create</span>
+    <span class="po">Dashboard performance audit ticket</span>
+    <span class="ass">@sarah</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">update</span>
+    <span class="po">Q2 milestone labels on roadmap epics</span>
+    <span class="ass">@jessica</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">create</span>
+    <span class="po">Mobile onboarding flow redesign</span>
+    <span class="ass">@sarah</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">review</span>
+    <span class="po">Open P1 bugs before sprint planning</span>
+    <span class="ass">@michael</span>
+  </div>
+</div>
+
+<!-- Bundle: Slack -->
+<div class="bundle-group" data-bundle>
+  <div class="bundle-h">
+    <div class="bundle-tool">
+      <span class="ttag tt-sl">Slack</span>
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.16em">4 items</span>
+    </div>
+    <button class="btn-exec" data-exec-group>execute 4</button>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">send</span>
+    <span class="po">Roadmap summary to #product</span>
+    <span class="ass">@jessica</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">send</span>
+    <span class="po">Design spec link to #engineering</span>
+    <span class="ass">@sarah</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">nudge</span>
+    <span class="po">Pricing feedback from partner team</span>
+    <span class="ass">@jessica</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">send</span>
+    <span class="po">Meeting recording to #general</span>
+    <span class="ass">@jessica</span>
+  </div>
+</div>
+
+<!-- Bundle: Calendar -->
+<div class="bundle-group" data-bundle>
+  <div class="bundle-h">
+    <div class="bundle-tool">
+      <span class="ttag tt-ca">Calendar</span>
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.16em">2 items</span>
+    </div>
+    <button class="btn-exec" data-exec-group>execute 2</button>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">schedule</span>
+    <span class="po">Sprint planning follow-up · 45 min</span>
+    <span class="ass">@team</span>
+  </div>
+  <div class="bundle-row">
+    <span class="pv">schedule</span>
+    <span class="po">Design review with Sarah · 30 min</span>
+    <span class="ass">@sarah</span>
+  </div>
+</div>
+
+<!-- Execute all bar -->
+<div class="hr" style="margin:16px 0"></div>
+<div style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.18em">SEQUENCE: Linear → Slack → Calendar</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:3px">tickets created first so Slack messages can reference them</div>
+  </div>
+  <button class="btn-g" id="exec-all-btn"><span class="btn-g-txt">execute all 11</span></button>
+</div>
+
+<div class="exec-receipt" id="exec-receipt">
+  <div class="exec-receipt-text">11 commitments executed</div>
+</div>
+
+<script>
+(function(){
+  function cascadeRows(rows, delay, cb){
+    rows.forEach(function(row, i){
+      setTimeout(function(){ row.classList.add('gone'); }, i * delay);
+    });
+    if(cb) setTimeout(cb, rows.length * delay + 350);
+  }
+
+  // Individual group execute buttons
+  document.querySelectorAll('[data-exec-group]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.closest('[data-bundle]');
+      var rows = group.querySelectorAll('.bundle-row');
+      var self = this;
+      self.style.opacity = '0.5';
+      self.style.pointerEvents = 'none';
+      cascadeRows(Array.from(rows), 145, function(){
+        self.textContent = 'done';
+      });
+    });
+  });
+
+  // Execute all button
+  document.getElementById('exec-all-btn').addEventListener('click', function(){
+    var allRows = document.querySelectorAll('.bundle-row');
+    var btn = this;
+    btn.style.opacity = '0.5';
+    btn.style.pointerEvents = 'none';
+    // Also disable group buttons
+    document.querySelectorAll('[data-exec-group]').forEach(function(b){
+      b.style.opacity = '0.5';
+      b.style.pointerEvents = 'none';
+    });
+    cascadeRows(Array.from(allRows), 145, function(){
+      btn.querySelector('.btn-g-txt').textContent = 'done';
+      document.querySelectorAll('[data-exec-group]').forEach(function(b){ b.textContent = 'done'; });
+      document.getElementById('exec-receipt').classList.add('show');
+    });
+  });
+})();
+</script>

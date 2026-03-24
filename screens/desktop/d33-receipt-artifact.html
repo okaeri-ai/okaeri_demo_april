@@ -1,0 +1,89 @@
+<div class="artifact">
+  <!-- Wordmark -->
+  <div style="text-align:center;margin-bottom:16px">
+    <div class="wm">okaeri</div>
+  </div>
+
+  <!-- Verb chain -->
+  <div class="artifact-chain" style="justify-content:center">
+    <span class="verb">create</span>
+    <span class="arr">→</span>
+    <span class="obj">API rate limit bug</span>
+    <span class="arr">→</span>
+    <span class="ttag tt-li">Linear</span>
+  </div>
+
+  <div class="hr" style="margin:16px 0"></div>
+
+  <!-- Fields -->
+  <div class="artifact-field">
+    <span class="af-label">spoken by</span>
+    <span class="af-value">Jessica Gerwin</span>
+  </div>
+  <div class="artifact-field">
+    <span class="af-label">in meeting</span>
+    <span class="af-value">Q2 roadmap sync</span>
+  </div>
+  <div class="artifact-field">
+    <span class="af-label">executed in</span>
+    <span class="af-value">Linear · Okaeri workspace</span>
+  </div>
+  <div class="artifact-field">
+    <span class="af-label">reference</span>
+    <span class="af-value" style="font-family:'Courier New',monospace;font-size:11px">OKA-214</span>
+  </div>
+  <div class="artifact-field">
+    <span class="af-label">total time</span>
+    <span class="af-value">3 min · spoken to verified</span>
+  </div>
+
+  <div class="hr" style="margin:16px 0"></div>
+
+  <!-- Mini timeline -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:0;margin:16px 0">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div>
+      <span style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;text-transform:uppercase">spoken</span>
+    </div>
+    <div style="width:40px;height:0.5px;background:var(--green);margin:0 4px 12px"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div>
+      <span style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;text-transform:uppercase">confirmed</span>
+    </div>
+    <div style="width:40px;height:0.5px;background:var(--green);margin:0 4px 12px"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div>
+      <span style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;text-transform:uppercase">executed</span>
+    </div>
+  </div>
+
+  <!-- Verified badge -->
+  <div style="display:flex;justify-content:center;margin:16px 0">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:var(--gbg);border:0.5px solid var(--gs);border-radius:5px;padding:6px 14px">
+      <span style="font-size:11px;color:var(--green)">✓</span>
+      <span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">verified</span>
+    </div>
+  </div>
+</div>
+
+<!-- Share buttons -->
+<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px">
+  <button class="btn-ul" onclick="showToast('link copied')">copy link</button>
+  <button class="btn-ghost" onclick="showToast('sent to slack')">slack</button>
+  <button class="btn-ghost" onclick="showToast('copied to clipboard')">paste in doc</button>
+  <button class="btn-ghost" onclick="showToast('downloading png')">download png</button>
+</div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+</script>

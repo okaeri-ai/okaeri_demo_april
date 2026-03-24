@@ -1,0 +1,105 @@
+<div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px">
+  <div class="ptitle">relationships</div>
+  <div style="display:flex;gap:18px">
+    <button class="btn-ghost rel-tab active" data-filter="all" style="border-bottom:0.5px solid var(--ink);color:var(--ink);padding-bottom:3px;letter-spacing:0.28em;font-size:10px">all</button>
+    <button class="btn-ghost rel-tab" data-filter="investor" style="padding-bottom:3px;letter-spacing:0.28em;font-size:10px">investors</button>
+    <button class="btn-ghost rel-tab" data-filter="partner" style="padding-bottom:3px;letter-spacing:0.28em;font-size:10px">partners</button>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:0 0 8px;border-bottom:0.5px solid var(--rule)">
+  <div class="rth">person</div>
+  <div class="rth">health</div>
+  <div class="rth" style="text-align:right">touches</div>
+  <div class="rth" style="text-align:right">last contact</div>
+  <div class="rth" style="text-align:right">commits</div>
+</div>
+
+<!-- Sarah Rhodes -->
+<div class="rel-row" data-type="investor" id="relSarah" style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;cursor:pointer;transition:opacity 0.15s">
+  <div class="rel-id"><div class="rel-av" style="background:var(--bbg);color:var(--blue)">SR</div><div><div class="rel-name">Sarah Rhodes</div><div class="rel-role">Partner, Sequoia</div></div></div>
+  <div class="hbars"><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><span class="hl g">strong</span></div>
+  <div class="rstat">7</div>
+  <div class="rstat">3 days ago</div>
+  <div class="rstat g">2 open</div>
+</div>
+
+<!-- Michael Kim -->
+<div class="rel-row" data-type="investor" id="relMichael" style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;cursor:pointer;transition:opacity 0.15s">
+  <div class="rel-id"><div class="rel-av" style="background:var(--teal-bg);color:var(--teal)">MK</div><div><div class="rel-name">Michael Kim</div><div class="rel-role">Principal, Sequoia</div></div></div>
+  <div class="hbars"><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><div class="hbar e"></div><div class="hbar e"></div><span class="hl d">growing</span></div>
+  <div class="rstat">3</div>
+  <div class="rstat">5 days ago</div>
+  <div class="rstat n">&mdash;</div>
+</div>
+
+<!-- Alex Chen -->
+<div class="rel-row" data-type="partner" style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;cursor:pointer;transition:opacity 0.15s">
+  <div class="rel-id"><div class="rel-av">AC</div><div><div class="rel-name" style="color:var(--amber)">Alex Chen</div><div class="rel-role">CEO, Mnemix</div></div></div>
+  <div class="hbars"><div class="hbar g"></div><div class="hbar g"></div><div class="hbar a"></div><div class="hbar e"></div><div class="hbar e"></div><span class="hl a">cooling</span></div>
+  <div class="rstat">4</div>
+  <div class="rstat" style="color:var(--amber)">11 days ago</div>
+  <div class="rstat n">1 open</div>
+</div>
+
+<!-- Resonance team -->
+<div class="rel-row" data-type="partner" style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;cursor:pointer;transition:opacity 0.15s">
+  <div class="rel-id"><div class="rel-av" style="background:var(--teal-bg);color:var(--teal)">RT</div><div><div class="rel-name">Resonance team</div><div class="rel-role">Design partner</div></div></div>
+  <div class="hbars"><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><div class="hbar g"></div><span class="hl g">strong</span></div>
+  <div class="rstat">12</div>
+  <div class="rstat" style="color:var(--green)">today</div>
+  <div class="rstat g">3 open</div>
+</div>
+
+<!-- Nina Park -->
+<div class="rel-row" data-type="investor" style="display:grid;grid-template-columns:1fr 140px 65px 100px 75px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;cursor:pointer;transition:opacity 0.15s">
+  <div class="rel-id"><div class="rel-av">NP</div><div><div class="rel-name" style="color:var(--amber)">Nina Park</div><div class="rel-role">Scout, a16z</div></div></div>
+  <div class="hbars"><div class="hbar a"></div><div class="hbar e"></div><div class="hbar e"></div><div class="hbar e"></div><div class="hbar e"></div><span class="hl a">cold</span></div>
+  <div class="rstat">1</div>
+  <div class="rstat" style="color:var(--amber)">22 days ago</div>
+  <div class="rstat n">&mdash;</div>
+</div>
+
+<div class="hr2"></div>
+
+<!-- Cooling section -->
+<div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+  <div style="width:4px;height:4px;border-radius:50%;background:var(--amber)"></div>
+  <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.36em;text-transform:uppercase">2 relationships cooling</span>
+</div>
+
+<div class="cool-row">
+  <div class="rel-av">AC</div>
+  <span class="cool-name">Alex Chen · Mnemix</span>
+  <span class="cool-r">partnership thread quiet</span>
+  <span class="cool-d">11 days</span>
+  <button class="btn-ul-g" style="font-size:9px;letter-spacing:.18em;flex-shrink:0">follow up</button>
+</div>
+<div class="cool-row">
+  <div class="rel-av">NP</div>
+  <span class="cool-name">Nina Park · a16z</span>
+  <span class="cool-r">warm intro, no follow-up sent</span>
+  <span class="cool-d">22 days</span>
+  <button class="btn-ul-g" style="font-size:9px;letter-spacing:.18em;flex-shrink:0">follow up</button>
+</div>
+
+<script>
+(function(){
+  document.getElementById('relSarah').addEventListener('click', function(){ OKAERI.go('d09-sarah-profile'); });
+  document.getElementById('relMichael').addEventListener('click', function(){ OKAERI.go('d10-michael-profile'); });
+
+  var tabs = document.querySelectorAll('.rel-tab');
+  var rows = document.querySelectorAll('.rel-row');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.style.borderBottom='none'; t.style.color=''; });
+      tab.style.borderBottom='0.5px solid var(--ink)'; tab.style.color='var(--ink)';
+      var f = tab.getAttribute('data-filter');
+      rows.forEach(function(r){
+        if(f === 'all') { r.style.display='grid'; }
+        else { r.style.display = r.getAttribute('data-type') === f ? 'grid' : 'none'; }
+      });
+    });
+  });
+})();
+</script>

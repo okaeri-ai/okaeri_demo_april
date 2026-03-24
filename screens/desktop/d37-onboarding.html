@@ -1,0 +1,114 @@
+<div class="ob-progress"><div class="ob-fill" id="obFill" style="width:20%"></div></div>
+
+<div class="ob-step on" id="obStep1">
+  <div style="font-size:36px;font-weight:200;color:var(--ink);letter-spacing:-.02em;line-height:1.1">welcome to okaeri</div>
+  <div style="font-size:13px;font-weight:300;color:var(--ink2);line-height:1.72;letter-spacing:.02em;max-width:380px">okaeri listens to your meetings, extracts commitments, and executes them across your tools. no more dropped balls.</div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn-ul ob-next">continue</button>
+    <button class="btn-ghost ob-next">skip</button>
+  </div>
+</div>
+
+<div class="ob-step" id="obStep2">
+  <div class="ptitle">what should okaeri call you?</div>
+  <div class="sub" style="margin-bottom:12px">we keep things personal</div>
+  <input class="modal-input" type="text" placeholder="your name" style="max-width:280px">
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn-ul ob-next">continue</button>
+    <button class="btn-ghost ob-next">skip</button>
+  </div>
+</div>
+
+<div class="ob-step" id="obStep3">
+  <div class="ptitle">connect your tools</div>
+  <div class="sub" style="margin-bottom:8px">okaeri executes through these integrations</div>
+  <div class="ob-integ" style="border-top:0.5px solid var(--rule2)">
+    <div class="integ-icon" style="background:var(--purple-bg);color:var(--purple)">Li</div>
+    <div style="flex:1"><div class="integ-name">Linear</div><div class="integ-desc">tickets and issues</div></div>
+    <div class="toggle ob-toggle" data-ob-toggle><div class="toggle-dot"></div></div>
+  </div>
+  <div class="ob-integ">
+    <div class="integ-icon" style="background:var(--yellow-bg);color:var(--yellow)">Sl</div>
+    <div style="flex:1"><div class="integ-name">Slack</div><div class="integ-desc">messages and updates</div></div>
+    <div class="toggle ob-toggle" data-ob-toggle><div class="toggle-dot"></div></div>
+  </div>
+  <div class="ob-integ">
+    <div class="integ-icon" style="background:var(--teal-bg);color:var(--teal)">Ca</div>
+    <div style="flex:1"><div class="integ-name">Calendar</div><div class="integ-desc">meetings and scheduling</div></div>
+    <div class="toggle ob-toggle" data-ob-toggle><div class="toggle-dot"></div></div>
+  </div>
+  <div class="ob-integ">
+    <div class="integ-icon" style="background:var(--bbg);color:var(--blue)">Sf</div>
+    <div style="flex:1"><div class="integ-name">Salesforce</div><div class="integ-desc">deals and activities</div></div>
+    <div class="toggle ob-toggle" data-ob-toggle><div class="toggle-dot"></div></div>
+  </div>
+  <div class="ob-integ">
+    <div class="integ-icon" style="background:var(--red-bg);color:var(--red)">Gm</div>
+    <div style="flex:1"><div class="integ-name">Gmail</div><div class="integ-desc">emails and drafts</div></div>
+    <div class="toggle ob-toggle" data-ob-toggle><div class="toggle-dot"></div></div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <button class="btn-ul ob-next">continue</button>
+    <button class="btn-ghost ob-next">skip</button>
+  </div>
+</div>
+
+<div class="ob-step" id="obStep4">
+  <div class="ptitle">your first prep brief</div>
+  <div class="sub" style="margin-bottom:12px">here's what okaeri prepares before each meeting</div>
+  <div class="prep-card" style="cursor:default">
+    <div class="pc-top">
+      <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">24</div><div class="pc-tm">10:00</div></div>
+      <div style="flex:1">
+        <div class="pc-badge"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="3" stroke="#185FA5" stroke-width=".8"/><path d="M4 2v2.5l1.5 1" stroke="#185FA5" stroke-width=".8" stroke-linecap="round"/></svg><span class="pc-badge-t">prep ready</span></div>
+        <div class="pc-name">Series A investor intro — Sequoia</div>
+        <div class="pc-mt">45 min · Google Meet · 3 attendees</div>
+      </div>
+    </div>
+  </div>
+  <div class="ok-read">
+    <div class="ok-read-l">okaeri's read</div>
+    <div class="ok-read-t">Sarah Rhodes has expressed interest in your AI-native approach. Focus on the competitive moat and the earned autonomy model.</div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <button class="btn-ul ob-next">continue</button>
+    <button class="btn-ghost ob-next">skip</button>
+  </div>
+</div>
+
+<div class="ob-step" id="obStep5">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:24px">
+    <div class="ac-ring">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.5L7.5 13L14 5" stroke="var(--green)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div style="font-size:24px;font-weight:200;color:var(--ink);letter-spacing:.02em;margin-bottom:6px">you're ready</div>
+    <div style="font-size:13px;font-weight:300;color:var(--ink2);line-height:1.72;letter-spacing:.02em;max-width:320px">okaeri is set up and listening. join your next meeting and watch commitments get captured and executed.</div>
+    <div style="margin-top:16px">
+      <button class="btn-ul" onclick="OKAERI.go('d01-home')">go to dashboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var step = 1;
+  var total = 5;
+  var fill = document.getElementById('obFill');
+  function show(n){
+    for(var i=1;i<=total;i++){
+      var el = document.getElementById('obStep'+i);
+      if(i===n) el.classList.add('on');
+      else el.classList.remove('on');
+    }
+    fill.style.width = (n/total*100)+'%';
+  }
+  document.querySelectorAll('.ob-next').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(step<total){ step++; show(step); }
+    });
+  });
+  document.querySelectorAll('[data-ob-toggle]').forEach(function(el){
+    el.addEventListener('click', function(){ this.classList.toggle('on'); });
+  });
+})();
+</script>

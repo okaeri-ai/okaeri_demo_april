@@ -1,0 +1,103 @@
+<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+  <div style="width:6px;height:6px;border-radius:50%;background:var(--amber)"></div>
+  <span class="eyebrow" style="margin-bottom:0">2 decision conflicts detected</span>
+</div>
+<div class="ptitle">conflicts</div>
+<div class="sub" style="margin-bottom:16px">when two meetings produced contradictory decisions</div>
+
+<div class="conf u" id="conf1">
+  <div class="conf-h">
+    <div class="conf-topic">go-to-market motion</div>
+    <div class="conf-badge" id="badge1"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber)"></div>unresolved</div>
+  </div>
+  <div class="conf-sides">
+    <div class="conf-side">
+      <div class="conf-sm"><span>investor prep</span><span>Mar 14</span></div>
+      <div class="conf-st">"We should lead with PLG — let developers discover us organically and build bottom-up adoption."</div>
+      <div class="conf-sw">said by Jess · investor prep call</div>
+    </div>
+    <div class="conf-sdiv"></div>
+    <div class="conf-side">
+      <div class="conf-sm"><span>Q2 roadmap sync</span><span>Mar 20</span></div>
+      <div class="conf-st">"Enterprise-first. Ship to design partners, compound organizational data, then open PLG once the commitment graph has signal."</div>
+      <div class="conf-sw">said by Jess · team sync</div>
+    </div>
+  </div>
+  <div class="conf-f">
+    <div class="conf-ft">6 days apart · same speaker</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-ghost" onclick="document.getElementById('conf1').style.opacity='0.5';document.getElementById('badge1').innerHTML='resolved'">dismiss</button>
+      <button class="btn-skip" id="markCurrent1">mark as current</button>
+    </div>
+  </div>
+</div>
+
+<div class="conf u" id="conf2">
+  <div class="conf-h">
+    <div class="conf-topic">Series A target raise</div>
+    <div class="conf-badge" id="badge2"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber)"></div>unresolved</div>
+  </div>
+  <div class="conf-sides">
+    <div class="conf-side">
+      <div class="conf-sm"><span>fundraise planning</span><span>Mar 10</span></div>
+      <div class="conf-st">"We're targeting $3M at a $15M cap. Need enough runway for 18 months with the current burn."</div>
+      <div class="conf-sw">said by Jess · internal planning</div>
+    </div>
+    <div class="conf-sdiv"></div>
+    <div class="conf-side">
+      <div class="conf-sm"><span>advisor call</span><span>Mar 18</span></div>
+      <div class="conf-st">"$2M is cleaner — close faster, less dilution, and you can always extend later with a rolling close."</div>
+      <div class="conf-sw">said by advisor · external call</div>
+    </div>
+  </div>
+  <div class="conf-f">
+    <div class="conf-ft">8 days apart · different contexts</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-ghost" onclick="document.getElementById('conf2').style.opacity='0.5';document.getElementById('badge2').innerHTML='resolved'">dismiss</button>
+      <button class="btn-skip" id="markCurrent2">mark as current</button>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<div class="sl">recently resolved</div>
+<div class="conf" style="opacity:0.5">
+  <div class="conf-h" style="background:var(--bg2)">
+    <div class="conf-topic">design partner scope</div>
+    <div class="conf-badge" style="color:var(--green)">resolved</div>
+  </div>
+  <div class="conf-sides">
+    <div class="conf-side">
+      <div class="conf-sm"><span>planning call</span><span>Mar 5</span></div>
+      <div class="conf-st">"Start with 10 design partners to get broad signal on use cases."</div>
+    </div>
+    <div class="conf-sdiv"></div>
+    <div class="conf-side">
+      <div class="conf-sm"><span>team sync</span><span>Mar 12</span></div>
+      <div class="conf-st">"3–5 partners max. Go deep, not wide. Quality of data matters more than breadth."</div>
+    </div>
+  </div>
+  <div class="conf-f" style="background:var(--bg2)">
+    <div class="conf-ft">resolved Mar 12 · "3–5 partners" marked as current</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  document.getElementById('markCurrent1').addEventListener('click', function(){
+    var card = document.getElementById('conf1');
+    var badge = document.getElementById('badge1');
+    card.style.opacity = '0.5';
+    card.classList.remove('u');
+    badge.innerHTML = '<span style="color:var(--green)">resolved</span>';
+  });
+  document.getElementById('markCurrent2').addEventListener('click', function(){
+    var card = document.getElementById('conf2');
+    var badge = document.getElementById('badge2');
+    card.style.opacity = '0.5';
+    card.classList.remove('u');
+    badge.innerHTML = '<span style="color:var(--green)">resolved</span>';
+  });
+})();
+</script>

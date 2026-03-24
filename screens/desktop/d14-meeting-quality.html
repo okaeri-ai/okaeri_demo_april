@@ -1,0 +1,215 @@
+<div class="eyebrow">meeting quality · last 30 days</div>
+<div class="ptitle" style="margin-bottom:12px">meeting quality</div>
+
+<div style="display:flex;gap:0;margin-bottom:16px">
+  <div class="mq-tab" data-mq-view="days" style="font-size:10px;font-weight:200;color:var(--ink);letter-spacing:.22em;text-transform:uppercase;border-bottom:0.5px solid var(--ink);padding:5px 12px;cursor:pointer">last 30 days</div>
+  <div class="mq-tab" data-mq-view="type" style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.22em;text-transform:uppercase;border-bottom:0.5px solid var(--rule2);padding:5px 12px;cursor:pointer">by type</div>
+  <div class="mq-tab" data-mq-view="person" style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.22em;text-transform:uppercase;border-bottom:0.5px solid var(--rule2);padding:5px 12px;cursor:pointer">by person</div>
+</div>
+
+<!-- Last 30 days view -->
+<div id="mqViewDays">
+
+<div class="mq-thead">
+  <div class="rth">meeting</div>
+  <div class="rth" style="text-align:center">score</div>
+  <div class="rth" style="text-align:center">commits</div>
+  <div class="rth" style="text-align:center">executed</div>
+  <div class="rth" style="text-align:center">specific</div>
+  <div class="rth">quality</div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Q2 roadmap sync</div>
+  <div class="mq-n" style="color:var(--green)">87</div>
+  <div class="mq-n">4</div>
+  <div class="mq-n" style="color:var(--green)">4</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:87%;background:var(--green)"></div><div class="mq-bar" style="width:13%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Design partner · Resonance</div>
+  <div class="mq-n" style="color:var(--green)">92</div>
+  <div class="mq-n">3</div>
+  <div class="mq-n" style="color:var(--green)">3</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:92%;background:var(--green)"></div><div class="mq-bar" style="width:8%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Investor prep</div>
+  <div class="mq-n" style="color:var(--amber)">71</div>
+  <div class="mq-n">2</div>
+  <div class="mq-n" style="color:var(--amber)">1</div>
+  <div class="mq-n" style="color:var(--amber)">medium</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:71%;background:var(--amber)"></div><div class="mq-bar" style="width:29%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Engineering sync</div>
+  <div class="mq-n" style="color:var(--green)">84</div>
+  <div class="mq-n">5</div>
+  <div class="mq-n" style="color:var(--green)">5</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:84%;background:var(--green)"></div><div class="mq-bar" style="width:16%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Fundraise planning</div>
+  <div class="mq-n" style="color:var(--amber)">63</div>
+  <div class="mq-n">3</div>
+  <div class="mq-n" style="color:var(--amber)">2</div>
+  <div class="mq-n" style="color:var(--amber)">low</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:63%;background:var(--amber)"></div><div class="mq-bar" style="width:37%;background:var(--rule2)"></div></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 55px 55px 55px 55px 90px;padding:12px 0;border-top:0.5px solid var(--rule);gap:8px;margin-top:4px">
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:.18em">averages</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">79</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">3.4</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">3.0</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink2)">--</div>
+  <div></div>
+</div>
+
+</div>
+
+<!-- By type view -->
+<div id="mqViewType" style="display:none">
+
+<div class="mq-thead">
+  <div class="rth">type</div>
+  <div class="rth" style="text-align:center">avg score</div>
+  <div class="rth" style="text-align:center">meetings</div>
+  <div class="rth" style="text-align:center">avg commits</div>
+  <div class="rth" style="text-align:center">execution</div>
+  <div class="rth">quality</div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Internal syncs</div>
+  <div class="mq-n" style="color:var(--green)">85</div>
+  <div class="mq-n">3</div>
+  <div class="mq-n" style="color:var(--green)">4.5</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:85%;background:var(--green)"></div><div class="mq-bar" style="width:15%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Investor meetings</div>
+  <div class="mq-n" style="color:var(--amber)">67</div>
+  <div class="mq-n">2</div>
+  <div class="mq-n" style="color:var(--amber)">1.5</div>
+  <div class="mq-n" style="color:var(--amber)">low</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:67%;background:var(--amber)"></div><div class="mq-bar" style="width:33%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Partner calls</div>
+  <div class="mq-n" style="color:var(--green)">92</div>
+  <div class="mq-n">1</div>
+  <div class="mq-n" style="color:var(--green)">3.0</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:92%;background:var(--green)"></div><div class="mq-bar" style="width:8%;background:var(--rule2)"></div></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 55px 55px 55px 55px 90px;padding:12px 0;border-top:0.5px solid var(--rule);gap:8px;margin-top:4px">
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:.18em">averages</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">81</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">2.0</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">3.0</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink2)">--</div>
+  <div></div>
+</div>
+
+</div>
+
+<!-- By person view -->
+<div id="mqViewPerson" style="display:none">
+
+<div class="mq-thead">
+  <div class="rth">person</div>
+  <div class="rth" style="text-align:center">avg score</div>
+  <div class="rth" style="text-align:center">meetings</div>
+  <div class="rth" style="text-align:center">avg commits</div>
+  <div class="rth" style="text-align:center">execution</div>
+  <div class="rth">quality</div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Jess</div>
+  <div class="mq-n" style="color:var(--green)">91</div>
+  <div class="mq-n">5</div>
+  <div class="mq-n" style="color:var(--green)">4.2</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:91%;background:var(--green)"></div><div class="mq-bar" style="width:9%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Marcus</div>
+  <div class="mq-n" style="color:var(--green)">87</div>
+  <div class="mq-n">4</div>
+  <div class="mq-n" style="color:var(--green)">3.8</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:87%;background:var(--green)"></div><div class="mq-bar" style="width:13%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">Priya</div>
+  <div class="mq-n" style="color:var(--green)">94</div>
+  <div class="mq-n">3</div>
+  <div class="mq-n" style="color:var(--green)">4.0</div>
+  <div class="mq-n" style="color:var(--green)">high</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:94%;background:var(--green)"></div><div class="mq-bar" style="width:6%;background:var(--rule2)"></div></div>
+</div>
+
+<div class="mq-row">
+  <div class="mq-name">James</div>
+  <div class="mq-n" style="color:var(--amber)">72</div>
+  <div class="mq-n">3</div>
+  <div class="mq-n" style="color:var(--amber)">2.3</div>
+  <div class="mq-n" style="color:var(--amber)">medium</div>
+  <div class="mq-bar-wrap"><div class="mq-bar" style="width:72%;background:var(--amber)"></div><div class="mq-bar" style="width:28%;background:var(--rule2)"></div></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 55px 55px 55px 55px 90px;padding:12px 0;border-top:0.5px solid var(--rule);gap:8px;margin-top:4px">
+  <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:.18em">averages</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">86</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">3.8</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink)">3.6</div>
+  <div class="mq-n" style="font-weight:200;color:var(--ink2)">--</div>
+  <div></div>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.mq-tab');
+  var views = {
+    days: document.getElementById('mqViewDays'),
+    type: document.getElementById('mqViewType'),
+    person: document.getElementById('mqViewPerson')
+  };
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){
+        t.style.borderBottom='0.5px solid var(--rule2)';
+        t.style.color='var(--ink3)';
+      });
+      tab.style.borderBottom='0.5px solid var(--ink)';
+      tab.style.color='var(--ink)';
+      var view = tab.getAttribute('data-mq-view');
+      Object.keys(views).forEach(function(k){ views[k].style.display = k===view ? 'block' : 'none'; });
+    });
+  });
+})();
+</script>
+
+<div class="hr"></div>
+
+<div class="ok-read">
+  <div class="ok-read-l">okaeri's read</div>
+  <div class="ok-read-t">Your highest-scoring meetings share a pattern: clear agendas, named owners, and specific deadlines. Investor prep and fundraise planning tend to produce vague commitments with no clear executor. Consider adding a 2-minute "who does what by when" close to those meetings. Engineering sync is your most productive meeting per minute spent.</div>
+</div>

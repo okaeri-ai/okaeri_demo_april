@@ -1,0 +1,130 @@
+<div style="margin-bottom:16px">
+  <div class="ptitle">delegation</div>
+  <div style="display:flex;gap:18px;margin-top:10px">
+    <button class="btn-ghost del-toggle active" id="delByYou" style="border-bottom:0.5px solid var(--ink);color:var(--ink);padding-bottom:3px;letter-spacing:0.28em;font-size:10px">delegated by you</button>
+    <button class="btn-ghost del-toggle" id="delToYou" style="padding-bottom:3px;letter-spacing:0.28em;font-size:10px">assigned to you</button>
+  </div>
+</div>
+
+<!-- Delegated by you -->
+<div id="delByYouView">
+
+  <!-- Marcus → create → API rate limit bug -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-t">MC</div><div><div class="pn-sm">Marcus</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">create</span>
+    <span class="obj" style="flex:1">API rate limit bug</span>
+    <span class="ttag tt-li">Linear</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">sprint 14</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">Q2 sync</span>
+    <button class="btn-ul">nudge</button>
+  </div>
+
+  <!-- Priya → send → pricing recap -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-b">PR</div><div><div class="pn-sm">Priya</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">send</span>
+    <span class="obj" style="flex:1">pricing recap</span>
+    <span class="ttag tt-sl">Slack</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">today EOD</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">Q2 sync</span>
+    <button class="btn-ul">nudge</button>
+  </div>
+
+  <!-- James → schedule → Andreessen follow-up -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-a">JW</div><div><div class="pn-sm">James</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">schedule</span>
+    <span class="obj" style="flex:1">Andreessen follow-up</span>
+    <span class="ttag tt-ca">Calendar</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">next week</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">Q2 sync</span>
+    <button class="btn-ul">nudge</button>
+  </div>
+
+  <!-- Priya → update → Acme deal (done) -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2);opacity:0.5">
+    <div class="pchip"><div class="pav av-b">PR</div><div><div class="pn-sm">Priya</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">update</span>
+    <span class="obj" style="flex:1">Acme deal</span>
+    <span class="ttag tt-sf">Salesforce</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">today</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">Q2 sync</span>
+    <span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.16em">done</span>
+  </div>
+
+  <!-- James → draft → Index outreach (overdue) -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-a">JW</div><div><div class="pn-sm">James</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">draft</span>
+    <span class="obj" style="flex:1">Index outreach</span>
+    <span class="ttag tt-gm">Gmail</span>
+    <span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em">overdue</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">planning</span>
+    <button class="btn-ul" style="color:var(--amber);border-color:var(--amber)">nudge</button>
+  </div>
+
+</div>
+
+<!-- Assigned to you (hidden by default) -->
+<div id="delToYouView" style="display:none">
+
+  <!-- Marcus → review → auth flow PR -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-t">MC</div><div><div class="pn-sm">Marcus</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">review</span>
+    <span class="obj" style="flex:1">auth flow PR</span>
+    <span class="ttag tt-li">Linear</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">this week</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">eng sync</span>
+  </div>
+
+  <!-- Priya → prepare → investor data room -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-b">PR</div><div><div class="pn-sm">Priya</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">prepare</span>
+    <span class="obj" style="flex:1">investor data room</span>
+    <span class="ttag tt-gm">Gmail</span>
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">by Thursday</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">fundraise planning</span>
+  </div>
+
+  <!-- James → confirm → Resonance pricing -->
+  <div class="del-row" style="display:flex;align-items:center;gap:9px;padding:12px 0;border-bottom:0.5px solid var(--rule2)">
+    <div class="pchip"><div class="pav av-a">JW</div><div><div class="pn-sm">James</div></div></div>
+    <span class="arr">&rarr;</span>
+    <span class="verb">confirm</span>
+    <span class="obj" style="flex:1">Resonance pricing</span>
+    <span class="ttag tt-sl">Slack</span>
+    <span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.12em">today</span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;background:var(--bg2);padding:2px 6px;border-radius:2px">partner call</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var byYou = document.getElementById('delByYou');
+  var toYou = document.getElementById('delToYou');
+  var byView = document.getElementById('delByYouView');
+  var toView = document.getElementById('delToYouView');
+
+  byYou.addEventListener('click', function(){
+    byYou.style.borderBottom='0.5px solid var(--ink)'; byYou.style.color='var(--ink)';
+    toYou.style.borderBottom='none'; toYou.style.color='';
+    byView.style.display='block'; toView.style.display='none';
+  });
+  toYou.addEventListener('click', function(){
+    toYou.style.borderBottom='0.5px solid var(--ink)'; toYou.style.color='var(--ink)';
+    byYou.style.borderBottom='none'; byYou.style.color='';
+    toView.style.display='block'; byView.style.display='none';
+  });
+})();
+</script>
