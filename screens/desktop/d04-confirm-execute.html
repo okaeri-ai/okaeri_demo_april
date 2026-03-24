@@ -472,7 +472,7 @@
   document.getElementById('cardStack').addEventListener('click', function(e){
     var execBtn = e.target.closest('.btn-exec');
     var skipBtn = e.target.closest('.btn-skip');
-    var challengeBtn = e.target.closest('.btn-challenge');
+    var challengeBtn = null; // challenge now triggered via more menu
     var cancelBtn = e.target.closest('[data-challenge-cancel]');
     var submitBtn = e.target.closest('[data-challenge-submit]');
     if(cancelBtn){
@@ -546,85 +546,83 @@
     });
   });
 
-  // --- Assignee editing: click .ass to show dropdown ---
+  // --- Assignee editing: available via more menu ---
   var teamMembers = ['@marcus','@priya','@james','@jess'];
-  document.querySelectorAll('.cc .ass').forEach(function(assEl){
-    assEl.style.cursor = 'pointer';
-    assEl.addEventListener('click', function(e){
-      e.stopPropagation();
-      if(document.querySelector('.ass-dropdown')) document.querySelector('.ass-dropdown').remove();
-      var dd = document.createElement('div');
-      dd.className = 'ass-dropdown';
-      dd.style.cssText = 'position:absolute;background:var(--bg);border:0.5px solid var(--rule);border-radius:6px;padding:4px;z-index:10;box-shadow:none';
-      teamMembers.forEach(function(m){
-        var opt = document.createElement('div');
-        opt.textContent = m;
-        opt.style.cssText = 'padding:4px 8px;font-size:10px;font-weight:200;letter-spacing:0.1em;cursor:pointer;color:var(--ink2);transition:opacity 0.1s';
-        opt.addEventListener('mouseenter', function(){ opt.style.opacity='0.55'; });
-        opt.addEventListener('mouseleave', function(){ opt.style.opacity='1'; });
-        opt.addEventListener('click', function(ev){
-          ev.stopPropagation();
-          // replace the @name portion of ass text
-          var txt = assEl.textContent;
-          var parts = txt.split(' \u00b7 ');
-          parts[0] = m;
-          assEl.textContent = parts.join(' \u00b7 ');
-          dd.remove();
-        });
-        dd.appendChild(opt);
+  function openAssigneeDropdown(assEl){
+    if(document.querySelector('.ass-dropdown')) document.querySelector('.ass-dropdown').remove();
+    var dd = document.createElement('div');
+    dd.className = 'ass-dropdown';
+    dd.style.cssText = 'position:absolute;background:var(--bg);border:0.5px solid var(--rule);border-radius:6px;padding:4px;z-index:10;box-shadow:none';
+    teamMembers.forEach(function(m){
+      var opt = document.createElement('div');
+      opt.textContent = m;
+      opt.style.cssText = 'padding:4px 8px;font-size:10px;font-weight:200;letter-spacing:0.1em;cursor:pointer;color:var(--ink2);transition:opacity 0.1s';
+      opt.addEventListener('mouseenter', function(){ opt.style.opacity='0.55'; });
+      opt.addEventListener('mouseleave', function(){ opt.style.opacity='1'; });
+      opt.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        var txt = assEl.textContent;
+        var parts = txt.split(' \u00b7 ');
+        parts[0] = m;
+        assEl.textContent = parts.join(' \u00b7 ');
+        dd.remove();
       });
-      assEl.style.position = 'relative';
-      assEl.appendChild(dd);
-      setTimeout(function(){
-        document.addEventListener('click', function handler(){ dd.remove(); document.removeEventListener('click', handler); });
-      },0);
+      dd.appendChild(opt);
     });
-  });
+    assEl.style.position = 'relative';
+    assEl.appendChild(dd);
+    setTimeout(function(){
+      document.addEventListener('click', function handler(){ dd.remove(); document.removeEventListener('click', handler); });
+    },0);
+  }
 
-  // --- Split & Challenge buttons on each card ---
+  // --- More menu (···) with challenge + edit assignee ---
   document.querySelectorAll('.cc').forEach(function(card){
     var acts = card.querySelector('.card-acts');
     if(!acts) return;
-    // Challenge button
-    var chalBtn = document.createElement('button');
-    chalBtn.className = 'btn-ghost btn-challenge';
-    chalBtn.textContent = 'challenge';
-    chalBtn.style.cssText = 'font-family:inherit;font-size:9px;font-weight:200;letter-spacing:0.1em;color:var(--ink3);background:none;border:none;cursor:pointer;padding:2px 6px;margin-right:2px';
-    acts.insertBefore(chalBtn, acts.firstChild);
-    // Split button
-    var splitBtn = document.createElement('button');
-    splitBtn.className = 'btn-ghost';
-    splitBtn.textContent = 'split';
-    splitBtn.style.cssText = 'font-family:inherit;font-size:9px;font-weight:200;letter-spacing:0.1em;color:var(--ink3);background:none;border:none;cursor:pointer;padding:2px 6px;margin-right:2px';
-    acts.insertBefore(splitBtn, acts.firstChild);
-    splitBtn.addEventListener('click', function(e){
+    // More menu button
+    var moreBtn = document.createElement('button');
+    moreBtn.className = 'btn-ghost btn-more';
+    moreBtn.textContent = '\u00b7\u00b7\u00b7';
+    moreBtn.style.cssText = 'font-family:inherit;font-size:14px;font-weight:400;letter-spacing:0;color:var(--ink3);background:none;border:none;cursor:pointer;padding:2px 4px;margin-right:2px;position:relative';
+    acts.insertBefore(moreBtn, acts.firstChild);
+    moreBtn.addEventListener('click', function(e){
       e.stopPropagation();
-      var clone = card.cloneNode(true);
-      var newId = card.id + '_s' + Date.now();
-      clone.id = newId;
-      clone.style.opacity = '0';
-      clone.style.transition = 'opacity 0.3s ease';
-      // clear obj text and make it an input
-      var objSpan = clone.querySelector('.obj');
-      if(objSpan){
-        objSpan.textContent = '';
-        var inp = document.createElement('input');
-        inp.type = 'text';
-        inp.placeholder = 'describe commitment...';
-        inp.style.cssText = 'font-family:inherit;font-size:13px;font-weight:300;letter-spacing:0.02em;color:var(--ink);background:transparent;border:none;border-bottom:0.5px solid var(--ink3);outline:none;width:100%;padding:0;margin:0';
-        objSpan.appendChild(inp);
-        setTimeout(function(){ inp.focus(); },50);
-        inp.addEventListener('keydown', function(ev){
-          if(ev.key==='Enter'){ ev.preventDefault(); var v=inp.value.trim(); objSpan.textContent=v||'new commitment'; }
-        });
-        inp.addEventListener('blur', function(){ var v=inp.value.trim(); objSpan.textContent=v||'new commitment'; });
-      }
-      // update data-card on buttons
-      clone.querySelectorAll('[data-card]').forEach(function(b){ b.dataset.card = newId; });
-      card.parentNode.insertBefore(clone, card.nextSibling);
-      requestAnimationFrame(function(){ requestAnimationFrame(function(){ clone.style.opacity='1'; }); });
-      pending++;
-      updateCount();
+      // Close any open more menus
+      document.querySelectorAll('.more-menu').forEach(function(m){ m.remove(); });
+      var menu = document.createElement('div');
+      menu.className = 'more-menu';
+      menu.style.cssText = 'position:absolute;bottom:100%;left:0;background:var(--bg);border:0.5px solid var(--rule);border-radius:6px;padding:4px;z-index:10';
+      // Challenge option
+      var chalOpt = document.createElement('div');
+      chalOpt.textContent = 'challenge';
+      chalOpt.style.cssText = 'font-size:10px;font-weight:200;padding:4px 8px;cursor:pointer;color:var(--ink2);letter-spacing:0.04em;white-space:nowrap';
+      chalOpt.addEventListener('mouseenter', function(){ chalOpt.style.opacity='0.55'; });
+      chalOpt.addEventListener('mouseleave', function(){ chalOpt.style.opacity='1'; });
+      chalOpt.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        menu.remove();
+        openChallenge(card);
+      });
+      menu.appendChild(chalOpt);
+      // Edit assignee option
+      var assOpt = document.createElement('div');
+      assOpt.textContent = 'edit assignee';
+      assOpt.style.cssText = 'font-size:10px;font-weight:200;padding:4px 8px;cursor:pointer;color:var(--ink2);letter-spacing:0.04em;white-space:nowrap';
+      assOpt.addEventListener('mouseenter', function(){ assOpt.style.opacity='0.55'; });
+      assOpt.addEventListener('mouseleave', function(){ assOpt.style.opacity='1'; });
+      assOpt.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        menu.remove();
+        var assEl = card.querySelector('.ass');
+        if(assEl) openAssigneeDropdown(assEl);
+      });
+      menu.appendChild(assOpt);
+      moreBtn.style.position = 'relative';
+      moreBtn.appendChild(menu);
+      setTimeout(function(){
+        document.addEventListener('click', function handler(){ menu.remove(); document.removeEventListener('click', handler); });
+      },0);
     });
   });
 })();

@@ -159,7 +159,7 @@
     <div>
       <div class="ea-level" style="color:var(--blue)">level 3</div>
       <div class="ea-name">Trusted partner</div>
-      <div class="ea-desc">auto-execute low-risk, confirm high-risk</div>
+      <div class="ea-desc">auto-execute tools with HIGH trust (Linear, Slack), confirm the rest</div>
     </div>
     <div class="ea-badge" style="background:var(--bbg);color:var(--blue)">current</div>
   </div>
@@ -192,7 +192,7 @@
 <div style="width:100%">
   <div style="padding:10px 0;border-bottom:0.5px solid var(--rule2);border-top:0.5px solid var(--rule2)">
     <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Email drafting</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;margin-top:3px">13 more approved drafts with &lt;10% edit rate</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;margin-top:3px">Gmail is NEW (2 actions) &mdash; 13 more approved drafts with &lt;10% edit rate needed</div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
       <div style="flex:1;height:1.5px;background:var(--rule);border-radius:1px;overflow:hidden"><div style="width:13.3%;height:100%;background:var(--green);border-radius:1px"></div></div>
       <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.1em">2/15</span>
@@ -200,7 +200,7 @@
   </div>
   <div style="padding:10px 0;border-bottom:0.5px solid var(--rule2)">
     <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Calendar auto-scheduling</div>
-    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;margin-top:3px">0 rollbacks needed for 8 more actions</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;margin-top:3px">1 rollback recorded &mdash; 5 successful confirms with 0 rollbacks needed</div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
       <div style="flex:1;height:1.5px;background:var(--rule);border-radius:1px;overflow:hidden"><div style="width:60%;height:100%;background:var(--green);border-radius:1px"></div></div>
       <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.1em">12/20</span>
@@ -225,6 +225,33 @@
   <div class="nw-i"><div class="nw-dot" style="background:var(--amber)"></div><div class="nw-t" style="font-size:12px;font-weight:300">Salesforce: user corrected 'proposal sent' to 'proposal reviewed' &middot; confidence adjusted</div></div>
 </div>
 
+<!-- Recent Rollback -->
+<div class="sl" style="margin-top:20px">recent rollback</div>
+<div style="border-left:2px solid var(--amber);border:0.5px solid var(--rule2);border-left:2px solid var(--amber);border-radius:8px;padding:14px;margin-top:8px">
+  <div style="font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Calendar &middot; rollback executed</div>
+  <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:flex-start;gap:8px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div>
+      <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em">9:22 am &mdash; Okaeri scheduled Andreessen follow-up for Thursday Mar 26</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px"></div>
+      <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em">9:25 am &mdash; James said he can't do Thursday, asked for Friday</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div>
+      <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em">9:25 am &mdash; Okaeri cancelled the Thursday invite and rescheduled to Friday Mar 27</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px"></div>
+      <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em">9:26 am &mdash; Calendar trust adjusted: +1 rollback recorded, auto-scheduling paused</div>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border-radius:6px;padding:10px;margin-top:10px">
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.02em;line-height:1.5">This rollback is why Calendar requires confirmation instead of auto-executing. After 5 successful confirms with 0 rollbacks, auto-scheduling will be re-evaluated.</div>
+  </div>
+</div>
+
 <!-- Trust Regressions -->
 <div class="sl" style="margin-top:20px">trust regressions</div>
 <div style="width:100%">
@@ -241,19 +268,19 @@
   </div>
   <div class="ea-perm-row">
     <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">send Slack messages</div></div>
-    <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">needs confirm <div class="toggle on" data-perm data-level="3"><div class="toggle-dot"></div></div></div>
-  </div>
-  <div class="ea-perm-row">
-    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">schedule meetings</div></div>
     <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">automatic <div class="toggle on" data-perm data-level="2"><div class="toggle-dot"></div></div></div>
   </div>
   <div class="ea-perm-row">
+    <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">schedule meetings</div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">needs confirm <div class="toggle on" data-perm data-level="3"><div class="toggle-dot"></div></div></div>
+  </div>
+  <div class="ea-perm-row">
     <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">update Salesforce</div></div>
-    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px"><span class="perm-locked-label" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.12em">level 4 required</span> <div class="toggle" data-perm data-level="4" data-locked><div class="toggle-dot"></div></div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">needs confirm <div class="toggle on" data-perm data-level="3"><div class="toggle-dot"></div></div></div>
   </div>
   <div class="ea-perm-row">
     <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">draft emails</div></div>
-    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px"><span class="perm-locked-label" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.12em">level 4 required</span> <div class="toggle" data-perm data-level="4" data-locked><div class="toggle-dot"></div></div></div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:6px">manual only <div class="toggle" data-perm data-level="5" data-locked><div class="toggle-dot"></div></div></div>
   </div>
   <div class="ea-perm-row">
     <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:.02em">proactive strategy suggestions</div></div>

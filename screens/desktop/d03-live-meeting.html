@@ -42,6 +42,7 @@
           <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">conviction</div>
           <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Priya sounded confident on Acme timeline — likely true owner</div>
           <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:02 · tone analysis</div>
+          <div id="voiceSig1-consequence" style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:3px">&rarr; confidence raised to high &middot; auto-execute enabled for this commitment</div>
         </div>
       </div>
       <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2)">
@@ -50,6 +51,7 @@
           <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">hesitation</div>
           <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James paused before committing to 'next week' — deadline may slip</div>
           <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:18 · speech pattern</div>
+          <div id="voiceSig2-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px">&rarr; confidence lowered to medium &middot; moved to 'needs confirmation' bucket</div>
         </div>
       </div>
       <div class="voice-signal" id="voiceSig3" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
@@ -58,6 +60,7 @@
           <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">tension</div>
           <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">topic shifted from shipping to risk mitigation when Marcus spoke</div>
           <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:29 · topic analysis</div>
+          <div id="voiceSig3-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:3px;opacity:0;transition:opacity .4s">&rarr; decision flagged as not final &middot; okaeri will not extract until confirmed</div>
         </div>
       </div>
       <div class="voice-signal" id="voiceSig4" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
@@ -66,6 +69,7 @@
           <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">restraint</div>
           <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Okaeri would wait here — decision not yet final, watching for confirmation</div>
           <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:31 · confidence threshold</div>
+          <div id="voiceSig4-consequence" style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:3px;opacity:0;transition:opacity .4s">&rarr; auto-execution paused &middot; waiting for explicit confirmation before acting</div>
         </div>
       </div>
     </div>
@@ -136,6 +140,8 @@
         if(n3) n3.style.opacity = '1';
         var vs3 = document.getElementById('voiceSig3');
         if(vs3) vs3.style.opacity = '1';
+        var vc3 = document.getElementById('voiceSig3-consequence');
+        if(vc3) vc3.style.opacity = '1';
         var ec = document.getElementById('extCnt');
         if(ec){
           ec.textContent = '3 commitments so far';
@@ -147,6 +153,8 @@
         setTimeout(function(){
           var vs4 = document.getElementById('voiceSig4');
           if(vs4) vs4.style.opacity = '1';
+          var vc4 = document.getElementById('voiceSig4-consequence');
+          if(vc4) vc4.style.opacity = '1';
         }, 1000);
         // After another 3.5s, fade in note 4 and update count to 4 (~6s total from page load)
         setTimeout(function(){
