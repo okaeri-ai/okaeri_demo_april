@@ -140,11 +140,11 @@
 
   // ── Demo Mode State ──
   const DEMO_STEPS = [
-    { id: 'd01-home', label: 'home', duration: 5000 },
-    { id: 'd08-prep-brief', label: 'prep brief', duration: 5000 },
-    { id: 'd03-live-meeting', label: 'live meeting', duration: 5000 },
-    { id: 'd04-confirm-execute', label: 'confirm & execute', duration: 8000 },
-    { id: 'd05-all-clear', label: 'all clear', duration: 5000 }
+    { id: 'd01-home', label: 'what matters now', duration: 6000 },
+    { id: 'd08-prep-brief', label: 'why this meeting matters', duration: 6000 },
+    { id: 'd03-live-meeting', label: 'what okaeri notices', duration: 8000 },
+    { id: 'd04-confirm-execute', label: 'what it will do', duration: 10000 },
+    { id: 'd05-all-clear', label: 'what changed', duration: 6000 }
   ];
   let demoActive = false;
   let demoStep = 0;

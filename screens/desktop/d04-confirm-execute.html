@@ -18,6 +18,74 @@
   animation: confetti 1.5s ease-out forwards;
   pointer-events: none;
 }
+.rationale {
+  font-size: 10px;
+  font-weight: 200;
+  letter-spacing: 0.14em;
+  margin-top: 4px;
+}
+.rationale-green { color: var(--green); }
+.rationale-ink2 { color: var(--ink2); }
+.rationale-amber { color: var(--amber); }
+.section-label {
+  font-size: 9px;
+  font-weight: 200;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  margin-top: 6px;
+}
+.section-label-green { color: var(--green); }
+.section-label-ink3 { color: var(--ink3); }
+.section-label-amber { color: var(--amber); }
+.cc-uncertain {
+  border-left: 2px solid var(--amber);
+}
+.clarify-label {
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--amber);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+.clarify-options {
+  display: flex;
+  gap: 6px;
+}
+.btn-clarify {
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink2);
+  background: var(--bg2);
+  border: 0.5px solid var(--rule2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.15s ease;
+}
+.btn-clarify:hover {
+  background: var(--bg3);
+  color: var(--ink);
+}
+.trust-note {
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--green);
+  letter-spacing: 0.14em;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.trust-note.show { opacity: 1; }
+.btn-exec-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 </style>
 <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
   <div>
@@ -28,10 +96,24 @@
   <button class="btn-g" id="execAllBtn"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.8 3L9 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-g-txt">execute all</span></button>
 </div>
 <div style="display:flex;flex-direction:column;gap:7px" id="cardStack">
-  <div class="cc" id="c1"><div class="chain"><span class="verb">create</span><span class="arr">→</span><span class="obj">API rate limit bug</span><span class="arr">→</span><span class="ttag tt-li">Linear</span></div><div class="card-bot"><span class="ass">@marcus · p1 · sprint 14</span><div class="card-acts"><button class="btn-skip" data-card="c1">skip</button><button class="btn-exec" data-card="c1" data-label="Ticket created" data-detail="Linear OKA-214"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
-  <div class="cc" id="c2"><div class="chain"><span class="verb">send</span><span class="arr">→</span><span class="obj">pricing proposal recap</span><span class="arr">→</span><span class="ttag tt-sl">Slack #sales</span></div><div class="card-bot"><span class="ass">@priya · today EOD</span><div class="card-acts"><button class="btn-skip" data-card="c2">skip</button><button class="btn-exec" data-card="c2" data-label="Message sent" data-detail="Slack #sales"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
-  <div class="cc" id="c3"><div class="chain"><span class="verb">schedule</span><span class="arr">→</span><span class="obj">Andreessen follow-up · 30 min</span><span class="arr">→</span><span class="ttag tt-ca">Calendar</span></div><div class="card-bot"><span class="ass">@james · next week</span><div class="card-acts"><button class="btn-skip" data-card="c3">skip</button><button class="btn-exec" data-card="c3" data-label="Invite sent" data-detail="Thu Mar 26"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
-  <div class="cc" id="c4"><div class="chain"><span class="verb">update</span><span class="arr">→</span><span class="obj">Acme deal → proposal sent</span><span class="arr">→</span><span class="ttag tt-sf">Salesforce</span></div><div class="card-bot"><span class="ass">@priya · Acme Corp · $84k ARR</span><div class="card-acts"><button class="btn-skip" data-card="c4">skip</button><button class="btn-exec" data-card="c4" data-label="Deal updated" data-detail="Acme Corp"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+
+  <!-- safe to auto-execute -->
+  <div class="section-label section-label-green" id="slAutoExec">safe to auto-execute</div>
+
+  <div class="cc" id="c1"><div class="chain"><span class="verb">create</span><span class="arr">→</span><span class="obj">API rate limit bug</span><span class="arr">→</span><span class="ttag tt-li">Linear</span></div><div class="rationale rationale-green">✓ high confidence · Marcus explicitly committed · P1 · sprint 14</div><div class="card-bot"><span class="ass">@marcus · p1 · sprint 14</span><div class="card-acts"><button class="btn-skip" data-card="c1">skip</button><button class="btn-exec" data-card="c1" data-label="Ticket created" data-detail="Linear OKA-214"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+
+  <div class="cc" id="c2"><div class="chain"><span class="verb">send</span><span class="arr">→</span><span class="obj">pricing proposal recap</span><span class="arr">→</span><span class="ttag tt-sl">Slack #sales</span></div><div class="rationale rationale-green">✓ high confidence · Priya confirmed with conviction · Slack #sales</div><div class="card-bot"><span class="ass">@priya · today EOD</span><div class="card-acts"><button class="btn-skip" data-card="c2">skip</button><button class="btn-exec" data-card="c2" data-label="Message sent" data-detail="Slack #sales"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+
+  <!-- needs confirmation -->
+  <div class="section-label section-label-ink3" id="slConfirm">needs confirmation</div>
+
+  <div class="cc" id="c3"><div class="chain"><span class="verb">schedule</span><span class="arr">→</span><span class="obj">Andreessen follow-up · 30 min</span><span class="arr">→</span><span class="ttag tt-ca">Calendar</span></div><div class="rationale rationale-ink2">○ medium · James said 'next week' — hesitation detected · defaulting to Thursday</div><div class="card-bot"><span class="ass">@james · next week</span><div class="card-acts"><button class="btn-skip" data-card="c3">skip</button><button class="btn-exec" data-card="c3" data-label="Invite sent" data-detail="Thu Mar 26"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div></div>
+
+  <!-- uncertain — needs your input -->
+  <div class="section-label section-label-amber" id="slUncertain">uncertain — needs your input</div>
+
+  <div class="cc cc-uncertain" id="c4"><div class="chain"><span class="verb">update</span><span class="arr">→</span><span class="obj" id="c4obj">Acme deal → proposal sent</span><span class="arr">→</span><span class="ttag tt-sf">Salesforce</span></div><div class="rationale rationale-amber" id="c4rationale">⚠ low confidence · unclear if 'proposal sent' or 'proposal reviewed' — asking for clarification</div><div class="clarify-label">okaeri is asking:</div><div class="clarify-options" id="c4clarify"><button class="btn-clarify" data-choice="sent">proposal sent</button><button class="btn-clarify" data-choice="reviewed">proposal reviewed</button></div><div class="card-bot"><span class="ass">@priya · Acme Corp · $84k ARR</span><div class="card-acts"><button class="btn-skip" data-card="c4">skip</button><button class="btn-exec btn-exec-disabled" data-card="c4" data-label="Deal updated" data-detail="Acme Corp" id="c4exec"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.3 2.5L8.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Execute</button></div></div><div class="trust-note" id="trustNote">trust for Salesforce adjusted: +1 confirmed action</div></div>
+
 </div>
 <div style="display:flex;flex-direction:column;gap:5px;margin-top:8px" id="receipts"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px;margin-top:6px">
@@ -42,6 +124,7 @@
 <script>
 (function(){
   var pending = 4;
+  var c4confirmed = false;
 
   function addReceipt(label, detail){
     var now = new Date(), h = now.getHours()%12||12, m = String(now.getMinutes()).padStart(2,'0');
@@ -100,6 +183,9 @@
   }
 
   function execCard(id, label, detail){
+    // Block c4 execution if not confirmed
+    if(id === 'c4' && !c4confirmed) return;
+
     var e = document.getElementById(id);
     if(!e || e.classList.contains('gone')) return;
     e.classList.add('gone');
@@ -141,6 +227,65 @@
     updateCount();
   }
 
+  // Clarification flow for c4
+  function confirmC4(choice){
+    if(c4confirmed) return;
+    c4confirmed = true;
+
+    var card = document.getElementById('c4');
+    var obj = document.getElementById('c4obj');
+    var rationale = document.getElementById('c4rationale');
+    var clarifyEl = document.getElementById('c4clarify');
+    var execBtn = document.getElementById('c4exec');
+    var sectionLabel = document.getElementById('slUncertain');
+    var trustNote = document.getElementById('trustNote');
+    var clarifyLabel = card.querySelector('.clarify-label');
+
+    // Update object text if "reviewed" was chosen
+    if(choice === 'reviewed'){
+      obj.textContent = 'Acme deal → proposal reviewed';
+    }
+
+    // Hide clarification UI
+    if(clarifyEl) clarifyEl.style.display = 'none';
+    if(clarifyLabel) clarifyLabel.style.display = 'none';
+
+    // Flash border from amber to green
+    card.style.transition = 'border-color 0.3s ease';
+    card.classList.remove('cc-uncertain');
+    card.style.borderLeft = '2px solid var(--green)';
+    setTimeout(function(){
+      card.style.borderLeft = '';
+    }, 1200);
+
+    // Update rationale
+    rationale.className = 'rationale rationale-green';
+    rationale.textContent = '✓ confirmed by user · confidence updated';
+
+    // Update section label
+    sectionLabel.textContent = 'confirmed';
+    sectionLabel.className = 'section-label section-label-green';
+
+    // Enable execute button
+    execBtn.classList.remove('btn-exec-disabled');
+
+    // Show trust note
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        trustNote.classList.add('show');
+      });
+    });
+  }
+
+  // Event delegation for clarify buttons
+  document.getElementById('c4clarify').addEventListener('click', function(e){
+    var btn = e.target.closest('.btn-clarify');
+    if(btn){
+      e.stopPropagation();
+      confirmC4(btn.dataset.choice);
+    }
+  });
+
   document.getElementById('cardStack').addEventListener('click', function(e){
     var execBtn = e.target.closest('.btn-exec');
     var skipBtn = e.target.closest('.btn-skip');
@@ -154,6 +299,10 @@
   });
 
   document.getElementById('execAllBtn').addEventListener('click', function(){
+    // If c4 not confirmed, auto-confirm as "proposal sent" first
+    if(!c4confirmed){
+      confirmC4('sent');
+    }
     var seq = [
       ['c1','Ticket created','Linear OKA-214'],
       ['c2','Message sent','Slack #sales'],

@@ -30,6 +30,42 @@
       <div class="note-i" id="liveNote3" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">James schedules Andreessen follow-up, 30 min, next week.</span></div>
       <div class="note-i" id="liveNote4" style="opacity:0;transition:opacity .4s"><span class="ntag nt-c">commit</span><span class="note-t">Marcus takes rate limit bug · P1 · before end of sprint.</span></div>
     </div>
+    <div class="hr2"></div>
+    <div class="sl">voice signals</div>
+    <div id="voiceSignals">
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">conviction</div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Priya sounded confident on Acme timeline — likely true owner</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:02 · tone analysis</div>
+        </div>
+      </div>
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">hesitation</div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">James paused before committing to 'next week' — deadline may slip</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:18 · speech pattern</div>
+        </div>
+      </div>
+      <div class="voice-signal" id="voiceSig3" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">tension</div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">topic shifted from shipping to risk mitigation when Marcus spoke</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:29 · topic analysis</div>
+        </div>
+      </div>
+      <div class="voice-signal" id="voiceSig4" style="display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:2px">restraint</div>
+          <div style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Okaeri would wait here — decision not yet final, watching for confirmation</div>
+          <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:2px">18:31 · confidence threshold</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="ext-tray">
@@ -73,10 +109,12 @@
       wordIdx++;
     } else {
       clearInterval(typingInterval);
-      // Marcus line complete. After 1s, fade in note 3 and update count to 3
+      // Marcus line complete. After 1s, fade in note 3, voice signal 3, and update count to 3
       setTimeout(function(){
         var n3 = document.getElementById('liveNote3');
         if(n3) n3.style.opacity = '1';
+        var vs3 = document.getElementById('voiceSig3');
+        if(vs3) vs3.style.opacity = '1';
         var ec = document.getElementById('extCnt');
         if(ec){
           ec.textContent = '3 commitments so far';
@@ -84,6 +122,11 @@
           void ec.offsetWidth;
           ec.classList.add('count-pulse');
         }
+        // After 1s, fade in voice signal 4
+        setTimeout(function(){
+          var vs4 = document.getElementById('voiceSig4');
+          if(vs4) vs4.style.opacity = '1';
+        }, 1000);
         // After another 3.5s, fade in note 4 and update count to 4 (~6s total from page load)
         setTimeout(function(){
           var n4 = document.getElementById('liveNote4');
