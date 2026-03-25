@@ -73,7 +73,34 @@
   </div>
   <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
     <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Briefing voice</div>
-    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">Samantha</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em">configured in voice settings below</div>
+  </div>
+</div>
+
+<!-- Voice -->
+<div class="sl" style="margin-top:20px">voice</div>
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">ElevenLabs API key</div>
+      <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.12em;margin-top:2px">enables natural voice · stored locally only</div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <input type="password" id="elevenLabsKeyInput" placeholder="sk_..." style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.03em;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:4px 0;font-family:inherit;outline:none;width:160px;text-align:right">
+      <button class="btn-ul" id="saveElevenLabsKey" style="font-size:9px">save</button>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Voice</div>
+    <div id="voiceSelector" data-cycle="Sarah (calm),Rachel (warm),Aria (professional),Charlotte (natural)" style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em;cursor:pointer;user-select:none">Sarah (calm)</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Status</div>
+    <div id="voiceStatus" style="font-size:11px;font-weight:200;letter-spacing:0.08em"></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Test voice</div>
+    <button class="btn-ul" id="testVoiceBtn" style="font-size:9px">play test</button>
   </div>
 </div>
 
@@ -115,6 +142,66 @@
       idx = (idx + 1) % options.length;
       this.textContent = options[idx];
     });
+  });
+
+  // ── Voice settings ──
+  var voiceIds = {
+    'Sarah (calm)': 'EXAVITQu4vr4xnSDxMaL',
+    'Rachel (warm)': '21m00Tcm4TlvDq8ikWAM',
+    'Aria (professional)': '9BWtsMINqrJLrRacOk9x',
+    'Charlotte (natural)': 'XB0fDUnXU5powFXDhCwa'
+  };
+
+  // Load existing key
+  var keyInput = document.getElementById('elevenLabsKeyInput');
+  var statusEl = document.getElementById('voiceStatus');
+  if (keyInput && window.OKAERI) {
+    var savedKey = OKAERI._elevenLabsKey || '';
+    if (savedKey) {
+      keyInput.value = savedKey;
+      statusEl.textContent = 'connected';
+      statusEl.style.color = 'var(--green)';
+    } else {
+      statusEl.textContent = 'not configured — using browser voice';
+      statusEl.style.color = 'var(--ink3)';
+    }
+  }
+
+  // Save key
+  var saveBtn = document.getElementById('saveElevenLabsKey');
+  if (saveBtn) saveBtn.addEventListener('click', function(){
+    var key = keyInput.value.trim();
+    if (window.OKAERI && OKAERI.setElevenLabsKey) {
+      OKAERI.setElevenLabsKey(key);
+      if (key) {
+        statusEl.textContent = 'connected';
+        statusEl.style.color = 'var(--green)';
+      } else {
+        statusEl.textContent = 'removed — using browser voice';
+        statusEl.style.color = 'var(--ink3)';
+      }
+    }
+  });
+
+  // Voice selector → update voice ID
+  var voiceSel = document.getElementById('voiceSelector');
+  if (voiceSel) voiceSel.addEventListener('click', function(){
+    var name = voiceSel.textContent.trim();
+    var id = voiceIds[name];
+    if (id && window.OKAERI && OKAERI.setElevenLabsVoice) {
+      OKAERI.setElevenLabsVoice(id);
+    }
+  });
+
+  // Test voice
+  var testBtn = document.getElementById('testVoiceBtn');
+  if (testBtn) testBtn.addEventListener('click', function(){
+    if (window.OKAERI && OKAERI.speak) {
+      OKAERI.speak('This is how Okaeri sounds. I can brief you before meetings, whisper guidance during calls, and summarize what changed after.', {
+        onEnd: function(){ testBtn.textContent = 'play test'; }
+      });
+      testBtn.textContent = 'playing...';
+    }
   });
 })();
 </script>

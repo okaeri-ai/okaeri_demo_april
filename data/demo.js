@@ -358,11 +358,118 @@ window.OKAERI = {
   }
 };
 
-// ── Speech Synthesis ──
+// ── Speech Synthesis (ElevenLabs + Web Speech API fallback) ──
 OKAERI._speaking = false;
 OKAERI._currentUtterance = null;
+OKAERI._audioEl = null;
+OKAERI._useElevenLabs = false;
 
+// ElevenLabs config
+OKAERI._elevenLabsKey = localStorage.getItem('okaeri_elevenlabs_key') || '';
+OKAERI._elevenLabsVoice = localStorage.getItem('okaeri_elevenlabs_voice') || 'EXAVITQu4vr4xnSDxMaL'; // "Sarah" — calm, natural female
+OKAERI._elevenLabsModel = 'eleven_turbo_v2_5';
+
+// Check if ElevenLabs is configured
+OKAERI._useElevenLabs = !!OKAERI._elevenLabsKey;
+
+// Set ElevenLabs API key (called from settings UI)
+OKAERI.setElevenLabsKey = function(key) {
+  OKAERI._elevenLabsKey = key;
+  OKAERI._useElevenLabs = !!key;
+  if (key) {
+    localStorage.setItem('okaeri_elevenlabs_key', key);
+  } else {
+    localStorage.removeItem('okaeri_elevenlabs_key');
+  }
+};
+
+OKAERI.setElevenLabsVoice = function(voiceId) {
+  OKAERI._elevenLabsVoice = voiceId;
+  localStorage.setItem('okaeri_elevenlabs_voice', voiceId);
+};
+
+// ── Main speak function ──
 OKAERI.speak = function(text, options) {
+  if (OKAERI._useElevenLabs && OKAERI._elevenLabsKey) {
+    OKAERI._speakElevenLabs(text, options);
+  } else {
+    OKAERI._speakWebSpeech(text, options);
+  }
+};
+
+// ── ElevenLabs TTS ──
+OKAERI._speakElevenLabs = function(text, options) {
+  try {
+    OKAERI.stopSpeech();
+    OKAERI._speaking = true;
+
+    var voiceId = OKAERI._elevenLabsVoice;
+    var url = 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId + '/stream';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'xi-api-key': OKAERI._elevenLabsKey
+      },
+      body: JSON.stringify({
+        text: text,
+        model_id: OKAERI._elevenLabsModel,
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.75,
+          style: 0.3,
+          use_speaker_boost: true
+        }
+      })
+    })
+    .then(function(response) {
+      if (!response.ok) {
+        console.warn('ElevenLabs API error, falling back to Web Speech');
+        OKAERI._speaking = false;
+        OKAERI._speakWebSpeech(text, options);
+        return null;
+      }
+      return response.blob();
+    })
+    .then(function(blob) {
+      if (!blob) return;
+      var audioUrl = URL.createObjectURL(blob);
+      var audio = new Audio(audioUrl);
+      OKAERI._audioEl = audio;
+      audio.volume = options && options.volume || 0.8;
+
+      audio.onended = function() {
+        OKAERI._speaking = false;
+        OKAERI._audioEl = null;
+        URL.revokeObjectURL(audioUrl);
+        if (options && options.onEnd) options.onEnd();
+      };
+      audio.onerror = function() {
+        OKAERI._speaking = false;
+        OKAERI._audioEl = null;
+        URL.revokeObjectURL(audioUrl);
+        // Fall back to Web Speech
+        OKAERI._speakWebSpeech(text, options);
+      };
+
+      audio.play().catch(function() {
+        OKAERI._speaking = false;
+        OKAERI._speakWebSpeech(text, options);
+      });
+    })
+    .catch(function() {
+      OKAERI._speaking = false;
+      OKAERI._speakWebSpeech(text, options);
+    });
+  } catch(e) {
+    OKAERI._speaking = false;
+    OKAERI._speakWebSpeech(text, options);
+  }
+};
+
+// ── Web Speech API fallback ──
+OKAERI._speakWebSpeech = function(text, options) {
   try {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
@@ -373,57 +480,47 @@ OKAERI.speak = function(text, options) {
     utter.pitch = options && options.pitch || 1.05;
     utter.volume = options && options.volume || 0.7;
 
-    // Pick the most natural-sounding voice available
     var voices = speechSynthesis.getVoices();
     var preferred = null;
-
-    // Priority order: most natural voices first
-    var naturalNames = [
-      'Zoe',           // macOS — very natural Australian
-      'Ava',           // macOS — natural US female
-      'Joana',         // macOS — natural
-      'Google UK English Female',  // Chrome — natural
-      'Google US English',         // Chrome — natural
-      'Microsoft Aria', // Edge — natural
-      'Microsoft Jenny', // Edge — natural
-      'Samantha',      // macOS fallback — decent
-      'Karen',         // macOS fallback
-    ];
-
+    var naturalNames = ['Zoe','Ava','Google UK English Female','Google US English','Microsoft Aria','Microsoft Jenny','Samantha','Karen'];
     for (var i = 0; i < naturalNames.length; i++) {
       preferred = voices.find(function(v) { return v.name.indexOf(naturalNames[i]) !== -1; });
       if (preferred) break;
     }
-
-    // If none matched, try any en-US voice
-    if (!preferred) {
-      preferred = voices.find(function(v) { return v.lang === 'en-US'; }) || voices[0];
-    }
-
+    if (!preferred) preferred = voices.find(function(v) { return v.lang === 'en-US'; }) || voices[0];
     if (preferred) utter.voice = preferred;
 
     OKAERI._currentUtterance = utter;
-    utter.onend = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; };
+    utter.onend = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; if (options && options.onEnd) options.onEnd(); };
     utter.onerror = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; };
 
     window.speechSynthesis.speak(utter);
-    if (options && options.onEnd) utter.onend = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; options.onEnd(); };
   } catch(e) { OKAERI._speaking = false; }
 };
 
+// ── Pause / Resume / Stop ──
 OKAERI.pauseSpeech = function() {
-  if (window.speechSynthesis && speechSynthesis.speaking) {
+  if (OKAERI._audioEl && !OKAERI._audioEl.paused) {
+    OKAERI._audioEl.pause();
+  } else if (window.speechSynthesis && speechSynthesis.speaking) {
     speechSynthesis.pause();
   }
 };
 
 OKAERI.resumeSpeech = function() {
-  if (window.speechSynthesis && speechSynthesis.paused) {
+  if (OKAERI._audioEl && OKAERI._audioEl.paused) {
+    OKAERI._audioEl.play();
+  } else if (window.speechSynthesis && speechSynthesis.paused) {
     speechSynthesis.resume();
   }
 };
 
 OKAERI.stopSpeech = function() {
+  if (OKAERI._audioEl) {
+    OKAERI._audioEl.pause();
+    OKAERI._audioEl.currentTime = 0;
+    OKAERI._audioEl = null;
+  }
   if (window.speechSynthesis) {
     speechSynthesis.cancel();
   }
@@ -432,13 +529,13 @@ OKAERI.stopSpeech = function() {
 };
 
 OKAERI.toggleSpeech = function() {
-  if (!window.speechSynthesis) return;
-  if (speechSynthesis.paused) {
-    speechSynthesis.resume();
-    return 'playing';
-  } else if (speechSynthesis.speaking) {
-    speechSynthesis.pause();
-    return 'paused';
+  if (OKAERI._audioEl) {
+    if (OKAERI._audioEl.paused) { OKAERI._audioEl.play(); return 'playing'; }
+    else { OKAERI._audioEl.pause(); return 'paused'; }
+  }
+  if (window.speechSynthesis) {
+    if (speechSynthesis.paused) { speechSynthesis.resume(); return 'playing'; }
+    else if (speechSynthesis.speaking) { speechSynthesis.pause(); return 'paused'; }
   }
   return 'idle';
 };
