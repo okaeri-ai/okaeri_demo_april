@@ -176,6 +176,60 @@ window.OKAERI = {
     { name: 'Nina Park', initials: 'NP', role: 'Scout, a16z', health: 1, healthLabel: 'cold', healthColor: 'a', touches: 1, lastContact: '22 days ago', commits: '—', commitsColor: 'n', type: 'investor' }
   ],
 
+  // ── Relationship Strategies ──
+  relationshipStrategies: {
+    'sarah_rhodes': {
+      posture: 'engaged',
+      what_works: ['Lead with technical depth early', 'Offer proof artifacts instead of generic updates'],
+      avoid: ['Broad investor narrative before credibility is established', 'Generic recap without new signal'],
+      decision_drivers: ['Technical defensibility', 'Product depth', 'Evidence of compound advantage'],
+      best_next_move: 'Send a short proof-led follow-up and offer a CTO Loom.',
+      timing: 'now',
+      why: ['Your saved note says Sarah backs technical founders', 'Her strongest questions were about defensibility', 'Interest increased, but technical credibility is still the unlock'],
+      type: 'investor'
+    },
+    'michael_kim': {
+      posture: 'new',
+      what_works: ['Build rapport before pitching', 'Tie commitment graph to his execution-layer thesis'],
+      avoid: ['Pitching defensibility without the commitment graph story ready', 'Over-explaining before establishing credibility'],
+      decision_drivers: ['Developer tools focus', 'Execution layer infrastructure', 'Bottom-up enterprise adoption'],
+      best_next_move: 'Focus on rapport. If positive, offer architecture deep-dive as follow-up.',
+      timing: 'now',
+      why: ['First meeting — no prior relationship', '4 of 6 portfolio companies are execution layer plays', 'His X post about execution being the gap is your anchor'],
+      type: 'investor'
+    },
+    'alex_chen': {
+      posture: 'recoverable',
+      what_works: ['Direct technical updates', 'Concrete next steps with clear timeline'],
+      avoid: ['Generic check-ins', 'Re-engaging before the blocker is resolved'],
+      decision_drivers: ['Technical reliability', 'API quality', 'Clear integration roadmap'],
+      best_next_move: 'Wait until the rate limit bug is fixed, then send a concise proof-of-progress note with one proposed next step.',
+      timing: 'after_condition',
+      why: ['Last momentum came from product-specific progress', 'Current thread stalled around a technical blocker', 'Outreach likely to underperform until that changes'],
+      type: 'partner'
+    },
+    'nina_park': {
+      posture: 'cooling',
+      what_works: ['Brief high-signal updates', 'Momentum and social proof', 'Easy re-engagement path'],
+      avoid: ['Long product explanation', 'Letting the intro sit any longer'],
+      decision_drivers: ['Momentum over detail', 'Name recognition', 'Warm signal freshness'],
+      best_next_move: 'Send a concise follow-up that gives Nina an easy way to re-engage.',
+      timing: 'now',
+      why: ['Warm intro is 22 days old and aging out', 'Investor intros decay quickly', 'Prior guidance: momentum matters more than detail'],
+      type: 'investor'
+    },
+    'resonance_team': {
+      posture: 'strong',
+      what_works: ['Regular technical sync cadence', 'Clear API documentation', 'Responsive to integration questions'],
+      avoid: ['Commercial discussion before technical foundation is solid', 'Letting sync cadence slip'],
+      decision_drivers: ['Voice infrastructure reliability', 'API quality and documentation', 'Roadmap predictability'],
+      best_next_move: 'Maintain weekly Tuesday sync. Prioritize API access credentials and error handling docs.',
+      timing: 'now',
+      why: ['12 touchpoints, strongest relationship health', 'Monthly retainer confirmed', 'First usage data expected this week'],
+      type: 'partner'
+    }
+  },
+
   // ── Goals ──
   goals: [
     {
