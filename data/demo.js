@@ -456,15 +456,29 @@ OKAERI.setTTSProvider = function(provider) {
 };
 
 // Legacy aliases for settings screen compatibility
-OKAERI.setElevenLabsKey = OKAERI.setTTSKey;
-OKAERI.setElevenLabsVoice = OKAERI.setTTSVoice;
+OKAERI.setElevenLabsKey = function(key) { OKAERI.setTTSKey(key); };
+OKAERI.setElevenLabsVoice = function(vid) { OKAERI.setTTSVoice(vid); };
 OKAERI._elevenLabsKey = OKAERI._ttsKey;
+
+// Debug helper — check TTS state from console
+OKAERI.debugTTS = function() {
+  console.log('TTS Provider:', OKAERI._ttsProvider);
+  console.log('TTS Key set:', !!OKAERI._ttsKey);
+  console.log('TTS Key (first 8):', OKAERI._ttsKey ? OKAERI._ttsKey.substring(0,8) + '...' : 'none');
+  console.log('TTS Voice:', OKAERI._ttsVoice);
+  console.log('Use TTS:', OKAERI._useTTS);
+  console.log('localStorage key:', localStorage.getItem('okaeri_tts_key') ? 'set' : 'not set');
+  console.log('localStorage provider:', localStorage.getItem('okaeri_tts_provider'));
+  console.log('localStorage voice:', localStorage.getItem('okaeri_tts_voice'));
+};
 
 // ── Main speak function ──
 OKAERI.speak = function(text, options) {
+  console.log('[Okaeri TTS] useTTS:', OKAERI._useTTS, 'provider:', OKAERI._ttsProvider, 'key set:', !!OKAERI._ttsKey, 'voice:', OKAERI._ttsVoice);
   if (OKAERI._useTTS && OKAERI._ttsKey) {
     OKAERI._speakAPI(text, options);
   } else {
+    console.log('[Okaeri TTS] → falling back to Web Speech API');
     OKAERI._speakWebSpeech(text, options);
   }
 };
