@@ -34,9 +34,10 @@
     <div style="padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:10px">
       <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">meeting objective</div>
       <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:8px">Align on Q2 priorities, assign owners, resolve blockers</div>
+      <div style="font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:-6px;margin-bottom:8px">using: 3 operating rules + 2 person notes</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
         <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">decision: <span style="color:var(--amber)">partial</span></div>
-        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">owners: <span style="color:var(--amber)">1 missing</span></div>
+        <div id="ownersCoverage" style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">owners: <span style="color:var(--amber)">1 missing</span></div>
         <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">deadlines: <span style="color:var(--amber)">2 vague</span></div>
         <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">blockers: <span style="color:var(--green)">1 addressed</span></div>
       </div>
@@ -160,6 +161,7 @@
           <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">Priya sounded confident on Acme timeline — likely true owner</div>
           <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:02 · tone analysis</div>
           <div id="voiceSig1-consequence" style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:2px">&rarr; confidence raised to high &middot; auto-execute enabled</div>
+          <div style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.12em;margin-top:1px">&rarr; Acme update moved to "safe to auto-execute" bucket</div>
         </div>
       </div>
       <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
@@ -169,6 +171,7 @@
           <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">James paused before committing to 'next week' — deadline may slip</div>
           <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">18:18 · speech pattern</div>
           <div id="voiceSig2-consequence" style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em;margin-top:2px">&rarr; confidence lowered to medium &middot; needs confirmation</div>
+          <div style="font-size:8px;font-weight:200;color:var(--amber);letter-spacing:0.12em;margin-top:1px">&rarr; Andreessen scheduling moved to "needs confirmation" bucket</div>
         </div>
       </div>
       <div class="voice-signal" id="voiceSig3" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
@@ -416,6 +419,14 @@
             ec2.classList.remove('count-pulse');
             void ec2.offsetWidth;
             ec2.classList.add('count-pulse');
+          }
+          // Update owners coverage — Marcus took ownership
+          var oc = document.getElementById('ownersCoverage');
+          if(oc){
+            oc.innerHTML = 'owners: <span style="color:var(--green)">0 missing</span>';
+            oc.style.transition = 'background 0.3s';
+            oc.style.background = 'rgba(52,199,89,0.12)';
+            setTimeout(function(){ oc.style.background = 'none'; }, 800);
           }
         }, 3500 * timingMultiplier);
       }, 1000 * timingMultiplier);

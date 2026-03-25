@@ -1,0 +1,172 @@
+<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+  <div style="width:6px;height:6px;border-radius:50%;background:var(--blue)"></div>
+  <span class="eyebrow" style="margin-bottom:0">integration intelligence · CRM</span>
+</div>
+<div class="ptitle">okaeri + your CRM</div>
+<div class="sub" style="margin-bottom:20px">okaeri is the intelligence layer. your CRM is the system of record.</div>
+
+<!-- ═══ Section 1: How It Works ═══ -->
+<div class="sl">how it works</div>
+
+<div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:0;margin-bottom:20px;align-items:start">
+  <!-- Left: What Okaeri knows -->
+  <div style="border:0.5px solid var(--rule2);border-radius:10px;padding:14px 16px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">what okaeri knows</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">who actually committed (not just who was mentioned)</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">conviction level from voice analysis</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">relationship strategy per person</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">what changed between meetings</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0">operator notes and working preferences</div>
+  </div>
+
+  <!-- Center: Arrows -->
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:40px;gap:20px">
+    <div style="font-size:10px;color:var(--green)">→</div>
+    <div style="font-size:10px;color:var(--blue)">←</div>
+  </div>
+
+  <!-- Right: What CRM knows -->
+  <div style="border:0.5px solid var(--rule2);border-radius:10px;padding:14px 16px">
+    <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">what your CRM knows</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">deal stages and pipeline value</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">contact records and company data</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">activity log (calls, emails logged)</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0;border-bottom:0.5px solid var(--rule2)">pipeline forecasts and reports</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6;padding:4px 0">historical deal data</div>
+  </div>
+</div>
+
+<!-- ═══ Section 2: Live Data Flow ═══ -->
+<div class="sl">live example: "Acme deal is at proposal sent"</div>
+<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em;margin-bottom:10px">spoken in Q2 roadmap sync · Priya · 18:02</div>
+
+<div style="border-left:0.5px solid var(--rule2);margin-left:10px;padding-left:14px;margin-bottom:20px">
+  <!-- Step 1 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">1</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Meeting transcript → commitment extracted: update Acme deal → proposal sent</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ done</span>
+  </div>
+  <!-- Step 2 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">2</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Okaeri confidence check → Priya spoke with conviction → high confidence</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ scored</span>
+  </div>
+  <!-- Step 3 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">3</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Trust check → Salesforce at 'needs confirm' trust level → queued for confirmation</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ queued</span>
+  </div>
+  <!-- Step 4 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">4</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">User confirms on d04 → 'proposal sent' verified (not 'proposal reviewed')</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ confirmed</span>
+  </div>
+  <!-- Step 5 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">5</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Salesforce → deal stage updated to 'Proposal Sent'</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ pushed to CRM</span>
+  </div>
+  <!-- Step 6 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--rule2);position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">6</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Investor update → pipeline section refreshed with current Acme data ($84k ARR)</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ updated</span>
+  </div>
+  <!-- Step 7 -->
+  <div style="display:flex;align-items:baseline;gap:8px;padding:6px 0;position:relative">
+    <div style="position:absolute;left:-18px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);min-width:10px">7</span>
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;flex:1">Relationship health → Priya's touchpoint with Acme recorded</span>
+    <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;white-space:nowrap">✓ tracked</span>
+  </div>
+</div>
+
+<!-- ═══ Section 3: What Okaeri Adds That CRM Can't ═══ -->
+<div class="sl">what okaeri adds that CRM can't</div>
+
+<!-- Row 1: Acme deal -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:10px;border-radius:10px;overflow:hidden;border:0.5px solid var(--rule2)">
+  <div style="background:var(--bg2);padding:12px 14px;border-right:0.5px solid var(--rule2)">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">CRM</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;line-height:1.5">Acme — Proposal Sent — $84k</div>
+  </div>
+  <div style="padding:12px 14px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Priya confident on timeline, but NDA review is slower than expected. Conviction dropped from 90% to 70% between Mar 17-23.</div>
+  </div>
+</div>
+
+<!-- Row 2: Sarah Rhodes -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:10px;border-radius:10px;overflow:hidden;border:0.5px solid var(--rule2)">
+  <div style="background:var(--bg2);padding:12px 14px;border-right:0.5px solid var(--rule2)">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">CRM</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;line-height:1.5">Sarah Rhodes — Last activity: Mar 23</div>
+  </div>
+  <div style="padding:12px 14px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Sarah backs technical founders. Lead with differentiator. She published about voice-first 3 days ago. Second meeting confirmed — strong signal.</div>
+  </div>
+</div>
+
+<!-- Row 3: Andreessen -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:10px;border-radius:10px;overflow:hidden;border:0.5px solid var(--rule2)">
+  <div style="background:var(--bg2);padding:12px 14px;border-right:0.5px solid var(--rule2)">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">CRM</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;line-height:1.5">Andreessen — Scheduled: Thu Mar 26</div>
+  </div>
+  <div style="padding:12px 14px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">James committed with hesitation. 38% rollover rate on vague deadlines. Okaeri defaulted to Thursday but will nudge Wednesday.</div>
+  </div>
+</div>
+
+<!-- Row 4: Pipeline -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:0.5px solid var(--rule2)">
+  <div style="background:var(--bg2);padding:12px 14px;border-right:0.5px solid var(--rule2)">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">CRM</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;line-height:1.5">Pipeline: $84k active</div>
+  </div>
+  <div style="padding:12px 14px">
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px">okaeri</div>
+    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.5">Deal blocked by NDA review. Investor update should wait until Salesforce reflects current state. Dependency chain: NDA → Salesforce update → investor email.</div>
+  </div>
+</div>
+
+<!-- ═══ Section 4: Integration Status ═══ -->
+<div class="sl">integration status</div>
+
+<div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden;margin-bottom:20px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:24px;height:24px;border-radius:5px;background:var(--bbg);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--blue)">☁</div>
+      <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Salesforce</div><div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">deals, contacts, activities</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber)"></div><span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em">needs confirm · building trust</span></div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:24px;height:24px;border-radius:5px;background:var(--red-bg);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--red)">H</div>
+      <div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">HubSpot</div><div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">coming soon</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:var(--ink3)"></div><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">not connected</span></div>
+  </div>
+</div>
+
+<!-- ═══ Section 5: The Principle ═══ -->
+<div class="sl">the principle</div>
+
+<div class="narr">
+  <div class="narr-l">okaeri · system design</div>
+  <div class="narr-t">Okaeri is not a CRM. It's the intelligence layer that makes your CRM useful. Your CRM knows deal stages and contact records. Okaeri knows who actually committed, with what conviction, blocked by what, and whether the deal confidence is rising or falling. The CRM is the system of record. Okaeri is the system of understanding.</div>
+</div>

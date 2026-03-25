@@ -50,7 +50,8 @@
       { id: 'd55-unified-model', label: 'Unified Model' },
       { id: 'd56-meeting-steering', label: 'Meeting Steering' },
       { id: 'd57-meeting-score', label: 'Meeting Score' },
-      { id: 'd60-benchmarking', label: 'Benchmarking' }
+      { id: 'd60-benchmarking', label: 'Benchmarking' },
+      { id: 'd71-recovery', label: 'Recovery Plans' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -103,7 +104,8 @@
       { id: 'd59-ambient-exec', label: 'Ambient Mode' },
       { id: 'd65-how-okaeri-works', label: 'How Okaeri Works' },
       { id: 'd66-week-later', label: 'Week 1 Progression' },
-      { id: 'd67-error-states', label: 'Error States' }
+      { id: 'd67-error-states', label: 'Error States' },
+      { id: 'd72-crm-integration', label: 'CRM Integration' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -203,7 +205,9 @@
     'a02-widgets': { text: 'all clear', live: false },
     'd00-product-view': { text: 'product', live: false },
     'd69-playbooks': { text: '3 active', live: false },
-    'd70-smart-scheduling': { text: '4 suggested', live: false }
+    'd70-smart-scheduling': { text: '4 suggested', live: false },
+    'd71-recovery': { text: '3 repairs', live: false },
+    'd72-crm-integration': { text: 'Salesforce', live: false }
   };
 
   // Build flat index of screen positions for directional transitions
