@@ -6,8 +6,8 @@
 
 **okaeri**
 
-notes don't close tickets.
-okaeri does.
+an AI that learns how you operate
+and earns the right to act on your behalf.
 
 pre-seed · $2M · 2026
 
@@ -15,152 +15,161 @@ pre-seed · $2M · 2026
 
 ## 2. The Problem
 
-Every meeting produces commitments.
-"I'll create the ticket." "I'll send the recap." "I'll schedule the follow-up."
+Founders run on relationships, judgment, and follow-through.
 
-~40% of them never happen.
+But every tool they use is dumb about all three.
 
-Not because people are lazy. Because the handoff from conversation to action is broken. Notes capture what was said. Nobody tracks what was committed. Nobody executes what was promised.
+Your CRM doesn't know that Sarah responds to technical depth, not market narrative. Your task tracker doesn't know that James says "next week" but means "maybe." Your notes app doesn't know that the go-to-market decision changed twice in 10 days.
 
-The gap isn't information. It's execution.
+You carry all of this in your head. And when you're in back-to-back meetings, some of it drops.
+
+The gap isn't productivity. It's that no tool thinks like you.
 
 ---
 
-## 3. What Exists Today
+## 3. What Gets Lost
 
-Otter transcribes. Fireflies records. Granola takes notes. Fellow summarizes.
+Not just tasks. Context.
 
-They all answer the same question: what was said?
+Who actually committed — not just who was mentioned.
+How confident they sounded when they said it.
+What this person responds to and what shuts them down.
+What changed between last week's meeting and today.
+Which relationship is quietly going cold while you're focused elsewhere.
+Which decision you made 6 weeks ago that no longer applies.
 
-None of them answer: what should happen next, and did it?
-
-$4.2B meeting productivity market. $100M+ ARR at Otter alone. And still — 40% of commitments slip through.
-
-The category is saturated with memory. It's empty on execution.
+A founder's real operating system is invisible. It lives in memory, instinct, and judgment. When any of it slips, outcomes degrade — and nobody notices until it's too late.
 
 ---
 
 ## 4. Okaeri
 
-A voice-first execution engine.
+An AI operating partner that learns how you work — your relationships, your communication style, your decision patterns, your operating rhythms — and earns the right to act on your behalf.
 
-Okaeri listens to your meetings, understands who committed to what — and executes it across your tools.
-
-Linear. Slack. Calendar. Salesforce. Gmail.
-
-Not with blind automation. With earned trust.
+It starts by listening to your meetings. It ends by thinking like you.
 
 ---
 
-## 5. The Core Loop
+## 5. Three Layers
 
-**Before the meeting**
-Prep brief: what matters, what they care about, what to say, what not to miss. Relationship strategy per person. Spoken 30-second brief through your earpiece.
+**Memory you speak into.**
+"Remember: Sarah backs technical founders. Lead with our differentiator. Maybe send a CTO Loom later." That becomes durable operating guidance — used in every future prep brief, draft, and suggestion for Sarah.
 
-**During the meeting**
-Real-time steering: no owner detected, vague deadline, meeting drifting, wrong stakeholders. Voice signals: conviction, hesitation, tension — each changes what Okaeri will or won't do after.
+**Guidance you hear.**
+30-second spoken briefs before meetings. Private whisper nudges during meetings. Spoken debriefs after. The primary interface is voice, not a dashboard.
 
-**After the meeting**
-Commitments grouped by confidence. High-confidence actions auto-execute. Uncertain items ask for clarification first. Every correction makes the system smarter.
+**Behavior that adapts.**
+Okaeri learns your email tone (concise, direct, no filler). Your escalation threshold (only interrupt for contradictions). Your follow-up cadence (3 days for investors, 7 for partners). Your phrases ("the thing that matters here is the technical wedge"). Every correction makes it more like you.
 
 ---
 
-## 6. Voice Signals — The Moat
+## 6. It Knows Your Relationships
+
+Not "Alex Chen — 11 days, cooling."
+
+But: "Alex responds to direct asks with technical proof. Don't send a generic follow-up. Wait for the rate limit fix, then send proof-of-progress within 24 hours. His last 4 positive replies followed product-specific updates. Generic outreach got no response."
+
+One relationship strategy per person. Powered by your voice notes, interaction history, and observed response patterns. Rendered everywhere: prep briefs, draft composition, home screen judgment, meeting steering.
+
+The shift from contact management to relationship intelligence is what makes it feel like a chief of staff who has worked with you for a year.
+
+---
+
+## 7. It Knows How You Think
+
+What meetings to take and what to skip.
+When to push and when to wait.
+Who to handle personally and who to delegate.
+What kind of follow-up gets a response from this specific person.
+Whether this decision is stable or drifting.
+
+Okaeri detects contradictions ("you said enterprise-first last week but PLG today"), flags stale decisions ("that hold was 6 weeks ago — metrics improved"), and tracks conviction shifts across meetings ("Priya's confidence on the Acme timeline dropped from 90% to 70%").
+
+No human can hold 10 meetings worth of positions in their head. Okaeri can.
+
+---
+
+## 8. It Executes — With Earned Trust
+
+Knowing you is necessary. Executing for you is the proof.
+
+Okaeri extracts commitments from meetings and executes them across Linear, Slack, Calendar, Salesforce, and Gmail.
+
+But not blindly. Trust starts at zero and accumulates per tool:
+- Linear: 20 actions, 0 rollbacks → auto-execute
+- Calendar: 12 actions, 1 rollback → needs confirmation
+- Gmail: 2 actions → manual only
+
+When it's wrong, it asks before acting. When you correct it, it learns. When a Calendar scheduling was rolled back, auto-scheduling paused until 5 successful confirms.
+
+Trust can go up. Trust can go down. That's what makes it earned.
+
+---
+
+## 9. Voice Signals — The Architectural Moat
 
 Every tool can extract "James said next week."
 
 Only voice analysis can detect that he hesitated before saying it.
 
-Hesitation → confidence lowered → needs confirmation instead of auto-execute.
+Hesitation → confidence lowered → needs confirmation.
 Conviction → confidence raised → safe to auto-execute.
+Tension detected → decision flagged as not final.
+Restraint applied → auto-execution paused until confirmation.
 
-The moat isn't what you extract. It's what you know about how it was said. Text tools will never have this signal.
-
----
-
-## 7. Earned Autonomy
-
-Trust starts at zero. It accumulates through consistent behavior. It can regress.
-
-Each tool earns its own trust:
-- Linear: 20 actions, 0 rollbacks → auto-execute
-- Slack: 18 actions, 0 rollbacks → auto-execute
-- Calendar: 12 actions, 1 rollback → needs confirmation
-- Salesforce: 4 actions → still building trust
-- Gmail: 2 actions → manual only
-
-When a Calendar scheduling was wrong, Okaeri rolled it back, recorded the regression, and paused auto-scheduling until 5 successful confirms.
-
-That's what makes trust earned, not declared.
+The moat isn't extraction. It's understanding intent from how something was said — and changing execution behavior based on it. Text tools will never have this signal.
 
 ---
 
-## 8. What Makes This Different
+## 10. Meeting Steering — Live Operational Control
 
-Every tool extracts. We execute.
+Most tools summarize after the meeting. Okaeri changes the outcome during it.
 
-Every tool summarizes after. We steer during.
+5 detectors running in real time:
+- No explicit owner for the next step
+- Vague deadline language ("soon", "next week")
+- Prolonged discussion without a decision
+- Key stakeholder missing from the room
+- Too much time on status, not enough on decisions
 
-Every tool trusts by default. We earn trust action by action.
+72% of potential interventions are held back. The system knows when to stay quiet. That restraint is what makes it usable.
 
-Every tool stores notes. We store who committed, with what conviction, blocked by what, and whether it happened.
-
-That's the commitment graph. It's the organizational layer no transcript tool can replicate.
-
----
-
-## 9. The Intelligence Layer
-
-**Commitment attribution**
-Not "Marcus committed" but "Jess suggested, Marcus committed with high conviction, nobody can block, 92% reliability on this type of task."
-
-**Change detection**
-Track how positions shift across meetings. "Enterprise-first on March 20. PLG discussed again today. Is this intentional?"
-
-**Contradiction detection**
-"You said $3M on March 10 and $2M on March 18. No explicit change was recorded."
-
-**Meeting steering**
-5 detectors running in real time: no owner, vague deadline, prolonged discussion without decision, wrong stakeholder missing, too much time on status. 72% of potential interventions held back. Restraint is the product.
-
-**Operating playbooks**
-Repeated patterns become reusable sequences: investor follow-up, design partner momentum, decision-to-execution. The system learns your operating rhythms.
+When it does speak, it suggests exactly what to say: "Before we move on, who owns this by Friday?"
 
 ---
 
-## 10. Relationship Strategy
+## 11. The Intelligence That Compounds
 
-Not "Alex is cooling — 11 days."
+**Commitment attribution** — not "Marcus committed" but "Jess suggested, Marcus committed with high conviction, Priya can block, 92% reliability on similar tasks."
 
-But: "Alex responds to direct asks with technical proof. Don't send a generic follow-up. Wait for the bug fix, then send proof-of-progress within 24 hours."
+**Change detection** — how positions shift across meetings, who's more or less convinced, which decisions are drifting.
 
-One strategy object per person. Rendered at four compression levels:
-- Full playbook on the profile
-- Situational guidance in prep
-- One-line action on the home screen
-- Tone constraints in draft composition
+**Contradiction detection** — active inconsistency surfacing with resolution paths. Not accusation — clarification.
 
-The shift from status to strategy is what makes it feel like a chief of staff.
+**Operating playbooks** — repeated patterns become reusable sequences. Investor follow-up. Design partner momentum. Decision-to-execution. The system learns your operating rhythms and can run them.
 
----
+**Recovery workflows** — not reminders but repair plans. What went wrong, what this person responds to, what specific move has the best chance of reopening the thread.
 
-## 11. Voice-First Identity
-
-The dashboard is secondary. The primary experience is voice.
-
-**Speak into it:** "Remember: Sarah backs technical founders. Lead with our differentiator."
-
-**Hear from it:** "You're meeting Sarah in 12 minutes. Lead with technical depth. Don't over-pitch the market story."
-
-**Get nudged:** "No owner on the API follow-up. Ask: who owns this by Friday?"
-
-**Let it adapt:** It learns your tone, your timing, your escalation threshold, your phrases. Every correction makes it more like you.
-
-Memory you speak into. Guidance you hear. Behavior that adapts.
+Every week, the system knows more about how you operate. That compounds. Competitors would need a year of your data to replicate what Okaeri builds in 30 days.
 
 ---
 
-## 12. Traction
+## 12. Market
+
+$4.2B meeting productivity market growing 12% annually.
+
+Otter: $100M ARR. Transcription.
+Fireflies: Unicorn. Recording.
+Granola: $43M raised. Notes.
+Fellow: "AI Chief of Staff." Notes + chat.
+
+They all capture what was said. None of them learn how you operate. None execute with earned trust. None steer meetings in real time. None build relationship strategy. None detect contradictions.
+
+The category is saturated with memory. It's empty on judgment.
+
+---
+
+## 13. Traction
 
 1 active design partner — Resonance (voice infrastructure, monthly retainer)
 
@@ -168,42 +177,55 @@ Memory you speak into. Guidance you hear. Behavior that adapts.
 
 84% → 96% extraction accuracy improvement over 30 days
 
-Sequoia first meeting complete. Second meeting confirmed.
+12+ hours/month of founder time recovered
 
-96-screen interactive prototype demonstrating every feature described in this deck.
+Sequoia: first meeting complete, second meeting confirmed
+
+96-screen interactive prototype at okaeridemoapril.vercel.app demonstrating every feature in this deck.
 
 ---
 
-## 13. The Ask
+## 14. Team
+
+Jess Liu — CEO / founder
+Marcus Chen — Engineering
+Priya Rajan — Sales / Ops
+James Wu — Business Development
+
+Design partners: Resonance (voice infrastructure), Mnemix (AI memory)
+
+---
+
+## 15. The Ask
 
 Raising $2M pre-seed.
 
-**Use of funds:**
-- Build production voice pipeline (Whisper + Deepgram)
-- Ship earned autonomy model
-- Onboard 10 design partners
-- Hire engineering #2
+Build the production voice pipeline.
+Ship the earned autonomy model.
+Onboard 10 design partners.
+Hire engineering #2.
 
-**Milestones:**
-- 95%+ execution rate across partners
-- Auto-execute on 2+ tools per partner
-- Voice signal accuracy >80% on ambiguous commitments
+Target: 95%+ execution rate. Auto-execute on 2+ tools per partner. Voice signal accuracy >80%.
 
-**Timeline:** close May 2026
+Close May 2026.
 
 ---
 
-## 14. The Thesis
+## 16. The Thesis
 
-The company that owns the commitment graph — who said what, to whom, with what conviction, blocked by what, and whether it happened — owns the execution layer of every organization.
+The tools founders use today know what happened.
+Okaeri learns how you operate.
 
-Notes capture information.
-Okaeri captures intent, earns trust, and executes.
+It knows your relationships — what works, what doesn't, when to push, when to wait.
+It knows your judgment — your tone, your threshold, your operating rhythms.
+It knows your context — what changed, what contradicts, what expired, what's at risk.
 
-That's the difference between a tool and an operating partner.
+And it earns the right to act on all of it.
+
+That's not a meeting tool. That's an operating partner.
 
 **okaeri**
-notes don't close tickets. okaeri does.
+an AI that learns how you operate.
 
 prototype: okaeridemoapril.vercel.app
 jess@okaeri.ai
