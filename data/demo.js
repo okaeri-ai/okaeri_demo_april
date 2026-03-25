@@ -483,41 +483,52 @@ OKAERI.speak = function(text, options) {
   }
 };
 
-// ── API TTS (Smallest AI or ElevenLabs) ──
+// ── API TTS (via proxy to avoid CORS) ──
 OKAERI._speakAPI = function(text, options) {
   try {
     OKAERI.stopSpeech();
     OKAERI._speaking = true;
 
-    var url, headers, body;
+    // Use Vercel Edge Function proxy to avoid CORS
+    var proxyUrl = '/api/tts';
 
-    if (OKAERI._ttsProvider === 'elevenlabs') {
-      // ElevenLabs
-      url = 'https://api.elevenlabs.io/v1/text-to-speech/' + OKAERI._ttsVoice;
-      headers = {
-        'Content-Type': 'application/json',
-        'xi-api-key': OKAERI._ttsKey,
-        'Accept': 'audio/mpeg'
-      };
-      body = JSON.stringify({
-        text: text,
-        model_id: 'eleven_multilingual_v2',
-        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+    // If running on localhost without Vercel, try direct (will likely fail on CORS)
+    if (window.location.hostname === 'localhost' && window.location.port !== '') {
+      // On local dev server, try direct API call
+      var directUrl;
+      if (OKAERI._ttsProvider === 'elevenlabs') {
+        directUrl = 'https://api.elevenlabs.io/v1/text-to-speech/' + OKAERI._ttsVoice;
+      } else {
+        directUrl = 'https://api.smallest.ai/waves/v1/lightning-v3.1/get_speech';
+      }
+      var directHeaders, directBody;
+      if (OKAERI._ttsProvider === 'elevenlabs') {
+        directHeaders = { 'Content-Type': 'application/json', 'xi-api-key': OKAERI._ttsKey, 'Accept': 'audio/mpeg' };
+        directBody = JSON.stringify({ text: text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.5, similarity_boost: 0.75 } });
+      } else {
+        directHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OKAERI._ttsKey };
+        directBody = JSON.stringify({ text: text, voice_id: OKAERI._ttsVoice, sample_rate: 24000, output_format: 'mp3' });
+      }
+      fetch(directUrl, { method: 'POST', headers: directHeaders, body: directBody })
+      .then(function(r) { if (!r.ok) throw new Error('Direct API failed'); return r.blob(); })
+      .then(function(blob) { OKAERI._playBlob(blob, options); })
+      .catch(function() {
+        console.log('[Okaeri TTS] Direct API failed (CORS), falling back to Web Speech');
+        OKAERI._speaking = false;
+        OKAERI._speakWebSpeech(text, options);
       });
-    } else {
-      // Smallest AI (default)
-      url = 'https://api.smallest.ai/waves/v1/lightning-v3.1/get_speech';
-      headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + OKAERI._ttsKey
-      };
-      body = JSON.stringify({
-        text: text,
-        voice_id: OKAERI._ttsVoice,
-        sample_rate: 24000,
-        output_format: 'mp3'
-      });
+      return;
     }
+
+    // On Vercel (production), use the proxy
+    var url = proxyUrl;
+    var headers = { 'Content-Type': 'application/json' };
+    var body = JSON.stringify({
+      text: text,
+      voice_id: OKAERI._ttsVoice,
+      provider: OKAERI._ttsProvider,
+      api_key: OKAERI._ttsKey
+    });
 
     fetch(url, { method: 'POST', headers: headers, body: body })
     .then(function(response) {
@@ -565,6 +576,26 @@ OKAERI._speakAPI = function(text, options) {
     OKAERI._speaking = false;
     OKAERI._speakWebSpeech(text, options);
   }
+};
+
+// ── Play audio blob ──
+OKAERI._playBlob = function(blob, options) {
+  var audioUrl = URL.createObjectURL(blob);
+  var audio = new Audio(audioUrl);
+  OKAERI._audioEl = audio;
+  audio.volume = options && options.volume || 0.8;
+  audio.onended = function() {
+    OKAERI._speaking = false;
+    OKAERI._audioEl = null;
+    URL.revokeObjectURL(audioUrl);
+    if (options && options.onEnd) options.onEnd();
+  };
+  audio.onerror = function() {
+    OKAERI._speaking = false;
+    OKAERI._audioEl = null;
+    URL.revokeObjectURL(audioUrl);
+  };
+  audio.play().catch(function() { OKAERI._speaking = false; });
 };
 
 // ── Web Speech API fallback ──

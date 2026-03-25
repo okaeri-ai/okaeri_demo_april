@@ -1,8 +1,14 @@
 {
   "buildCommand": "",
   "outputDirectory": ".",
+  "functions": {
+    "api/tts.js": {
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/tts", "destination": "/api/tts.js" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
