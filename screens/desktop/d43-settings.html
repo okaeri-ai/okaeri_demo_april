@@ -220,7 +220,7 @@
     var fetchOpts = { headers: testHeaders };
     if (currentProvider === 'smallest') {
       fetchOpts.method = 'POST';
-      fetchOpts.body = JSON.stringify({ text: 'test', voice_id: 'emily', sample_rate: 24000, output_format: 'mp3' });
+      fetchOpts.body = JSON.stringify({ text: 'test', voice_id: 'sophia', sample_rate: 24000, output_format: 'mp3' });
     }
     fetch(testUrl, fetchOpts).then(function(r){
       if (r.ok) {
