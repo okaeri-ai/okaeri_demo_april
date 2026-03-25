@@ -1,0 +1,89 @@
+<div style="padding:16px;min-height:100%">
+  <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.36em;text-transform:uppercase;text-align:center;margin-top:20px">meeting in 12 min</div>
+  <div style="font-size:18px;font-weight:200;color:var(--ink);letter-spacing:0.02em;text-align:center;margin-top:6px">Sequoia intro</div>
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;text-align:center;margin-top:4px">Sarah Rhodes &middot; Michael Kim</div>
+
+  <!-- Play brief -->
+  <div style="display:flex;justify-content:center;margin:20px 0">
+    <div id="m4PlayBtn" style="width:52px;height:52px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <svg id="m4PlayIcon" width="14" height="16" viewBox="0 0 12 14" fill="none"><path d="M1.5 1.5l9 5.5-9 5.5V1.5z" fill="#888"/></svg>
+    </div>
+  </div>
+  <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;text-align:center;margin-bottom:20px">hear brief &middot; 30 sec</div>
+
+  <!-- 3 key items -->
+  <div style="border-top:0.5px solid var(--rule2)">
+    <div style="display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px"></div>
+      <div><div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:2px">lead with</div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.4">Technical differentiation</div></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px"></div>
+      <div><div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:2px">watch for</div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.4">GTM contradiction</div></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:0.5px solid var(--rule2)">
+      <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px"></div>
+      <div><div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:2px">best move</div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.4">Offer CTO Loom if positive</div></div>
+    </div>
+  </div>
+
+  <!-- Pinned -->
+  <div style="margin-top:12px;padding:8px 10px;background:var(--bbg);border-radius:4px">
+    <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:2px">pinned</div>
+    <div style="font-size:10px;font-weight:300;color:#0C447C;letter-spacing:0.02em">Sarah backs technical founders.</div>
+  </div>
+
+  <!-- Actions -->
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-bottom:20px">
+    <button class="btn-ul-g" style="font-size:10px;display:block;text-align:center" onclick="OKAERI.go('m01-capture')">start recording</button>
+    <button class="btn-ghost" style="font-size:10px;text-align:center">ask okaeri</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var briefText = "Sequoia intro in 12 minutes with Sarah Rhodes and Michael Kim. Lead with technical differentiation — Sarah backs technical founders. Watch for GTM contradiction, and if the conversation goes well, offer a CTO Loom walkthrough. Sarah specifically asked for ARR breakdown clarity, so have that ready.";
+
+  var playBtn = document.getElementById('m4PlayBtn');
+  var playIcon = document.getElementById('m4PlayIcon');
+  var playing = false;
+  var isPaused = false;
+
+  var pauseSvg = '<svg width="14" height="16" viewBox="0 0 12 14" fill="none"><rect x="2" y="1.5" width="3" height="11" rx="0.5" fill="#888"/><rect x="7" y="1.5" width="3" height="11" rx="0.5" fill="#888"/></svg>';
+  var playSvg = '<svg width="14" height="16" viewBox="0 0 12 14" fill="none"><path d="M1.5 1.5l9 5.5-9 5.5V1.5z" fill="#888"/></svg>';
+
+  playBtn.addEventListener('click', function() {
+    if (playing && !isPaused) {
+      // Pause
+      if (window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
+      isPaused = true;
+      playBtn.innerHTML = playSvg;
+      playBtn.style.borderColor = 'var(--ink2)';
+      return;
+    }
+    if (playing && isPaused) {
+      // Resume
+      if (window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
+      isPaused = false;
+      playBtn.innerHTML = pauseSvg;
+      playBtn.style.borderColor = 'var(--green)';
+      return;
+    }
+    // Start
+    playing = true;
+    isPaused = false;
+    playBtn.innerHTML = pauseSvg;
+    playBtn.style.borderColor = 'var(--green)';
+    if (window.OKAERI && window.OKAERI.speak) {
+      window.OKAERI.speak(briefText, {
+        onEnd: function() {
+          playing = false;
+          isPaused = false;
+          playBtn.innerHTML = playSvg;
+          playBtn.style.borderColor = 'var(--ink2)';
+        }
+      });
+    }
+  });
+})();
+</script>

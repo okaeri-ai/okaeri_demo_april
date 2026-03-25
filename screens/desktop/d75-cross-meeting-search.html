@@ -1,0 +1,150 @@
+<div class="eyebrow">memory search &middot; across all meetings</div>
+<div class="ptitle" style="margin-bottom:18px">cross-meeting search</div>
+
+<!-- Search input -->
+<div style="margin-bottom:20px">
+  <input type="text" id="crossSearch" placeholder="search across all meetings... try 'pricing' or 'what did Sarah say about defensibility'" style="font-size:18px;font-weight:200;color:var(--ink);letter-spacing:0.02em;border:none;border-bottom:0.5px solid var(--rule);padding-bottom:10px;background:none;outline:none;font-family:inherit;width:100%">
+</div>
+
+<!-- Results container -->
+<div id="crossResults">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">3 mentions across 2 meetings</div>
+
+  <div style="border-bottom:0.5px solid var(--rule2);padding:10px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">Q2 roadmap sync &middot; Mar 23 &middot; 18:02</span>
+      <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em">commitment</span>
+    </div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6"><span style="font-weight:200;color:var(--ink3)">Priya:</span> &ldquo;The Acme deal is close. I&rsquo;ll send the <mark style="background:rgba(200,135,74,0.15);color:var(--ink);border-radius:2px;padding:0 2px">pricing</mark> proposal recap to Slack sales channel today.&rdquo;</div>
+    <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.12em;margin-top:3px">&rarr; commitment extracted &middot; executed at 9:14 am</div>
+  </div>
+
+  <div style="border-bottom:0.5px solid var(--rule2);padding:10px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">Q2 roadmap sync &middot; Mar 23 &middot; 19:30</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink2);letter-spacing:0.14em">context</span>
+    </div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6"><span style="font-weight:200;color:var(--ink3)">Jess:</span> &ldquo;Make sure the <mark style="background:rgba(200,135,74,0.15);color:var(--ink);border-radius:2px;padding:0 2px">pricing</mark> is clear in the recap &mdash; Sarah asked for ARR breakdown specifics before the Sequoia meeting.&rdquo;</div>
+  </div>
+
+  <div style="border-bottom:0.5px solid var(--rule2);padding:10px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">Investor prep &middot; Mar 18 &middot; 14:20</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink2);letter-spacing:0.14em">decision</span>
+    </div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6"><span style="font-weight:200;color:var(--ink3)">Jess:</span> &ldquo;Enterprise <mark style="background:rgba(200,135,74,0.15);color:var(--ink);border-radius:2px;padding:0 2px">pricing</mark> at $84k ARR for Acme. That&rsquo;s our anchor for the Sequoia conversation.&rdquo;</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:3px">&rarr; decision: enterprise pricing anchored at $84k ARR</div>
+  </div>
+
+  <!-- Synthesis -->
+  <div style="margin-top:14px;padding:10px 12px;background:var(--bg2);border-radius:8px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">okaeri&rsquo;s synthesis</div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">Pricing has been discussed in 2 meetings over 5 days. The anchor is $84k ARR for Acme (enterprise pricing). Priya owns the pricing recap. Sarah specifically asked for ARR clarity &mdash; this was addressed in the Q2 sync.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('crossSearch');
+  var results = document.getElementById('crossResults');
+
+  var markStyle = 'background:rgba(200,135,74,0.15);color:var(--ink);border-radius:2px;padding:0 2px';
+
+  var DATA = {
+    pricing: {
+      summary: '3 mentions across 2 meetings',
+      results: [
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '18:02', tag: 'commitment', tagColor: 'var(--green)', speaker: 'Priya', text: 'The Acme deal is close. I\u2019ll send the <mark style="' + markStyle + '">pricing</mark> proposal recap to Slack sales channel today.', note: '\u2192 commitment extracted \u00b7 executed at 9:14 am', noteColor: 'var(--green)' },
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '19:30', tag: 'context', tagColor: 'var(--ink2)', speaker: 'Jess', text: 'Make sure the <mark style="' + markStyle + '">pricing</mark> is clear in the recap \u2014 Sarah asked for ARR breakdown specifics before the Sequoia meeting.', note: '', noteColor: '' },
+        { meeting: 'Investor prep', date: 'Mar 18', time: '14:20', tag: 'decision', tagColor: 'var(--ink2)', speaker: 'Jess', text: 'Enterprise <mark style="' + markStyle + '">pricing</mark> at $84k ARR for Acme. That\u2019s our anchor for the Sequoia conversation.', note: '\u2192 decision: enterprise pricing anchored at $84k ARR', noteColor: 'var(--ink2)' }
+      ],
+      synthesis: 'Pricing has been discussed in 2 meetings over 5 days. The anchor is $84k ARR for Acme (enterprise pricing). Priya owns the pricing recap. Sarah specifically asked for ARR clarity \u2014 this was addressed in the Q2 sync.'
+    },
+    sarah: {
+      summary: '2 mentions across 2 meetings',
+      results: [
+        { meeting: 'Investor prep', date: 'Mar 18', time: '14:45', tag: 'insight', tagColor: 'var(--blue)', speaker: 'Jess', text: '<mark style="' + markStyle + '">Sarah</mark> backs technical founders. She\u2019ll dig into architecture \u2014 lead with the technical differentiation, not the market story.', note: '\u2192 pinned to Sequoia prep brief', noteColor: 'var(--blue)' },
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '19:30', tag: 'context', tagColor: 'var(--ink2)', speaker: 'Jess', text: 'Make sure the pricing is clear in the recap \u2014 <mark style="' + markStyle + '">Sarah</mark> asked for ARR breakdown specifics before the Sequoia meeting.', note: '', noteColor: '' }
+      ],
+      synthesis: 'Sarah Rhodes (Sequoia) has come up in 2 meetings. She favors technical founders and will probe architecture depth. She specifically requested ARR breakdown clarity. Lead with technical differentiation in the upcoming intro.'
+    },
+    marcus: {
+      summary: '2 mentions across 1 meeting',
+      results: [
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '17:48', tag: 'commitment', tagColor: 'var(--green)', speaker: 'Marcus', text: 'I\u2019ll file the <mark style="' + markStyle + '">rate limit</mark> <mark style="' + markStyle + '">bug</mark> in Linear today. It\u2019s a P1 \u2014 blocking the enterprise demo.', note: '\u2192 commitment extracted \u00b7 executed at 8:47 am', noteColor: 'var(--green)' },
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '18:15', tag: 'context', tagColor: 'var(--ink2)', speaker: 'Jess', text: '<mark style="' + markStyle + '">Marcus</mark>, make sure the <mark style="' + markStyle + '">bug</mark> ticket includes the reproduction steps from the Acme call. They hit it three times.', note: '', noteColor: '' }
+      ],
+      synthesis: 'Marcus owns the API rate limit bug (P1, blocking enterprise demo). The Linear ticket was created and executed. Jess asked for reproduction steps from the Acme call to be included.'
+    },
+    james: {
+      summary: '2 mentions across 1 meeting',
+      results: [
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '18:40', tag: 'commitment', tagColor: 'var(--green)', speaker: 'James', text: 'I\u2019ll get the <mark style="' + markStyle + '">Andreessen</mark> follow-up on the calendar. 30 minutes should be enough.', note: '\u2192 commitment extracted \u00b7 scheduled', noteColor: 'var(--green)' },
+        { meeting: 'Q2 roadmap sync', date: 'Mar 23', time: '18:42', tag: 'signal', tagColor: 'var(--amber)', speaker: 'Okaeri', text: '<mark style="' + markStyle + '">James</mark> hesitated before committing to the <mark style="' + markStyle + '">Andreessen</mark> timeline. Confidence: moderate. May need a nudge.', note: '\u2192 hesitation detected \u00b7 flagged for follow-up', noteColor: 'var(--amber)' }
+      ],
+      synthesis: 'James is scheduling the Andreessen follow-up (30 min). Okaeri detected hesitation in his commitment \u2014 confidence was moderate. Consider a gentle check-in to ensure it gets booked promptly.'
+    }
+  };
+
+  // Alias mappings
+  var aliases = {
+    'arr': 'pricing', 'price': 'pricing', 'pricing': 'pricing',
+    'sarah': 'sarah', 'defensibility': 'sarah', 'rhodes': 'sarah',
+    'marcus': 'marcus', 'bug': 'marcus', 'rate limit': 'marcus', 'rate': 'marcus',
+    'james': 'james', 'andreessen': 'james', 'wu': 'james'
+  };
+
+  function renderResults(key) {
+    var d = DATA[key];
+    if (!d) {
+      results.innerHTML = '<div style="text-align:center;padding:30px 0"><div style="font-size:12px;font-weight:200;color:var(--ink3);letter-spacing:0.02em;line-height:1.6">no results found</div><div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;margin-top:8px">try: pricing, sarah, marcus, james, or rate limit</div></div>';
+      return;
+    }
+    var html = '<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">' + d.summary + '</div>';
+    for (var i = 0; i < d.results.length; i++) {
+      var r = d.results[i];
+      html += '<div style="border-bottom:0.5px solid var(--rule2);padding:10px 0">';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">';
+      html += '<span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">' + r.meeting + ' \u00b7 ' + r.date + ' \u00b7 ' + r.time + '</span>';
+      html += '<span style="font-size:9px;font-weight:200;color:' + r.tagColor + ';letter-spacing:0.14em">' + r.tag + '</span>';
+      html += '</div>';
+      html += '<div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6"><span style="font-weight:200;color:var(--ink3)">' + r.speaker + ':</span> \u201c' + r.text + '\u201d</div>';
+      if (r.note) {
+        html += '<div style="font-size:9px;font-weight:200;color:' + r.noteColor + ';letter-spacing:0.12em;margin-top:3px">' + r.note + '</div>';
+      }
+      html += '</div>';
+    }
+    html += '<div style="margin-top:14px;padding:10px 12px;background:var(--bg2);border-radius:8px">';
+    html += '<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">okaeri\u2019s synthesis</div>';
+    html += '<div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">' + d.synthesis + '</div>';
+    html += '</div>';
+    results.innerHTML = html;
+  }
+
+  var debounce = null;
+  input.addEventListener('input', function() {
+    clearTimeout(debounce);
+    debounce = setTimeout(function() {
+      var q = input.value.trim().toLowerCase();
+      if (!q) {
+        renderResults('pricing');
+        return;
+      }
+      // Check aliases
+      var matched = null;
+      var words = q.split(/\s+/);
+      for (var i = 0; i < words.length; i++) {
+        if (aliases[words[i]]) { matched = aliases[words[i]]; break; }
+      }
+      // Also check multi-word
+      if (!matched && q.indexOf('rate limit') !== -1) matched = 'marcus';
+      if (!matched) {
+        for (var key in aliases) {
+          if (q.indexOf(key) !== -1) { matched = aliases[key]; break; }
+        }
+      }
+      renderResults(matched);
+    }, 200);
+  });
+})();
+</script>

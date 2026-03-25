@@ -1,0 +1,132 @@
+<div class="eyebrow">drafting · strategy-aware</div>
+<div class="ptitle" style="margin-bottom:18px">compose</div>
+
+<!-- Compose area -->
+<div style="border:0.5px solid var(--rule2);border-radius:10px;padding:16px;margin-bottom:14px">
+  <!-- To field -->
+  <div style="display:flex;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;min-width:32px">to</span>
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Sarah Rhodes &lt;sarah@sequoia.com&gt;</span>
+  </div>
+  <!-- Subject -->
+  <div style="display:flex;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+    <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;min-width:32px">re</span>
+    <input type="text" value="Series A intro — follow-up" style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;border:none;background:none;outline:none;font-family:inherit;flex:1">
+  </div>
+  <!-- Body -->
+  <div style="padding:12px 0;min-height:120px">
+    <textarea id="emailBody" style="width:100%;min-height:120px;font-size:13px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.72;border:none;background:none;outline:none;font-family:inherit;resize:vertical">Sarah — great meeting today. Given your questions on defensibility, the most useful follow-up may be a short CTO walkthrough of the architecture choices behind the product and why they strengthen the data moat over time. Happy to send that if useful.</textarea>
+  </div>
+</div>
+
+<!-- Strategy panel -->
+<div style="display:flex;gap:14px;margin-bottom:14px">
+  <div style="flex:1;padding:10px 12px;background:var(--bg2);border-radius:8px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">using strategy</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-bottom:4px">Sarah Rhodes · engaged · send now</div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.14em;background:var(--gbg);border-radius:2px;padding:1px 6px">technical</span>
+      <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.14em;background:var(--gbg);border-radius:2px;padding:1px 6px">concise</span>
+      <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.14em;background:var(--gbg);border-radius:2px;padding:1px 6px">proof-led</span>
+    </div>
+    <div style="font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:4px">source: 2 operator notes + learned tone (24 drafts)</div>
+  </div>
+  <div style="flex:1;padding:10px 12px;border:0.5px solid var(--rule2);border-radius:8px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">avoid in this message</div>
+    <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;line-height:1.6">broad market narrative<br>generic "great meeting" opener<br>exclamation marks<br>follow-up without new signal</div>
+  </div>
+</div>
+
+<!-- Tone adjustment buttons -->
+<div style="display:flex;gap:6px;margin-bottom:14px">
+  <button class="btn-ghost tone-btn" data-tone="more-technical" style="font-size:9px">more technical</button>
+  <button class="btn-ghost tone-btn" data-tone="shorter" style="font-size:9px">shorter</button>
+  <button class="btn-ghost tone-btn" data-tone="warmer" style="font-size:9px">warmer</button>
+  <button class="btn-ghost tone-btn" data-tone="add-loom" style="font-size:9px">add CTO Loom offer</button>
+  <button class="btn-ghost tone-btn" data-tone="swap-coffee" style="font-size:9px">swap for coffee ask</button>
+</div>
+
+<!-- Action buttons -->
+<div style="display:flex;gap:8px;align-items:center">
+  <button class="btn-ul-g" id="emailSend" style="font-size:10px">send</button>
+  <button class="btn-ul" id="emailSchedule" style="font-size:9px">schedule for tomorrow 9am</button>
+  <button class="btn-ghost" style="font-size:9px">save draft</button>
+  <button class="btn-ghost" style="font-size:9px" onclick="OKAERI.goBack()">cancel</button>
+</div>
+
+<script>
+(function(){
+  var body = document.getElementById('emailBody');
+  var sendBtn = document.getElementById('emailSend');
+  var schedBtn = document.getElementById('emailSchedule');
+
+  var originalText = 'Sarah \u2014 great meeting today. Given your questions on defensibility, the most useful follow-up may be a short CTO walkthrough of the architecture choices behind the product and why they strengthen the data moat over time. Happy to send that if useful.';
+
+  var toneVariants = {
+    'more-technical': 'Sarah \u2014 following up on today\u2019s conversation. I\u2019d like to send over a brief architecture walkthrough covering the voice workflow layer\u2019s event-driven pipeline, the commitment graph data model, and why the compound learning rate accelerates with each integration. The technical differentiation is in the execution layer, not the model \u2014 happy to walk through the specifics if useful.',
+    'shorter': 'Sarah \u2014 great meeting. Can I send a short architecture walkthrough? I think it speaks directly to the defensibility question.',
+    'warmer': 'Sarah \u2014 really enjoyed today\u2019s conversation. Your questions on defensibility were sharp and got me thinking. I\u2019d love to send over a short CTO walkthrough of the architecture choices \u2014 I think you\u2019d find the data moat angle genuinely interesting. Let me know if that\u2019d be useful.',
+    'add-loom': 'Sarah \u2014 great meeting today. Given your questions on defensibility, the most useful follow-up may be a short CTO walkthrough of the architecture choices behind the product and why they strengthen the data moat over time. Our CTO recorded a 5-minute Loom walking through the core architecture \u2014 happy to send that over if useful.',
+    'swap-coffee': 'Sarah \u2014 great meeting today. One thing that may be useful as you think about it: I\u2019d love to grab coffee and walk through the architecture behind the voice workflow layer and why it compounds with usage over time. Free Thursday or Friday?'
+  };
+
+  function showToast(msg){
+    var existing = document.getElementById('okaeri-toast');
+    if(existing) existing.remove();
+    var t = document.createElement('div');
+    t.id = 'okaeri-toast';
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity = '1'; });
+    setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); }, 300); }, 2000);
+  }
+
+  // Tone buttons
+  var toneBtns = document.querySelectorAll('.tone-btn');
+  toneBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var tone = btn.getAttribute('data-tone');
+      var variant = toneVariants[tone];
+      if(!variant || !body) return;
+
+      // Show regenerating state
+      var origBodyVal = body.value;
+      body.style.opacity = '0.4';
+      body.value = 'regenerating...';
+      btn.style.opacity = '0.4';
+      btn.style.pointerEvents = 'none';
+
+      setTimeout(function(){
+        body.value = variant;
+        body.style.opacity = '1';
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = '';
+        showToast('tone adjusted \u00b7 ' + tone.replace('-', ' '));
+      }, 500);
+    });
+  });
+
+  // Send button
+  if(sendBtn){
+    sendBtn.addEventListener('click', function(){
+      showToast('sent to sarah rhodes');
+      sendBtn.disabled = true;
+      sendBtn.textContent = '\u2713 sent';
+      sendBtn.style.opacity = '0.6';
+      sendBtn.style.pointerEvents = 'none';
+    });
+  }
+
+  // Schedule button
+  if(schedBtn){
+    schedBtn.addEventListener('click', function(){
+      showToast('scheduled for tomorrow 9:00 am');
+      schedBtn.disabled = true;
+      schedBtn.textContent = '\u2713 scheduled';
+      schedBtn.style.opacity = '0.6';
+      schedBtn.style.pointerEvents = 'none';
+    });
+  }
+})();
+</script>

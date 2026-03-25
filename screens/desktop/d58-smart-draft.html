@@ -127,11 +127,12 @@
     });
   }
 
-  // "use this" button
+  // "use this" button — navigate to compose screen
   var btnUse = document.getElementById('btnUseDraft');
   if(btnUse){
     btnUse.addEventListener('click', function(){
-      showToast('draft saved · will send after your review');
+      showToast('draft saved · opening compose');
+      setTimeout(function(){ OKAERI.go('d73-email-compose'); }, 400);
     });
   }
 

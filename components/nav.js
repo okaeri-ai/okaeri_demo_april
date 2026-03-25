@@ -51,7 +51,8 @@
       { id: 'd56-meeting-steering', label: 'Meeting Steering' },
       { id: 'd57-meeting-score', label: 'Meeting Score' },
       { id: 'd60-benchmarking', label: 'Benchmarking' },
-      { id: 'd71-recovery', label: 'Recovery Plans' }
+      { id: 'd71-recovery', label: 'Recovery Plans' },
+      { id: 'd75-cross-meeting-search', label: 'Cross-Meeting Search' }
     ]},
     { section: 'Planning', items: [
       { id: 'd17-goals', label: 'Goals' },
@@ -84,11 +85,13 @@
       { id: 'd33-receipt-artifact', label: 'Commitment Receipt' },
       { id: 'd42-meeting-history', label: 'Meeting History' },
       { id: 'd53-outcomes', label: 'Outcome Proof' },
-      { id: 'd58-smart-draft', label: 'Smart Draft' }
+      { id: 'd58-smart-draft', label: 'Smart Draft' },
+      { id: 'd74-executed-artifacts', label: 'Executed Artifacts' }
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
-      { id: 'd07-voice-inbox', label: 'Voice Inbox' }
+      { id: 'd07-voice-inbox', label: 'Voice Inbox' },
+      { id: 'd73-email-compose', label: 'Compose' }
     ]},
     { section: 'System', items: [
       { id: 'd35-integrations', label: 'Integrations' },
@@ -110,7 +113,9 @@
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
       { id: 'm02-post-capture', label: 'Post-Capture' },
-      { id: 'm03-realtime-intel', label: 'Real-Time Intel' }
+      { id: 'm03-realtime-intel', label: 'Real-Time Intel' },
+      { id: 'm04-mobile-brief', label: 'Mobile Brief' },
+      { id: 'm05-mobile-debrief', label: 'Mobile Debrief' }
     ]},
     { section: 'Ambient', items: [
       { id: 'a01-menubar', label: 'Menu Bar' },
@@ -207,7 +212,12 @@
     'd69-playbooks': { text: '3 active', live: false },
     'd70-smart-scheduling': { text: '4 suggested', live: false },
     'd71-recovery': { text: '3 repairs', live: false },
-    'd72-crm-integration': { text: 'Salesforce', live: false }
+    'd72-crm-integration': { text: 'Salesforce', live: false },
+    'd73-email-compose': { text: 'drafting', live: false },
+    'd74-executed-artifacts': { text: '4 artifacts', live: false },
+    'd75-cross-meeting-search': { text: 'memory', live: false },
+    'm04-mobile-brief': { text: '12 min away', live: false },
+    'm05-mobile-debrief': { text: 'debrief ready', live: false }
   };
 
   // Build flat index of screen positions for directional transitions
