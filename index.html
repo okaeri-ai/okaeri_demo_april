@@ -475,6 +475,34 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
 }
 .theme-toggle:hover { color: var(--ink2); }
 
+/* ── Product Mode ── */
+body.product-mode .sidebar { display: none !important; }
+body.product-mode .main { width: 100%; }
+body.product-mode .mac-dots { display: none; }
+body.product-mode .wm { display: none; }
+body.product-mode .present-btn,
+body.product-mode .demo-btn,
+body.product-mode .theme-toggle,
+body.product-mode .view-btn { display: none !important; }
+body.product-mode .demo-indicator { display: none !important; }
+body.product-mode #titleRight { display: none !important; }
+body.product-mode .titlebar {
+  justify-content: space-between;
+  padding: 10px 24px;
+}
+body.product-mode .product-header { display: flex !important; width: 100%; align-items: center; justify-content: space-between; }
+body.product-mode .product-header-wm { font-size: 11px; font-weight: 200; color: var(--ink); letter-spacing: 0.35em; }
+body.product-mode .product-header-ctx { font-size: 10px; font-weight: 200; color: var(--ink3); letter-spacing: 0.25em; }
+body.product-mode .product-header-right { display: flex; align-items: center; gap: 10px; }
+body.product-mode .product-header-right .kbd-hint { font-size: 9px; font-weight: 200; color: var(--ink4); letter-spacing: 0.12em; }
+body.product-mode .product-exit-btn {
+  font-size: 9px; font-weight: 200; color: var(--ink3); letter-spacing: 0.18em;
+  background: none; border: 0.5px solid var(--rule); border-radius: 3px;
+  padding: 4px 10px; cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+body.product-mode .product-exit-btn:hover { color: var(--ink); border-color: var(--ink); }
+.product-header { display: none; }
+
 @media (max-width: 600px) {
   body::after {
     content: 'okaeri is designed for desktop';
@@ -508,6 +536,15 @@ body.presentation-mode .presentation-exit-bar { display: flex; }
         <button class="view-btn active" data-view="desktop">desktop</button>
         <button class="view-btn" data-view="mobile">mobile</button>
         <button class="view-btn" data-view="ambient">ambient</button>
+        <button class="view-btn" data-view="product">product</button>
+      </div>
+    </div>
+    <div class="product-header">
+      <span class="product-header-wm">okaeri</span>
+      <span class="product-header-ctx" id="productContext">morning · 9:32 am</span>
+      <div class="product-header-right">
+        <span class="kbd-hint">&#8984;K</span>
+        <button class="product-exit-btn" id="productExitBtn">back to prototype</button>
       </div>
     </div>
     <div class="tr" id="titleRight">

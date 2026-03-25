@@ -196,7 +196,8 @@
     'm02-post-capture': { text: '4 extracted', live: false },
     'm03-realtime-intel': { text: 'live intel', live: true },
     'a01-menubar': { text: 'listening', live: false },
-    'a02-widgets': { text: 'all clear', live: false }
+    'a02-widgets': { text: 'all clear', live: false },
+    'd00-product-view': { text: 'product', live: false }
   };
 
   // Build flat index of screen positions for directional transitions
@@ -344,6 +345,9 @@
       b.classList.toggle('active', b.dataset.view === view);
     });
 
+    // Toggle product mode class on body
+    document.body.classList.toggle('product-mode', view === 'product');
+
     if (view === 'mobile') {
       mainPanel.style.display = 'none';
       phoneFrame.style.display = 'flex';
@@ -353,6 +357,7 @@
       phoneFrame.style.display = 'none';
       ambientFrame.style.display = 'flex';
     } else {
+      // desktop and product both use mainPanel
       mainPanel.style.display = 'flex';
       phoneFrame.style.display = 'none';
       ambientFrame.style.display = 'none';
@@ -365,7 +370,9 @@
     // Auto-switch view
     if (type === 'mobile' && currentView !== 'mobile') setView('mobile');
     else if (type === 'ambient' && currentView !== 'ambient') setView('ambient');
-    else if (type === 'desktop' && currentView !== 'desktop') setView('desktop');
+    else if (screenId === 'd00-product-view' && currentView !== 'product') setView('product');
+    else if (type === 'desktop' && screenId !== 'd00-product-view' && currentView === 'product') setView('desktop');
+    else if (type === 'desktop' && currentView !== 'desktop' && currentView !== 'product') setView('desktop');
 
     // Track history
     if (window.OKAERI.currentScreen !== screenId) {
@@ -681,11 +688,21 @@
         const view = btn.dataset.view;
         setView(view);
         // Navigate to first screen of that type
-        if (view === 'mobile') navigate('m01-capture');
+        if (view === 'product') navigate('d00-product-view');
+        else if (view === 'mobile') navigate('m01-capture');
         else if (view === 'ambient') navigate('a01-menubar');
         else navigate(window.OKAERI.currentScreen.startsWith('d') ? window.OKAERI.currentScreen : 'd01-home');
       });
     });
+
+    // Product mode exit button
+    var productExitBtn = document.getElementById('productExitBtn');
+    if (productExitBtn) {
+      productExitBtn.addEventListener('click', function() {
+        setView('desktop');
+        navigate('d01-home');
+      });
+    }
 
     // Present button
     var presentBtn = document.getElementById('presentBtn');
