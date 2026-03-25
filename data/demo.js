@@ -420,7 +420,7 @@ OKAERI._useElevenLabs = false;
 
 // TTS Provider config (Smallest AI primary, ElevenLabs secondary)
 OKAERI._ttsKey = localStorage.getItem('okaeri_tts_key') || '';
-OKAERI._ttsVoice = localStorage.getItem('okaeri_tts_voice') || 'emily';
+OKAERI._ttsVoice = localStorage.getItem('okaeri_tts_voice') || 'sophia';
 OKAERI._ttsProvider = localStorage.getItem('okaeri_tts_provider') || 'smallest';
 
 // Check if TTS is configured
