@@ -420,6 +420,14 @@ OKAERI._useElevenLabs = false;
 
 // TTS Provider config (Smallest AI primary, ElevenLabs secondary)
 OKAERI._ttsKey = localStorage.getItem('okaeri_tts_key') || '';
+// Migrate old invalid voice IDs
+(function(){
+  var saved = localStorage.getItem('okaeri_tts_voice');
+  var invalid = ['emily','james','aria','sarah','charlotte'];
+  if (saved && invalid.indexOf(saved) !== -1) {
+    localStorage.setItem('okaeri_tts_voice', 'sophia');
+  }
+})();
 OKAERI._ttsVoice = localStorage.getItem('okaeri_tts_voice') || 'sophia';
 OKAERI._ttsProvider = localStorage.getItem('okaeri_tts_provider') || 'smallest';
 

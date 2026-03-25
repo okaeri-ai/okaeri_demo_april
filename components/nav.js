@@ -58,7 +58,9 @@
       { id: 'd19-eod-review', label: 'End of Day Review' },
       { id: 'd20-calendar', label: 'Calendar View' },
       { id: 'd21-calendar-defense', label: 'Calendar Defense' },
-      { id: 'd50-cadence', label: 'Operating Cadence' }
+      { id: 'd50-cadence', label: 'Operating Cadence' },
+      { id: 'd69-playbooks', label: 'Playbooks' },
+      { id: 'd70-smart-scheduling', label: 'Smart Scheduling' }
     ]},
     { section: 'Relationships', items: [
       { id: 'd22-relationship-health', label: 'Relationship Health' },
@@ -199,7 +201,9 @@
     'm03-realtime-intel': { text: 'live intel', live: true },
     'a01-menubar': { text: 'listening', live: false },
     'a02-widgets': { text: 'all clear', live: false },
-    'd00-product-view': { text: 'product', live: false }
+    'd00-product-view': { text: 'product', live: false },
+    'd69-playbooks': { text: '3 active', live: false },
+    'd70-smart-scheduling': { text: '4 suggested', live: false }
   };
 
   // Build flat index of screen positions for directional transitions
