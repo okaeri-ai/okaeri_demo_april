@@ -359,22 +359,88 @@ window.OKAERI = {
 };
 
 // ── Speech Synthesis ──
+OKAERI._speaking = false;
+OKAERI._currentUtterance = null;
+
 OKAERI.speak = function(text, options) {
   try {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
+    OKAERI._speaking = true;
+
     var utter = new SpeechSynthesisUtterance(text);
-    utter.rate = options && options.rate || 0.9;
-    utter.pitch = options && options.pitch || 1.0;
-    utter.volume = options && options.volume || 0.6;
+    utter.rate = options && options.rate || 0.95;
+    utter.pitch = options && options.pitch || 1.05;
+    utter.volume = options && options.volume || 0.7;
+
+    // Pick the most natural-sounding voice available
     var voices = speechSynthesis.getVoices();
-    var preferred = voices.find(function(v){ return v.name.indexOf('Samantha') !== -1; })
-      || voices.find(function(v){ return v.name.indexOf('Karen') !== -1; })
-      || voices.find(function(v){ return v.lang === 'en-US' && v.name.indexOf('Female') !== -1; })
-      || voices[0];
-    if(preferred) utter.voice = preferred;
+    var preferred = null;
+
+    // Priority order: most natural voices first
+    var naturalNames = [
+      'Zoe',           // macOS — very natural Australian
+      'Ava',           // macOS — natural US female
+      'Joana',         // macOS — natural
+      'Google UK English Female',  // Chrome — natural
+      'Google US English',         // Chrome — natural
+      'Microsoft Aria', // Edge — natural
+      'Microsoft Jenny', // Edge — natural
+      'Samantha',      // macOS fallback — decent
+      'Karen',         // macOS fallback
+    ];
+
+    for (var i = 0; i < naturalNames.length; i++) {
+      preferred = voices.find(function(v) { return v.name.indexOf(naturalNames[i]) !== -1; });
+      if (preferred) break;
+    }
+
+    // If none matched, try any en-US voice
+    if (!preferred) {
+      preferred = voices.find(function(v) { return v.lang === 'en-US'; }) || voices[0];
+    }
+
+    if (preferred) utter.voice = preferred;
+
+    OKAERI._currentUtterance = utter;
+    utter.onend = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; };
+    utter.onerror = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; };
+
     window.speechSynthesis.speak(utter);
-  } catch(e) {}
+    if (options && options.onEnd) utter.onend = function() { OKAERI._speaking = false; OKAERI._currentUtterance = null; options.onEnd(); };
+  } catch(e) { OKAERI._speaking = false; }
+};
+
+OKAERI.pauseSpeech = function() {
+  if (window.speechSynthesis && speechSynthesis.speaking) {
+    speechSynthesis.pause();
+  }
+};
+
+OKAERI.resumeSpeech = function() {
+  if (window.speechSynthesis && speechSynthesis.paused) {
+    speechSynthesis.resume();
+  }
+};
+
+OKAERI.stopSpeech = function() {
+  if (window.speechSynthesis) {
+    speechSynthesis.cancel();
+  }
+  OKAERI._speaking = false;
+  OKAERI._currentUtterance = null;
+};
+
+OKAERI.toggleSpeech = function() {
+  if (!window.speechSynthesis) return;
+  if (speechSynthesis.paused) {
+    speechSynthesis.resume();
+    return 'playing';
+  } else if (speechSynthesis.speaking) {
+    speechSynthesis.pause();
+    return 'paused';
+  }
+  return 'idle';
 };
 
 // ── Notification Sounds (Web Audio API) ──

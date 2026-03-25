@@ -180,8 +180,30 @@
   // Play brief button
   var playBtn = document.getElementById('pvPlayBrief');
   if (playBtn) {
+    var pvPlaying = false, pvPaused = false;
+    var pvBriefText = "Two things need you today. First: send the Sequoia materials before 10am. Second: the Index outreach hold may be stale. Don't follow up with Alex yet — the bug fix is still unresolved.";
+    var pvPlaySvg = playBtn.querySelector('svg');
+    var pvPlayPath = '<path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/>';
+    var pvPauseBars = '<rect x="3" y="2" width="3" height="10" rx="0.5" fill="#888"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#888"/>';
     playBtn.addEventListener('click', function(){
-      if(window.OKAERI && OKAERI.speak) OKAERI.speak("Two things need you today. First: send the Sequoia materials before 10am. Second: the Index outreach hold may be stale. Don't follow up with Alex yet — the bug fix is still unresolved.");
+      if(pvPlaying && !pvPaused){
+        if(window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
+        pvPaused = true;
+        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPlayPath;
+      } else if(pvPaused){
+        if(window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
+        pvPaused = false;
+        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPauseBars;
+      } else {
+        pvPlaying = true; pvPaused = false;
+        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPauseBars;
+        if(window.OKAERI && OKAERI.speak) OKAERI.speak(pvBriefText, {
+          onEnd: function(){
+            pvPlaying = false; pvPaused = false;
+            if(pvPlaySvg) pvPlaySvg.innerHTML = pvPlayPath;
+          }
+        });
+      }
     });
   }
 })();

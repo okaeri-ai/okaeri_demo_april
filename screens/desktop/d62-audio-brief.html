@@ -103,27 +103,66 @@
 
   function stopPlaying() {
     playing = false;
+    isPaused = false;
     playIcon.style.display = '';
     stopIcon.style.display = 'none';
     playBtn.style.borderColor = 'var(--ink3)';
     clearInterval(progressInterval);
     statusEl.textContent = '';
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    if(window.OKAERI && OKAERI.stopSpeech) OKAERI.stopSpeech();
   }
 
+  var isPaused = false;
+  var pauseIcon = null;
+
   playBtn.addEventListener('click', function() {
-    if (playing) {
-      stopPlaying();
-      progress.style.width = '0%';
+    if (playing && !isPaused) {
+      // Currently playing → pause
+      if(window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
+      isPaused = true;
+      clearInterval(progressInterval);
+      playIcon.style.display = '';
+      stopIcon.style.display = 'none';
+      statusEl.textContent = 'paused';
       return;
     }
+    if (isPaused) {
+      // Currently paused → resume
+      if(window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
+      isPaused = false;
+      playIcon.style.display = 'none';
+      stopIcon.style.display = '';
+      statusEl.textContent = 'speaking...';
+      // Resume progress from current position
+      var currentWidth = parseFloat(progress.style.width) || 0;
+      var remaining = 30000 * (1 - currentWidth / 100);
+      var resumeStart = Date.now();
+      progressInterval = setInterval(function() {
+        var elapsed = Date.now() - resumeStart;
+        var pct = Math.min(currentWidth + (elapsed / 30000) * 100, 100);
+        progress.style.width = pct + '%';
+        if (pct >= 100) {
+          clearInterval(progressInterval);
+          stopPlaying();
+        }
+      }, 100);
+      return;
+    }
+    // Not playing → start
     playing = true;
+    isPaused = false;
     playIcon.style.display = 'none';
     stopIcon.style.display = '';
     playBtn.style.borderColor = 'var(--green)';
     startProgress(30000);
     if (window.OKAERI && window.OKAERI.speak) {
-      window.OKAERI.speak(briefText);
+      window.OKAERI.speak(briefText, {
+        onEnd: function() {
+          stopPlaying();
+          progress.style.width = '0%';
+          isPaused = false;
+        }
+      });
     }
   });
 

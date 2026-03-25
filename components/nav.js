@@ -365,6 +365,9 @@
   }
 
   async function navigate(screenId) {
+    // Stop any playing speech when navigating away
+    if (window.OKAERI && OKAERI.stopSpeech) OKAERI.stopSpeech();
+
     const type = getScreenType(screenId);
 
     // Auto-switch view
@@ -859,6 +862,12 @@
 
   // Export navigation functions
   window.OKAERI_NAV = { navigate, goBack, setView, buildSidebar, startDemo, stopDemo, toggleDemo, togglePresentation, toggleCollapse, toggleDarkMode };
+
+  // Preload voices (Chrome loads them async)
+  if (window.speechSynthesis) {
+    speechSynthesis.getVoices();
+    speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  }
 
   // Init when DOM ready
   if (document.readyState === 'loading') {

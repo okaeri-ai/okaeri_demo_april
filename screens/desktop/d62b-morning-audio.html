@@ -84,27 +84,54 @@
 
   var briefText = "Two things need you today. First: send the Sequoia materials before 10am — this was committed March 18 and hasn't been sent. Second: the Index Ventures outreach has been on hold for 6 weeks — the decision to wait may be stale now that metrics have improved. Don't follow up with Alex yet — the rate limit bug is still unresolved and outreach without concrete progress will underperform. Everything else is handled. Rate limit ticket created, pricing recap sent.";
 
+  var isPaused = false;
+  var playPath = '<path d="M1.5 1.5l9 5.5-9 5.5V1.5z" fill="#888"/>';
+  var pauseBars = '<rect x="3" y="2" width="3" height="10" rx="0.5" fill="#888"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#888"/>';
+
   playBtn.addEventListener('click', function(){
-    if(!playing){
-      playing = true;
-      playIcon.innerHTML = '<rect x="3" y="2" width="3" height="10" rx="0.5" fill="#888"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#888"/>';
-      if(window.OKAERI && OKAERI.speak) OKAERI.speak(briefText);
+    if(playing && !isPaused){
+      // Currently playing → pause
+      if(window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
+      isPaused = true;
+      playIcon.innerHTML = playPath;
+      if(timer){ clearInterval(timer); timer=null; }
+    } else if(isPaused){
+      // Currently paused → resume
+      if(window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
+      isPaused = false;
+      playIcon.innerHTML = pauseBars;
       timer = setInterval(function(){
         elapsed++;
         progress.style.width = Math.min(100, (elapsed/duration)*100) + '%';
         if(elapsed >= duration){
-          clearInterval(timer);
-          playing = false;
-          elapsed = 0;
+          clearInterval(timer); timer=null;
+          playing = false; isPaused = false; elapsed = 0;
           progress.style.width = '0%';
-          playIcon.innerHTML = '<path d="M1.5 1.5l9 5.5-9 5.5V1.5z" fill="#888"/>';
+          playIcon.innerHTML = playPath;
         }
       }, 1000);
     } else {
-      playing = false;
-      clearInterval(timer);
-      playIcon.innerHTML = '<path d="M1.5 1.5l9 5.5-9 5.5V1.5z" fill="#888"/>';
-      if(window.speechSynthesis) speechSynthesis.cancel();
+      // Not playing → start
+      playing = true; isPaused = false;
+      playIcon.innerHTML = pauseBars;
+      if(window.OKAERI && OKAERI.speak) OKAERI.speak(briefText, {
+        onEnd: function(){
+          clearInterval(timer); timer=null;
+          playing = false; isPaused = false; elapsed = 0;
+          progress.style.width = '0%';
+          playIcon.innerHTML = playPath;
+        }
+      });
+      timer = setInterval(function(){
+        elapsed++;
+        progress.style.width = Math.min(100, (elapsed/duration)*100) + '%';
+        if(elapsed >= duration){
+          clearInterval(timer); timer=null;
+          playing = false; isPaused = false; elapsed = 0;
+          progress.style.width = '0%';
+          playIcon.innerHTML = playPath;
+        }
+      }, 1000);
     }
   });
 })();

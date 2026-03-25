@@ -25,16 +25,22 @@
 
 <script>
 (function(){
-  var playing=false, timer=null, elapsed=0, total=38;
+  var isPlaying=false, isPaused=false, timer=null, elapsed=0, total=38;
+  var briefText="End of day, Jess. You executed 6 commitments today — clean day. Two items carrying forward: the Index Ventures outreach and the Resonance API configuration. Front-load those tomorrow morning. The Sequoia meeting went well — Sarah confirmed a second meeting. Overall execution rate holding at 97 percent.";
   window.toggleAudio19=function(){
     var playI=document.getElementById('play-icon-19'),
         pauseI=document.getElementById('pause-icon-19'),
         prog=document.getElementById('progress-19'),
         elSpan=document.getElementById('elapsed-19');
-    if(!playing){
-      playing=true;
+    if(isPlaying && !isPaused){
+      if(window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
+      isPaused=true;
+      playI.style.display='block'; pauseI.style.display='none';
+      if(timer){ clearInterval(timer); timer=null; }
+    } else if(isPaused){
+      if(window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
+      isPaused=false;
       playI.style.display='none'; pauseI.style.display='block';
-      if(window.OKAERI && OKAERI.speak) OKAERI.speak("End of day, Jess. You executed 6 commitments today — clean day. Two items carrying forward: the Index Ventures outreach and the Resonance API configuration. Front-load those tomorrow morning. The Sequoia meeting went well — Sarah confirmed a second meeting. Overall execution rate holding at 97 percent.");
       timer=setInterval(function(){
         elapsed++;
         var pct=Math.min((elapsed/total)*100,100);
@@ -42,17 +48,33 @@
         var m=Math.floor(elapsed/60), s=elapsed%60;
         elSpan.textContent=m+':'+(s<10?'0':'')+s;
         if(elapsed>=total){
-          clearInterval(timer); timer=null; playing=false; elapsed=0;
+          clearInterval(timer); timer=null; isPlaying=false; isPaused=false; elapsed=0;
           playI.style.display='block'; pauseI.style.display='none';
           prog.style.width='0%'; elSpan.textContent='0:00';
-          if(window.speechSynthesis) window.speechSynthesis.cancel();
         }
       },1000);
     } else {
-      playing=false;
-      clearInterval(timer); timer=null;
-      playI.style.display='block'; pauseI.style.display='none';
-      if(window.speechSynthesis) window.speechSynthesis.cancel();
+      isPlaying=true; isPaused=false;
+      playI.style.display='none'; pauseI.style.display='block';
+      if(window.OKAERI && OKAERI.speak) OKAERI.speak(briefText, {
+        onEnd: function(){
+          clearInterval(timer); timer=null; isPlaying=false; isPaused=false; elapsed=0;
+          playI.style.display='block'; pauseI.style.display='none';
+          prog.style.width='0%'; elSpan.textContent='0:00';
+        }
+      });
+      timer=setInterval(function(){
+        elapsed++;
+        var pct=Math.min((elapsed/total)*100,100);
+        prog.style.width=pct+'%';
+        var m=Math.floor(elapsed/60), s=elapsed%60;
+        elSpan.textContent=m+':'+(s<10?'0':'')+s;
+        if(elapsed>=total){
+          clearInterval(timer); timer=null; isPlaying=false; isPaused=false; elapsed=0;
+          playI.style.display='block'; pauseI.style.display='none';
+          prog.style.width='0%'; elSpan.textContent='0:00';
+        }
+      },1000);
     }
   };
 })();

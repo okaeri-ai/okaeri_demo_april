@@ -221,8 +221,18 @@
 (function(){
   var btn = document.getElementById('hearReadSarah');
   if(btn) btn.addEventListener('click', function(){
-    var readText = document.querySelector('.ok-read-t');
-    if(readText && window.OKAERI && OKAERI.speak) OKAERI.speak(readText.textContent);
+    if(window.speechSynthesis && speechSynthesis.speaking){
+      if(window.OKAERI && OKAERI.stopSpeech) OKAERI.stopSpeech();
+      btn.querySelector('svg').nextSibling.textContent = 'hear okaeri\'s read';
+    } else {
+      var readText = document.querySelector('.ok-read-t');
+      if(readText && window.OKAERI && OKAERI.speak){
+        OKAERI.speak(readText.textContent, {
+          onEnd: function(){ btn.querySelector('svg').nextSibling.textContent = 'hear okaeri\'s read'; }
+        });
+        btn.querySelector('svg').nextSibling.textContent = 'stop';
+      }
+    }
   });
 })();
 </script>
