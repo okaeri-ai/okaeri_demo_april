@@ -8,7 +8,7 @@ Okaeri is a voice-first execution engine for founders and operators. It captures
 
 **[okaeridemoapril.vercel.app](https://okaeridemoapril.vercel.app)**
 
-79 interactive screens. No build step. Pure HTML/CSS/JS.
+89 interactive screens. No build step. Pure HTML/CSS/JS.
 
 ## What It Does
 
@@ -36,16 +36,15 @@ Click **demo** in the toolbar to walk through the 5-screen core story:
 
 | Category | Screens | Highlights |
 |----------|---------|------------|
-| Core Loop | 10 | Home, live meeting, confirm & execute, all clear, execution log, failure handling |
-| Voice | 6 | Teach Okaeri, morning brief, pre-meeting brief, whisper guidance, spoken debrief |
-| Intelligence | 14 | Prep brief, ask okaeri (15 answers), attribution graph, change detection, contradiction detection, meeting steering, meeting score, intervention rules, dependencies, benchmarking, unified model |
-| Planning | 6 | Goals, morning/evening briefing, calendar, calendar defense, operating cadence |
+| Core Loop | 14 | Home, before & after, empty state, live meeting (2 variants), confirm & execute, debrief, all clear, execution log, transcript viewer, failure handling, recurring patterns, voice inbox |
+| Voice | 6 | Teach Okaeri, memory confirmed, morning brief, pre-meeting brief, whisper guidance, spoken debrief |
+| Intelligence | 24 | Prep brief (2 variants), 5 person profiles, ask okaeri, conflict detection, pattern detection, meeting quality, proactive suggestions, weekly digest, reasoning log, attribution graph, change detection, intervention rules, dependencies, unified model, meeting steering, meeting score, benchmarking, recovery plans |
+| Planning | 8 | Goals, morning/evening briefing, calendar, calendar defense, operating cadence, playbooks, smart scheduling |
 | Relationships | 2 | Relationship health with strategy cards, delegation view |
 | Team | 2 | Team view, team admin |
-| Profiles | 5 | Sarah Rhodes, Michael Kim, Marcus Chen, Priya Rajan, James Wu |
 | Documents | 4 | Knowledge base, vocabulary, templates, bundles |
-| Artifacts | 5 | Lifecycle, meeting brief, investor update, receipt, smart draft |
-| System | 11 | Integrations, earned autonomy, onboarding, notifications, search, learning history, settings, privacy, style learning, continuity, how Okaeri works |
+| Artifacts | 7 | Commitment lifecycle, meeting brief, investor update, receipt, meeting history, outcome proof, smart draft |
+| System | 15 | Integrations, earned autonomy, onboarding, notifications, search, learning history, settings, style learning, continuity, privacy, ambient mode, how Okaeri works, week 1 progression, error states, CRM integration |
 | Inbox | 2 | Email triage, voice inbox |
 | Mobile | 3 | Capture (live mic), post-capture, real-time intel |
 | Ambient | 2 | Menu bar, desktop widgets |
@@ -56,8 +55,8 @@ Click **demo** in the toolbar to walk through the 5-screen core story:
 - **Presentation mode** — full-screen, enlarged typography (Cmd+Shift+P)
 - **Dark mode** — full dark theme (Ctrl+Shift+D)
 - **Keyboard shortcuts** — Cmd+K search, Escape back, Enter execute, ? help
-- **Collapsible sidebar** — 79 screens organized, most sections collapsed by default
-- **Audio** — Web Speech API for briefings, debriefs, and profile reads; Web Audio API for execution sounds
+- **Collapsible sidebar** — 89 screens organized, most sections collapsed by default
+- **Audio** — Smallest AI TTS (primary) + ElevenLabs (secondary) + Web Speech API fallback for briefings, debriefs, and profile reads; Web Audio API for execution sounds
 - **Live microphone** — mobile capture uses actual mic input for waveform visualization
 - **Cross-screen state** — executing on d04 updates home, all-clear, execution log, morning briefing, weekly digest, pattern detection
 - **Live simulation** — background timer generates events every 30-40 seconds
@@ -88,7 +87,7 @@ okaeri_demo_april/
 ├── components/nav.js       <- navigation, demo mode, keyboard shortcuts, dark mode
 ├── data/demo.js            <- shared state, sample data, speech/sound utilities
 ├── screens/
-│   ├── desktop/            <- 68 desktop screens
+│   ├── desktop/            <- 84 desktop screens
 │   ├── mobile/             <- 3 mobile screens (phone frame)
 │   └── ambient/            <- 2 ambient screens (widgets)
 ├── Dockerfile              <- Railway deployment (nginx)
@@ -106,4 +105,4 @@ okaeri_demo_april/
 
 ## Built With
 
-HTML, CSS, JavaScript. No frameworks. No build tools. No dependencies.
+HTML, CSS, JavaScript. No frameworks. No build tools. No dependencies. Voice: Smallest AI TTS (primary), ElevenLabs TTS (secondary), Web Speech API (fallback).

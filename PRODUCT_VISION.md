@@ -104,6 +104,12 @@ If the founder is unavailable for a week, 78% of operational tasks continue with
 ### 10. Operating Cadence Automation
 Recurring patterns become delegated rhythms: weekly investor update, sprint review, design partner check-ins — running autonomously with 0 edits needed.
 
+### 11. Operating Playbooks
+Structured, repeatable workflows for recurring operational scenarios — fundraise closes, design partner onboarding, sprint planning, incident response. Not generic templates: playbooks that adapt based on your operating history, team capacity, and relationship context. The system knows which playbook to trigger and when.
+
+### 12. Recovery Workflows
+When commitments slip, relationships cool, or execution fails, Okaeri doesn't just flag it — it generates structured recovery plans with prioritized steps, estimated timelines, and success criteria. Recovery is a first-class capability, not an afterthought.
+
 ## Market Position
 
 **Okaeri is not:**
@@ -114,6 +120,8 @@ Recurring patterns become delegated rhythms: weekly investor update, sprint revi
 
 **Okaeri is:**
 An execution layer that sits between conversation and action, learning how you operate and earning the right to act on your behalf.
+
+**On CRM specifically:** Okaeri integrates with your CRM — it doesn't replace it. The CRM integration is an intelligence layer: meeting insights flow into Salesforce automatically, deal stages update based on commitment extraction, and relationship health syncs bidirectionally. Your CRM stays the system of record. Okaeri makes it accurate without the data entry.
 
 The closest analogy is a chief of staff who has spent a year working with you — they know what matters, who to follow up with, when to interrupt, and when to stay quiet.
 
@@ -139,6 +147,7 @@ The closest analogy is a chief of staff who has spent a year working with you �
 
 ### Voice Pipeline
 - Speech-to-text: Whisper or Deepgram
+- Text-to-speech: Smallest AI (primary), ElevenLabs (secondary), Web Speech API (fallback)
 - Speaker diarization: who said what
 - Voice signal analysis: conviction, hesitation, tension detection
 - Real-time processing: <2s latency for live steering
@@ -180,4 +189,4 @@ The closest analogy is a chief of staff who has spent a year working with you �
 
 ---
 
-*This document describes the product as prototyped. The interactive prototype at [okaeridemoapril.vercel.app](https://okaeridemoapril.vercel.app) demonstrates every feature described above across 79 screens.*
+*This document describes the product as prototyped. The interactive prototype at [okaeridemoapril.vercel.app](https://okaeridemoapril.vercel.app) demonstrates every feature described above across 89 screens.*

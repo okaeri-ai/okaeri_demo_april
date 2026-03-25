@@ -54,6 +54,16 @@ The before → during → after cycle that makes Okaeri useful from day one.
 **Why:** Transactional completion ("4 items done") doesn't build trust. Showing state changes ("memory updated, trust adjusted, watching for James's rollover") makes the system feel cumulative.
 **Connected to:** Cross-screen state persistence, morning briefing hydration.
 
+### Transcript Viewer
+**What:** Full meeting transcript with chapter markers, full-text search, share, and export. Chapters are auto-generated from topic shifts and key moments.
+**Why:** Transcripts are table stakes, but most tools dump a wall of text. Chapters make long meetings navigable. Search makes them retrievable. Share and export make them useful outside Okaeri.
+**Design decisions:**
+- Chapter markers generated from topic shifts, decisions, and commitment moments
+- Full-text search with highlighted results and jump-to navigation
+- Share generates a link with optional access controls
+- Export to PDF, Markdown, or plain text
+**Connected to:** Live meeting, commitment extraction, meeting history.
+
 ---
 
 ## Layer 2: Voice-First Identity
@@ -87,6 +97,11 @@ The features that make Okaeri feel like an executive assistant, not a dashboard.
 ### How Okaeri Works With You
 **What:** Observed operating style page showing learned communication preferences, meeting behavior, interruption thresholds, and learned phrases.
 **Why:** Transparency builds trust. Showing "here's what I learned about you" lets the user correct misunderstandings and verify the system is paying attention.
+
+### Smallest AI TTS Integration
+**What:** Production-quality text-to-speech using Smallest AI as the primary voice provider, ElevenLabs as secondary, and Web Speech API as fallback.
+**Why:** Voice-first means the voice has to sound good. Browser TTS is inconsistent across platforms. Smallest AI provides low-latency, natural-sounding voices. ElevenLabs provides premium quality for key moments. The three-tier fallback ensures voice always works.
+**Design decision:** Smallest AI for real-time briefings (low latency). ElevenLabs for high-fidelity moments (morning brief, debrief). Web Speech API as offline/fallback.
 
 ---
 
@@ -166,6 +181,38 @@ The features that make Okaeri irreplaceable.
 ### Institutional Memory
 **What:** 78% continuity coverage if the founder is unavailable.
 **Why:** If everything is in one person's head, the organization is fragile. Okaeri makes knowledge organizational.
+
+### Operating Playbooks
+**What:** Structured, repeatable workflows for recurring operational scenarios — fundraise closing, design partner onboarding, sprint planning, incident response.
+**Why:** Founders repeat the same operational patterns but never codify them. Playbooks turn tribal knowledge into executable sequences that adapt based on context, team capacity, and relationship history.
+**Design decisions:**
+- Playbooks are suggested based on detected patterns, not manually created
+- Each step can be auto-executed, confirmed, or manual depending on trust level
+- Playbooks adapt: if a team member is overloaded, steps get redistributed
+**Connected to:** Operating cadence, recurring patterns, earned autonomy.
+
+### Recovery Workflows
+**What:** Structured recovery plans when commitments slip, relationships cool, or execution fails. Prioritized steps with estimated timelines and success criteria.
+**Why:** Every tool flags problems. Few help you fix them. Recovery is a first-class workflow, not just a notification.
+**Design decisions:**
+- Recovery plans are generated with specific, actionable steps
+- Each step has an estimated timeline and success metric
+- Plans adapt based on the severity and type of failure
+**Connected to:** Relationship health, execution failure, pattern detection.
+
+### Smart Scheduling
+**What:** Calendar intelligence that considers meeting context, participant preferences, energy patterns, and strategic timing — not just availability.
+**Why:** "Find a free slot" is table stakes. Smart scheduling considers: is this person a morning or afternoon person? Is this meeting high-stakes enough to deserve your peak hours? Should this be batched with related meetings?
+**Connected to:** Calendar defense, operating cadence, relationship strategy.
+
+### CRM Integration
+**What:** Bidirectional sync between Okaeri and Salesforce. Meeting insights, deal stage updates, relationship health, and commitment tracking flow automatically.
+**Why:** CRM data entry is the tax founders hate most. Okaeri eliminates it — meetings update deals, commitments update next steps, relationship signals update health scores. The CRM stays the system of record; Okaeri makes it accurate.
+**Design decisions:**
+- Intelligence layer, not replacement — Okaeri enriches your CRM, doesn't compete with it
+- Bidirectional: CRM data informs prep briefs, meeting insights update CRM
+- Field mapping is configurable per deal stage and object type
+**Connected to:** Execution layer, relationship strategy, unified model.
 
 ---
 

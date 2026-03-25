@@ -164,7 +164,7 @@ Exact talk track for the 5-screen prototype demo. Use with the demo mode (click 
 
 > "That's the core loop. Before, during, after. Every meeting. Getting smarter every time. The execution rate goes from about 60% to 97%. That's 12+ hours per month of recovered founder time."
 
-> "The prototype has 79 screens showing every feature in depth. Happy to go deeper on trust, voice signals, relationship strategy, contradiction detection — whatever is most interesting to you."
+> "The prototype has 89 screens showing every feature in depth. Happy to go deeper on trust, voice signals, relationship strategy, playbooks, scheduling, transcript analysis — whatever is most interesting to you."
 
 ---
 
@@ -173,6 +173,11 @@ Exact talk track for the 5-screen prototype demo. Use with the demo mode (click 
 **Trust deep dive:** Navigate to #d36-earned-autonomy
 **Voice-first loop:** Navigate to #d61-teach-okaeri -> #d62-audio-brief -> #d63-whisper -> #d64-spoken-debrief
 **Moat features:** Navigate to #d46-attribution or #d47-change-detection
+**Transcript viewer:** Navigate to #d68-transcript — show chapters, search, share, and export
+**Operating playbooks:** Navigate to #d69-playbooks — structured workflows for recurring operations
+**Smart scheduling:** Navigate to #d70-smart-scheduling — context-aware calendar intelligence
+**Recovery workflows:** Navigate to #d71-recovery — structured plans when commitments slip
+**CRM integration:** Navigate to #d72-crm-integration — bidirectional Salesforce sync
 **Privacy:** Navigate to #d54-privacy
 **Outcomes:** Navigate to #d53-outcomes
 

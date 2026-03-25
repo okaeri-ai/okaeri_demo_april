@@ -58,6 +58,10 @@ Talk track for the interactive prototype demo. Each section maps to a specific s
 
 "The key is restraint. 72% of potential interventions are held back. It only speaks up when the meeting has a structural problem."
 
+**If they ask about CRM:** "Okaeri isn't replacing Salesforce — it's making it accurate without the data entry. Meeting insights flow into your CRM automatically. Deal stages update based on what was actually committed. Your CRM stays the system of record. Okaeri is the intelligence layer."
+
+**If they ask about repeatable workflows:** "We have operating playbooks — structured workflows for fundraise closes, partner onboarding, sprint planning. They're not generic templates. They adapt based on your team's capacity, your operating history, and relationship context."
+
 ---
 
 ## Confirm & Execute (60 seconds)
@@ -102,7 +106,7 @@ Talk track for the interactive prototype demo. Each section maps to a specific s
 
 **Screen:** d46-attribution (or d47-change-detection)
 
-"The moat isn't extraction — everyone can extract. The moat is three things:"
+"The moat isn't extraction — everyone can extract. The moat is four things:"
 
 "One: commitment attribution. Not 'Marcus committed.' But 'Jess suggested, Marcus committed with high conviction, nobody can block, and he completes 92% of similar tickets.'"
 
@@ -110,13 +114,15 @@ Talk track for the interactive prototype demo. Each section maps to a specific s
 
 "Three: the intervention model. During meetings, we catch structural failures in real time. But we hold back 72% of potential nudges. Knowing when NOT to speak is harder than knowing when to speak. That's the product."
 
+"Four: recovery workflows. When something slips — a commitment, a relationship, a deadline — Okaeri doesn't just flag it. It generates a structured recovery plan with prioritized steps. That's the difference between a monitoring tool and an operating system."
+
 ---
 
 ## The Ask (30 seconds)
 
 "We're raising $2M pre-seed to build the production voice pipeline and onboard our first 10 design partners. Resonance is already active. The execution rate improvement is real: 60% baseline to 97% with Okaeri. That's 12+ hours per month of recovered founder judgment time."
 
-"The prototype you just saw has 79 screens and demonstrates every feature I described. Happy to go deeper on any of them."
+"The prototype you just saw has 89 screens and demonstrates every feature I described — including operating playbooks, CRM integration, and recovery workflows. Happy to go deeper on any of them."
 
 ---
 

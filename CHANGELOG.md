@@ -183,10 +183,66 @@ The final product identity: memory you speak into, guidance you hear, behavior t
 
 ---
 
+## Phase 11: Table Stakes Tightening
+*86000f5*
+
+Filling the gaps that make a prototype feel like a product:
+
+- **Draft personalization** with relationship strategy notes shaping tone and content
+- **Memory reuse** across prep briefs, drafts, and suggestions
+- **d71 Recovery Plans**: structured recovery workflows when commitments slip or relationships cool
+- **d72 CRM Integration**: bidirectional Salesforce sync — meeting insights update deals, CRM data informs prep briefs
+- Unified relationship strategy: one object, four compression levels across all surfaces
+
+---
+
+## Phase 12: Operating Playbooks & Smart Scheduling
+*1235d49*
+
+Turning recurring operational patterns into executable workflows:
+
+- **d69 Playbooks**: structured workflows for fundraise closes, design partner onboarding, sprint planning, incident response
+- **d70 Smart Scheduling**: context-aware calendar intelligence — considers energy patterns, participant preferences, meeting stakes, and strategic timing
+- Voice cache fix for faster audio playback
+
+---
+
+## Phase 13: Transcript Viewer
+*fc340e3*
+
+- **d68 Transcript**: best-in-class transcript viewer with chapter markers, full-text search, share, and export
+- Chapters auto-generated from topic shifts, decisions, and commitment moments
+- Export to PDF, Markdown, or plain text
+
+---
+
+## Phase 14: Voice Provider Integration
+*af5455c, d270f13, ea89cb0, c9d1fb6*
+
+Production-quality voice with three-tier fallback:
+
+- **Smallest AI TTS** as primary voice provider (low latency, natural voices)
+- **ElevenLabs TTS** as secondary option for premium quality
+- **Web Speech API** as offline/fallback
+- Correct model endpoints, voice ID validation, and graceful degradation
+
+---
+
+## Phase 15: Dead Button Fixes
+*993fae8*
+
+23 interactions across 16 screens wired up:
+
+- All buttons, audio players, and navigation elements now functional
+- Voice note capture added to all person profiles (905295c)
+- Speech pause/resume support, natural voice selection, auto-stop on navigate (9ab4b40)
+
+---
+
 ## Current State
 
-**79 screens. 11 documents. One product thesis.**
+**89 screens. 14 documents. One product thesis.**
 
-The prototype demonstrates every feature described in the product vision across desktop, mobile, and ambient surfaces. It's deployed on Vercel and Railway, works offline-capable, and runs with zero dependencies.
+The prototype demonstrates every feature described in the product vision across desktop, mobile, and ambient surfaces — including operating playbooks, smart scheduling, recovery workflows, CRM integration, and a full transcript viewer. It's deployed on Vercel and Railway, works offline-capable, and runs with zero dependencies.
 
-Built in one session. Iterated through 3 product reviews. Every review made the product sharper.
+Built in one session. Iterated through 3 product reviews and 5 additional build phases. Every iteration made the product sharper.

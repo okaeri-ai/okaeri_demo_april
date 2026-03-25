@@ -6,7 +6,7 @@ What we're building, when, and why — organized by quarter with clear milestone
 
 ## Current State (March 2026)
 
-**Prototype:** 79 interactive screens demonstrating the full product vision
+**Prototype:** 89 interactive screens across 14+ documents demonstrating the full product vision
 **Design partner:** Resonance (active, monthly retainer)
 **Fundraise:** $2M pre-seed, Sequoia first meeting complete
 **Team:** 4 (Jess CEO, Marcus Engineering, Priya Sales/Ops, James BD)
@@ -81,8 +81,11 @@ What we're building, when, and why — organized by quarter with clear milestone
 - [ ] Intervention mode selector (silent/standard/high-touch)
 - [ ] Change detection across meetings
 - [ ] Weekly digest generation
+- [ ] Operating playbooks (fundraise close, partner onboarding, sprint planning)
+- [ ] Smart scheduling with context-aware slot selection
+- [ ] Recovery workflows for slipped commitments
 
-**Milestone:** Steering nudges lead to owner assignment in 80%+ of flagged cases.
+**Milestone:** Steering nudges lead to owner assignment in 80%+ of flagged cases. 3+ playbook templates active.
 
 ---
 
@@ -97,6 +100,7 @@ What we're building, when, and why — organized by quarter with clear milestone
 - [ ] Dependency mapping between commitments
 - [ ] Relationship strategy objects (response preferences, tactics)
 - [ ] Cross-artifact intelligence (meeting → CRM → email → calendar updates)
+- [ ] CRM integration: bidirectional Salesforce sync (meeting insights → deal updates, CRM data → prep briefs)
 
 **Milestone:** System detects 2+ real contradictions per month. Attribution graph active.
 
