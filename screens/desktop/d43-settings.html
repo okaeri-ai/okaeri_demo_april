@@ -167,20 +167,36 @@
     }
   }
 
-  // Save key
+  // Save key with validation
   var saveBtn = document.getElementById('saveElevenLabsKey');
   if (saveBtn) saveBtn.addEventListener('click', function(){
     var key = keyInput.value.trim();
-    if (window.OKAERI && OKAERI.setElevenLabsKey) {
-      OKAERI.setElevenLabsKey(key);
-      if (key) {
+    if (!key) {
+      if (window.OKAERI && OKAERI.setElevenLabsKey) OKAERI.setElevenLabsKey('');
+      statusEl.textContent = 'removed — using browser voice';
+      statusEl.style.color = 'var(--ink3)';
+      return;
+    }
+    // Validate key by making a test request
+    statusEl.textContent = 'validating...';
+    statusEl.style.color = 'var(--ink2)';
+    fetch('https://api.elevenlabs.io/v1/user', {
+      headers: { 'xi-api-key': key }
+    }).then(function(r){
+      if (r.ok) {
+        if (window.OKAERI && OKAERI.setElevenLabsKey) OKAERI.setElevenLabsKey(key);
         statusEl.textContent = 'connected';
         statusEl.style.color = 'var(--green)';
       } else {
-        statusEl.textContent = 'removed — using browser voice';
-        statusEl.style.color = 'var(--ink3)';
+        statusEl.textContent = 'invalid key — check and try again';
+        statusEl.style.color = 'var(--red,#c44)';
       }
-    }
+    }).catch(function(){
+      // Network error — save anyway (might work, could be CORS)
+      if (window.OKAERI && OKAERI.setElevenLabsKey) OKAERI.setElevenLabsKey(key);
+      statusEl.textContent = 'saved — could not validate (network)';
+      statusEl.style.color = 'var(--amber)';
+    });
   });
 
   // Voice selector → update voice ID

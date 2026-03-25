@@ -421,7 +421,7 @@ OKAERI._useElevenLabs = false;
 // ElevenLabs config
 OKAERI._elevenLabsKey = localStorage.getItem('okaeri_elevenlabs_key') || '';
 OKAERI._elevenLabsVoice = localStorage.getItem('okaeri_elevenlabs_voice') || 'EXAVITQu4vr4xnSDxMaL'; // "Sarah" — calm, natural female
-OKAERI._elevenLabsModel = 'eleven_turbo_v2_5';
+OKAERI._elevenLabsModel = 'eleven_multilingual_v2';
 
 // Check if ElevenLabs is configured
 OKAERI._useElevenLabs = !!OKAERI._elevenLabsKey;
@@ -458,31 +458,32 @@ OKAERI._speakElevenLabs = function(text, options) {
     OKAERI._speaking = true;
 
     var voiceId = OKAERI._elevenLabsVoice;
-    var url = 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId + '/stream';
+    var url = 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId;
 
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'xi-api-key': OKAERI._elevenLabsKey
+        'xi-api-key': OKAERI._elevenLabsKey,
+        'Accept': 'audio/mpeg'
       },
       body: JSON.stringify({
         text: text,
         model_id: OKAERI._elevenLabsModel,
         voice_settings: {
           stability: 0.5,
-          similarity_boost: 0.75,
-          style: 0.3,
-          use_speaker_boost: true
+          similarity_boost: 0.75
         }
       })
     })
     .then(function(response) {
       if (!response.ok) {
-        console.warn('ElevenLabs API error, falling back to Web Speech');
-        OKAERI._speaking = false;
-        OKAERI._speakWebSpeech(text, options);
-        return null;
+        return response.text().then(function(errText) {
+          console.warn('ElevenLabs API error (' + response.status + '):', errText);
+          OKAERI._speaking = false;
+          OKAERI._speakWebSpeech(text, options);
+          return null;
+        });
       }
       return response.blob();
     })
