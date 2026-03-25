@@ -15,6 +15,7 @@
       { id: 'd04b-debrief', label: 'Meeting Debrief' },
       { id: 'd05-all-clear', label: 'All Clear' },
       { id: 'd06-execution-log', label: 'Execution Log' },
+      { id: 'd68-transcript', label: 'Transcript' },
       { id: 'd40-execution-failure', label: 'Execution Failure' },
       { id: 'd45-recurring', label: 'Recurring Patterns' },
       { id: 'd07-voice-inbox', label: 'Voice Inbox' }
@@ -187,6 +188,7 @@
     'd65-how-okaeri-works': { text: 'your style', live: false },
     'd66-week-later': { text: 'day 7', live: false },
     'd67-error-states': { text: 'edge cases', live: false },
+    'd68-transcript': { text: '7 chapters', live: false },
     'd61b-memory-confirmed': { text: 'saved', live: false },
     'd62b-morning-audio': { text: 'morning', live: false },
     'd10b-marcus-profile': { text: '92% rate', live: false },

@@ -1,0 +1,404 @@
+<div style="display:flex;flex-direction:column;height:100%">
+  <!-- Search + export bar -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+    <div style="flex:1;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--rule);padding-bottom:8px">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="#bbb" stroke-width=".8"/><path d="M9 9L11.5 11.5" stroke="#bbb" stroke-width=".8" stroke-linecap="round"/></svg>
+      <input type="text" id="txSearch" placeholder="search transcript... try 'rate limit bug' or 'what did James commit to?'" style="flex:1;font-size:12px;font-weight:200;color:var(--ink);letter-spacing:0.03em;border:none;background:none;outline:none;font-family:inherit">
+    </div>
+    <div style="display:flex;gap:6px;position:relative">
+      <button class="btn-ul" id="txExportBtn" style="font-size:9px">export &#9662;</button>
+    </div>
+  </div>
+
+  <!-- Highlight filters -->
+  <div style="display:flex;gap:6px;margin-bottom:12px" id="txFilters">
+    <button class="tx-filter active" data-filter="all" style="font-size:9px;font-weight:200;letter-spacing:0.18em;border:0.5px solid var(--ink);color:var(--ink);border-radius:2px;padding:2px 8px;cursor:pointer;background:none;font-family:inherit">all</button>
+    <button class="tx-filter" data-filter="commitment" style="font-size:9px;font-weight:200;letter-spacing:0.18em;border:0.5px solid var(--rule);color:var(--ink3);border-radius:2px;padding:2px 8px;cursor:pointer;background:none;font-family:inherit">commitments</button>
+    <button class="tx-filter" data-filter="decision" style="font-size:9px;font-weight:200;letter-spacing:0.18em;border:0.5px solid var(--rule);color:var(--ink3);border-radius:2px;padding:2px 8px;cursor:pointer;background:none;font-family:inherit">decisions</button>
+    <button class="tx-filter" data-filter="signal" style="font-size:9px;font-weight:200;letter-spacing:0.18em;border:0.5px solid var(--rule);color:var(--ink3);border-radius:2px;padding:2px 8px;cursor:pointer;background:none;font-family:inherit">voice signals</button>
+    <button class="tx-filter" data-filter="contradiction" style="font-size:9px;font-weight:200;letter-spacing:0.18em;border:0.5px solid var(--rule);color:var(--ink3);border-radius:2px;padding:2px 8px;cursor:pointer;background:none;font-family:inherit">contradictions</button>
+  </div>
+
+  <!-- Main area: chapters + transcript -->
+  <div style="display:flex;flex:1;min-height:0;gap:16px">
+
+    <!-- Chapter sidebar (left, narrow) -->
+    <div id="txChapters" style="width:120px;flex-shrink:0;overflow-y:auto;border-right:0.5px solid var(--rule2);padding-right:12px">
+      <div class="tx-chapter active" data-chapter="ch1" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">0:00</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">opening</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch2" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">4:12</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Acme deal</div>
+        <div style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.12em">1 commit</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch3" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">12:30</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Andreessen</div>
+        <div style="font-size:8px;font-weight:200;color:var(--amber);letter-spacing:0.12em">1 commit · hesitation</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch4" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">18:02</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">pricing</div>
+        <div style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.12em">1 commit</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch5" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">22:10</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">sprint priority</div>
+        <div style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.12em">1 commit · 1 decision</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch6" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">31:00</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">GTM alignment</div>
+        <div style="font-size:8px;font-weight:200;color:var(--blue);letter-spacing:0.12em">1 decision</div>
+      </div>
+      <div class="tx-chapter" data-chapter="ch7" style="padding:8px 0;cursor:pointer">
+        <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">36:50</div>
+        <div style="font-size:10px;font-weight:300;color:var(--ink);letter-spacing:0.02em">wrap-up</div>
+      </div>
+    </div>
+
+    <!-- Transcript body (main scrollable area) -->
+    <div id="txBody" style="flex:1;overflow-y:auto;padding-right:8px">
+
+      <!-- Chapter 1: Opening -->
+      <div class="tx-section" data-chapter="ch1" id="ch1">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:8px">opening · 0:00–4:12</div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">0:12</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Alright, let's get into it. Three things on the agenda: Acme deal status, Andreessen follow-up timing, and sprint priorities. We've got 38 minutes.</div>
+        </div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">marcus</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">0:45</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Quick update before we start — the auth flow PR is done, just needs review. And I've been looking at the rate limit issue, it's worse than we thought.</div>
+        </div>
+      </div>
+
+      <!-- Chapter 2: Acme Deal -->
+      <div class="tx-section" data-chapter="ch2" id="ch2">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">acme deal · 4:12–12:30</div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">priya</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">4:12</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">The Acme deal is moving. They've reviewed the proposal and procurement is looking at the NDA. I think we're close — I'll update the stage in Salesforce today.</div>
+        </div>
+
+        <div class="tx-turn tx-highlight" data-type="commitment" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--green);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">priya</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">6:30</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">I'll send the pricing proposal recap to Slack sales channel today, end of day. Everyone needs to see the final numbers before the board call.</div>
+          <div style="margin-top:4px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:var(--gbg);border:0.5px solid var(--gs);border-radius:2px;padding:1px 6px">commitment extracted</span>
+            <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.12em">send → pricing recap → Slack #sales → @priya</span>
+          </div>
+        </div>
+
+        <div class="tx-turn tx-highlight" data-type="signal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--green);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">priya</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">8:15</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Honestly, I'm confident we close Acme this quarter. The procurement team is responsive and the technical evaluation went well.</div>
+          <div style="margin-top:4px"><span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:rgba(45,122,74,0.08);border-radius:2px;padding:1px 6px">voice signal: conviction high · auto-execute enabled</span></div>
+        </div>
+      </div>
+
+      <!-- Chapter 3: Andreessen Follow-up -->
+      <div class="tx-section" data-chapter="ch3" id="ch3">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">andreessen follow-up · 12:30–18:02</div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">12:30</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">What about the Andreessen follow-up? We said we'd get that scheduled.</div>
+        </div>
+
+        <div class="tx-turn tx-highlight" data-type="commitment" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--amber);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">james</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">12:48</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Yeah, we should follow up with Andreessen next week. I can own that, 30 minutes should be enough.</div>
+          <div style="margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:var(--gbg);border:0.5px solid var(--gs);border-radius:2px;padding:1px 6px">commitment extracted</span>
+            <span style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.12em">schedule → Andreessen follow-up → Calendar → @james</span>
+          </div>
+          <div style="margin-top:3px"><span style="font-size:8px;font-weight:200;color:var(--amber);letter-spacing:0.16em;background:rgba(200,135,74,0.08);border-radius:2px;padding:1px 6px">voice signal: hesitation detected · confidence lowered to medium</span></div>
+        </div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">14:02</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Next week works. Let's say Thursday if possible — we want it done before the weekend so momentum doesn't stall.</div>
+        </div>
+      </div>
+
+      <!-- Chapter 4: Pricing -->
+      <div class="tx-section" data-chapter="ch4" id="ch4">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">pricing discussion · 18:02–22:10</div>
+
+        <div class="tx-turn tx-highlight" data-type="commitment" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--green);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">priya</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">18:02</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">The Acme deal is close. I'll update the stage in Salesforce today and send them the recap.</div>
+          <div style="margin-top:4px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:var(--gbg);border:0.5px solid var(--gs);border-radius:2px;padding:1px 6px">commitment extracted</span>
+            <span style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.12em">update → Acme deal → Salesforce → @priya</span>
+          </div>
+        </div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">19:30</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Good. Make sure the pricing is clear in the recap — Sarah asked for ARR breakdown specifics before the Sequoia meeting.</div>
+        </div>
+      </div>
+
+      <!-- Chapter 5: Sprint Priority -->
+      <div class="tx-section" data-chapter="ch5" id="ch5">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">sprint priority · 22:10–31:00</div>
+
+        <div class="tx-turn tx-highlight" data-type="decision" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--ink);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">22:10</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Let's ship v1 with Linear and Slack only. We can expand post-launch based on design partner feedback from Resonance.</div>
+          <div style="margin-top:4px"><span style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.16em;background:var(--bg3);border-radius:2px;padding:1px 6px">decision: ship v1 with Linear + Slack only</span></div>
+        </div>
+
+        <div class="tx-turn tx-highlight" data-type="commitment" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--green);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">marcus</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">28:29</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">The rate limit bug needs to be P1. I'll take it, done before end of sprint.</div>
+          <div style="margin-top:4px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:var(--gbg);border:0.5px solid var(--gs);border-radius:2px;padding:1px 6px">commitment extracted</span>
+            <span style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.12em">create → API rate limit bug → Linear → @marcus</span>
+          </div>
+          <div style="margin-top:3px"><span style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.16em;background:rgba(45,122,74,0.08);border-radius:2px;padding:1px 6px">voice signal: conviction high · auto-execute enabled</span></div>
+        </div>
+      </div>
+
+      <!-- Chapter 6: GTM Alignment -->
+      <div class="tx-section" data-chapter="ch6" id="ch6">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">GTM alignment · 31:00–36:50</div>
+
+        <div class="tx-turn tx-highlight" data-type="decision" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--ink);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">31:15</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Enterprise-first is the right sequence. We need org workflow data to compound the moat before we even think about PLG.</div>
+          <div style="margin-top:4px"><span style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.16em;background:var(--bg3);border-radius:2px;padding:1px 6px">decision: enterprise-first GTM</span></div>
+        </div>
+
+        <div class="tx-turn tx-highlight" data-type="contradiction" style="padding:6px 0;border-bottom:0.5px solid var(--rule2);border-left:2px solid var(--blue);padding-left:10px;margin-left:-10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">marcus</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">33:40</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">That aligns with what Resonance needs too. Though I wonder if we should keep a lightweight self-serve path open for developer adoption.</div>
+          <div style="margin-top:4px"><span style="font-size:8px;font-weight:200;color:var(--blue);letter-spacing:0.16em;background:rgba(24,95,165,0.08);border-radius:2px;padding:1px 6px">contradiction note: PLG was discussed on Mar 14. This reaffirms enterprise-first but introduces ambiguity.</span></div>
+        </div>
+      </div>
+
+      <!-- Chapter 7: Wrap-up -->
+      <div class="tx-section" data-chapter="ch7" id="ch7">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin:14px 0 8px">wrap-up · 36:50–38:00</div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">jess</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">36:50</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">Alright, good meeting. Priya handles Acme and the pricing recap. James schedules the Andreessen call. Marcus takes the rate limit bug as P1. We're enterprise-first. Anything else?</div>
+        </div>
+
+        <div class="tx-turn" data-type="normal" style="padding:6px 0">
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;text-transform:uppercase">marcus</span><span style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">37:30</span></div>
+          <div class="tx-text" style="font-size:12px;font-weight:300;color:var(--ink);line-height:1.6;letter-spacing:0.02em">All good. I'll have the bug fixed before the Resonance call on Tuesday.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline bar at bottom -->
+  <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--rule)">
+    <div style="position:relative;height:16px;background:var(--bg2);border-radius:2px;cursor:pointer" id="txTimeline">
+      <!-- Moment markers -->
+      <div style="position:absolute;left:11%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--ink3)" title="opening"></div>
+      <div style="position:absolute;left:17%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--green)" title="Priya: pricing recap commitment"></div>
+      <div style="position:absolute;left:33%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--amber)" title="James: Andreessen commitment (hesitation)"></div>
+      <div style="position:absolute;left:47%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--green)" title="Priya: Acme update commitment"></div>
+      <div style="position:absolute;left:58%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--ink)" title="Decision: ship v1 Linear+Slack"></div>
+      <div style="position:absolute;left:75%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--green)" title="Marcus: rate limit bug commitment"></div>
+      <div style="position:absolute;left:82%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--blue)" title="GTM decision reaffirmed"></div>
+      <div style="position:absolute;left:88%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--blue)" title="Contradiction: PLG ambiguity"></div>
+      <div style="position:absolute;left:97%;top:3px;width:4px;height:4px;border-radius:50%;background:var(--ink3)" title="wrap-up"></div>
+      <!-- Time labels -->
+      <div style="position:absolute;bottom:-12px;left:0;font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.1em">0:00</div>
+      <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.1em">19:00</div>
+      <div style="position:absolute;bottom:-12px;right:0;font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.1em">38:00</div>
+    </div>
+  </div>
+</div>
+
+<!-- Select-to-share popup (hidden, shown on text selection) -->
+<div id="txSharePopup" style="display:none;position:fixed;background:var(--bg);border:0.5px solid var(--rule);border-radius:6px;padding:6px;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+  <div style="display:flex;gap:4px">
+    <button class="tx-share-btn" data-action="copy" style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit">copy</button>
+    <button class="tx-share-btn" data-action="slack" style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit">slack</button>
+    <button class="tx-share-btn" data-action="email" style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit">email</button>
+    <button class="tx-share-btn" data-action="prep" style="font-size:8px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit">add to prep</button>
+    <button class="tx-share-btn" data-action="commit" style="font-size:8px;font-weight:200;color:var(--green);letter-spacing:0.14em;background:none;border:0.5px solid var(--gs);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit">create commitment</button>
+  </div>
+</div>
+
+<!-- Export dropdown (hidden) -->
+<div id="txExportMenu" style="display:none;position:absolute;right:40px;top:50px;background:var(--bg);border:0.5px solid var(--rule);border-radius:6px;padding:4px;z-index:50">
+  <div class="tx-export-opt" data-export="full" style="padding:5px 10px;font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer;border-radius:3px">full transcript</div>
+  <div class="tx-export-opt" data-export="commitments" style="padding:5px 10px;font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer;border-radius:3px">commitments only</div>
+  <div class="tx-export-opt" data-export="decisions" style="padding:5px 10px;font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer;border-radius:3px">decisions only</div>
+  <div class="tx-export-opt" data-export="moments" style="padding:5px 10px;font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer;border-radius:3px">key moments</div>
+  <div class="tx-export-opt" data-export="pdf" style="padding:5px 10px;font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.14em;cursor:pointer;border-radius:3px">download PDF</div>
+</div>
+
+<script>
+(function(){
+  var showToast = window.OKAERI && window.OKAERI.toast ? window.OKAERI.toast : function(msg){
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--ink);letter-spacing:0.14em;background:var(--bg);border:0.5px solid var(--rule);border-radius:4px;padding:6px 14px;z-index:100;opacity:0;transition:opacity 0.3s';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; });
+    setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+  };
+
+  // 1. CHAPTER NAVIGATION
+  document.querySelectorAll('.tx-chapter').forEach(function(ch){
+    ch.addEventListener('click', function(){
+      document.querySelectorAll('.tx-chapter').forEach(function(c){ c.classList.remove('active'); c.style.borderLeft=''; var label=c.querySelector('div:nth-child(2)'); if(label) label.style.color=''; });
+      ch.classList.add('active');
+      ch.style.borderLeft = '1.5px solid var(--ink)';
+      var label = ch.querySelector('div:nth-child(2)');
+      if(label) label.style.color = 'var(--ink)';
+      var target = document.getElementById(ch.dataset.chapter);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // 2. SEARCH
+  var searchInput = document.getElementById('txSearch');
+  if(searchInput) searchInput.addEventListener('input', function(){
+    var q = this.value.toLowerCase().trim();
+    document.querySelectorAll('.tx-turn').forEach(function(turn){
+      if(!q){ turn.style.display=''; turn.style.opacity=''; return; }
+      var text = turn.querySelector('.tx-text');
+      if(text && text.textContent.toLowerCase().indexOf(q) !== -1){
+        turn.style.display = '';
+        turn.style.opacity = '1';
+      } else {
+        turn.style.opacity = '0.15';
+      }
+    });
+  });
+
+  // 3. HIGHLIGHT FILTERS
+  document.querySelectorAll('.tx-filter').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tx-filter').forEach(function(b){ b.style.borderColor='var(--rule)'; b.style.color='var(--ink3)'; b.classList.remove('active'); });
+      btn.style.borderColor='var(--ink)'; btn.style.color='var(--ink)'; btn.classList.add('active');
+      var filter = btn.dataset.filter;
+      document.querySelectorAll('.tx-turn').forEach(function(turn){
+        if(filter === 'all'){ turn.style.display=''; return; }
+        turn.style.display = turn.dataset.type === filter ? '' : 'none';
+      });
+    });
+  });
+
+  // 4. SELECT-TO-SHARE
+  var popup = document.getElementById('txSharePopup');
+  var txBody = document.getElementById('txBody');
+  if(txBody && popup){
+    txBody.addEventListener('mouseup', function(e){
+      var sel = window.getSelection();
+      if(sel && sel.toString().trim().length > 5){
+        var range = sel.getRangeAt(0);
+        var rect = range.getBoundingClientRect();
+        popup.style.display = 'block';
+        popup.style.top = (rect.top - 40) + 'px';
+        popup.style.left = (rect.left + rect.width/2 - 120) + 'px';
+      } else {
+        popup.style.display = 'none';
+      }
+    });
+  }
+
+  document.querySelectorAll('.tx-share-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sel = window.getSelection().toString().trim();
+      var action = btn.dataset.action;
+      if(action === 'copy'){
+        navigator.clipboard.writeText(sel).catch(function(){});
+        showToast('copied to clipboard');
+      } else if(action === 'slack'){
+        showToast('sent to Slack');
+      } else if(action === 'email'){
+        showToast('added to email draft');
+      } else if(action === 'prep'){
+        showToast('added to next prep brief');
+      } else if(action === 'commit'){
+        showToast('commitment created from selection');
+      }
+      if(popup) popup.style.display = 'none';
+      window.getSelection().removeAllRanges();
+    });
+  });
+
+  // Hide popup on click outside
+  document.addEventListener('mousedown', function(e){
+    if(popup && !popup.contains(e.target)) popup.style.display = 'none';
+  });
+
+  // 5. EXPORT MENU
+  var exportBtn = document.getElementById('txExportBtn');
+  var exportMenu = document.getElementById('txExportMenu');
+  if(exportBtn && exportMenu){
+    exportBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      exportMenu.style.display = exportMenu.style.display === 'none' ? 'block' : 'none';
+    });
+  }
+  document.querySelectorAll('.tx-export-opt').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      var type = opt.dataset.export;
+      if(type === 'full') showToast('full transcript copied');
+      else if(type === 'commitments') showToast('4 commitments copied');
+      else if(type === 'decisions') showToast('2 decisions copied');
+      else if(type === 'moments') showToast('8 key moments copied');
+      else if(type === 'pdf') showToast('downloading PDF');
+      if(exportMenu) exportMenu.style.display = 'none';
+
+      // Copy content to clipboard for text exports
+      if(type !== 'pdf'){
+        var content = '';
+        if(type === 'commitments'){
+          document.querySelectorAll('.tx-turn[data-type="commitment"]').forEach(function(t){ var tx=t.querySelector('.tx-text'); if(tx) content += tx.textContent + '\n\n'; });
+        } else if(type === 'decisions'){
+          document.querySelectorAll('.tx-turn[data-type="decision"]').forEach(function(t){ var tx=t.querySelector('.tx-text'); if(tx) content += tx.textContent + '\n\n'; });
+        } else {
+          document.querySelectorAll('.tx-text').forEach(function(t){ content += t.textContent + '\n\n'; });
+        }
+        navigator.clipboard.writeText(content.trim()).catch(function(){});
+      }
+    });
+    // Hover effect
+    opt.addEventListener('mouseenter', function(){ opt.style.background='var(--bg2)'; });
+    opt.addEventListener('mouseleave', function(){ opt.style.background=''; });
+  });
+  document.addEventListener('click', function(){ if(exportMenu) exportMenu.style.display='none'; });
+
+  // Style active chapter on load
+  var activeChapter = document.querySelector('.tx-chapter.active');
+  if(activeChapter) activeChapter.style.borderLeft = '1.5px solid var(--ink)';
+
+  // Scroll spy: update active chapter based on scroll position
+  if(txBody){
+    txBody.addEventListener('scroll', function(){
+      var sections = document.querySelectorAll('.tx-section');
+      var current = null;
+      sections.forEach(function(s){
+        if(s.getBoundingClientRect().top < 200) current = s.dataset.chapter;
+      });
+      if(current){
+        document.querySelectorAll('.tx-chapter').forEach(function(c){
+          var isActive = c.dataset.chapter === current;
+          c.classList.toggle('active', isActive);
+          c.style.borderLeft = isActive ? '1.5px solid var(--ink)' : '';
+          var label = c.querySelector('div:nth-child(2)');
+          if(label) label.style.color = isActive ? 'var(--ink)' : '';
+        });
+      }
+    });
+  }
+})();
+</script>
