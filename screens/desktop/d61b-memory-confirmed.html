@@ -49,9 +49,23 @@
     </div>
 
     <div style="display:flex;justify-content:center;gap:10px;margin-top:12px">
-      <button class="btn-ghost" style="font-size:9px">edit classification</button>
-      <button class="btn-ghost" style="font-size:9px">pin this</button>
+      <button class="btn-ghost" style="font-size:9px" onclick="showToast('classification editor opened')">edit classification</button>
+      <button class="btn-ghost" style="font-size:9px" onclick="showToast('memory pinned to Sarah Rhodes')">pin this</button>
     </div>
 
   </div>
 </div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+</script>

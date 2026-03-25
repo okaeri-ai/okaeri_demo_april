@@ -1,3 +1,4 @@
+<div style="margin-bottom:12px"><button class="btn-ghost" onclick="OKAERI.goBack()" style="font-size:9px;letter-spacing:0.14em">&larr; back</button></div>
 <div class="eyebrow" style="margin-bottom:6px">execution status &middot; monitoring</div>
 <div class="ptitle">1 action needs attention</div>
 <div class="hr"></div>
@@ -49,8 +50,8 @@
       <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">you'll be asked to confirm manually</span>
     </div>
     <div style="display:flex;gap:16px;align-items:center">
-      <button class="btn-ul" style="color:var(--amber);border-bottom-color:var(--amber)">retry now</button>
-      <button class="btn-ghost">do it manually</button>
+      <button class="btn-ul" id="btnRetryNow" style="color:var(--amber);border-bottom-color:var(--amber)">retry now</button>
+      <button class="btn-ghost" id="btnDoManually">do it manually</button>
     </div>
   </div>
 </div>
@@ -70,3 +71,27 @@
 <div style="margin-top:20px;border:0.5px solid var(--rule2);border-radius:8px;padding:14px 18px">
   <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;line-height:1.6">3 of 4 actions completed. 1 queued for retry. Okaeri will notify you if manual intervention is needed.</div>
 </div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+(function(){
+  var retryBtn = document.getElementById('btnRetryNow');
+  if(retryBtn) retryBtn.addEventListener('click', function(){
+    showToast('retrying Salesforce update');
+  });
+  var manualBtn = document.getElementById('btnDoManually');
+  if(manualBtn) manualBtn.addEventListener('click', function(){
+    showToast('opened Salesforce — update manually');
+  });
+})();
+</script>

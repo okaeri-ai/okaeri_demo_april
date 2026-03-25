@@ -50,7 +50,7 @@
 <div style="display:flex;gap:8px;align-items:center">
   <button class="btn-ul-g" id="emailSend" style="font-size:10px">send</button>
   <button class="btn-ul" id="emailSchedule" style="font-size:9px">schedule for tomorrow 9am</button>
-  <button class="btn-ghost" style="font-size:9px">save draft</button>
+  <button class="btn-ghost" id="emailSaveDraft" style="font-size:9px">save draft</button>
   <button class="btn-ghost" style="font-size:9px" onclick="OKAERI.goBack()">cancel</button>
 </div>
 
@@ -126,6 +126,14 @@
       schedBtn.textContent = '\u2713 scheduled';
       schedBtn.style.opacity = '0.6';
       schedBtn.style.pointerEvents = 'none';
+    });
+  }
+
+  // Save draft button
+  var saveDraftBtn = document.getElementById('emailSaveDraft');
+  if(saveDraftBtn){
+    saveDraftBtn.addEventListener('click', function(){
+      showToast('draft saved');
     });
   }
 })();

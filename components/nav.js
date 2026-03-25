@@ -86,11 +86,11 @@
       { id: 'd42-meeting-history', label: 'Meeting History' },
       { id: 'd53-outcomes', label: 'Outcome Proof' },
       { id: 'd58-smart-draft', label: 'Smart Draft' },
-      { id: 'd74-executed-artifacts', label: 'Executed Artifacts' }
+      { id: 'd74-executed-artifacts', label: 'Executed Artifacts' },
+      { id: 'd76-weekly-roi', label: 'Weekly Impact' }
     ]},
     { section: 'Inbox', items: [
       { id: 'd34-email-triage', label: 'Email Triage' },
-      { id: 'd07-voice-inbox', label: 'Voice Inbox' },
       { id: 'd73-email-compose', label: 'Compose' }
     ]},
     { section: 'System', items: [
@@ -108,7 +108,8 @@
       { id: 'd65-how-okaeri-works', label: 'How Okaeri Works' },
       { id: 'd66-week-later', label: 'Week 1 Progression' },
       { id: 'd67-error-states', label: 'Error States' },
-      { id: 'd72-crm-integration', label: 'CRM Integration' }
+      { id: 'd72-crm-integration', label: 'CRM Integration' },
+      { id: 'd77-slack-preview', label: 'Slack Preview' }
     ]},
     { section: 'Mobile', items: [
       { id: 'm01-capture', label: 'Capture' },
@@ -216,6 +217,8 @@
     'd73-email-compose': { text: 'drafting', live: false },
     'd74-executed-artifacts': { text: '4 artifacts', live: false },
     'd75-cross-meeting-search': { text: 'memory', live: false },
+    'd76-weekly-roi': { text: '12.4 hrs saved', live: false },
+    'd77-slack-preview': { text: 'Slack', live: false },
     'm04-mobile-brief': { text: '12 min away', live: false },
     'm05-mobile-debrief': { text: 'debrief ready', live: false }
   };

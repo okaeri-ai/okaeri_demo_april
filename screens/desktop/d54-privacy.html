@@ -81,19 +81,19 @@
 <div style="padding:14px 0;border-bottom:0.5px solid var(--rule2)">
   <div style="font-size:12px;font-weight:200;color:var(--ink);letter-spacing:0.06em;margin-bottom:4px">Delete a specific meeting</div>
   <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em;line-height:1.5;margin-bottom:8px">All transcript, commitments, and extracted data from one meeting can be permanently deleted. Downstream state changes are preserved but source attribution is removed.</div>
-  <button class="btn-ghost">request deletion</button>
+  <button class="btn-ghost" onclick="showToast('deletion request submitted')">request deletion</button>
 </div>
 
 <div style="padding:14px 0;border-bottom:0.5px solid var(--rule2)">
   <div style="font-size:12px;font-weight:200;color:var(--ink);letter-spacing:0.06em;margin-bottom:4px">Delete a person's data</div>
   <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em;line-height:1.5;margin-bottom:8px">All data associated with a specific person (relationship history, attribution, voice patterns) can be purged.</div>
-  <button class="btn-ghost">request deletion</button>
+  <button class="btn-ghost" onclick="showToast('deletion request submitted')">request deletion</button>
 </div>
 
 <div style="padding:14px 0;border-bottom:0.5px solid var(--rule2)">
   <div style="font-size:12px;font-weight:200;color:var(--ink);letter-spacing:0.06em;margin-bottom:4px">Delete everything</div>
   <div style="font-size:11px;font-weight:300;color:var(--ink2);letter-spacing:0.02em;line-height:1.5;margin-bottom:8px">Full account reset. All data, all patterns, all learned preferences. Okaeri starts from zero.</div>
-  <button class="btn-ghost">request deletion</button>
+  <button class="btn-ghost" onclick="showToast('deletion request submitted')">request deletion</button>
 </div>
 
 <div class="hr"></div>
@@ -138,3 +138,17 @@
   <div class="narr-l">okaeri analysis</div>
   <div class="narr-t">Okaeri's approach to privacy is simple: you control the microphone, you control the data, and nothing is stored that you can't delete. Voice-first means trust-first. If participants don't consent, Okaeri doesn't listen. If you want something forgotten, it's forgotten. This isn't just a feature — it's the foundation of earned autonomy.</div>
 </div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+</script>
