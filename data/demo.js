@@ -418,68 +418,90 @@ OKAERI._currentUtterance = null;
 OKAERI._audioEl = null;
 OKAERI._useElevenLabs = false;
 
-// ElevenLabs config
-OKAERI._elevenLabsKey = localStorage.getItem('okaeri_elevenlabs_key') || '';
-OKAERI._elevenLabsVoice = localStorage.getItem('okaeri_elevenlabs_voice') || 'EXAVITQu4vr4xnSDxMaL'; // "Sarah" — calm, natural female
-OKAERI._elevenLabsModel = 'eleven_multilingual_v2';
+// TTS Provider config (Smallest AI primary, ElevenLabs secondary)
+OKAERI._ttsKey = localStorage.getItem('okaeri_tts_key') || '';
+OKAERI._ttsVoice = localStorage.getItem('okaeri_tts_voice') || 'emily';
+OKAERI._ttsProvider = localStorage.getItem('okaeri_tts_provider') || 'smallest';
 
-// Check if ElevenLabs is configured
-OKAERI._useElevenLabs = !!OKAERI._elevenLabsKey;
+// Check if TTS is configured
+OKAERI._useTTS = !!OKAERI._ttsKey;
 
-// Set ElevenLabs API key (called from settings UI)
-OKAERI.setElevenLabsKey = function(key) {
-  OKAERI._elevenLabsKey = key;
-  OKAERI._useElevenLabs = !!key;
+// Set TTS API key
+OKAERI.setTTSKey = function(key) {
+  OKAERI._ttsKey = key;
+  OKAERI._useTTS = !!key;
   if (key) {
-    localStorage.setItem('okaeri_elevenlabs_key', key);
+    localStorage.setItem('okaeri_tts_key', key);
   } else {
-    localStorage.removeItem('okaeri_elevenlabs_key');
+    localStorage.removeItem('okaeri_tts_key');
   }
 };
 
-OKAERI.setElevenLabsVoice = function(voiceId) {
-  OKAERI._elevenLabsVoice = voiceId;
-  localStorage.setItem('okaeri_elevenlabs_voice', voiceId);
+OKAERI.setTTSVoice = function(voiceId) {
+  OKAERI._ttsVoice = voiceId;
+  localStorage.setItem('okaeri_tts_voice', voiceId);
 };
+
+OKAERI.setTTSProvider = function(provider) {
+  OKAERI._ttsProvider = provider;
+  localStorage.setItem('okaeri_tts_provider', provider);
+};
+
+// Legacy aliases for settings screen compatibility
+OKAERI.setElevenLabsKey = OKAERI.setTTSKey;
+OKAERI.setElevenLabsVoice = OKAERI.setTTSVoice;
+OKAERI._elevenLabsKey = OKAERI._ttsKey;
 
 // ── Main speak function ──
 OKAERI.speak = function(text, options) {
-  if (OKAERI._useElevenLabs && OKAERI._elevenLabsKey) {
-    OKAERI._speakElevenLabs(text, options);
+  if (OKAERI._useTTS && OKAERI._ttsKey) {
+    OKAERI._speakAPI(text, options);
   } else {
     OKAERI._speakWebSpeech(text, options);
   }
 };
 
-// ── ElevenLabs TTS ──
-OKAERI._speakElevenLabs = function(text, options) {
+// ── API TTS (Smallest AI or ElevenLabs) ──
+OKAERI._speakAPI = function(text, options) {
   try {
     OKAERI.stopSpeech();
     OKAERI._speaking = true;
 
-    var voiceId = OKAERI._elevenLabsVoice;
-    var url = 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId;
+    var url, headers, body;
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
+    if (OKAERI._ttsProvider === 'elevenlabs') {
+      // ElevenLabs
+      url = 'https://api.elevenlabs.io/v1/text-to-speech/' + OKAERI._ttsVoice;
+      headers = {
         'Content-Type': 'application/json',
-        'xi-api-key': OKAERI._elevenLabsKey,
+        'xi-api-key': OKAERI._ttsKey,
         'Accept': 'audio/mpeg'
-      },
-      body: JSON.stringify({
+      };
+      body = JSON.stringify({
         text: text,
-        model_id: OKAERI._elevenLabsModel,
-        voice_settings: {
-          stability: 0.5,
-          similarity_boost: 0.75
-        }
-      })
-    })
+        model_id: 'eleven_multilingual_v2',
+        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+      });
+    } else {
+      // Smallest AI (default)
+      url = 'https://api.smallest.ai/waves/v1/lightning-v3.1/get_speech';
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + OKAERI._ttsKey
+      };
+      body = JSON.stringify({
+        text: text,
+        voice_id: OKAERI._ttsVoice,
+        sample_rate: 24000,
+        output_format: 'mp3'
+      });
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: body })
     .then(function(response) {
       if (!response.ok) {
         return response.text().then(function(errText) {
-          console.warn('ElevenLabs API error (' + response.status + '):', errText);
+          console.warn('TTS API error (' + response.status + '):', errText);
           OKAERI._speaking = false;
           OKAERI._speakWebSpeech(text, options);
           return null;
@@ -504,7 +526,6 @@ OKAERI._speakElevenLabs = function(text, options) {
         OKAERI._speaking = false;
         OKAERI._audioEl = null;
         URL.revokeObjectURL(audioUrl);
-        // Fall back to Web Speech
         OKAERI._speakWebSpeech(text, options);
       };
 
@@ -513,7 +534,8 @@ OKAERI._speakElevenLabs = function(text, options) {
         OKAERI._speakWebSpeech(text, options);
       });
     })
-    .catch(function() {
+    .catch(function(err) {
+      console.warn('TTS fetch error:', err);
       OKAERI._speaking = false;
       OKAERI._speakWebSpeech(text, options);
     });

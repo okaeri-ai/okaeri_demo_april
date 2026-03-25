@@ -82,17 +82,23 @@
 <div style="border:0.5px solid var(--rule2);border-radius:10px;overflow:hidden">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
     <div>
-      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">ElevenLabs API key</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Provider</div>
+    </div>
+    <div id="ttsProviderSelector" style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em;cursor:pointer;user-select:none">Smallest AI</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
+    <div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">API key</div>
       <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.12em;margin-top:2px">enables natural voice · stored locally only</div>
     </div>
     <div style="display:flex;gap:6px;align-items:center">
-      <input type="password" id="elevenLabsKeyInput" placeholder="sk_..." style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.03em;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:4px 0;font-family:inherit;outline:none;width:160px;text-align:right">
+      <input type="password" id="elevenLabsKeyInput" placeholder="sk_..." style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.03em;background:none;border:none;border-bottom:0.5px solid var(--rule);padding:4px 0;font-family:inherit;outline:none;width:180px;text-align:right">
       <button class="btn-ul" id="saveElevenLabsKey" style="font-size:9px">save</button>
     </div>
   </div>
   <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
     <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Voice</div>
-    <div id="voiceSelector" data-cycle="Sarah (calm),Rachel (warm),Aria (professional),Charlotte (natural)" style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em;cursor:pointer;user-select:none">Sarah (calm)</div>
+    <div id="voiceSelector" data-cycle="emily,magnus,sophia,james,aria" style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.08em;cursor:pointer;user-select:none">emily</div>
   </div>
   <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--rule2)">
     <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Status</div>
@@ -145,18 +151,39 @@
   });
 
   // ── Voice settings ──
-  var voiceIds = {
-    'Sarah (calm)': 'EXAVITQu4vr4xnSDxMaL',
-    'Rachel (warm)': '21m00Tcm4TlvDq8ikWAM',
-    'Aria (professional)': '9BWtsMINqrJLrRacOk9x',
-    'Charlotte (natural)': 'XB0fDUnXU5powFXDhCwa'
-  };
+  var providerSelector = document.getElementById('ttsProviderSelector');
+  var providers = ['Smallest AI', 'ElevenLabs'];
+  var providerKeys = { 'Smallest AI': 'smallest', 'ElevenLabs': 'elevenlabs' };
+  var providerIdx = 0;
+
+  // Load saved provider
+  if (window.OKAERI && OKAERI._ttsProvider === 'elevenlabs') {
+    providerIdx = 1;
+    providerSelector.textContent = 'ElevenLabs';
+  }
+
+  providerSelector.addEventListener('click', function() {
+    providerIdx = (providerIdx + 1) % providers.length;
+    providerSelector.textContent = providers[providerIdx];
+    if (window.OKAERI && OKAERI.setTTSProvider) {
+      OKAERI.setTTSProvider(providerKeys[providers[providerIdx]]);
+    }
+    // Update voice selector for the provider
+    var vs = document.getElementById('voiceSelector');
+    if (providerKeys[providers[providerIdx]] === 'elevenlabs') {
+      vs.setAttribute('data-cycle', 'Sarah,Rachel,Aria,Charlotte');
+      vs.textContent = 'Sarah';
+    } else {
+      vs.setAttribute('data-cycle', 'emily,magnus,sophia,james,aria');
+      vs.textContent = 'emily';
+    }
+  });
 
   // Load existing key
   var keyInput = document.getElementById('elevenLabsKeyInput');
   var statusEl = document.getElementById('voiceStatus');
   if (keyInput && window.OKAERI) {
-    var savedKey = OKAERI._elevenLabsKey || '';
+    var savedKey = OKAERI._ttsKey || '';
     if (savedKey) {
       keyInput.value = savedKey;
       statusEl.textContent = 'connected';
@@ -180,9 +207,22 @@
     // Validate key by making a test request
     statusEl.textContent = 'validating...';
     statusEl.style.color = 'var(--ink2)';
-    fetch('https://api.elevenlabs.io/v1/user', {
-      headers: { 'xi-api-key': key }
-    }).then(function(r){
+    var currentProvider = window.OKAERI && OKAERI._ttsProvider || 'smallest';
+    var testUrl, testHeaders;
+    if (currentProvider === 'elevenlabs') {
+      testUrl = 'https://api.elevenlabs.io/v1/user';
+      testHeaders = { 'xi-api-key': key };
+    } else {
+      // Smallest AI — just try a tiny TTS call
+      testUrl = 'https://api.smallest.ai/waves/v1/lightning-v3.1/get_speech';
+      testHeaders = { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' };
+    }
+    var fetchOpts = { headers: testHeaders };
+    if (currentProvider === 'smallest') {
+      fetchOpts.method = 'POST';
+      fetchOpts.body = JSON.stringify({ text: 'test', voice_id: 'emily', sample_rate: 24000, output_format: 'mp3' });
+    }
+    fetch(testUrl, fetchOpts).then(function(r){
       if (r.ok) {
         if (window.OKAERI && OKAERI.setElevenLabsKey) OKAERI.setElevenLabsKey(key);
         statusEl.textContent = 'connected';
@@ -201,11 +241,16 @@
 
   // Voice selector → update voice ID
   var voiceSel = document.getElementById('voiceSelector');
+  var elevenLabsVoiceMap = { 'Sarah': 'EXAVITQu4vr4xnSDxMaL', 'Rachel': '21m00Tcm4TlvDq8ikWAM', 'Aria': '9BWtsMINqrJLrRacOk9x', 'Charlotte': 'XB0fDUnXU5powFXDhCwa' };
   if (voiceSel) voiceSel.addEventListener('click', function(){
     var name = voiceSel.textContent.trim();
-    var id = voiceIds[name];
-    if (id && window.OKAERI && OKAERI.setElevenLabsVoice) {
-      OKAERI.setElevenLabsVoice(id);
+    var currentProvider = window.OKAERI && OKAERI._ttsProvider || 'smallest';
+    if (currentProvider === 'elevenlabs') {
+      var id = elevenLabsVoiceMap[name];
+      if (id && OKAERI.setTTSVoice) OKAERI.setTTSVoice(id);
+    } else {
+      // Smallest AI — voice_id is just the name lowercase
+      if (OKAERI.setTTSVoice) OKAERI.setTTSVoice(name.toLowerCase());
     }
   });
 
