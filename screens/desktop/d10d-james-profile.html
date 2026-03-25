@@ -63,6 +63,27 @@
   <div class="ok-read-t" style="color:var(--amber)">James commits clearly in meetings but has a significant rollover pattern — 38% of his commitments slip past their stated deadline. The Index Ventures outreach has been pushed three times and is now overdue. When James says 'next week,' Okaeri defaults to Thursday based on historical data, but flags it for confirmation. His strength is relationship scheduling; his weakness is cold outreach drafting. Consider pairing him with Priya on fundraise email tasks.</div>
 </div>
 
+<div style="margin-bottom:14px">
+  <div class="sl">operator notes</div>
+
+  <div id="jamesNotesContainer" style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+      <span style="font-size:8px;font-weight:200;color:var(--blue);letter-spacing:0.18em;background:var(--bbg);border-radius:2px;padding:1px 6px">fact</span>
+      <span style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em">you · Mar 24</span>
+    </div>
+    <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">38% rollover rate — strongest with Calendar, weakest with email drafts</div>
+  </div>
+
+  <div style="margin-top:12px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">add note</div>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="jamesNoteInput" placeholder="type what you want okaeri to remember..." style="flex:1;font-size:12px;font-weight:200;color:var(--ink);letter-spacing:0.03em;background:none;border:none;border-bottom:0.5px solid var(--rule);padding-bottom:6px;font-family:inherit;outline:none">
+      <button class="btn-ul" id="jamesNoteSave">save</button>
+      <button class="btn-ghost" id="jamesNoteMic" style="font-size:14px;padding:2px 6px" title="speak a note">&#x1F399;</button>
+    </div>
+  </div>
+</div>
+
 <div class="hr" style="margin-top:16px"></div>
 
 <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--ink3);letter-spacing:.13em;margin-bottom:16px">12 commitments · 89% execution · 30 days</div>
@@ -77,6 +98,88 @@
   else if (prev === 'd08-prep-brief') label = 'prep brief';
   bc.innerHTML = '← <span style="text-decoration:none">' + label + ' → james wu</span>';
   bc.addEventListener('click', function(){ OKAERI.goBack(); });
+})();
+(function(){
+  var saveBtn = document.getElementById('jamesNoteSave');
+  var noteInput = document.getElementById('jamesNoteInput');
+  var container = document.getElementById('jamesNotesContainer');
+  if(saveBtn && noteInput && container){
+    saveBtn.addEventListener('click', function(){
+      var text = noteInput.value.trim();
+      if(!text) return;
+      var row = document.createElement('div');
+      row.style.cssText = 'padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity 0.3s';
+      row.innerHTML = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="font-size:8px;font-weight:200;color:var(--blue);letter-spacing:0.18em;background:var(--bbg);border-radius:2px;padding:1px 6px">note</span><span style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.12em">you \u00b7 just now</span></div><div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">' + text.replace(/</g,'&lt;') + '</div>';
+      container.parentNode.insertBefore(row, container.nextSibling);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ row.style.opacity = '1'; }); });
+      noteInput.value = '';
+      var viaVoice = window._jamesVoiceNote ? ' via voice' : '';
+      window._jamesVoiceNote = false;
+      var existing = document.getElementById('okaeri-toast');
+      if (existing) existing.remove();
+      var t = document.createElement('div');
+      t.id = 'okaeri-toast';
+      t.textContent = 'saved to James Wu' + viaVoice;
+      t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+      document.body.appendChild(t);
+      requestAnimationFrame(function(){ t.style.opacity = '1'; });
+      setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); }, 300); }, 2000);
+    });
+  }
+})();
+(function(){
+  var micBtn = document.getElementById('jamesNoteMic');
+  var input = document.getElementById('jamesNoteInput');
+  var recognizing = false;
+  var recognition = null;
+
+  if (micBtn && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    micBtn.addEventListener('click', function() {
+      if (recognizing) {
+        recognition.stop();
+        recognizing = false;
+        micBtn.style.color = '';
+        return;
+      }
+      recognizing = true;
+      micBtn.style.color = 'var(--amber)';
+      input.placeholder = 'listening...';
+      input.value = '';
+      recognition.start();
+    });
+
+    recognition.onresult = function(event) {
+      var transcript = '';
+      for (var i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      input.value = transcript;
+    };
+
+    recognition.onend = function() {
+      recognizing = false;
+      micBtn.style.color = '';
+      input.placeholder = 'type what you want okaeri to remember...';
+      if (input.value.trim()) {
+        window._jamesVoiceNote = true;
+        document.getElementById('jamesNoteSave').click();
+      }
+    };
+
+    recognition.onerror = function() {
+      recognizing = false;
+      micBtn.style.color = '';
+      input.placeholder = 'type what you want okaeri to remember...';
+    };
+  } else if (micBtn) {
+    micBtn.style.display = 'none';
+  }
 })();
 (function(){
   var btn = document.getElementById('hearReadJames');
