@@ -13,7 +13,9 @@
   transition: all 0.15s;
 }
 .pv-time.active { border-color: var(--ink); color: var(--ink); }
-@keyframes livedot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.pv-row { padding: 6px 0; border-bottom: 0.5px solid var(--rule2); cursor: pointer; transition: opacity 0.15s; display: flex; align-items: center; justify-content: space-between; }
+.pv-row:hover { opacity: 0.55; }
+@keyframes livedot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.75)} }
 </style>
 
 <div style="max-width:480px;margin:0 auto">
@@ -30,9 +32,12 @@
   <div style="font-size:28px;font-weight:200;color:var(--ink);letter-spacing:-0.02em" data-clock>9:32</div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;margin-top:2px;margin-bottom:20px">good morning · monday, march 23</div>
 
-  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer" id="pvPlayBrief">
-    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
-    <div style="flex:1"><div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear your morning brief · 34 sec</div></div>
+  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer" id="pvPlayMorning">
+    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg id="pvMorningSvg" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
+    <div style="flex:1">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear your morning brief · 34 sec</div>
+      <div style="height:1.5px;background:var(--rule2);border-radius:1px;margin-top:4px"><div id="pvMorningProgress" style="height:100%;width:0%;background:var(--green);border-radius:1px;transition:width 0.5s linear"></div></div>
+    </div>
   </div>
 
   <div style="padding:14px 16px;border-left:3px solid var(--amber);margin-bottom:14px;background:rgba(255,179,0,0.05)">
@@ -43,13 +48,28 @@
   </div>
 
   <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:6px">also watching</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:6px 0;border-bottom:0.5px solid var(--rule2)">Index outreach overdue · <span style="color:var(--amber)">decision may be stale</span></div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:6px 0;border-bottom:0.5px solid var(--rule2)">Alex Chen cooling · <span style="color:var(--ink3)">wait for bug fix</span></div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:6px 0;border-bottom:0.5px solid var(--rule2)">Rate limit ticket · <span style="color:var(--green)">ready to auto-execute</span></div>
+  <div class="pv-row" onclick="OKAERI.go('d47-change-detection')">
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Index outreach overdue · <span style="color:var(--amber)">decision may be stale</span></span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">review</span>
+  </div>
+  <div class="pv-row" onclick="OKAERI.go('d22-relationship-health')">
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Alex Chen cooling · <span style="color:var(--ink3)">wait for bug fix</span></span>
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">view</span>
+  </div>
+  <div class="pv-row" id="pvAutoExec">
+    <span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Rate limit ticket · <span style="color:var(--green)">ready to auto-execute</span></span>
+    <button class="btn-ghost" style="font-size:9px;color:var(--green)" id="pvExecTicket">execute</button>
+  </div>
 
   <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-top:14px;margin-bottom:6px">upcoming</div>
-  <div style="font-size:12px;font-weight:300;color:var(--ink);padding:6px 0;border-bottom:0.5px solid var(--rule2)">10:00 am · Series A intro · Sequoia · <span style="color:var(--blue)">prep ready</span></div>
-  <div style="font-size:12px;font-weight:300;color:var(--ink);padding:6px 0;border-bottom:0.5px solid var(--rule2)">2:00 pm · Design partner call · Resonance · <span style="color:var(--blue)">prep ready</span></div>
+  <div class="pv-row" onclick="OKAERI.go('d08-prep-brief')">
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">10:00 am · Series A intro · Sequoia</span>
+    <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em">prep ready</span>
+  </div>
+  <div class="pv-row" onclick="OKAERI.go('d08b-prep-resonance')">
+    <span style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em">2:00 pm · Design partner · Resonance</span>
+    <span style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em">prep ready</span>
+  </div>
 </div>
 
 <!-- Pre-meeting -->
@@ -58,9 +78,12 @@
   <div style="font-size:24px;font-weight:200;color:var(--ink);letter-spacing:0.02em;margin-bottom:4px">Series A intro · Sequoia</div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;margin-bottom:16px">Sarah Rhodes · Michael Kim · 45 min · Google Meet</div>
 
-  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer">
-    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
-    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear brief · 30 sec</div>
+  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer" id="pvPlayPreMeeting">
+    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg id="pvPreMeetingSvg" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
+    <div style="flex:1">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear brief · 30 sec</div>
+      <div style="height:1.5px;background:var(--rule2);border-radius:1px;margin-top:4px"><div id="pvPreMeetingProgress" style="height:100%;width:0%;background:var(--green);border-radius:1px;transition:width 0.5s linear"></div></div>
+    </div>
   </div>
 
   <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--rule2)">
@@ -81,7 +104,10 @@
     <div style="font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em">Sarah backs technical founders. Lead with differentiator, not market story.</div>
   </div>
 
-  <button class="btn-ul-g" style="margin-top:14px" onclick="document.querySelector('[data-time=in-meeting]').click()">start recording</button>
+  <div style="display:flex;gap:10px;margin-top:14px">
+    <button class="btn-ul-g" onclick="document.querySelector('[data-time=in-meeting]').click()">start recording</button>
+    <button class="btn-ghost" onclick="OKAERI.go('d08-prep-brief')">full prep brief</button>
+  </div>
 </div>
 
 <!-- In-meeting -->
@@ -96,15 +122,25 @@
   <div style="padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:12px">
     <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">steering</div>
     <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:4px">&#9888; No explicit owner for API access follow-up</div>
-    <div style="font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic;padding:4px 8px;background:var(--bbg);border-radius:4px">"Who owns sending API credentials, and by when?"</div>
+    <div style="font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic;padding:4px 8px;background:var(--bbg);border-radius:4px;margin-bottom:6px">"Who owns sending API credentials, and by when?"</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn-ul" style="font-size:8px;letter-spacing:0.16em" id="pvSuggest">suggest</button>
+      <button class="btn-ghost" style="font-size:8px" id="pvHandled">handled</button>
+      <button class="btn-ghost" style="font-size:8px" id="pvHold">hold</button>
+    </div>
   </div>
 
-  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:6px">extracted · 3 so far</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">&#10003; Priya updates Acme deal in Salesforce</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">&#10003; James schedules Andreessen follow-up</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">&#10227; Marcus takes rate limit bug · P1</div>
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:6px">extracted · <span id="pvExtractCount">3</span> so far</div>
+  <div class="pv-row" style="cursor:default"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">&#10003; Priya updates Acme deal in Salesforce</span></div>
+  <div class="pv-row" style="cursor:default"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">&#10003; James schedules Andreessen follow-up</span></div>
+  <div class="pv-row" style="cursor:default"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">&#10227; Marcus takes rate limit bug · P1</span></div>
 
   <div style="margin-top:10px;font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em">&#9889; hesitation detected on James's timeline — confidence lowered</div>
+
+  <div style="display:flex;gap:10px;margin-top:14px;padding-top:10px;border-top:0.5px solid var(--rule2)">
+    <button class="btn-ul" id="pvEndMeeting">end meeting</button>
+    <button class="btn-ghost" onclick="OKAERI.go('d03-live-meeting')">full view</button>
+  </div>
 </div>
 
 <!-- End of day -->
@@ -112,9 +148,12 @@
   <div style="font-size:28px;font-weight:200;color:var(--ink);letter-spacing:-0.02em;margin-bottom:4px">end of day.</div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.18em;margin-bottom:16px">monday, march 23 · 6:12 pm</div>
 
-  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer">
-    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
-    <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear your day review · 22 sec</div>
+  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border-radius:8px;margin-bottom:16px;cursor:pointer" id="pvPlayEOD">
+    <div style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--ink2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg id="pvEODSvg" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/></svg></div>
+    <div style="flex:1">
+      <div style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">hear your day review · 22 sec</div>
+      <div style="height:1.5px;background:var(--rule2);border-radius:1px;margin-top:4px"><div id="pvEODProgress" style="height:100%;width:0%;background:var(--green);border-radius:1px;transition:width 0.5s linear"></div></div>
+    </div>
   </div>
 
   <div style="display:flex;gap:24px;margin-bottom:14px">
@@ -124,60 +163,27 @@
   </div>
 
   <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:6px">what changed today</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Sequoia second meeting confirmed — strong signal</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Resonance API access credentials sent by Marcus</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Calendar trust adjusted after rollback</div>
+  <div class="pv-row" onclick="OKAERI.go('d09-sarah-profile')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Sequoia second meeting confirmed — strong signal</span><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">sarah</span></div>
+  <div class="pv-row" onclick="OKAERI.go('d10b-marcus-profile')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Resonance API access credentials sent by Marcus</span><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">marcus</span></div>
+  <div class="pv-row" onclick="OKAERI.go('d36-earned-autonomy')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Calendar trust adjusted after rollback</span><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">trust</span></div>
 
   <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.36em;text-transform:uppercase;margin-top:10px;margin-bottom:6px">carrying forward</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Index Ventures outreach — still overdue</div>
+  <div class="pv-row" onclick="OKAERI.go('d47-change-detection')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Index Ventures outreach — still overdue</span><span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.14em">stale?</span></div>
 
   <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-top:10px;margin-bottom:6px">front-load tomorrow</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Send CTO Loom to Sarah — momentum window</div>
-  <div style="font-size:11px;font-weight:300;color:var(--ink);padding:5px 0;border-bottom:0.5px solid var(--rule2)">Resolve Index outreach hold — decision may be stale</div>
+  <div class="pv-row" onclick="OKAERI.go('d58-smart-draft')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Send CTO Loom to Sarah — momentum window</span><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">draft</span></div>
+  <div class="pv-row" onclick="OKAERI.go('d12-conflict-detection')"><span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Resolve Index outreach hold — decision may be stale</span><span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">resolve</span></div>
+
+  <div style="margin-top:14px;padding-top:10px;border-top:0.5px solid var(--rule2)">
+    <button class="btn-ghost" onclick="OKAERI.go('d19-eod-review')">full day review</button>
+  </div>
 </div>
 
 </div>
 
 <script>
 (function(){
-  var states = ['morning','pre-meeting','in-meeting','end-of-day'];
-  var containers = {
-    'morning': document.getElementById('pvMorning'),
-    'pre-meeting': document.getElementById('pvPreMeeting'),
-    'in-meeting': document.getElementById('pvInMeeting'),
-    'end-of-day': document.getElementById('pvEndOfDay')
-  };
-
-  document.querySelectorAll('.pv-time').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.pv-time').forEach(function(b){ b.classList.remove('active'); b.style.borderColor=''; b.style.color=''; });
-      btn.classList.add('active');
-      btn.style.borderColor='var(--ink)';
-      btn.style.color='var(--ink)';
-      var time = btn.dataset.time;
-      Object.keys(containers).forEach(function(k){ containers[k].style.display = k===time ? 'block' : 'none'; });
-
-      // Update titlebar context if in product mode
-      var contextMap = {
-        'morning': 'morning · 9:32 am',
-        'pre-meeting': 'pre-meeting · sequoia in 12 min',
-        'in-meeting': 'in meeting · Q2 sync',
-        'end-of-day': 'end of day · 6:12 pm'
-      };
-      var centerEl = document.getElementById('productContext');
-      if (centerEl) centerEl.textContent = contextMap[time] || 'product view';
-    });
-  });
-
-  // Timer for in-meeting state
-  var secs = 1114;
-  setInterval(function(){
-    secs++;
-    var el = document.getElementById('pvTimer');
-    if(el) el.textContent = Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
-  }, 1000);
-
-  // Send now button
+  // ── Toast ──
   function showToast(msg){
     var existing=document.getElementById('okaeri-toast');
     if(existing) existing.remove();
@@ -190,50 +196,108 @@
     setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
   }
 
-  var sendNow = document.getElementById('pvSendNow');
-  if(sendNow){
-    sendNow.addEventListener('click', function(){
-      showToast('materials sent to Sequoia');
-      sendNow.textContent = '\u2713 sent';
-      sendNow.disabled = true;
-      sendNow.style.pointerEvents = 'none';
-      var parentCard = sendNow.closest('div[style*="border-left"]');
-      if(parentCard) parentCard.style.opacity = '0.5';
-      var O = window.OKAERI = window.OKAERI || {};
-      O.executedCards = O.executedCards || [];
-      O.executedCards.push({verb:'send',obj:'materials to Sequoia',tool:'Email',time:new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).toLowerCase()});
-      O.totalExecuted = (O.totalExecuted || 0) + 1;
+  // ── State switching ──
+  var containers = {
+    'morning': document.getElementById('pvMorning'),
+    'pre-meeting': document.getElementById('pvPreMeeting'),
+    'in-meeting': document.getElementById('pvInMeeting'),
+    'end-of-day': document.getElementById('pvEndOfDay')
+  };
+  var contextMap = {
+    'morning': 'morning \u00b7 9:32 am',
+    'pre-meeting': 'pre-meeting \u00b7 sequoia in 12 min',
+    'in-meeting': 'in meeting \u00b7 Q2 sync',
+    'end-of-day': 'end of day \u00b7 6:12 pm'
+  };
+  document.querySelectorAll('.pv-time').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(window.OKAERI && OKAERI.stopSpeech) OKAERI.stopSpeech();
+      document.querySelectorAll('.pv-time').forEach(function(b){ b.classList.remove('active'); b.style.borderColor=''; b.style.color=''; });
+      btn.classList.add('active'); btn.style.borderColor='var(--ink)'; btn.style.color='var(--ink)';
+      var time = btn.dataset.time;
+      Object.keys(containers).forEach(function(k){ containers[k].style.display = k===time ? 'block' : 'none'; });
+      var centerEl = document.getElementById('productContext');
+      if(centerEl) centerEl.textContent = contextMap[time] || 'product view';
     });
-  }
+  });
 
-  // Play brief button
-  var playBtn = document.getElementById('pvPlayBrief');
-  if (playBtn) {
-    var pvPlaying = false, pvPaused = false;
-    var pvBriefText = "Two things need you today. First: send the Sequoia materials before 10am. Second: the Index outreach hold may be stale. Don't follow up with Alex yet — the bug fix is still unresolved.";
-    var pvPlaySvg = playBtn.querySelector('svg');
-    var pvPlayPath = '<path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/>';
-    var pvPauseBars = '<rect x="3" y="2" width="3" height="10" rx="0.5" fill="#888"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#888"/>';
-    playBtn.addEventListener('click', function(){
-      if(pvPlaying && !pvPaused){
+  // ── Audio player factory ──
+  var playPath = '<path d="M1.5 1.5l7 4.5-7 4.5V1.5z" fill="#888"/>';
+  var pauseBars = '<rect x="3" y="2" width="3" height="10" rx="0.5" fill="#888"/><rect x="8" y="2" width="3" height="10" rx="0.5" fill="#888"/>';
+
+  function wireAudioPlayer(btnId, svgId, progressId, text, duration){
+    var btn = document.getElementById(btnId);
+    var svg = document.getElementById(svgId);
+    var prog = document.getElementById(progressId);
+    if(!btn) return;
+    var playing = false, paused = false, elapsed = 0, timer = null;
+    function reset(){ playing=false; paused=false; elapsed=0; if(timer)clearInterval(timer); timer=null; if(prog)prog.style.width='0%'; if(svg)svg.innerHTML=playPath; }
+    btn.addEventListener('click', function(){
+      if(playing && !paused){
         if(window.OKAERI && OKAERI.pauseSpeech) OKAERI.pauseSpeech();
-        pvPaused = true;
-        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPlayPath;
-      } else if(pvPaused){
+        paused=true; if(svg)svg.innerHTML=playPath; if(timer)clearInterval(timer); timer=null;
+      } else if(paused){
         if(window.OKAERI && OKAERI.resumeSpeech) OKAERI.resumeSpeech();
-        pvPaused = false;
-        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPauseBars;
+        paused=false; if(svg)svg.innerHTML=pauseBars;
+        timer=setInterval(function(){ elapsed++; if(prog)prog.style.width=Math.min(100,(elapsed/duration)*100)+'%'; if(elapsed>=duration) reset(); },1000);
       } else {
-        pvPlaying = true; pvPaused = false;
-        if(pvPlaySvg) pvPlaySvg.innerHTML = pvPauseBars;
-        if(window.OKAERI && OKAERI.speak) OKAERI.speak(pvBriefText, {
-          onEnd: function(){
-            pvPlaying = false; pvPaused = false;
-            if(pvPlaySvg) pvPlaySvg.innerHTML = pvPlayPath;
-          }
-        });
+        playing=true; paused=false; if(svg)svg.innerHTML=pauseBars;
+        if(window.OKAERI && OKAERI.speak) OKAERI.speak(text, { onEnd: reset });
+        timer=setInterval(function(){ elapsed++; if(prog)prog.style.width=Math.min(100,(elapsed/duration)*100)+'%'; if(elapsed>=duration) reset(); },1000);
       }
     });
   }
+
+  wireAudioPlayer('pvPlayMorning','pvMorningSvg','pvMorningProgress',
+    "Two things need you today. First: send the Sequoia materials before 10am \u2014 this was committed March 18 and hasn't been sent. Second: the Index outreach hold may be stale. Don't follow up with Alex yet \u2014 the bug fix is still unresolved.", 34);
+
+  wireAudioPlayer('pvPlayPreMeeting','pvPreMeetingSvg','pvPreMeetingProgress',
+    "You're meeting Sarah Rhodes and Michael Kim from Sequoia in 12 minutes. Lead with technical differentiation. She already believes the voice-first thesis. Do not over-index on market narrative. If the meeting goes well, best next step is a short CTO Loom within 24 hours.", 30);
+
+  wireAudioPlayer('pvPlayEOD','pvEODSvg','pvEODProgress',
+    "End of day. You executed 6 commitments today. Sequoia second meeting confirmed \u2014 strong signal. Marcus sent API credentials to Resonance. Calendar trust adjusted after the rollback. One item carrying: Index Ventures outreach is still overdue. Front-load tomorrow: send the CTO Loom to Sarah while momentum is fresh.", 22);
+
+  // ── Timer ──
+  var secs = 1114;
+  setInterval(function(){ secs++; var el=document.getElementById('pvTimer'); if(el) el.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0'); },1000);
+
+  // ── Morning actions ──
+  var sendNow = document.getElementById('pvSendNow');
+  if(sendNow) sendNow.addEventListener('click', function(){
+    showToast('materials sent to Sequoia');
+    sendNow.textContent='\u2713 sent'; sendNow.disabled=true; sendNow.style.pointerEvents='none';
+    sendNow.closest('div[style*="border-left"]').style.opacity='0.5';
+    if(window.OKAERI){ OKAERI.executedCards=OKAERI.executedCards||[]; OKAERI.executedCards.push({verb:'send',obj:'materials to Sequoia',tool:'Email',time:'now'}); OKAERI.totalExecuted=(OKAERI.totalExecuted||0)+1; }
+  });
+
+  var execTicket = document.getElementById('pvExecTicket');
+  if(execTicket) execTicket.addEventListener('click', function(e){
+    e.stopPropagation();
+    showToast('ticket created in Linear');
+    execTicket.textContent='\u2713 done'; execTicket.style.color='var(--green)'; execTicket.disabled=true;
+    document.getElementById('pvAutoExec').style.opacity='0.5';
+    if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('execute');
+  });
+
+  // ── In-meeting actions ──
+  var suggestBtn = document.getElementById('pvSuggest');
+  if(suggestBtn) suggestBtn.addEventListener('click', function(){
+    showToast('suggestion sent to your earpiece');
+    suggestBtn.textContent='\u2713 suggested'; suggestBtn.style.color='var(--green)'; suggestBtn.disabled=true;
+  });
+  var handledBtn = document.getElementById('pvHandled');
+  if(handledBtn) handledBtn.addEventListener('click', function(){
+    handledBtn.textContent='\u2713 handled'; handledBtn.style.color='var(--green)';
+    handledBtn.closest('div[style*="background:var(--bg2)"]').style.opacity='0.5';
+  });
+  var holdBtn = document.getElementById('pvHold');
+  if(holdBtn) holdBtn.addEventListener('click', function(){
+    holdBtn.textContent='held'; holdBtn.style.color='var(--blue)';
+    holdBtn.closest('div[style*="background:var(--bg2)"]').style.opacity='0.5';
+  });
+  var endMeeting = document.getElementById('pvEndMeeting');
+  if(endMeeting) endMeeting.addEventListener('click', function(){
+    document.querySelector('[data-time=end-of-day]').click();
+  });
 })();
 </script>
