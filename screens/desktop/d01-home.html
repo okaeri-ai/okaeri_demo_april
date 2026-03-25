@@ -73,7 +73,7 @@
   <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;border-bottom:0.5px solid var(--rule2)">1 more meeting today ↓</span>
 </div>
 <div id="moreMeetingsContent" style="display:none;margin-top:8px">
-  <div class="prep-card" id="prepCardResonance" style="cursor:default">
+  <div class="prep-card" id="prepCardResonance" style="cursor:pointer">
     <div class="pc-top">
       <div class="pc-cal"><div class="pc-mo">Mar</div><div class="pc-day">23</div><div class="pc-tm">14:00</div></div>
       <div style="flex:1">
@@ -84,7 +84,7 @@
       </div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn-b" id="openPrepResonance" style="pointer-events:auto;cursor:default;opacity:0.7"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
+      <button class="btn-b" id="openPrepResonance" style="pointer-events:auto;cursor:pointer"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h8.5M7 3l3 2.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="btn-b-txt">open prep brief</span></button>
     </div>
   </div>
 </div>
@@ -143,6 +143,16 @@
       if(!OKAERI.executedCards) OKAERI.executedCards = [];
       OKAERI.executedCards.push('rate-limit-bug');
     }
+  });
+
+  // Resonance prep card navigation
+  document.getElementById('openPrepResonance').addEventListener('click', function(e){
+    e.stopPropagation();
+    OKAERI.go('d08b-prep-resonance');
+  });
+  document.getElementById('prepCardResonance').addEventListener('click', function(e){
+    if(e.target.closest('button')) return;
+    OKAERI.go('d08b-prep-resonance');
   });
 
   // More meetings toggle

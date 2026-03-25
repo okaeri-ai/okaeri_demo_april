@@ -1,0 +1,308 @@
+<style>
+.wl-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.wl-row:first-child { border-top: 0.5px solid var(--rule2); }
+.wl-label {
+  flex: 0 0 140px;
+  font-size: 11px;
+  font-weight: 200;
+  color: var(--ink2);
+  letter-spacing: 0.04em;
+}
+.wl-val {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.wl-arrow {
+  flex: 0 0 28px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 200;
+  color: var(--ink3);
+}
+.wl-day {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.wl-day:first-child { border-top: 0.5px solid var(--rule2); }
+.wl-day-label {
+  flex: 0 0 40px;
+  font-size: 9px;
+  font-weight: 200;
+  color: var(--ink3);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+.wl-day-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.wl-day-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  flex: 1;
+}
+.wl-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.wl-bar-row:first-child { border-top: 0.5px solid var(--rule2); }
+.wl-bar-tool {
+  flex: 0 0 72px;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.wl-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.wl-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.wl-bar-count {
+  flex: 0 0 60px;
+  font-size: 10px;
+  font-weight: 200;
+  color: var(--ink2);
+  letter-spacing: 0.04em;
+}
+.wl-bar-status {
+  flex: 0 0 90px;
+  font-size: 9px;
+  font-weight: 200;
+  letter-spacing: 0.14em;
+  text-align: right;
+}
+.wl-diff-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--rule2);
+}
+.wl-diff-item:first-child { border-top: 0.5px solid var(--rule2); }
+.wl-diff-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink3);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.wl-diff-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  flex: 1;
+}
+</style>
+
+<div class="eyebrow">progression &middot; day 7</div>
+<div class="ptitle" style="margin-bottom:4px">one week with okaeri</div>
+<div class="sub" style="margin-bottom:24px">how the system changed over 7 days</div>
+
+<!-- Day 1 vs Day 7 comparison -->
+<div class="sl">day 1 vs day 7</div>
+
+<div style="display:flex;gap:0;margin-bottom:0">
+  <div style="flex:1;padding-right:8px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:0.5px solid var(--rule2)">day 1</div>
+  </div>
+  <div style="flex:0 0 28px"></div>
+  <div style="flex:1;padding-left:8px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:0.5px solid var(--rule2)">day 7</div>
+  </div>
+</div>
+
+<!-- Extraction accuracy -->
+<div class="wl-row">
+  <div class="wl-label">extraction accuracy</div>
+  <div class="wl-val" style="color:var(--amber)">84%</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--green)">96%</div>
+</div>
+
+<!-- Corrections needed -->
+<div class="wl-row">
+  <div class="wl-label">corrections needed</div>
+  <div class="wl-val" style="color:var(--ink2)">12</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--ink2)">2</div>
+</div>
+
+<!-- Trust level -->
+<div class="wl-row">
+  <div class="wl-label">trust level</div>
+  <div class="wl-val" style="color:var(--ink2);font-size:11px">Observer (manual only)</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--green);font-size:11px">Trusted Partner (auto on 2 tools)</div>
+</div>
+
+<!-- Auto-executed -->
+<div class="wl-row">
+  <div class="wl-label">auto-executed</div>
+  <div class="wl-val" style="color:var(--ink3)">0</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--green)">18</div>
+</div>
+
+<!-- Meetings processed -->
+<div class="wl-row">
+  <div class="wl-label">meetings processed</div>
+  <div class="wl-val" style="color:var(--ink2)">1</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--ink2)">10</div>
+</div>
+
+<!-- Operator notes -->
+<div class="wl-row">
+  <div class="wl-label">operator notes</div>
+  <div class="wl-val" style="color:var(--ink3)">0</div>
+  <div class="wl-arrow">&rarr;</div>
+  <div class="wl-val" style="color:var(--ink2)">14</div>
+</div>
+
+<div class="hr2" style="margin-top:20px"></div>
+
+<!-- What okaeri learned this week -->
+<div class="sl" style="margin-top:16px">what okaeri learned this week</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 1</div>
+  <div class="wl-day-dot" style="background:var(--green)"></div>
+  <div class="wl-day-text">Learned your verb vocabulary &mdash; &lsquo;take it&rsquo; = commit, &lsquo;maybe&rsquo; = not a commitment</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 2</div>
+  <div class="wl-day-dot" style="background:var(--green)"></div>
+  <div class="wl-day-text">Learned Marcus&rsquo;s commitment language &mdash; specific dates mean reliable, &lsquo;this week&rsquo; means maybe</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 3</div>
+  <div class="wl-day-dot" style="background:var(--green)"></div>
+  <div class="wl-day-text">Earned Linear auto-execute after 10 confirmed actions with 0 rollbacks</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 4</div>
+  <div class="wl-day-dot" style="background:var(--green)"></div>
+  <div class="wl-day-text">Learned your email tone from 6 approved drafts &mdash; concise, direct, no filler</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 5</div>
+  <div class="wl-day-dot" style="background:var(--green)"></div>
+  <div class="wl-day-text">Earned Slack auto-execute after 12 confirmed messages with 1 edit</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 6</div>
+  <div class="wl-day-dot" style="background:var(--amber)"></div>
+  <div class="wl-day-text">Detected James&rsquo;s rollover pattern &mdash; 38% of &lsquo;next week&rsquo; commitments slip</div>
+</div>
+
+<div class="wl-day">
+  <div class="wl-day-label">day 7</div>
+  <div class="wl-day-dot" style="background:var(--amber)"></div>
+  <div class="wl-day-text">Calendar rollback recorded &mdash; auto-scheduling paused, learning from correction</div>
+</div>
+
+<div class="hr2" style="margin-top:20px"></div>
+
+<!-- Trust accumulation -->
+<div class="sl" style="margin-top:16px">trust accumulation</div>
+
+<div class="wl-bar-row">
+  <div class="wl-bar-tool">Linear</div>
+  <div class="wl-bar-track"><div class="wl-bar-fill" style="width:100%;background:var(--green)"></div></div>
+  <div class="wl-bar-count">20 actions</div>
+  <div class="wl-bar-status" style="color:var(--green)">auto-execute</div>
+</div>
+
+<div class="wl-bar-row">
+  <div class="wl-bar-tool">Slack</div>
+  <div class="wl-bar-track"><div class="wl-bar-fill" style="width:90%;background:var(--green)"></div></div>
+  <div class="wl-bar-count">18 actions</div>
+  <div class="wl-bar-status" style="color:var(--green)">auto-execute</div>
+</div>
+
+<div class="wl-bar-row">
+  <div class="wl-bar-tool">Calendar</div>
+  <div class="wl-bar-track"><div class="wl-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+  <div class="wl-bar-count">12 actions</div>
+  <div class="wl-bar-status" style="color:var(--amber)">needs confirm</div>
+</div>
+
+<div class="wl-bar-row">
+  <div class="wl-bar-tool">Salesforce</div>
+  <div class="wl-bar-track"><div class="wl-bar-fill" style="width:20%;background:var(--amber)"></div></div>
+  <div class="wl-bar-count">4 actions</div>
+  <div class="wl-bar-status" style="color:var(--amber)">building</div>
+</div>
+
+<div class="wl-bar-row">
+  <div class="wl-bar-tool">Gmail</div>
+  <div class="wl-bar-track"><div class="wl-bar-fill" style="width:10%;background:var(--ink3)"></div></div>
+  <div class="wl-bar-count">2 actions</div>
+  <div class="wl-bar-status" style="color:var(--ink3)">new</div>
+</div>
+
+<div class="hr2" style="margin-top:20px"></div>
+
+<!-- What's different now -->
+<div class="sl" style="margin-top:16px">what&rsquo;s different now</div>
+
+<div class="wl-diff-item">
+  <div class="wl-diff-dot"></div>
+  <div class="wl-diff-text">Prep briefs use your operator notes to personalize guidance per person</div>
+</div>
+
+<div class="wl-diff-item">
+  <div class="wl-diff-dot"></div>
+  <div class="wl-diff-text">Meeting steering knows your interruption threshold (standard mode, structural only)</div>
+</div>
+
+<div class="wl-diff-item">
+  <div class="wl-diff-dot"></div>
+  <div class="wl-diff-text">Follow-up drafts match your learned tone (concise, proof-led, no filler)</div>
+</div>
+
+<div class="wl-diff-item">
+  <div class="wl-diff-dot"></div>
+  <div class="wl-diff-text">2 operating rhythms running autonomously (weekly investor update, sprint review)</div>
+</div>
+
+<div class="hr2" style="margin-top:20px"></div>
+
+<div class="narr" style="margin-top:16px">In 7 days, Okaeri went from a blank slate to a system that knows your team, your tools, your communication style, and your relationship strategies. Every correction made it better. Every auto-executed action earned more trust. The system compounds &mdash; that&rsquo;s the product thesis in action.</div>

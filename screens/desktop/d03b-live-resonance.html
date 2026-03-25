@@ -1,0 +1,351 @@
+<div id="d03b-prep-breadcrumb" style="display:none;margin-bottom:8px">
+  <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;cursor:pointer" onclick="OKAERI.goBack()">&larr; from prep brief</span>
+</div>
+<div class="live-hdr">
+  <div>
+    <div class="live-badge"><div class="live-dot"></div><span class="live-label">recording · live</span></div>
+    <div style="font-size:18px;font-weight:200;color:var(--ink);letter-spacing:.03em;margin-top:7px">Design partner call · Resonance</div>
+    <div class="meta" style="margin-top:3px">Resonance lead · Marcus · Jess</div>
+    <div style="display:flex;gap:7px;margin-top:8px">
+      <span style="font-size:9px;font-weight:200;color:var(--ink);letter-spacing:.18em;padding:2px 8px;border:.5px solid var(--ink3);border-radius:2px">Resonance</span>
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.18em;padding:2px 8px;border:.5px solid var(--rule2);border-radius:2px">Marcus</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.26em;font-variant-numeric:tabular-nums" id="liveDurR">12:45</div>
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.16em;margin-top:3px;line-height:1.8">end meeting<br>to review</div>
+  </div>
+</div>
+<div class="cap-grid">
+  <div class="cap-l">
+    <div class="sl">live transcript</div>
+    <div class="turn"><div class="turn-who"><span>Resonance lead</span><span style="color:var(--ink4)">12:02</span></div><div class="turn-t">We've been testing the webhook integration. Latency is good but we need documentation for the error handling patterns.</div></div>
+    <div class="turn"><div class="turn-who"><span>Marcus</span><span style="color:var(--ink4)">12:18</span></div><div class="turn-t">I can get the error handling docs to you by Wednesday. The patterns are standard — retry with exponential backoff.</div></div>
+    <div class="turn" id="jessTurnR"><div class="turn-who"><span>Jess</span><span style="color:var(--ink4)">12:34</span></div><div class="turn-t dim" id="jessTextR"><span class="cur"></span></div></div>
+  </div>
+  <div class="cap-div"></div>
+  <div class="cap-r">
+    <!-- ═══ MEETING STEERING RAIL ═══ -->
+    <div class="sl" style="color:var(--blue)">meeting steering</div>
+
+    <!-- Block 1: Meeting objective + coverage -->
+    <div style="padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:10px">
+      <div style="font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:6px">meeting objective</div>
+      <div style="font-size:12px;font-weight:300;color:var(--ink);letter-spacing:0.02em;margin-bottom:8px">Confirm integration timeline, resolve API access blocker, demo if ready</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">decision: <span style="color:var(--amber)">not yet</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">owners: <span style="color:var(--green)">1 assigned</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">deadlines: <span style="color:var(--green)">1 specific</span></div>
+        <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.14em">blockers: <span style="color:var(--amber)">1 open</span></div>
+      </div>
+    </div>
+
+    <!-- Block 2: Active steering alerts -->
+    <div id="steeringAlertsR">
+      <!-- Alert 1: owner assigned (green, visible on load) -->
+      <div class="steer-alert" id="steerAlertR1" style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">owner assigned</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Marcus owns error handling docs by Wednesday — clear commitment</div>
+      </div>
+
+      <!-- Alert 2: blocker unresolved (amber, visible on load) -->
+      <div class="steer-alert" id="steerAlertR2" style="padding:8px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.22em;text-transform:uppercase">blocker unresolved</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">API access credentials not yet sent. No owner assigned for this.</div>
+        <div style="margin-top:5px;padding:6px 8px;background:var(--bbg);border-radius:4px;font-size:11px;font-weight:300;color:#0C447C;letter-spacing:0.02em;font-style:italic">"Who owns sending the API credentials to Resonance?"</div>
+        <div style="display:flex;gap:8px;margin-top:5px">
+          <button class="btn-ul steer-suggest-r" style="font-size:8px;letter-spacing:0.18em;padding-bottom:1px">suggest</button>
+          <button class="btn-ghost steer-handled-r" style="font-size:8px;letter-spacing:0.14em">handled</button>
+          <button class="btn-ghost steer-hold-r" style="font-size:8px;letter-spacing:0.14em">hold</button>
+        </div>
+      </div>
+
+      <!-- Alert 3: good pace (green, fades in) -->
+      <div class="steer-alert" id="steerAlertR3" style="padding:8px 0;border-bottom:0.5px solid var(--rule2);opacity:0;transition:opacity .4s">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+          <span style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase">good pace</span>
+        </div>
+        <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.5;letter-spacing:0.02em">Meeting is focused on technical specifics. No drift detected.</div>
+      </div>
+    </div>
+
+    <!-- Block 3: Intervention mode selector -->
+    <div style="display:flex;gap:6px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--rule2)">
+      <span style="font-size:8px;font-weight:200;color:var(--ink4);letter-spacing:0.14em;margin-right:4px">mode:</span>
+      <button class="steer-mode-r" data-mode="silent" style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">silent</button>
+      <button class="steer-mode-r active" data-mode="standard" style="font-size:8px;font-weight:200;color:var(--ink);letter-spacing:0.14em;background:none;border:0.5px solid var(--ink);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">standard</button>
+      <button class="steer-mode-r" data-mode="high" style="font-size:8px;font-weight:200;color:var(--ink3);letter-spacing:0.14em;background:none;border:0.5px solid var(--rule2);border-radius:2px;padding:1px 6px;cursor:pointer;font-family:inherit">high-touch</button>
+    </div>
+
+    <div class="hr2"></div>
+
+    <!-- ═══ NOTES EXTRACTED ═══ -->
+    <div class="sl">notes extracted</div>
+    <div id="liveNotesR">
+      <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">Marcus sends error handling documentation by Wednesday.</span></div>
+      <div class="note-i"><span class="ntag nt-c">commit</span><span class="note-t">API access credentials need to be sent (no owner yet).</span></div>
+      <div class="note-i" id="liveNoteR3" style="opacity:0;transition:opacity .4s"><span class="ntag nt-d">decision</span><span class="note-t">Use retry with exponential backoff for webhook errors.</span></div>
+    </div>
+    <div class="hr2"></div>
+
+    <!-- ═══ VOICE SIGNALS (compact) ═══ -->
+    <div class="sl">voice signals</div>
+    <div id="voiceSignalsR">
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">conviction</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">Marcus confident on docs timeline — high reliability for this type of commitment</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">12:18 · tone analysis</div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:2px">&rarr; confidence raised to high &middot; auto-execute enabled</div>
+        </div>
+      </div>
+      <div class="voice-signal" style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--rule2)">
+        <div style="width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div>
+        <div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1px">specificity</div>
+          <div style="font-size:11px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:0.02em">Resonance team asking detailed questions — engagement signal strong</div>
+          <div style="font-size:9px;font-weight:200;color:var(--ink4);letter-spacing:0.12em;margin-top:1px">12:02 · speech pattern</div>
+          <div style="font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:2px">&rarr; partner engagement score: high</div>
+        </div>
+      </div>
+    </div>
+    <div class="hr2"></div>
+
+    <!-- ═══ YOUR NOTES (bottom, collapsible) ═══ -->
+    <div id="yourNotesToggleR" style="display:flex;align-items:center;gap:5px;cursor:pointer;margin-bottom:6px">
+      <span class="sl" style="margin-bottom:0">your notes</span>
+      <span id="yourNotesArrowR" style="font-size:9px;font-weight:200;color:var(--ink3);transition:transform .2s">&darr;</span>
+    </div>
+    <div id="yourNotesBodyR" style="display:none">
+      <div id="userNotesContainerR"></div>
+      <textarea id="userNoteInputR" rows="2" placeholder="type a note..." style="font-size:12px;font-weight:300;letter-spacing:0.02em;border:none;border-bottom:0.5px solid var(--rule);background:none;width:100%;resize:none;font-family:inherit;color:var(--ink);outline:none;padding:6px 0"></textarea>
+      <div style="display:flex;gap:6px;margin-top:6px" id="noteTagBtnsR">
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="action item">action item</span>
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="decision">decision</span>
+        <span class="btn-skip" style="font-size:9px;cursor:pointer" data-tag="question">question</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ext-tray">
+  <div style="display:flex;align-items:center;gap:8px"><div class="ext-dot"></div><span class="ext-txt">okaeri has extracted</span><span class="ext-cnt" id="extCntR">2 commitments &middot; 1 decision so far</span></div>
+  <span style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:.14em">review after meeting</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:.5px solid var(--rule2);margin-top:12px">
+  <button class="btn-ghost" id="discardBtnR">discard</button>
+  <button class="btn-ul" id="endMeetingBtnR">end meeting</button>
+</div>
+
+<script>
+(function(){
+  // Show breadcrumb if coming from prep brief
+  var O = window.OKAERI;
+  if(O && O.previousScreen === 'd08b-prep-resonance'){
+    var bc = document.getElementById('d03b-prep-breadcrumb');
+    if(bc) bc.style.display = 'block';
+  }
+})();
+(function(){
+  var secs = 765; // 12:45 in seconds
+  var timer = setInterval(function(){
+    secs++;
+    var m = Math.floor(secs/60), s = String(secs%60).padStart(2,'0');
+    var el = document.getElementById('liveDurR');
+    if(el) el.textContent = m+':'+s;
+  }, 1000);
+
+  // Clean up timer when navigating away
+  var observer = new MutationObserver(function(mutations){
+    if(!document.getElementById('liveDurR')){
+      clearInterval(timer);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.getElementById('screenContent') || document.body, {childList:true, subtree:true});
+
+  // ── Steering mode state ──
+  var steerMode = 'standard';
+  var timingMultiplier = 1;
+
+  // ── Mode selector ──
+  var modeBtns = document.querySelectorAll('.steer-mode-r');
+  modeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      modeBtns.forEach(function(b){
+        b.classList.remove('active');
+        b.style.color = 'var(--ink3)';
+        b.style.borderColor = 'var(--rule2)';
+      });
+      btn.classList.add('active');
+      btn.style.color = 'var(--ink)';
+      btn.style.borderColor = 'var(--ink)';
+      steerMode = btn.getAttribute('data-mode');
+      var alertsContainer = document.getElementById('steeringAlertsR');
+      if(steerMode === 'silent'){
+        alertsContainer.style.display = 'none';
+      } else {
+        alertsContainer.style.display = 'block';
+      }
+      if(steerMode === 'high'){
+        timingMultiplier = 0.5;
+      } else {
+        timingMultiplier = 1;
+      }
+    });
+  });
+
+  // ── Steering alert interactions ──
+  function showToast(msg){
+    var toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--ink);letter-spacing:0.14em;background:var(--bg2);border:0.5px solid var(--rule2);border-radius:4px;padding:6px 14px;z-index:9999;opacity:0;transition:opacity .3s;font-family:inherit';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function(){ toast.style.opacity = '1'; });
+    setTimeout(function(){
+      toast.style.opacity = '0';
+      setTimeout(function(){ toast.remove(); }, 300);
+    }, 2500);
+  }
+
+  document.querySelectorAll('.steer-suggest-r').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      showToast('suggestion sent to your earpiece');
+      alert.style.opacity = '0.5';
+      btn.disabled = true;
+    });
+  });
+  document.querySelectorAll('.steer-handled-r').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      var existing = alert.querySelector('.steer-status-label');
+      if(!existing){
+        var label = document.createElement('div');
+        label.className = 'steer-status-label';
+        label.style.cssText = 'font-size:9px;font-weight:200;color:var(--green);letter-spacing:0.14em;margin-top:4px';
+        label.innerHTML = '&#10003; handled';
+        alert.appendChild(label);
+      }
+      alert.style.opacity = '0.5';
+    });
+  });
+  document.querySelectorAll('.steer-hold-r').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alert = btn.closest('.steer-alert');
+      var existing = alert.querySelector('.steer-status-label');
+      if(!existing){
+        var label = document.createElement('div');
+        label.className = 'steer-status-label';
+        label.style.cssText = 'font-size:9px;font-weight:200;color:var(--blue);letter-spacing:0.14em;margin-top:4px';
+        label.textContent = 'held for debrief';
+        alert.appendChild(label);
+      }
+      alert.style.opacity = '0.5';
+    });
+  });
+
+  // ── Your notes toggle ──
+  var notesToggle = document.getElementById('yourNotesToggleR');
+  var notesBody = document.getElementById('yourNotesBodyR');
+  var notesArrow = document.getElementById('yourNotesArrowR');
+  var notesOpen = false;
+  notesToggle.addEventListener('click', function(){
+    notesOpen = !notesOpen;
+    notesBody.style.display = notesOpen ? 'block' : 'none';
+    notesArrow.innerHTML = notesOpen ? '&uarr;' : '&darr;';
+  });
+
+  // ── Real-time typing simulation for Jess ──
+  var jessWords = "Let me show you where we are on the rate limit fix...".split(' ');
+  var jessEl = document.getElementById('jessTextR');
+  var wordIdx = 0;
+  var typingInterval = setInterval(function(){
+    if(wordIdx < jessWords.length){
+      var curSpan = jessEl.querySelector('.cur');
+      var text = (wordIdx > 0 ? ' ' : '') + jessWords[wordIdx];
+      curSpan.insertAdjacentText('beforebegin', text);
+      wordIdx++;
+    } else {
+      clearInterval(typingInterval);
+      // Jess line complete. After 1s, fade in note 3 and steering alert 3
+      setTimeout(function(){
+        var n3 = document.getElementById('liveNoteR3');
+        if(n3) n3.style.opacity = '1';
+        var sa3 = document.getElementById('steerAlertR3');
+        if(sa3) sa3.style.opacity = '1';
+        var ec = document.getElementById('extCntR');
+        if(ec){
+          ec.textContent = '2 commitments \u00B7 1 decision so far';
+          ec.classList.remove('count-pulse');
+          void ec.offsetWidth;
+          ec.classList.add('count-pulse');
+        }
+      }, 1000 * timingMultiplier);
+    }
+  }, 120);
+
+  // ── Discard button with confirm ──
+  var discardBtn = document.getElementById('discardBtnR');
+  var discardConfirm = false;
+  var discardTimer = null;
+  discardBtn.addEventListener('click', function(){
+    if(discardConfirm){
+      clearTimeout(discardTimer);
+      OKAERI.go('d01-home');
+      return;
+    }
+    discardConfirm = true;
+    discardBtn.textContent = 'are you sure?';
+    discardTimer = setTimeout(function(){
+      discardConfirm = false;
+      discardBtn.textContent = 'discard';
+    }, 2000);
+  });
+
+  document.getElementById('endMeetingBtnR').addEventListener('click', function(){
+    clearInterval(timer);
+    clearInterval(typingInterval);
+    OKAERI.go('d04-confirm-execute');
+  });
+
+  // ── User Notes ──
+  var selectedTag = null;
+  var tagBtns = document.querySelectorAll('#noteTagBtnsR .btn-skip');
+  tagBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(selectedTag === btn.getAttribute('data-tag')){
+        selectedTag = null;
+        btn.style.borderColor = '';
+      } else {
+        tagBtns.forEach(function(b){ b.style.borderColor = ''; });
+        selectedTag = btn.getAttribute('data-tag');
+        btn.style.borderColor = 'var(--ink)';
+      }
+    });
+  });
+
+  var noteInput = document.getElementById('userNoteInputR');
+  noteInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      var text = noteInput.value.trim();
+      if(!text) return;
+      var container = document.getElementById('userNotesContainerR');
+      var noteDiv = document.createElement('div');
+      noteDiv.style.cssText = 'display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:0.5px solid var(--rule2)';
+      var tagHtml = selectedTag ? '<span class="ntag" style="font-size:8px">' + selectedTag + '</span>' : '';
+      noteDiv.innerHTML = tagHtml + '<span style="font-size:11px;font-weight:300;color:var(--ink);letter-spacing:0.02em">' + text + '</span>';
+      container.appendChild(noteDiv);
+      noteInput.value = '';
+    }
+  });
+})();
+</script>
