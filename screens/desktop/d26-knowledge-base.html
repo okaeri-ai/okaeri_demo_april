@@ -22,7 +22,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">2.4 MB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--ink2)">global</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 20</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <!-- sequoia-notes.md -->
@@ -31,7 +31,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">12 KB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bbg);color:var(--blue)">meeting</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 23</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <!-- resonance-brief.docx -->
@@ -40,7 +40,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">89 KB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--gbg);color:var(--green)">person</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 19</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <!-- investor-one-pager.pdf -->
@@ -49,7 +49,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">1.1 MB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--ink2)">global</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 15</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <!-- team-standup-mar20.vtt -->
@@ -58,7 +58,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">34 KB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bbg);color:var(--blue)">meeting</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 20</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <!-- product-demo.mp4 -->
@@ -67,7 +67,7 @@
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">48 MB</div>
   <div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--ink2)">global</span></div>
   <div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">Mar 18</div>
-  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>
+  <div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>
 </div>
 
 <script>
@@ -86,10 +86,17 @@
       '<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">' + size + '</div>' +
       '<div><span style="font-size:9px;font-weight:200;letter-spacing:0.12em;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--ink2)">' + scope + '</span></div>' +
       '<div style="font-size:10px;font-weight:200;color:var(--ink3);letter-spacing:0.12em">' + date + '</div>' +
-      '<div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em">delete</button></div>';
+      '<div><button class="btn-ghost" style="font-size:9px;letter-spacing:0.12em" onclick="kbDelete(this)">delete</button></div>';
     insertBefore.parentElement.insertBefore(row, insertBefore);
     requestAnimationFrame(function(){ row.style.opacity = '1'; });
   }
+
+  window.kbDelete = function(btn){
+    var row = btn.closest('.kb-row');
+    row.style.transition = 'opacity 0.3s ease';
+    row.style.opacity = '0';
+    setTimeout(function(){ row.remove(); }, 300);
+  };
 
   dropZone.addEventListener('dragover', function(e){
     e.preventDefault();

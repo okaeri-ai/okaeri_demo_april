@@ -18,8 +18,8 @@
   <div class="sug-f">
     <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.16em">deadline: Thursday</div>
     <div style="display:flex;gap:8px">
-      <button class="btn-exec" style="font-size:9px;padding:4px 12px;letter-spacing:0.14em"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2.5L7 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>send</button>
-      <button class="btn-ghost">dismiss</button>
+      <button class="btn-exec" style="font-size:9px;padding:4px 12px;letter-spacing:0.14em" onclick="sugSend(this,'Sarah')"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2.5L7 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>send</button>
+      <button class="btn-ghost" onclick="sugDismiss(this)">dismiss</button>
     </div>
   </div>
 </div>
@@ -40,8 +40,8 @@
   <div class="sug-f">
     <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.16em">relationship cooling</div>
     <div style="display:flex;gap:8px">
-      <button class="btn-exec" style="font-size:9px;padding:4px 12px;letter-spacing:0.14em"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2.5L7 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>send</button>
-      <button class="btn-ghost">dismiss</button>
+      <button class="btn-exec" style="font-size:9px;padding:4px 12px;letter-spacing:0.14em" onclick="sugSend(this,'Alex Chen')"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 4l2 2.5L7 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>send</button>
+      <button class="btn-ghost" onclick="sugDismiss(this)">dismiss</button>
     </div>
   </div>
 </div>
@@ -59,7 +59,63 @@
     <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:.16em">based on pattern detection</div>
     <div style="display:flex;gap:8px">
       <button class="btn-skip" style="font-size:9px;padding:4px 12px;letter-spacing:0.14em">acknowledge</button>
-      <button class="btn-ghost">dismiss</button>
+      <button class="btn-ghost" onclick="sugDismiss(this)">dismiss</button>
     </div>
   </div>
 </div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+function sugDismiss(btn){
+  var card = btn.closest('.sug-card');
+  card.style.transition = 'opacity 0.3s ease';
+  card.style.opacity = '0';
+  setTimeout(function(){ card.style.display = 'none'; }, 300);
+}
+
+function sugSend(btn, recipient){
+  var card = btn.closest('.sug-card');
+  var previewT = card.querySelector('.sug-preview-t');
+
+  if(btn.dataset.state === 'confirm'){
+    // Confirm send
+    var ta = card.querySelector('textarea');
+    if(ta){
+      var newText = ta.value;
+      var div = document.createElement('div');
+      div.className = 'sug-preview-t';
+      div.textContent = newText;
+      ta.parentNode.replaceChild(div, ta);
+    }
+    showToast('sent to ' + recipient);
+    card.style.transition = 'opacity 0.3s ease';
+    card.style.opacity = '0.5';
+    btn.innerHTML = '\u2713 sent';
+    btn.disabled = true;
+    btn.onclick = null;
+    return;
+  }
+
+  // First click: make editable, change to confirm
+  if(previewT){
+    var ta = document.createElement('textarea');
+    ta.value = previewT.textContent;
+    ta.style.cssText = 'width:100%;min-height:60px;font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.04em;line-height:1.6;background:var(--bg2);border:0.5px solid var(--rule);border-radius:4px;padding:8px;resize:vertical;font-family:inherit;outline:none';
+    previewT.parentNode.replaceChild(ta, previewT);
+    ta.focus();
+  }
+  btn.innerHTML = 'confirm send';
+  btn.dataset.state = 'confirm';
+}
+</script>

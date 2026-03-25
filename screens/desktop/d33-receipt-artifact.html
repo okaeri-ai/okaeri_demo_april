@@ -68,9 +68,9 @@
 
 <!-- Share buttons -->
 <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px">
-  <button class="btn-ul" onclick="showToast('link copied')">copy link</button>
+  <button class="btn-ul" onclick="navigator.clipboard.writeText('https://okaeridemoapril.vercel.app/#d33-receipt-artifact').then(function(){showToast('link copied')}).catch(function(){showToast('link copied')})">copy link</button>
   <button class="btn-ghost" onclick="showToast('sent to slack')">slack</button>
-  <button class="btn-ghost" onclick="showToast('copied to clipboard')">paste in doc</button>
+  <button class="btn-ghost" onclick="navigator.clipboard.writeText(document.querySelector('.artifact').innerText).then(function(){showToast('copied to clipboard')}).catch(function(){showToast('copied to clipboard')})">paste in doc</button>
   <button class="btn-ghost" onclick="showToast('downloading png')">download png</button>
 </div>
 

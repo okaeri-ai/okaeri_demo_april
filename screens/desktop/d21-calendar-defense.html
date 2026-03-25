@@ -74,6 +74,39 @@
 
 <script>
 (function(){
+  function showToast(msg){
+    var existing=document.getElementById('okaeri-toast');
+    if(existing) existing.remove();
+    var t=document.createElement('div');
+    t.id='okaeri-toast';
+    t.textContent=msg;
+    t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; });
+    setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+  }
+
+  var cards = document.querySelectorAll('.def-card');
+  var toasts = [
+    '3pm sync moved to Thursday',
+    '2-5pm Wednesday protected',
+    'Andreessen call moved to 10am'
+  ];
+  cards.forEach(function(card, i){
+    var acceptBtn = card.querySelector('.btn-exec');
+    if(acceptBtn){
+      acceptBtn.addEventListener('click', function(){
+        showToast(toasts[i]);
+        card.style.opacity = '0.5';
+        card.style.transition = 'opacity 0.3s ease';
+        acceptBtn.textContent = '\u2713 accepted';
+        acceptBtn.style.color = 'var(--green)';
+        acceptBtn.disabled = true;
+        acceptBtn.style.pointerEvents = 'none';
+      });
+    }
+  });
+
   document.querySelectorAll('.toggle').forEach(function(el){
     el.addEventListener('click', function(){
       el.classList.toggle('on');

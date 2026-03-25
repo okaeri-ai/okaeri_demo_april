@@ -39,7 +39,7 @@
     <div style="font-size:9px;font-weight:200;color:var(--amber);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:3px">do this first</div>
     <div style="font-size:15px;font-weight:300;color:var(--ink);letter-spacing:0.02em">Send materials to Sequoia before the 10am meeting</div>
     <div style="font-size:10px;font-weight:200;color:var(--ink2);letter-spacing:0.12em;margin-top:3px">committed Mar 18 · meeting in 28 minutes</div>
-    <button class="btn-ul-g" style="margin-top:8px">send now</button>
+    <button class="btn-ul-g" style="margin-top:8px" id="pvSendNow">send now</button>
   </div>
 
   <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.36em;text-transform:uppercase;margin-bottom:6px">also watching</div>
@@ -176,6 +176,35 @@
     var el = document.getElementById('pvTimer');
     if(el) el.textContent = Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
   }, 1000);
+
+  // Send now button
+  function showToast(msg){
+    var existing=document.getElementById('okaeri-toast');
+    if(existing) existing.remove();
+    var t=document.createElement('div');
+    t.id='okaeri-toast';
+    t.textContent=msg;
+    t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; });
+    setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+  }
+
+  var sendNow = document.getElementById('pvSendNow');
+  if(sendNow){
+    sendNow.addEventListener('click', function(){
+      showToast('materials sent to Sequoia');
+      sendNow.textContent = '\u2713 sent';
+      sendNow.disabled = true;
+      sendNow.style.pointerEvents = 'none';
+      var parentCard = sendNow.closest('div[style*="border-left"]');
+      if(parentCard) parentCard.style.opacity = '0.5';
+      var O = window.OKAERI = window.OKAERI || {};
+      O.executedCards = O.executedCards || [];
+      O.executedCards.push({verb:'send',obj:'materials to Sequoia',tool:'Email',time:new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).toLowerCase()});
+      O.totalExecuted = (O.totalExecuted || 0) + 1;
+    });
+  }
 
   // Play brief button
   var playBtn = document.getElementById('pvPlayBrief');

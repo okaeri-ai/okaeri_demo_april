@@ -33,7 +33,32 @@
 </div>
 
 <script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
 (function(){
+  // Send button
+  var sendBtn = document.getElementById('triageSend');
+  if(sendBtn){
+    sendBtn.addEventListener('click', function(){
+      showToast('email sent to Sarah Rhodes');
+      var draftDiv = sendBtn.closest('.triage-draft');
+      if(draftDiv) draftDiv.style.opacity = '0.5';
+      sendBtn.textContent = '\u2713 sent';
+      sendBtn.disabled = true;
+      sendBtn.style.pointerEvents = 'none';
+    });
+  }
+
   var editBtn = document.getElementById('triageEdit');
   var draftDiv = editBtn.closest('.triage-draft');
   var textDiv = draftDiv.querySelector('div[style*="font-size:12px"]');

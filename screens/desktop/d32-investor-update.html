@@ -100,7 +100,7 @@
     <span class="ptag ptag-n">6 tools</span>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
-    <button class="btn-ghost">regenerate</button>
+    <button class="btn-ghost" onclick="regenerateUpdate(this)">regenerate</button>
     <button class="btn-ul" onclick="showToast('copied to clipboard')">copy</button>
     <button class="btn-ul" onclick="showToast('update sent to investors')">send update</button>
   </div>
@@ -117,5 +117,41 @@ function showToast(msg){
   document.body.appendChild(t);
   requestAnimationFrame(function(){ t.style.opacity='1'; });
   setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+function regenerateUpdate(btn){
+  var origText = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = 'regenerating<span class="regen-dots">...</span>';
+  btn.style.minWidth = btn.offsetWidth + 'px';
+
+  // Add typing dots animation
+  var dots = btn.querySelector('.regen-dots');
+  var dotInterval = setInterval(function(){
+    if(dots.textContent.length >= 3) dots.textContent = '';
+    else dots.textContent += '.';
+  }, 400);
+
+  setTimeout(function(){
+    clearInterval(dotInterval);
+    btn.innerHTML = origText;
+    btn.disabled = false;
+    btn.style.minWidth = '';
+
+    // Slightly update a number to show something changed
+    var execRate = document.querySelector('.metn[style*="green"]');
+    if(execRate && execRate.textContent === '97%') execRate.textContent = '98%';
+
+    // Update a source date
+    var tags = document.querySelectorAll('.ptag-n');
+    if(tags.length > 0){
+      var last = tags[tags.length - 1];
+      if(last.textContent.indexOf('Mar 23') > -1){
+        last.textContent = last.textContent.replace('Mar 23', 'Mar 24');
+      }
+    }
+
+    showToast('update regenerated with latest data');
+  }, 1500);
 }
 </script>

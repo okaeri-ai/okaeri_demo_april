@@ -292,7 +292,26 @@
     btn.addEventListener('click', function(){
       var alert = btn.closest('.steer-alert');
       showToast('suggestion sent to your earpiece');
-      alert.style.opacity = '0.5';
+      // Add suggested line to your notes
+      var suggestedText = alert.querySelector('[style*="font-style:italic"]');
+      if(suggestedText){
+        var notesContainer = document.getElementById('userNotesContainer');
+        if(notesContainer){
+          var row = document.createElement('div');
+          row.className = 'note-i';
+          row.innerHTML = '<span class="ntag nt-c" style="background:rgba(24,95,165,0.08);color:var(--blue)">suggested</span><span class="note-t">' + suggestedText.textContent + '</span>';
+          notesContainer.appendChild(row);
+          // Auto-open notes if closed
+          var notesBody = document.getElementById('yourNotesBody');
+          var notesArrow = document.getElementById('yourNotesArrow');
+          if(notesBody && notesBody.style.display === 'none'){
+            notesBody.style.display = 'block';
+            if(notesArrow) notesArrow.innerHTML = '&uarr;';
+          }
+        }
+      }
+      btn.textContent = '\u2713 suggested';
+      btn.style.color = 'var(--green)';
       btn.disabled = true;
     });
   });

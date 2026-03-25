@@ -64,11 +64,38 @@
     setTimeout(function(){ dismiss(exec); }, 4000);
   }
 
-  // Amber/at-risk: execute button plays notify sound
+  function showToast(msg){
+    var existing=document.getElementById('okaeri-toast');
+    if(existing) existing.remove();
+    var t=document.createElement('div');
+    t.id='okaeri-toast';
+    t.textContent=msg;
+    t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; });
+    setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+  }
+
+  // Amber/at-risk: execute button
   var execBtn = document.getElementById('notifExecBtn');
   if(execBtn){
     execBtn.addEventListener('click', function(){
       if(window.OKAERI && OKAERI.playSound) OKAERI.playSound('notify');
+      showToast('Index outreach draft started');
+      var card = execBtn.closest('.notif');
+      if(card){
+        card.classList.remove('amber');
+        card.classList.add('green');
+        card.style.borderColor = 'var(--green)';
+        card.style.background = 'var(--gbg)';
+      }
+      execBtn.textContent = '\u2713 executed';
+      execBtn.disabled = true;
+      execBtn.style.pointerEvents = 'none';
+      execBtn.style.color = 'var(--green)';
+      var O = window.OKAERI = window.OKAERI || {};
+      O.executedCards = O.executedCards || [];
+      O.executedCards.push({verb:'outreach',obj:'Index Ventures',tool:'Email',time:new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).toLowerCase()});
     });
   }
 })();

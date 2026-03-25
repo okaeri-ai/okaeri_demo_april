@@ -105,7 +105,97 @@
 <div class="hr" style="margin:20px 0 16px"></div>
 
 <!-- Drop zone -->
-<div class="kb-drop" style="cursor:pointer">
+<div class="kb-drop" id="vocab-drop" style="cursor:pointer" onclick="showVerbForm()">
   <div style="font-size:11px;font-weight:200;color:var(--ink3);letter-spacing:0.22em;margin-bottom:6px">+ ADD VERB</div>
   <div style="font-size:10px;font-weight:200;color:var(--ink4);letter-spacing:0.14em">type a new verb or drag from your meeting transcript</div>
 </div>
+
+<!-- Add verb form (hidden by default) -->
+<div id="verb-form" style="display:none;padding:16px 0">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:10px">new verb</div>
+  <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+    <div style="min-width:100px">
+      <input id="verb-name" class="modal-input" placeholder="verb" style="font-size:12px">
+    </div>
+    <div style="flex:1;min-width:160px">
+      <input id="verb-desc" class="modal-input" placeholder="description" style="font-size:12px">
+    </div>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;margin-top:10px;flex-wrap:wrap">
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;margin-right:4px">tool</span>
+    <button class="ttag tt-li tool-sel" data-tool="Linear" onclick="selectVerbTool(this)" style="cursor:pointer;opacity:0.5">Linear</button>
+    <button class="ttag tt-sl tool-sel" data-tool="Slack" onclick="selectVerbTool(this)" style="cursor:pointer;opacity:0.5">Slack</button>
+    <button class="ttag tt-ca tool-sel" data-tool="Calendar" onclick="selectVerbTool(this)" style="cursor:pointer;opacity:0.5">Calendar</button>
+    <button class="ttag tt-sf tool-sel" data-tool="Salesforce" onclick="selectVerbTool(this)" style="cursor:pointer;opacity:0.5">Salesforce</button>
+    <button class="ttag tt-gm tool-sel" data-tool="Gmail" onclick="selectVerbTool(this)" style="cursor:pointer;opacity:0.5">Gmail</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+    <button class="btn-ul" onclick="addVerb()">save</button>
+    <button class="btn-ghost" onclick="hideVerbForm()">cancel</button>
+  </div>
+</div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+var selectedVerbTool = '';
+var selectedVerbToolClass = '';
+
+function selectVerbTool(btn){
+  document.querySelectorAll('.tool-sel').forEach(function(b){ b.style.opacity='0.5'; });
+  btn.style.opacity='1';
+  selectedVerbTool = btn.dataset.tool;
+  selectedVerbToolClass = btn.className.split(' ').filter(function(c){ return c.startsWith('tt-'); })[0] || '';
+}
+
+function showVerbForm(){
+  document.getElementById('vocab-drop').style.display='none';
+  document.getElementById('verb-form').style.display='block';
+  document.getElementById('verb-name').focus();
+}
+
+function hideVerbForm(){
+  document.getElementById('verb-form').style.display='none';
+  document.getElementById('vocab-drop').style.display='';
+  document.getElementById('verb-name').value='';
+  document.getElementById('verb-desc').value='';
+  selectedVerbTool='';
+  selectedVerbToolClass='';
+  document.querySelectorAll('.tool-sel').forEach(function(b){ b.style.opacity='0.5'; });
+}
+
+function addVerb(){
+  var verb = document.getElementById('verb-name').value.trim();
+  var desc = document.getElementById('verb-desc').value.trim();
+  if(!verb){ document.getElementById('verb-name').focus(); return; }
+  if(!desc){ document.getElementById('verb-desc').focus(); return; }
+  if(!selectedVerbTool){ return; }
+
+  var row = document.createElement('div');
+  row.className = 'vocab-row';
+  row.style.cssText = 'opacity:0;transition:opacity 0.3s ease';
+  row.innerHTML =
+    '<div class="vocab-verb">'+verb+'</div>' +
+    '<div class="vocab-desc">'+desc+'</div>' +
+    '<div><span class="ttag '+selectedVerbToolClass+'">'+selectedVerbTool+'</span></div>' +
+    '<div><span class="vocab-badge" style="background:var(--bbg);color:var(--blue)">custom</span></div>';
+
+  // Insert before the hr that separates verbs from patterns
+  var hr = document.querySelector('.hr[style*="margin:20px"]');
+  hr.parentNode.insertBefore(row, hr);
+  requestAnimationFrame(function(){ row.style.opacity='1'; });
+
+  hideVerbForm();
+  showToast('verb added');
+}
+</script>

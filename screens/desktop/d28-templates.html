@@ -1,9 +1,34 @@
 <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px">
   <div class="ptitle">meeting templates</div>
-  <button class="btn-ul">+ new template</button>
+  <button class="btn-ul" onclick="showTemplateForm()">+ new template</button>
 </div>
 
 <div class="sub" style="margin-bottom:16px">okaeri learns recurring meeting structures and auto-applies extraction rules</div>
+
+<!-- New template form (hidden) -->
+<div id="template-form" style="display:none;padding:16px;border:0.5px solid var(--rule);border-radius:8px;margin-bottom:16px">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:10px">new template</div>
+  <div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+    <div style="flex:1;min-width:140px">
+      <input id="tmpl-name" class="modal-input" placeholder="template name" style="font-size:12px">
+    </div>
+    <div style="flex:1;min-width:140px">
+      <input id="tmpl-type" class="modal-input" placeholder="meeting type" style="font-size:12px">
+    </div>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+    <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;margin-right:4px">tools</span>
+    <button class="ttag tt-li tmpl-tool" data-cls="tt-li" data-name="Linear" onclick="toggleTmplTool(this)" style="cursor:pointer;opacity:0.5">Linear</button>
+    <button class="ttag tt-sl tmpl-tool" data-cls="tt-sl" data-name="Slack" onclick="toggleTmplTool(this)" style="cursor:pointer;opacity:0.5">Slack</button>
+    <button class="ttag tt-ca tmpl-tool" data-cls="tt-ca" data-name="Calendar" onclick="toggleTmplTool(this)" style="cursor:pointer;opacity:0.5">Calendar</button>
+    <button class="ttag tt-sf tmpl-tool" data-cls="tt-sf" data-name="Salesforce" onclick="toggleTmplTool(this)" style="cursor:pointer;opacity:0.5">Salesforce</button>
+    <button class="ttag tt-gm tmpl-tool" data-cls="tt-gm" data-name="Gmail" onclick="toggleTmplTool(this)" style="cursor:pointer;opacity:0.5">Gmail</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end">
+    <button class="btn-ul" onclick="createTemplate()">create</button>
+    <button class="btn-ghost" onclick="hideTemplateForm()">cancel</button>
+  </div>
+</div>
 
 <!-- Template 1: Weekly standup -->
 <div class="tmpl-card">
@@ -26,7 +51,16 @@
   </div>
   <div class="tmpl-f">
     <span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.16em">active · auto-applying</span>
-    <button class="btn-ghost" onclick="OKAERI.go('d30-lifecycle')">view rules</button>
+    <button class="btn-ghost" onclick="toggleRules(this)">view rules</button>
+  </div>
+  <div class="tmpl-rules" style="display:none;padding:12px 0 0;border-top:0.5px solid var(--rule2);margin-top:10px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">extraction patterns</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.7">
+      &bull; "I'll [verb] [object] by [date]" &rarr; commitment with deadline<br>
+      &bull; "[person] is blocked on [object]" &rarr; blocker ticket in Linear<br>
+      &bull; "let's ship [object] this week" &rarr; priority task creation<br>
+      &bull; "update on [project]" &rarr; status extraction &amp; Slack summary
+    </div>
   </div>
 </div>
 
@@ -51,7 +85,16 @@
   </div>
   <div class="tmpl-f">
     <span style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.16em">active · auto-applying</span>
-    <button class="btn-ghost" onclick="OKAERI.go('d30-lifecycle')">view rules</button>
+    <button class="btn-ghost" onclick="toggleRules(this)">view rules</button>
+  </div>
+  <div class="tmpl-rules" style="display:none;padding:12px 0 0;border-top:0.5px solid var(--rule2);margin-top:10px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">extraction patterns</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.7">
+      &bull; "we need [feature] by [date]" &rarr; feature request logged in Salesforce<br>
+      &bull; "send [object] to [person]" &rarr; follow-up email draft in Gmail<br>
+      &bull; "[person] asked about [topic]" &rarr; question tracking &amp; Slack alert<br>
+      &bull; "next check-in [date]" &rarr; calendar event creation
+    </div>
   </div>
 </div>
 
@@ -76,6 +119,111 @@
   </div>
   <div class="tmpl-f">
     <span style="font-size:10px;font-weight:200;color:var(--amber);letter-spacing:0.16em">inactive · 2 more instances to learn</span>
-    <button class="btn-ghost" onclick="OKAERI.go('d27-vocabulary')">preview rules</button>
+    <button class="btn-ghost" onclick="toggleRules(this)">view rules</button>
+  </div>
+  <div class="tmpl-rules" style="display:none;padding:12px 0 0;border-top:0.5px solid var(--rule2);margin-top:10px">
+    <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">extraction patterns</div>
+    <div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.7">
+      &bull; "we're raising [amount]" &rarr; fundraise context for investor update<br>
+      &bull; "send [document] to [person]" &rarr; follow-up email with attachment<br>
+      &bull; "intro to [person] at [company]" &rarr; warm intro request tracking<br>
+      &bull; "term sheet by [date]" &rarr; deadline commitment extraction
+    </div>
   </div>
 </div>
+
+<!-- Container for new templates -->
+<div id="custom-templates"></div>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+function toggleRules(btn){
+  var card = btn.closest('.tmpl-card');
+  var rules = card.querySelector('.tmpl-rules');
+  if(rules.style.display === 'none'){
+    rules.style.display = 'block';
+    btn.textContent = 'hide rules';
+  } else {
+    rules.style.display = 'none';
+    btn.textContent = 'view rules';
+  }
+}
+
+var tmplTools = [];
+
+function toggleTmplTool(btn){
+  var name = btn.dataset.name;
+  var idx = tmplTools.indexOf(name);
+  if(idx > -1){
+    tmplTools.splice(idx, 1);
+    btn.style.opacity = '0.5';
+  } else {
+    tmplTools.push(name);
+    btn.style.opacity = '1';
+  }
+}
+
+function showTemplateForm(){
+  document.getElementById('template-form').style.display = 'block';
+  document.getElementById('tmpl-name').focus();
+}
+
+function hideTemplateForm(){
+  document.getElementById('template-form').style.display = 'none';
+  document.getElementById('tmpl-name').value = '';
+  document.getElementById('tmpl-type').value = '';
+  tmplTools = [];
+  document.querySelectorAll('.tmpl-tool').forEach(function(b){ b.style.opacity='0.5'; });
+}
+
+function createTemplate(){
+  var name = document.getElementById('tmpl-name').value.trim();
+  var type = document.getElementById('tmpl-type').value.trim();
+  if(!name){ document.getElementById('tmpl-name').focus(); return; }
+
+  var toolsMap = {'Linear':'tt-li','Slack':'tt-sl','Calendar':'tt-ca','Salesforce':'tt-sf','Gmail':'tt-gm'};
+  var pillsHtml = tmplTools.map(function(t){ return '<span class="ttag '+toolsMap[t]+'">'+t+'</span>'; }).join('\n    ');
+
+  var card = document.createElement('div');
+  card.className = 'tmpl-card';
+  card.style.cssText = 'opacity:0;transition:opacity 0.3s ease';
+  card.innerHTML =
+    '<div class="tmpl-h">' +
+      '<div>' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">' +
+          '<span class="vocab-badge" style="background:var(--bbg);color:var(--blue)">custom</span>' +
+        '</div>' +
+        '<div class="tmpl-name">'+name+'</div>' +
+        '<div class="tmpl-meta">'+(type ? type+' · ' : '')+'just created</div>' +
+      '</div>' +
+      '<div class="toggle on" onclick="this.classList.toggle(\'on\')"><div class="toggle-dot"></div></div>' +
+    '</div>' +
+    '<div class="tmpl-pills">'+pillsHtml+'</div>' +
+    '<div class="tmpl-f">' +
+      '<span style="font-size:10px;font-weight:200;color:var(--blue);letter-spacing:0.16em">active · custom</span>' +
+      '<button class="btn-ghost" onclick="toggleRules(this)">view rules</button>' +
+    '</div>' +
+    '<div class="tmpl-rules" style="display:none;padding:12px 0 0;border-top:0.5px solid var(--rule2);margin-top:10px">' +
+      '<div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:8px">extraction patterns</div>' +
+      '<div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.04em;line-height:1.7">' +
+        '&bull; no patterns yet &mdash; okaeri will learn from your first meeting</div>' +
+    '</div>';
+
+  document.getElementById('custom-templates').appendChild(card);
+  requestAnimationFrame(function(){ card.style.opacity='1'; });
+
+  hideTemplateForm();
+  showToast('template created');
+}
+</script>

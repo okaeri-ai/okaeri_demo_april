@@ -23,6 +23,7 @@
   <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase">status</div>
 </div>
 
+<div id="members-table">
 <!-- Jess -->
 <div style="display:grid;grid-template-columns:200px 100px 100px 80px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center">
   <div style="display:flex;align-items:center;gap:8px"><div class="pav av-b">JL</div><span class="pn-sm">Jess Liu</span></div>
@@ -54,6 +55,30 @@
   <div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">L1</div>
   <div style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.16em">active</div>
 </div>
+</div>
+
+<!-- Invite form (hidden by default) -->
+<div id="invite-form" style="display:none;padding:16px 0;border-bottom:0.5px solid var(--rule2)">
+  <div style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:10px">new member</div>
+  <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+    <div style="flex:1;min-width:120px">
+      <input id="invite-name" class="modal-input" placeholder="name" style="font-size:12px">
+    </div>
+    <div style="flex:1;min-width:80px">
+      <input id="invite-role" class="modal-input" placeholder="role" style="font-size:12px">
+    </div>
+    <div style="display:flex;gap:4px;align-items:center">
+      <span style="font-size:9px;font-weight:200;color:var(--ink3);letter-spacing:0.16em;margin-right:4px">trust</span>
+      <button class="btn-ghost trust-sel" data-level="L1" onclick="selectTrust(this)" style="font-size:9px;padding:3px 8px">L1</button>
+      <button class="btn-ghost trust-sel" data-level="L2" onclick="selectTrust(this)" style="font-size:9px;padding:3px 8px">L2</button>
+      <button class="btn-ghost trust-sel selected" data-level="L3" onclick="selectTrust(this)" style="font-size:9px;padding:3px 8px;background:var(--bg3)">L3</button>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+    <button class="btn-ul" onclick="addMember()">add</button>
+    <button class="btn-ghost" onclick="hideInviteForm()">cancel</button>
+  </div>
+</div>
 
 <div class="hr"></div>
 
@@ -68,4 +93,62 @@
   <span class="ttag tt-gm">Gmail <span style="font-size:8px;color:var(--amber);margin-left:4px;letter-spacing:0.18em">partial</span></span>
 </div>
 
-<button class="btn-ul">invite member</button>
+<button class="btn-ul" onclick="showInviteForm()">invite member</button>
+
+<script>
+function showToast(msg){
+  var existing=document.getElementById('okaeri-toast');
+  if(existing) existing.remove();
+  var t=document.createElement('div');
+  t.id='okaeri-toast';
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:200;color:var(--green);letter-spacing:.22em;text-transform:uppercase;background:var(--gbg);border:0.5px solid var(--gs);border-radius:6px;padding:8px 16px;opacity:0;transition:opacity 0.3s ease;z-index:9999;pointer-events:none';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity='1'; });
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },300); },2000);
+}
+
+var selectedTrust = 'L3';
+
+function selectTrust(btn){
+  document.querySelectorAll('.trust-sel').forEach(function(b){ b.classList.remove('selected'); b.style.background=''; });
+  btn.classList.add('selected');
+  btn.style.background='var(--bg3)';
+  selectedTrust = btn.dataset.level;
+}
+
+function showInviteForm(){
+  document.getElementById('invite-form').style.display='block';
+}
+
+function hideInviteForm(){
+  document.getElementById('invite-form').style.display='none';
+  document.getElementById('invite-name').value='';
+  document.getElementById('invite-role').value='';
+}
+
+function addMember(){
+  var name = document.getElementById('invite-name').value.trim();
+  var role = document.getElementById('invite-role').value.trim();
+  if(!name){ document.getElementById('invite-name').focus(); return; }
+  if(!role){ document.getElementById('invite-role').focus(); return; }
+
+  var initials = name.split(' ').map(function(w){ return w[0]; }).join('').toUpperCase().substring(0,2);
+  var avColors = ['av-b','av-t','av-a'];
+  var avColor = avColors[Math.floor(Math.random()*avColors.length)];
+
+  var row = document.createElement('div');
+  row.style.cssText = 'display:grid;grid-template-columns:200px 100px 100px 80px;padding:12px 0;border-bottom:0.5px solid var(--rule2);align-items:center;opacity:0;transition:opacity 0.3s ease';
+  row.innerHTML =
+    '<div style="display:flex;align-items:center;gap:8px"><div class="pav '+avColor+'">'+initials+'</div><span class="pn-sm">'+name+'</span></div>' +
+    '<div style="font-size:11px;font-weight:200;color:var(--ink2);letter-spacing:0.12em">'+role+'</div>' +
+    '<div style="font-size:11px;font-weight:200;color:var(--ink);letter-spacing:0.12em">'+selectedTrust+'</div>' +
+    '<div style="font-size:10px;font-weight:200;color:var(--green);letter-spacing:0.16em">invited</div>';
+
+  document.getElementById('members-table').appendChild(row);
+  requestAnimationFrame(function(){ row.style.opacity='1'; });
+
+  hideInviteForm();
+  showToast('member invited');
+}
+</script>

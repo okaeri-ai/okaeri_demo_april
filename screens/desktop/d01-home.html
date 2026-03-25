@@ -121,14 +121,10 @@
     }
   });
 
-  // Also watching: Draft Index
+  // Also watching: Draft Index — navigate to smart draft screen
   document.getElementById('btnDraftIndex2').addEventListener('click', function(e){
     e.stopPropagation();
-    showToast('draft started');
-    var btn = this;
-    btn.textContent = '\u2713 drafting';
-    btn.style.color = 'var(--green)';
-    btn.disabled = true;
+    OKAERI.go('d58-smart-draft');
   });
 
   // Also watching: Execute ticket
